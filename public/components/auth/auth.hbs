@@ -1,0 +1,21 @@
+<div class="auth_wrapper" hidden></div>
+
+    <div class="features">
+        <span class="features_logo">Эмпориум</span>
+        <span class="feature"><object type="image/svg+xml" data="../../static/images/buy_cart.svg"></object>Быстро и удобно продать или купить товары</span>
+        <span class="feature"><object type="image/svg+xml" data="../../static/images/job.svg"></object>Найти работу или предложить услугу</span>
+        <span class="feature"><object type="image/svg+xml" data="../../static/images/wrench.svg"></object>Найти профессионала под специализированную задачу</span>
+    </div>
+
+    <div class="auth">
+        <span class="authorization">{{title}}</span>
+        <span class="authorization_details">{{info}}</span>
+        
+        <div class="input_wrapper">    
+            {{!-- <input type="{{this.type}}" class="{{this.class}}" placeholder="{{this.placeholder}}"> --}}
+            <button type="button" class="authorization_enter">{{buttontitle}}</button>
+            <span class="registration_link">{{pretext}} <a class="registration_link link" onclick="openRegistration()">{{anchortext}}</a></span>
+        </div>
+    </div>
+
+</div>
