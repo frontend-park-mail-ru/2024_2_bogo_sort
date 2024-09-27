@@ -14,15 +14,25 @@ export class LogIn{
         return this.#parent;
     }
     #renderTemplate() {
-        const info = [
-            {
-                title: 'Авторизация',
-                info: 'Вход в аккаунт',
-                buttontitle: 'Войти',
-                pretext: 'Нет аккаунта?',
-                anchortext: 'Зарегистрируйтесь',
-            }
-        ]
+        const loginData = {
+            title: 'Авторизация',
+            info: 'Войдите в свой аккаунт',
+            inputs: [
+                {
+                    type: 'email',
+                    class: 'authorization_input',
+                    placeholder: 'Email'
+                },
+                {
+                    type: 'password',
+                    class: 'authorization_input',
+                    placeholder: 'Пароль'
+                }
+            ],
+            buttontitle: 'Войти',
+            pretext: 'Нет аккаунта?',
+            anchortext: 'Зарегистрироваться'
+        };
     }
 }
 

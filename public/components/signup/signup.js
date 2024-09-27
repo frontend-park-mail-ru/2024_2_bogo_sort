@@ -14,15 +14,31 @@ export class LogIn{
         return this.#parent;
     }
     #renderTemplate() {
-        const info = [
-            {
-                title: 'Регистрация',
-                info: 'Создание аккаунта',
-                buttontitle: 'Зарегистрироваться',
-                pretext: 'Есть аккаунт?',
-                anchortext: 'Войти',
-            }
-        ]
+        const signupData = {
+            title: 'Регистрация',
+            info: 'Создайте новый аккаунт',
+            inputs: [
+                {
+                    type: 'email',
+                    class: 'authorization_input',
+                    placeholder: 'Email'
+                },
+                {
+                    type: 'password',
+                    class: 'authorization_input',
+                    placeholder: 'Пароль'
+                },
+                {
+                    type: 'password',
+                    class: 'authorization_input',
+                    placeholder: 'Подтвердите пароль'
+                }
+            ],
+            buttontitle: 'Зарегистрироваться',
+            pretext: 'Уже есть аккаунт?',
+            anchortext: 'Войти'
+        };
+        
     }
 }
 
