@@ -104,7 +104,7 @@ object {
     color: #9D9D9D;
 }
 
-.input_login {
+.input_email {
     height: 45px;
     width: 328px;
     border: 1px solid #9D9D9D;
@@ -114,16 +114,7 @@ object {
     padding-left: 20px;
 }
 
-.input_email {
-    height: 45px;
-    width: 328px;
-    margin-top: 20px;
-    border: 1px solid #9D9D9D;
-    border-radius: 15px;
-    font-family: regular;
-    font-size: 16px;
-    padding-left: 20px;
-}
+
 
 .input_password {
     height: 45px;

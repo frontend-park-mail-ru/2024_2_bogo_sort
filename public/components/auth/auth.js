@@ -1,8 +1,8 @@
 'use strict'
 
-export function renderAuthTemplate(title, info, buttontitle, pretext, anchortext) {
+export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
-    return template({title, info, buttontitle, pretext, anchortext});
+    return template({title, info, inputs, buttontitle, pretext, anchortext});
 }
 
 export function showLoginForm() {
@@ -16,12 +16,12 @@ export function showLoginForm() {
         inputs: [
             {
                 type: 'email',
-                class: 'authorization_input',
+                class: 'input_email',
                 placeholder: 'Email'
             },
             {
                 type: 'password',
-                class: 'authorization_input',
+                class: 'input_password',
                 placeholder: 'Пароль'
             }
         ],
@@ -32,7 +32,7 @@ export function showLoginForm() {
 
     const loginForm = document.createElement('div');
     loginForm.className = 'login-form';
-    loginForm.innerHTML = renderAuthTemplate(loginData);
+    loginForm.innerHTML = renderAuthTemplate(loginData.title, loginData.info, loginData.inputs, loginData.buttontitle, loginData.pretext, loginData.anchortext);
     document.body.appendChild(loginForm);
 
     overlay.classList.add('active');

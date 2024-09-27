@@ -1,6 +1,6 @@
 'use strict';
 
-import { renderAuthTemplate } from "../auth/auth.js";
+import { renderAuthTemplate } from "../../components/auth/auth.js";
 
 export class LogIn{
     #parent;

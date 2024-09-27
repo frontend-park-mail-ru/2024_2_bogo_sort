@@ -1,6 +1,6 @@
 'use strict'
 import { renderCardTemplate } from "../../components/card/card.js";
-import { renderHeaderTemplate } from "../../components/header/header.js";
+import { Header } from "../../components/header/header.js";
 export class Main{
     #element;
 
@@ -41,10 +41,12 @@ export class Main{
                 price: '600$',
             },
         ]
-        const header = document.createElement('div');
-        header.classList.add('header');
-        header.innerHTML = renderHeaderTemplate();
-        this.#element.appendChild(header);
+        // const headerWrapper = document.createElement('div');
+        // headerWrapper.classList.add('header');
+        const header = new Header();
+        //header.render();
+        this.#element.appendChild(header.render());
+        // this.#element.appendChild(header);
 
         const container = document.createElement('div');
         const containerWrapper = document.createElement('div');
