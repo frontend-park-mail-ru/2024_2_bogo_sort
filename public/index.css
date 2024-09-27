@@ -1,0 +1,27 @@
+@import "/components/card/card.css";
+@import "/components/header/header.css";
+
+@font-face {
+    font-family: logo;
+    src: url(static/fonts/Comfortaa.ttf);
+}
+
+@font-face {
+    font-family: regular;
+    src: url(static/fonts/Inter-Regular.otf);
+}
+
+@font-face {
+    font-family: medium;
+    src: url(static/fonts/Inter-Medium.otf);
+}
+
+@font-face {
+    font-family: bold;
+    src: url(static/fonts/Inter-Bold.otf);
+}
+
+body {
+    margin: 0;
+    background-color: rgb(0, 0, 0, 0.07);
+}
