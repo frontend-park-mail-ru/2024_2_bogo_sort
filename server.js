@@ -5,11 +5,11 @@ const morgan = require('morgan');
 const path = require('path');
 const app = express();
 
-app.use(express.static(path.resolve(__dirname, 'public')));
+app.use(express.static(path.resolve(__dirname, 'src')));
 app.use(morgan('dev'));
 
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname,'public', 'index.html'));
+    res.sendFile(path.join(__dirname,'src', 'index.html'));
 });
 
 const cards = [

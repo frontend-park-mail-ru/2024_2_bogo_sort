@@ -109,12 +109,12 @@ function registerUser(formData, errorElement) {
             closeLoginForm();
             showAuthForm(loginData);
         } else {
-            errorElement.textContent = 'Неправильный email или пароль';
+            errorElement.textContent = 'Ошибка регистрации!';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        errorElement.textContent = 'Неправильный email или пароль';
+        errorElement.textContent = 'Ошибка регистрации!';
     });
 }
 
@@ -142,12 +142,12 @@ function loginUser(formData, errorElement) {
             updateToLoggedIn(data.user);
             document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`; 
         } else {
-            errorElement.textContent = 'Неправильный email или пароль';
+            errorElement.textContent = 'Ошибка авторизации!';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        errorElement.textContent = 'Неправильный email или пароль';
+        errorElement.textContent = 'Ошибка авторизации!';
     });
 }
 
