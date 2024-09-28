@@ -1,101 +1,55 @@
 'use strict'
 
-const signupData  = {
-    title: 'Регистрация',
-    info: 'Создайте новый аккаунт',
-    inputs: [
-        {
-            type: 'email',
-            class: 'input_email',
-            name: 'email',
-            placeholder: 'Email'
-        },
-        {
-            type: 'password',
-            class: 'input_password',
-            name: 'password',
-            placeholder: 'Пароль'
-        },
-        {
-            type: 'password',
-            class: 'input_password',
-            name: 'confirmPassword',
-            placeholder: 'Подтвердите пароль'
-        }
-    ],
-    buttontitle: 'Зарегистрироваться',
-    pretext: 'Уже есть аккаунт?',
-    anchortext: 'Войти'
-};
-
-const loginData = {
-    title: 'Авторизация',
-    info: 'Войдите в свой аккаунт',
-    inputs: [
-        {
-            type: 'email',
-            class: 'input_email',
-            name: 'email',
-            placeholder: 'Email'
-        },
-        {
-            type: 'password',
-            class: 'input_password',
-            name: 'password',
-            placeholder: 'Пароль'
-        }
-    ],
-    buttontitle: 'Войти',
-    pretext: 'Нет аккаунта?',
-    anchortext: 'Зарегистрироваться'
-};
+import { signupData, loginData } from './authData.js';
 
 export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
     return template({title, info, inputs, buttontitle, pretext, anchortext});
 }
 
-export function showLoginForm(data) {
+export function showAuthForm(data) {
     let overlay;
-    let loginForm;
+    let authForm;
     if(document.getElementsByClassName('overlay')[0] === undefined){
         overlay = document.createElement('div');
         overlay.className = 'overlay';
         document.getElementsByClassName('base')[0].appendChild(overlay);
 
-        loginForm = document.createElement('div');
-        loginForm.className = 'login_form';
-        loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-        document.body.appendChild(loginForm);
+        authForm = document.createElement('div');
+        authForm.className = 'login_form';
+        authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+        document.body.appendChild(authForm);
         overlay.classList.add('active');
-        loginForm.classList.add('active');
+        authForm.classList.add('active');
     } else {
         overlay = document.getElementsByClassName('overlay')[0];
-        loginForm = document.getElementsByClassName('login_form')[0];
+        authForm = document.getElementsByClassName('login_form')[0];
         overlay.classList.toggle('not_active');
         overlay.classList.toggle('active');
-        loginForm.classList.toggle('not_active');
+        authForm.classList.toggle('not_active');
     }
-
-    
 
     overlay.addEventListener('click', () => {
         overlay.classList.toggle('not_active');
         overlay.classList.toggle('active');
-        loginForm.classList.toggle('not_active');
-        loginForm.classList.toggle('active');
+        authForm.classList.toggle('not_active');
+        authForm.classList.toggle('active');
     }, {once: true});
 
-    const registerLink = loginForm.getElementsByClassName('link')[0];
-    changeForm(registerLink, data, loginForm);
+    const registerLink = authForm.getElementsByClassName('link')[0];
+    changeForm(registerLink, data, authForm);
 
-    addSubmitClickListener(loginForm, data);
+    addSubmitClickListener(authForm, data);
 }
 
-function addSubmitClickListener(loginForm, data) {
-    const submitButton = loginForm.querySelector('.authorization_enter');
+function addSubmitClickListener(authForm, data) {
+    const submitButton = authForm.querySelector('.authorization_enter');
+    const errorElement = authForm.querySelector('.authorization_error');
+    
     submitButton.addEventListener('click', () => {
-        const inputs = loginForm.querySelectorAll('input');
+        errorElement.textContent = '';
+        
+        const inputs = authForm.querySelectorAll('input');
         const formData = {};
         inputs.forEach(input => {
             formData[input.name] = input.value;
@@ -104,38 +58,38 @@ function addSubmitClickListener(loginForm, data) {
         addSubmitClickListener(loginForm, data);
 
         if (data.inputs.length > 2) {
-            registerUser(formData);
+            registerUser(formData, errorElement);
         } else {
-            loginUser(formData);
+            loginUser(formData, errorElement);
         }
     }, {once: true});
 }
 
-function changeForm(registerLink, data, loginForm) {
+function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
             data = loginData;
-            loginForm.getElementsByClassName('auth')[0].classList.remove('expand');
-            loginForm.getElementsByClassName('features')[0].classList.remove('expand');
+            authForm.getElementsByClassName('auth')[0].classList.remove('expand');
+            authForm.getElementsByClassName('features')[0].classList.remove('expand');
             setTimeout( () => {
-                loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-                changeForm(loginForm.getElementsByClassName('link')[0], data, loginForm);
-                addSubmitClickListener(loginForm, data);
+                authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+                changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
+                addSubmitClickListener(authForm, data);
             }, 220);
         } else {
             data = signupData;
-            loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+            authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
             setTimeout( () => {
-                loginForm.getElementsByClassName('auth')[0].classList.add('expand');
-                loginForm.getElementsByClassName('features')[0].classList.add('expand');
+                authForm.getElementsByClassName('auth')[0].classList.add('expand');
+                authForm.getElementsByClassName('features')[0].classList.add('expand');
             }, 10);
-            changeForm(loginForm.getElementsByClassName('link')[0], data, loginForm);
-            addSubmitClickListener(loginForm, data);
+            changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
+            addSubmitClickListener(authForm, data);
         }
     });
 }
 
-function registerUser(formData) {
+function registerUser(formData, errorElement) {
     fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -147,20 +101,21 @@ function registerUser(formData) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Регистрация прошла успешно!');
+            errorElement.textContent = '';
             closeLoginForm();
-            showLoginForm(loginData);
+
+            showAuthForm(loginData);
         } else {
-            alert('Ошибка регистрации: ' + data.message);
+            errorElement.textContent = 'Неправильный email или пароль';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Ошибка регистрации');
+        errorElement.textContent = 'Неправильный email или пароль';
     });
 }
 
-function loginUser(formData) {
+function loginUser(formData, errorElement) {
     fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -172,18 +127,18 @@ function loginUser(formData) {
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            alert('Успешная авторизация!');
+            errorElement.textContent = '';
             closeLoginForm();
             updateToLoggedIn(data.user);
             
             document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`; 
         } else {
-            alert('Ошибка авторизации: ' + data.message);
+            errorElement.textContent = 'Неправильный email или пароль';
         }
     })
     .catch(error => {
         console.error('Error:', error);
-        alert('Ошибка авторизации');
+        errorElement.textContent = 'Неправильный email или пароль';
     });
 }
 
@@ -234,7 +189,7 @@ function logoutUser() {
     const header = document.querySelector('header');
     const userProfileButton = header.querySelector('.user-profile');
     if (userProfileButton) {
-        userProfileButton.textContent = 'Войти';
+        userProfileButton.textContent = 'Выйти';
         userProfileButton.classList.remove('user-profile');
         userProfileButton.classList.add('enter');
     }

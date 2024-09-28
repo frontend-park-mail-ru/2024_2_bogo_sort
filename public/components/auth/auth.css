@@ -93,13 +93,14 @@ svg, object {
     font-size: 16px;
     color: #FF0000;
     margin-left: 71px;
-    margin-top: 20px;
+    margin-top: 15px;
+    height: 30px;
 }
 
 .input_wrapper {
     height: 49px;
     width: 348px;
-    margin-top: 59px;
+    margin-top: 10px;
     margin-left: 71px;
     color: #9D9D9D;
 }
