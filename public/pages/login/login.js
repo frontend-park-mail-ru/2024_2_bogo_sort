@@ -1,6 +1,7 @@
 'use strict';
 
 import { showLoginForm } from "../../components/auth/auth.js";
+import { loginData } from '../../components/auth/authData.js';
 
 export class LogIn{
 
@@ -8,27 +9,6 @@ export class LogIn{
         this.#renderTemplate();
     }
     #renderTemplate() {
-        const loginData = {
-            title: 'Авторизация',
-            info: 'Войдите в свой аккаунт',
-            inputs: [
-                {
-                    type: 'email',
-                    class: 'input_email',
-                    name: 'email',
-                    placeholder: 'Email'
-                },
-                {
-                    type: 'password',
-                    class: 'input_password',
-                    name: 'password',
-                    placeholder: 'Пароль'
-                }
-            ],
-            buttontitle: 'Войти',
-            pretext: 'Нет аккаунта?',
-            anchortext: 'Зарегистрироваться'
-        };
         showLoginForm(loginData);
     }
 }
