@@ -1,6 +1,6 @@
 'use strict';
 
-import { showLoginForm } from "../../components/auth/auth.js";
+import { showAuthForm } from "../../components/auth/auth.js";
 import { signupData } from '../../components/auth/authData.js';
 
 export class LogIn{
@@ -10,7 +10,7 @@ export class LogIn{
     }
 
     #renderTemplate() {
-        showLoginForm(signupData);
+        showAuthForm(signupData);
     }
 }
 
