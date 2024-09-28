@@ -1,6 +1,7 @@
 'use strict'
 
 import { signupData, loginData } from './authData.js';
+import { validEmail } from '../../modules/validation.js';
 
 export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
@@ -55,8 +56,6 @@ function addSubmitClickListener(authForm, data) {
             formData[input.name] = input.value;
         });
 
-        addSubmitClickListener(loginForm, data);
-
         if (data.inputs.length > 2) {
             registerUser(formData, errorElement);
         } else {
@@ -90,6 +89,11 @@ function changeForm(registerLink, data, authForm) {
 }
 
 function registerUser(formData, errorElement) {
+    if (!validEmail(formData.email)) {
+        errorElement.textContent = 'Неправильный email или пароль';
+        return;
+    }
+
     fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -103,7 +107,6 @@ function registerUser(formData, errorElement) {
         if (data.success) {
             errorElement.textContent = '';
             closeLoginForm();
-
             showAuthForm(loginData);
         } else {
             errorElement.textContent = 'Неправильный email или пароль';
@@ -116,6 +119,13 @@ function registerUser(formData, errorElement) {
 }
 
 function loginUser(formData, errorElement) {
+
+    if (!validEmail(formData.email)) {
+        errorElement.textContent = 'Неправильный email или пароль';
+        return;
+    }
+
+
     fetch('/api/login', {
         method: 'POST',
         headers: {
@@ -130,7 +140,6 @@ function loginUser(formData, errorElement) {
             errorElement.textContent = '';
             closeLoginForm();
             updateToLoggedIn(data.user);
-            
             document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`; 
         } else {
             errorElement.textContent = 'Неправильный email или пароль';
