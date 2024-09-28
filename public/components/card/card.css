@@ -52,9 +52,22 @@
 .price {
     font-size: 24px;
     margin: 10px;
+    margin-bottom: 5px;
 }
 
 .like {
     width: 30px;
     height: 30px;
+}
+
+.location {
+    font-size: 12px;
+    line-height: 1.5;
+    margin: 10px;
+    margin-top:0px;
+    color: #808080;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
 }

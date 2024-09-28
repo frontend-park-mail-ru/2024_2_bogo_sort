@@ -19,26 +19,32 @@ export class Main{
             {
                 title: 'rfhnj',
                 price: '12$',
+                location: 'Москва, ул. Ленина',
             },
             {
                 title: 'mnoke',
                 price: '32&',
+                location: 'Санкт-Петербург, ул. Пушкина',
             },
             {
                 title: 'Карточка товара',
                 price: '600$',
+                location: 'Новосибирск, ул. Гагарина',
             },
             {
                 title: 'Карточка товара',
                 price: '600$',
+                location: 'Екатеринбург, ул. Кирова',
             },
             {
                 title: 'Карточка товара',
                 price: '600$',
+                location: 'Казань, ул. Ленина',
             },
             {
                 title: 'Карточка товара',
-                price: '600$',
+                price: '50$',
+                location: 'Нижний Новгород, ул. Гагарина',
             },
         ]
         const header = document.createElement('div');
@@ -55,7 +61,7 @@ export class Main{
         containerWrapper.appendChild(container);  
          
         info.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price);
+            container.innerHTML += renderCardTemplate(element.title, element.price, element.location);
         });
         this.#element.appendChild(containerWrapper);
     }
