@@ -1,0 +1,40 @@
+<div class="features">
+    <span class="features_logo">Эмпориум</span>
+    <span class="feature"><object type="image/svg+xml" data="static/buy_cart.svg"></object>Быстро и удобно продать или купить товары</span>
+    <span class="feature"><object type="image/svg+xml" data="static/job.svg"></object>Найти работу или предложить услугу</span>
+    <span class="feature"><object type="image/svg+xml" data="static/wrench.svg"></object>Найти профессионала под специализированную задачу</span>
+</div>
+
+<div class="auth">
+    <span class="authorization">Авторизация</span>
+    <span class="authorization_details">Вход в аккаунт</span>
+    
+    <div class="input_wrapper">    
+        <input type="email" class="input_email" placeholder="Почта">
+        <div class="input_password_wrapper">
+            <input type="password" class="input_password" placeholder="Пароль">
+            <span class="eye" onclick="togglePasswordVisibility(this)"></object></span>
+        </div>
+        <button type="button" class="authorization_enter">Войти</button>
+        <span class="registration_link">Еще не зарегистрированы? <a class="registration_link link" onclick="openRegistration()">Регистрация</a></span>
+    </div>
+</div>
+
+ <div class="registration not_active">
+    <span class="authorization">Регистрация</span>
+    <span class="authorization_details">Создание аккаунта</span>
+    <div class="input_wrapper">    
+        {{!-- <input type="text" class="input_login" placeholder="Логин"> --}}
+        <input type="email" class="input_email" placeholder="Почта">
+        <div class="input_password_wrapper">
+            <input type="password" class="input_password" placeholder="Пароль">
+            <span class="eye" onclick="togglePasswordVisibility(this)"></object></span>
+        </div>
+        <div class="input_password_wrapper">
+            <input type="password" class="input_password" placeholder="Повторите пароль">
+            <span class="eye" onclick="togglePasswordVisibility(this)"></object></span>
+        </div>
+        <button type="button" class="authorization_enter">Зарегистрироваться</button>
+        <span class="authorization_link">Есть аккаунт?<a class="authorization_link link" onclick="openAuthorization()">Войти</a></span>
+    </div>
+</div>
