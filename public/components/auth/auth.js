@@ -101,12 +101,14 @@ function addSubmitClickListener(loginForm, data) {
             formData[input.name] = input.value;
         });
 
+        addSubmitClickListener(loginForm, data);
+
         if (data.inputs.length > 2) {
             registerUser(formData);
         } else {
             loginUser(formData);
         }
-    });
+    }, {once: true});
 }
 
 function changeForm(registerLink, data, loginForm) {
@@ -147,26 +149,6 @@ function registerUser(formData) {
         if (data.success) {
             alert('Регистрация прошла успешно!');
             closeLoginForm();
-            
-            // const loginData = {
-            //     title: 'Авторизация',
-            //     info: 'Войдите в свой аккаунт',
-            //     inputs: [
-            //         {
-            //             type: 'email',
-            //             class: 'input_email',
-            //             placeholder: 'Email'
-            //         },
-            //         {
-            //             type: 'password',
-            //             class: 'input_password',
-            //             placeholder: 'Пароль'
-            //         }
-            //     ],
-            //     buttontitle: 'Войти',
-            //     pretext: 'Нет аккаунта?',
-            //     anchortext: 'Зарегистрироваться'
-            // };
             showLoginForm(loginData);
         } else {
             alert('Ошибка регистрации: ' + data.message);
