@@ -56,26 +56,43 @@ export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, an
 }
 
 export function showLoginForm(data) {
-    const overlay = document.createElement('div');
-    overlay.className = 'overlay';
-    document.getElementsByClassName('base')[0].appendChild(overlay);
+    let overlay;
+    let loginForm;
+    if(document.getElementsByClassName('overlay')[0] === undefined){
+        overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        document.getElementsByClassName('base')[0].appendChild(overlay);
 
-    const loginForm = document.createElement('div');
-    loginForm.className = 'login_form';
-    loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-    document.body.appendChild(loginForm);
+        loginForm = document.createElement('div');
+        loginForm.className = 'login_form';
+        loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+        document.body.appendChild(loginForm);
+        overlay.classList.add('active');
+        loginForm.classList.add('active');
+    } else {
+        overlay = document.getElementsByClassName('overlay')[0];
+        loginForm = document.getElementsByClassName('login_form')[0];
+        overlay.classList.toggle('not_active');
+        overlay.classList.toggle('active');
+        loginForm.classList.toggle('not_active');
+    }
 
-    overlay.classList.add('active');
-    loginForm.classList.add('active');
+    
 
     overlay.addEventListener('click', () => {
         overlay.classList.toggle('not_active');
+        overlay.classList.toggle('active');
         loginForm.classList.toggle('not_active');
-    });
+        loginForm.classList.toggle('active');
+    }, {once: true});
 
     const registerLink = loginForm.getElementsByClassName('link')[0];
     changeForm(registerLink, data, loginForm);
 
+    addSubmitClickListener(loginForm, data);
+}
+
+function addSubmitClickListener(loginForm, data) {
     const submitButton = loginForm.querySelector('.authorization_enter');
     submitButton.addEventListener('click', () => {
         const inputs = loginForm.querySelectorAll('input');
@@ -101,6 +118,7 @@ function changeForm(registerLink, data, loginForm) {
             setTimeout( () => {
                 loginForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
                 changeForm(loginForm.getElementsByClassName('link')[0], data, loginForm);
+                addSubmitClickListener(loginForm, data);
             }, 220);
         } else {
             data = signupData;
@@ -110,6 +128,7 @@ function changeForm(registerLink, data, loginForm) {
                 loginForm.getElementsByClassName('features')[0].classList.add('expand');
             }, 10);
             changeForm(loginForm.getElementsByClassName('link')[0], data, loginForm);
+            addSubmitClickListener(loginForm, data);
         }
     });
 }
@@ -129,25 +148,25 @@ function registerUser(formData) {
             alert('Регистрация прошла успешно!');
             closeLoginForm();
             
-            const loginData = {
-                title: 'Авторизация',
-                info: 'Войдите в свой аккаунт',
-                inputs: [
-                    {
-                        type: 'email',
-                        class: 'input_email',
-                        placeholder: 'Email'
-                    },
-                    {
-                        type: 'password',
-                        class: 'input_password',
-                        placeholder: 'Пароль'
-                    }
-                ],
-                buttontitle: 'Войти',
-                pretext: 'Нет аккаунта?',
-                anchortext: 'Зарегистрироваться'
-            };
+            // const loginData = {
+            //     title: 'Авторизация',
+            //     info: 'Войдите в свой аккаунт',
+            //     inputs: [
+            //         {
+            //             type: 'email',
+            //             class: 'input_email',
+            //             placeholder: 'Email'
+            //         },
+            //         {
+            //             type: 'password',
+            //             class: 'input_password',
+            //             placeholder: 'Пароль'
+            //         }
+            //     ],
+            //     buttontitle: 'Войти',
+            //     pretext: 'Нет аккаунта?',
+            //     anchortext: 'Зарегистрироваться'
+            // };
             showLoginForm(loginData);
         } else {
             alert('Ошибка регистрации: ' + data.message);

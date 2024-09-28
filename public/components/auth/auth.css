@@ -105,8 +105,8 @@ svg, object {
 }
 
 .input_email {
-    height: 45px;
-    width: 328px;
+    height: 49px;
+    width: 354px;
     border: 1px solid #9D9D9D;
     border-radius: 15px;
     font-family: regular;
@@ -117,8 +117,8 @@ svg, object {
 
 
 .input_password {
-    height: 45px;
-    width: 328px;
+    height: 49px;
+    width: 354px;
     border: 1px solid #9D9D9D;
     margin-top: 20px;
     border-radius: 15px;
@@ -158,11 +158,11 @@ svg, object {
     color: #ffffff;
     background-color: #406AFF;
     border: 2px solid #406AFF;
+    transition: background-color 0.2s ease, border 0.2s ease;
 }
 .authorization_enter:hover {
     background-color: #809CFF;
     border:2px solid #809CFF;
-    color: white;
 }
 
 .registration_link {
