@@ -1,18 +1,13 @@
 'use strict';
 
-import { renderAuthTemplate } from "../../components/auth/auth.js";
+import { showLoginForm } from "../../components/auth/auth.js";
 
 export class LogIn{
-    #parent;
-
-    constructor(parent) {
-        this.#parent = parent;
-    }
 
     render() {
         this.#renderTemplate();
-        return this.#parent;
     }
+
     #renderTemplate() {
         const signupData = {
             title: 'Регистрация',
@@ -38,7 +33,7 @@ export class LogIn{
             pretext: 'Уже есть аккаунт?',
             anchortext: 'Войти'
         };
-        
+        showLoginForm(signupData);
     }
 }
 

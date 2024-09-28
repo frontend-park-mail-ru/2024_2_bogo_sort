@@ -1,6 +1,6 @@
 'use strict';
 
-import { showLoginForm } from "../auth/auth.js"; 
+import { LogIn } from "../../pages/login/login.js";
 
 export class Header {
     #wrapper
@@ -18,7 +18,8 @@ export class Header {
     #addListeners() {
         const enterButton = this.#wrapper.getElementsByClassName('enter')[0];
         enterButton.addEventListener('click', () => {
-            showLoginForm();
+            const login = new LogIn();
+            login.render();
         });
     }
 

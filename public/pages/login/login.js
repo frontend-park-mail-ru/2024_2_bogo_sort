@@ -1,17 +1,11 @@
 'use strict';
 
-import { renderAuthTemplate } from "../../components/auth/auth.js";
+import { showLoginForm } from "../../components/auth/auth.js";
 
 export class LogIn{
-    #parent;
-
-    constructor(parent) {
-        this.#parent = parent;
-    }
 
     render() {
         this.#renderTemplate();
-        return this.#parent;
     }
     #renderTemplate() {
         const loginData = {
@@ -20,12 +14,12 @@ export class LogIn{
             inputs: [
                 {
                     type: 'email',
-                    class: 'authorization_input',
+                    class: 'input_email',
                     placeholder: 'Email'
                 },
                 {
                     type: 'password',
-                    class: 'authorization_input',
+                    class: 'input_password',
                     placeholder: 'Пароль'
                 }
             ],
@@ -33,6 +27,7 @@ export class LogIn{
             pretext: 'Нет аккаунта?',
             anchortext: 'Зарегистрироваться'
         };
+        showLoginForm(loginData);
     }
 }
 
