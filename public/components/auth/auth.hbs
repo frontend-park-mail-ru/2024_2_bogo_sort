@@ -13,7 +13,7 @@
         
         <div class="input_wrapper">   
             {{#each inputs}}
-                <input type="{{this.type}}" class="{{this.class}}" placeholder="{{this.placeholder}}">
+                <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}" placeholder="{{this.placeholder}}">
             {{/each}} 
             <button type="button" class="authorization_enter">{{buttontitle}}</button>
             <span class="registration_link">{{pretext}} <a class="registration_link link">{{anchortext}}</a></span>

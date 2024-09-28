@@ -7,16 +7,19 @@ const signupData  = {
         {
             type: 'email',
             class: 'input_email',
+            name: 'email',
             placeholder: 'Email'
         },
         {
             type: 'password',
             class: 'input_password',
+            name: 'password',
             placeholder: 'Пароль'
         },
         {
             type: 'password',
             class: 'input_password',
+            name: 'confirmPassword',
             placeholder: 'Подтвердите пароль'
         }
     ],
@@ -32,11 +35,13 @@ const loginData = {
         {
             type: 'email',
             class: 'input_email',
+            name: 'email',
             placeholder: 'Email'
         },
         {
             type: 'password',
             class: 'input_password',
+            name: 'password',
             placeholder: 'Пароль'
         }
     ],
@@ -54,7 +59,6 @@ export function showLoginForm(data) {
     const overlay = document.createElement('div');
     overlay.className = 'overlay';
     document.getElementsByClassName('base')[0].appendChild(overlay);
-    
 
     const loginForm = document.createElement('div');
     loginForm.className = 'login_form';
@@ -71,6 +75,21 @@ export function showLoginForm(data) {
 
     const registerLink = loginForm.getElementsByClassName('link')[0];
     changeForm(registerLink, data, loginForm);
+
+    const submitButton = loginForm.querySelector('.authorization_enter');
+    submitButton.addEventListener('click', () => {
+        const inputs = loginForm.querySelectorAll('input');
+        const formData = {};
+        inputs.forEach(input => {
+            formData[input.name] = input.value;
+        });
+
+        if (data.inputs.length > 2) {
+            registerUser(formData);
+        } else {
+            loginUser(formData);
+        }
+    });
 }
 
 function changeForm(registerLink, data, loginForm) {
@@ -93,5 +112,129 @@ function changeForm(registerLink, data, loginForm) {
             changeForm(loginForm.getElementsByClassName('link')[0], data, loginForm);
         }
     });
+}
+
+function registerUser(formData) {
+    fetch('/api/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Регистрация прошла успешно!');
+            closeLoginForm();
+            
+            const loginData = {
+                title: 'Авторизация',
+                info: 'Войдите в свой аккаунт',
+                inputs: [
+                    {
+                        type: 'email',
+                        class: 'input_email',
+                        placeholder: 'Email'
+                    },
+                    {
+                        type: 'password',
+                        class: 'input_password',
+                        placeholder: 'Пароль'
+                    }
+                ],
+                buttontitle: 'Войти',
+                pretext: 'Нет аккаунта?',
+                anchortext: 'Зарегистрироваться'
+            };
+            showLoginForm(loginData);
+        } else {
+            alert('Ошибка регистрации: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка регистрации');
+    });
+}
+
+function loginUser(formData) {
+    fetch('/api/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Успешная авторизация!');
+            closeLoginForm();
+            updateToLoggedIn(data.user);
+            
+            document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`; 
+        } else {
+            alert('Ошибка авторизации: ' + data.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Ошибка авторизации');
+    });
+}
+
+function updateToLoggedIn(user) {
+    const header = document.querySelector('header');
+    const loginButton = header.querySelector('.enter');
+    if (loginButton) {
+        loginButton.textContent = user.email;
+        loginButton.classList.remove('enter');
+        loginButton.classList.add('user-profile');
+        loginButton.addEventListener('click', logoutUser);
+    }
+}
+
+function closeLoginForm() {
+    const overlay = document.querySelector('.overlay');
+    const loginForm = document.querySelector('.login_form');
     
+    if (overlay && loginForm) {
+        overlay.classList.add('not_active');
+        loginForm.classList.add('not_active');
+    
+        overlay.remove();
+        loginForm.remove();
+    }
+}
+
+function checkLoggedInStatus() {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [name, value] = cookie.trim().split('=');
+        if (name === 'user') {
+            try {
+                const user = JSON.parse(decodeURIComponent(value));
+                updateToLoggedIn(user);
+                return;
+            } catch (error) {
+                console.error('Error parsing user cookie:', error);
+            }
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', checkLoggedInStatus);
+
+function logoutUser() {
+    document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    const header = document.querySelector('header');
+    const userProfileButton = header.querySelector('.user-profile');
+    if (userProfileButton) {
+        userProfileButton.textContent = 'Войти';
+        userProfileButton.classList.remove('user-profile');
+        userProfileButton.classList.add('enter');
+    }
 }

@@ -159,6 +159,11 @@ svg, object {
     background-color: #406AFF;
     border: 2px solid #406AFF;
 }
+.authorization_enter:hover {
+    background-color: #809CFF;
+    border:2px solid #809CFF;
+    color: white;
+}
 
 .registration_link {
     font-family: medium;

@@ -15,11 +15,13 @@ export class LogIn{
                 {
                     type: 'email',
                     class: 'input_email',
+                    name: 'email',
                     placeholder: 'Email'
                 },
                 {
                     type: 'password',
                     class: 'input_password',
+                    name: 'password',
                     placeholder: 'Пароль'
                 }
             ],

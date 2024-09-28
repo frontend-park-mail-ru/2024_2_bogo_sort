@@ -16,16 +16,19 @@ export class LogIn{
                 {
                     type: 'email',
                     class: 'authorization_input',
+                    name: 'email',
                     placeholder: 'Email'
                 },
                 {
                     type: 'password',
                     class: 'authorization_input',
+                    name: 'password',
                     placeholder: 'Пароль'
                 },
                 {
                     type: 'password',
                     class: 'authorization_input',
+                    name: 'password_confirm',
                     placeholder: 'Подтвердите пароль'
                 }
             ],
