@@ -55,12 +55,14 @@ function addSubmitClickListener(authForm, data) {
             formData[input.name] = input.value;
         });
 
+        addSubmitClickListener(loginForm, data);
+
         if (data.inputs.length > 2) {
             registerUser(formData, errorElement);
         } else {
             loginUser(formData, errorElement);
         }
-    });
+    }, {once: true});
 }
 
 function changeForm(registerLink, data, authForm) {
@@ -101,6 +103,7 @@ function registerUser(formData, errorElement) {
         if (data.success) {
             errorElement.textContent = '';
             closeLoginForm();
+
             showAuthForm(loginData);
         } else {
             errorElement.textContent = 'Неправильный email или пароль';

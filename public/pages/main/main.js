@@ -15,39 +15,18 @@ export class Main{
         return this.#element;
     }
 
-    #renderTemplate() {
-        const info = [
-            {
-                title: 'rfhnj',
-                price: '12$',
-            },
-            {
-                title: 'mnoke',
-                price: '32&',
-            },
-            {
-                title: 'Карточка товара',
-                price: '600$',
-            },
-            {
-                title: 'Карточка товара',
-                price: '600$',
-            },
-            {
-                title: 'Карточка товара',
-                price: '600$',
-            },
-            {
-                title: 'Карточка товара',
-                price: '600$',
-            },
-        ]
-        // const headerWrapper = document.createElement('div');
-        // headerWrapper.classList.add('header');
+    async #renderTemplate() {
+        const response = await fetch('/api/cards', {
+            method: 'GET',
+            headers: {
+                'Content-type': 'application/json',
+            }
+        });
+        const cards = await response.json();
+
         const header = new Header();
-        //header.render();
+
         this.#element.appendChild(header.render());
-        // this.#element.appendChild(header);
 
         const container = document.createElement('div');
         const containerWrapper = document.createElement('div');
@@ -57,7 +36,7 @@ export class Main{
         containerWrapper.classList.add('cards_wrapper');
         containerWrapper.appendChild(container);  
          
-        info.forEach(element => {
+        cards.forEach(element => {
             container.innerHTML += renderCardTemplate(element.title, element.price);
         });
         this.#element.appendChild(containerWrapper);
