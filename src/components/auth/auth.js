@@ -3,21 +3,17 @@
 import { signupData, loginData } from './authData.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
+import { toggleClasses } from '../../utils/toggleClasses.js';
 
 const ajax = new Ajax('')
 
-export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
+export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs'];
-    return template({title, info, inputs, buttontitle, pretext, anchortext});
+    const templateData = {title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext};
+    return template(templateData);
 }
 
-function toggleClasses(elements, ...classNames) {
-    elements.forEach(element => {
-        classNames.forEach(className => {
-            element.classList.toggle(className);
-        });
-    });
-}
+
 
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/api/signup' : '/api/login';
@@ -34,39 +30,37 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     ajax.post(endpoint, formData)
         .then(data => {
-            if (data.success) {
+            if (data?.success) {
                 errorElement.textContent = '';
                 closeLoginForm();
                 if (isRegistration) {
                     showAuthForm(loginData);
                 } else {
                     updateToLoggedIn(data.user);
-                    document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`;
                 }
             } else {
                 errorElement.textContent = errorMessage;
+                return;
             }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            errorElement.textContent = errorMessage;
         });
 }
 
 export function showAuthForm(data) {
-    let overlay = document.getElementsByClassName('overlay')[0];
-    let authForm = document.getElementsByClassName('login_form')[0];
+    let overlay = document.getElementById('overlay');
+    let authForm = document.getElementById('login_form');
     let overlayExists = overlay ? true : false;
 
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'overlay';
+        overlay.id = 'overlay';
         document.getElementById('root').appendChild(overlay);
 
         authForm = document.createElement('div');
         authForm.className = 'login_form';
-        authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-        document.body.appendChild(authForm);
+        authForm.id = 'login_form';
+        authForm.innerHTML = renderAuthTemplate(data);
+        document.getElementById('root').appendChild(authForm);
         overlay.classList.add('active');
         authForm.classList.add('active');
     } else {
@@ -93,10 +87,10 @@ function addSubmitClickListener(authForm, data) {
         const inputs = authForm.querySelectorAll('input');
         const formData = {};
         inputs.forEach(input => {
-            formData[input.name || input.type] = input.value;
+            formData[input.name] = input.value;
         });
 
-        handleFormSubmission(formData, data.inputs.length > 2, errorElement);
+        handleFormSubmission(formData, data.title === 'Регистрация', errorElement);
     });
 }
 
@@ -117,7 +111,7 @@ function changeForm(registerLink, data, authForm) {
 }
 
 function updateForm(authForm, data) {
-    authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+    authForm.innerHTML = renderAuthTemplate(data);
     changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
     addSubmitClickListener(authForm, data);
 }

@@ -22,7 +22,7 @@ app.post('/api/signup', (req, res) => {
         return res.status(400).send(JSON.stringify({ message: 'Пароли не совпадают.' }));
     }
 
-    res.send(JSON.stringify({ message: 'Регистрация прошла успешно.' }));
+    res.send(JSON.stringify({ message: 'Регистрация прошла успешно.', success: 1 }));
 
 })
 
