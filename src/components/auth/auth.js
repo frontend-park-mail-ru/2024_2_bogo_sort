@@ -1,8 +1,8 @@
 'use strict'
 
 import { signupData, loginData } from './authData.js';
-import { validEmail, validPassword } from '../../modules/validation.js';
-import { Ajax } from '../../modules/ajax.js';
+import { validateEmail, validatePassword } from '../../utils/validation.js';
+import { Ajax } from '../../utils/ajax.js';
 
 const ajax = new Ajax('')
 
@@ -23,11 +23,11 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/api/register' : '/api/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
-    if (!validEmail(formData.email)) {
+    if (!validateEmail(formData.email)) {
         errorElement.textContent = 'Неправильный email';
         return;
     }
-    if (!validPassword(formData.password)) {
+    if (!validatePassword(formData.password)) {
         errorElement.textContent = 'Пароль должен содержать не менее 8 символов';
         return;
     }

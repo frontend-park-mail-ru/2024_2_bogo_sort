@@ -5,7 +5,7 @@ export function validateEmail(email) {
     return re.test(email);
 }
 
-export function validPassword(password) {
+export function validatePassword(password) {
     const passwordRegex = /^.{8,}$/;
     return passwordRegex.test(password);
 }

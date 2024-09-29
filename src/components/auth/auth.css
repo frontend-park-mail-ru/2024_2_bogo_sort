@@ -141,11 +141,11 @@ svg, object {
     height: 30px;
     margin-right: 10px;
     cursor: pointer;
-    background: url(static/eye.svg);
+    background: url(../../static/images/eye.svg);
 }
 
 .visibility {
-    background: url(static/eye_closed.svg);
+    background: url(../../static/images/eye_closed.svg);
 }
 
 .authorization_enter {
