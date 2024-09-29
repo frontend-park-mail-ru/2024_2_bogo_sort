@@ -66,11 +66,12 @@ export function showAuthForm(data) {
 
     overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'), {once: true});
 
-    const registerLink = authForm.getElementsByClassName('link')[0];
-    changeForm(registerLink, data, authForm);
+    
     
     if(!overlayExists){
         addSubmitClickListener(authForm, data);
+        const registerLink = authForm.getElementsByClassName('link')[0];
+        changeForm(registerLink, data, authForm);
     }
 }
 
