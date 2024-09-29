@@ -1,17 +1,68 @@
 'use strict'
 
 import { signupData, loginData } from './authData.js';
-import { validEmail } from '../../modules/validation.js';
+import { validEmail, validPassword } from '../../modules/validation.js';
 
 export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
     return template({title, info, inputs, buttontitle, pretext, anchortext});
 }
 
+function toggleClasses(elements, ...classNames) {
+    elements.forEach(element => {
+        classNames.forEach(className => {
+            element.classList.toggle(className);
+        });
+    });
+}
+
+function handleFormSubmission(formData, isRegistration, errorElement) {
+    const endpoint = isRegistration ? '/api/register' : '/api/login';
+    const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
+
+    if (!validEmail(formData.email)) {
+        errorElement.textContent = 'Неправильный email';
+        return;
+    }
+    if (!validPassword(formData.password)) {
+        errorElement.textContent = 'Неправильный пароль';
+        return;
+    }
+
+    fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        credentials: 'include'
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            errorElement.textContent = '';
+            closeLoginForm();
+            if (isRegistration) {
+                showAuthForm(loginData);
+            } else {
+                updateToLoggedIn(data.user);
+                document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`;
+            }
+        } else {
+            errorElement.textContent = errorMessage;
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        errorElement.textContent = errorMessage;
+    });
+}
+
 export function showAuthForm(data) {
-    let overlay;
-    let authForm;
-    if(document.getElementsByClassName('overlay')[0] === undefined){
+    let overlay = document.getElementsByClassName('overlay')[0];
+    let authForm = document.getElementsByClassName('login_form')[0];
+
+    if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'overlay';
         document.getElementsByClassName('base')[0].appendChild(overlay);
@@ -23,19 +74,10 @@ export function showAuthForm(data) {
         overlay.classList.add('active');
         authForm.classList.add('active');
     } else {
-        overlay = document.getElementsByClassName('overlay')[0];
-        authForm = document.getElementsByClassName('login_form')[0];
-        overlay.classList.toggle('not_active');
-        overlay.classList.toggle('active');
-        authForm.classList.toggle('not_active');
+        toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
-    overlay.addEventListener('click', () => {
-        overlay.classList.toggle('not_active');
-        overlay.classList.toggle('active');
-        authForm.classList.toggle('not_active');
-        authForm.classList.toggle('active');
-    }, {once: true});
+    overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'));
 
     const registerLink = authForm.getElementsByClassName('link')[0];
     changeForm(registerLink, data, authForm);
@@ -53,14 +95,10 @@ function addSubmitClickListener(authForm, data) {
         const inputs = authForm.querySelectorAll('input');
         const formData = {};
         inputs.forEach(input => {
-            formData[input.name] = input.value;
+            formData[input.name || input.type] = input.value;
         });
 
-        if (data.inputs.length > 2) {
-            registerUser(formData, errorElement);
-        } else {
-            loginUser(formData, errorElement);
-        }
+        handleFormSubmission(formData, data.inputs.length > 2, errorElement);
     }, {once: true});
 }
 
@@ -68,87 +106,22 @@ function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
             data = loginData;
-            authForm.getElementsByClassName('auth')[0].classList.remove('expand');
-            authForm.getElementsByClassName('features')[0].classList.remove('expand');
-            setTimeout( () => {
-                authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-                changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
-                addSubmitClickListener(authForm, data);
-            }, 220);
+            toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+            setTimeout(() => updateForm(authForm, data), 220);
         } else {
             data = signupData;
-            authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
-            setTimeout( () => {
-                authForm.getElementsByClassName('auth')[0].classList.add('expand');
-                authForm.getElementsByClassName('features')[0].classList.add('expand');
+            updateForm(authForm, data);
+            setTimeout(() => {
+                toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
             }, 10);
-            changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
-            addSubmitClickListener(authForm, data);
         }
     });
 }
 
-function registerUser(formData, errorElement) {
-    if (!validEmail(formData.email)) {
-        errorElement.textContent = 'Неправильный email или пароль';
-        return;
-    }
-
-    fetch('/api/register', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            errorElement.textContent = '';
-            closeLoginForm();
-            showAuthForm(loginData);
-        } else {
-            errorElement.textContent = 'Ошибка регистрации!';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        errorElement.textContent = 'Ошибка регистрации!';
-    });
-}
-
-function loginUser(formData, errorElement) {
-
-    if (!validEmail(formData.email)) {
-        errorElement.textContent = 'Неправильный email или пароль';
-        return;
-    }
-
-
-    fetch('/api/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            errorElement.textContent = '';
-            closeLoginForm();
-            updateToLoggedIn(data.user);
-            document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`; 
-        } else {
-            errorElement.textContent = 'Ошибка авторизации!';
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        errorElement.textContent = 'Ошибка авторизации!';
-    });
+function updateForm(authForm, data) {
+    authForm.innerHTML = renderAuthTemplate(data.title, data.info, data.inputs, data.buttontitle, data.pretext, data.anchortext);
+    changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
+    addSubmitClickListener(authForm, data);
 }
 
 function updateToLoggedIn(user) {

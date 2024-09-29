@@ -12,6 +12,8 @@ templates['auth.hbs'] = template({"1":function(container,depth0,helpers,partials
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"type") : depth0), depth0))
     + "\" class=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"class") : depth0), depth0))
+    + "\" name=\""
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"name") : depth0), depth0))
     + "\" placeholder=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"placeholder") : depth0), depth0))
     + "\">\n";

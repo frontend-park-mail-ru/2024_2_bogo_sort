@@ -4,7 +4,7 @@ export const loginData = {
     info: 'Войдите в свой аккаунт',
     inputs: [
         {
-            type: 'email',
+            type: 'text',
             class: 'input_email',
             name: 'email',
             placeholder: 'Email'
@@ -26,7 +26,7 @@ export const signupData = {
     info: 'Создайте новый аккаунт',
     inputs: [
         {
-            type: 'email',
+            type: 'text',
             class: 'input_email',
             name: 'email',
             placeholder: 'Email'
