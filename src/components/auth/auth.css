@@ -4,7 +4,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(58, 58, 58, 0.75); 
+    background-color: var(--overlay-color);
     opacity: 0; 
     transition: opacity 0.3s ease, filter 0.3s ease;
     z-index: 2;
@@ -33,7 +33,7 @@
     left:50%;
     margin-top: -255px;
     margin-left: -500px;
-    background-color: #CDCDCD;
+    background-color: var(--color-secondary25);
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     transition: height 0.3s ease, margin-top 0.3s ease;
@@ -51,14 +51,16 @@
 .feature {
     display: flex;
     flex-direction: row;
-    font-family: medium;
     font-size: 16px;
     align-items: center;
     margin-top: 40px;
     margin-left: 43px;
 }
 
-svg, object {
+.icon {
+    margin-right:10px;
+}
+object {
     margin-right: 10px;
 }
 
@@ -79,24 +81,21 @@ svg, object {
 }
 
 .authorization {
-    font-family: bold;
     font-size: 36px;
     margin-top: 57px;
     margin-left: 71px;
 }
 
 .authorization_details {
-    font-family: medium;
     font-size: 16px;
-    color: #6B6B6B;
+    color: var(--color-secondary70);
     margin-left: 71px;
     margin-top: 20px;
 }
 
 .authorization_error {
-    font-family: medium;
     font-size: 16px;
-    color: #FF0000;
+    color: var(--color-error);
     margin-left: 71px;
     margin-top: 15px;
     height: 30px;
@@ -107,29 +106,25 @@ svg, object {
     width: 348px;
     margin-top: 10px;
     margin-left: 71px;
-    color: #9D9D9D;
+    color: var(--color-secondary50);
 }
 
 .input_email {
     height: 49px;
     width: 354px;
-    border: 1px solid #9D9D9D;
+    border: 1px solid var(--color-secondary50);
     border-radius: 15px;
-    font-family: regular;
     font-size: 16px;
     padding-left: 20px;
 }
 
-
-
 .input_password {
     height: 49px;
     width: 354px;
-    border: 1px solid #9D9D9D;
+    border: 1px solid var(--color-secondary50);
     margin-top: 20px;
     border-radius: 15px;
     padding-left: 20px;
-    font-family: regular;
     font-size: 16px;
 }
 
@@ -159,40 +154,38 @@ svg, object {
     border-radius: 15px;
     width: 354px;
     height: 49px;
-    font-family: medium;
+    font-weight: 400;
     font-size: 16px;
-    color: #ffffff;
-    background-color: #406AFF;
-    border: 2px solid #406AFF;
+    color: white;
+    background-color: var(--color-primary100);
+    border: 2px solid var(--color-primary100);
     transition: background-color 0.2s ease, border 0.2s ease;
 }
 .authorization_enter:hover {
-    background-color: #809CFF;
-    border:2px solid #809CFF;
+    background-color: var(--color-primary50);
+    border:2px solid var(--color-primary50);
 }
 
 .registration_link {
-    font-family: medium;
     font-size: 16px;
-    color: #6B6B6B;
+    color: var(--color-primary50);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .registration_link.link {
-    color: #406AFF;
+    color: var(--color-primary100);
     cursor: pointer;
 }
 
 .authorization_link {
-    font-family: medium;
     font-size: 16px;
-    color: #6B6B6B;
+    color: var(--color-primary50);
 }
 
 .authorization_link.link {
-    color:#406AFF;
+    color: var(--color-primary100);
     margin-left: 20px;
     cursor: pointer;
 }
