@@ -12,6 +12,8 @@ templates['auth.hbs'] = template({"1":function(container,depth0,helpers,partials
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"type") : depth0), depth0))
     + "\" class=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"class") : depth0), depth0))
+    + "\" name=\""
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"name") : depth0), depth0))
     + "\" placeholder=\""
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"placeholder") : depth0), depth0))
     + "\">\n";
@@ -28,13 +30,13 @@ templates['auth.hbs'] = template({"1":function(container,depth0,helpers,partials
     + "</span>\n        <span class=\"authorization_details\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"info") || (depth0 != null ? lookupProperty(depth0,"info") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"info","hash":{},"data":data,"loc":{"start":{"line":12,"column":44},"end":{"line":12,"column":52}}}) : helper)))
     + "</span>\n        <span class=\"authorization_error\"></span>\n        \n        <div class=\"input_wrapper\">   \n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"inputs") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":15,"column":12},"end":{"line":17,"column":21}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"inputs") : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data,"loc":{"start":{"line":16,"column":12},"end":{"line":18,"column":21}}})) != null ? stack1 : "")
     + "            <button type=\"button\" class=\"authorization_enter\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"buttontitle") || (depth0 != null ? lookupProperty(depth0,"buttontitle") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"buttontitle","hash":{},"data":data,"loc":{"start":{"line":18,"column":62},"end":{"line":18,"column":77}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"buttontitle") || (depth0 != null ? lookupProperty(depth0,"buttontitle") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"buttontitle","hash":{},"data":data,"loc":{"start":{"line":19,"column":62},"end":{"line":19,"column":77}}}) : helper)))
     + "</button>\n            <span class=\"registration_link\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"pretext") || (depth0 != null ? lookupProperty(depth0,"pretext") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"pretext","hash":{},"data":data,"loc":{"start":{"line":19,"column":44},"end":{"line":19,"column":55}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"pretext") || (depth0 != null ? lookupProperty(depth0,"pretext") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"pretext","hash":{},"data":data,"loc":{"start":{"line":20,"column":44},"end":{"line":20,"column":55}}}) : helper)))
     + " <a class=\"registration_link link\">"
-    + alias4(((helper = (helper = lookupProperty(helpers,"anchortext") || (depth0 != null ? lookupProperty(depth0,"anchortext") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"anchortext","hash":{},"data":data,"loc":{"start":{"line":19,"column":90},"end":{"line":19,"column":104}}}) : helper)))
-    + "</a></span>\n        </div>\n    </div>\n\n</div>\n";
+    + alias4(((helper = (helper = lookupProperty(helpers,"anchortext") || (depth0 != null ? lookupProperty(depth0,"anchortext") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"anchortext","hash":{},"data":data,"loc":{"start":{"line":20,"column":90},"end":{"line":20,"column":104}}}) : helper)))
+    + "</a></span>\n        </div>\n    </div>\n\n</div>";
 },"useData":true});
 })();
