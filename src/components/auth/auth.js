@@ -17,35 +17,38 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
     if (!validateEmail(formData.email)) {
-        errorElement.textContent = 'Неправильный email';
+        errorElement.textContent = isRegistration ? 'Неправильный email' : 'Проверьте введенные данные';
         return;
     }
     if (!validatePassword(formData.password)) {
-        errorElement.textContent = 'Пароль должен содержать не менее 8 символов';
+        errorElement.textContent = isRegistration ? 'Пароль не соответствует требованиям' : 'Проверьте введенные данные';
         return;
+    }
+
+    if(isRegistration){
+        if(formData.password !== formData.confirmPassword) {
+            errorElement.textContent = 'Пароли не совпадают';
+            return;
+        } else {
+            formData = {email: formData.email, password: formData.password};
+        }
     }
 
     ajax.post(endpoint, formData)
         .then(data => {
-            if (!data?.success) {
-                errorElement.textContent = errorMessage;
+            if (data?.code === 0) {
+                errorElement.textContent = data.status;
                 return;
-            } else {
-                errorElement.textContent = '';
-                closeLoginForm();
-                if (isRegistration) {
-                    showAuthForm(loginData);
-                } else {
-                    updateToLoggedIn(data.user);
-                }
             }
+            errorElement.textContent = '';
+            closeLoginForm();
+            updateToLoggedIn(data);
         });
 }
 
 export function showAuthForm(data) {
     let overlay = document.getElementById('overlay');
     let authForm = document.getElementById('login_form');
-    let overlayExists = overlay ? true : false;
 
     if (!overlay) {
         overlay = document.createElement('div');
@@ -60,19 +63,16 @@ export function showAuthForm(data) {
         document.getElementById('root').appendChild(authForm);
         overlay.classList.add('active');
         authForm.classList.add('active');
+
+        addSubmitClickListener(authForm, data);
+        const registerLink = authForm.getElementsByClassName('link')[0];
+        changeForm(registerLink, data, authForm);
     } else {
         toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
     overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'), {once: true});
 
-    
-    
-    if(!overlayExists){
-        addSubmitClickListener(authForm, data);
-        const registerLink = authForm.getElementsByClassName('link')[0];
-        changeForm(registerLink, data, authForm);
-    }
 }
 
 function addSubmitClickListener(authForm, data) {
@@ -116,11 +116,11 @@ function updateForm(authForm, data) {
     addSubmitClickListener(authForm, data);
 }
 
-function updateToLoggedIn(user) {
+function updateToLoggedIn(data) {
     const header = document.querySelector('header');
     const loginButton = header.querySelector('.enter');
     if (loginButton) {
-        loginButton.textContent = user.email;
+        loginButton.textContent = data.email;
         loginButton.classList.remove('enter');
         loginButton.classList.add('user-profile');
         loginButton.addEventListener('click', logoutUser);

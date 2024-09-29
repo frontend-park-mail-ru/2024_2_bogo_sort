@@ -70,12 +70,13 @@
     padding-top: 57px;
 }
 .feature {
-    display: block;
+    display: flex;
     flex-direction: row;
     font-weight: 500;
     font-size: 16px;
     align-items: center;
     padding: 36px;
+    padding-right: 10px;
     padding-bottom: 7px;
 }
 
@@ -88,6 +89,7 @@
     font-weight: 700;
     padding-left: 71px;
     padding-top: 57px;
+    margin: 0;
 }
 
 .authorization_details {
