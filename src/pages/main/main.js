@@ -4,7 +4,7 @@ import { renderCardTemplate } from "../../components/card/card.js";
 import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 
-const ajax = new Ajax('')
+const ajax = new Ajax('/api')
 
 export class MainPage{
     #element;
@@ -21,7 +21,7 @@ export class MainPage{
 
     async #renderTemplate() {
 
-        const cards = await ajax.get('/api/cards');
+        const cards = await ajax.get('/cards');
 
         const header = new Header();
 

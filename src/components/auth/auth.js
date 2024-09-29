@@ -5,17 +5,15 @@ import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 
-const ajax = new Ajax('')
+const ajax = new Ajax('/api')
 
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs']; 
     return template({title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext});
 }
 
-
-
 function handleFormSubmission(formData, isRegistration, errorElement) {
-    const endpoint = isRegistration ? '/api/signup' : '/api/login';
+    const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
     if (!validateEmail(formData.email)) {
