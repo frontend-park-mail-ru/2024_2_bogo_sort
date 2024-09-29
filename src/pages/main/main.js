@@ -2,7 +2,7 @@
 
 import { renderCardTemplate } from "../../components/card/card.js";
 import { Header } from "../../components/header/header.js";
-export class Main{
+export class MainPage{
     #element;
 
     constructor() {

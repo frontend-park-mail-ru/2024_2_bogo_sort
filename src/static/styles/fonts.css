@@ -1,0 +1,19 @@
+@font-face {
+    font-family: logo;
+    src: url(../fonts/Comfortaa.ttf);
+}
+
+@font-face {
+    font-family: regular;
+    src: url(../fonts/Inter-Regular.otf);
+}
+
+@font-face {
+    font-family: medium;
+    src: url(../fonts/Inter-Medium.otf);
+}
+
+@font-face {
+    font-family: bold;
+    src: url(../fonts/Inter-Bold.otf);
+}

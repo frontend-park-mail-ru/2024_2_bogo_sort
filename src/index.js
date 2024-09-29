@@ -1,8 +1,8 @@
 'use strict';
 
-import { Main } from "./pages/main/main.js";
+import { MainPage } from "./pages/main/main.js";
 
-const base = document.getElementsByClassName('base')[0];
+const base = document.getElementById('root');
 
-const main = new Main();
+const main = new MainPage();
 base.appendChild(main.render());

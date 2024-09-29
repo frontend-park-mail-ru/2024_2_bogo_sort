@@ -7,7 +7,7 @@ export class Header {
     #wrapper
 
     constructor() {
-        this.#wrapper = document.createElement('div');
+        this.#wrapper = document.createElement('header');
     }
 
     render() {
@@ -17,8 +17,8 @@ export class Header {
     }
 
     #addListeners() {
-        const enterButton = this.#wrapper.getElementsByClassName('enter')[0];
-        enterButton.addEventListener('click', () => {
+        const headerButton = this.#wrapper.getElementsByClassName('header_button')[0];
+        headerButton.addEventListener('click', () => {
             showAuthForm(loginData);
         });
     }

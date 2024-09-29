@@ -61,7 +61,7 @@ export function showAuthForm(data) {
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'overlay';
-        document.getElementsByClassName('base')[0].appendChild(overlay);
+        document.getElementById('root').appendChild(overlay);
 
         authForm = document.createElement('div');
         authForm.className = 'login_form';
