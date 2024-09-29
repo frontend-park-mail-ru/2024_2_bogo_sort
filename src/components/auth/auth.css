@@ -17,6 +17,11 @@
     pointer-events: auto;
 }
 
+.auth_wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
 .features {
     display: flex;
     flex-direction: column;

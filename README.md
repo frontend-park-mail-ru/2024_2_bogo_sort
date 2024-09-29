@@ -15,5 +15,5 @@ __Эмпириум__ – это современный онлайн-сервис
 
 #### Ссылки 
 1. Фронтенд репозиторий - https://github.com/frontend-park-mail-ru/2024_2_bogo_sort
-2. Бэкенд репозиторий - 
+2. Бэкенд репозиторий - https://github.com/go-park-mail-ru/2024_2_BogoSort
 3. Фигма - https://www.figma.com/design/7YFqBIK6EHomyNJFWEcyuL/Yoola

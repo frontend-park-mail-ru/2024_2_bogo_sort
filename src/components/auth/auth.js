@@ -20,7 +20,7 @@ function toggleClasses(elements, ...classNames) {
 }
 
 function handleFormSubmission(formData, isRegistration, errorElement) {
-    const endpoint = isRegistration ? '/api/register' : '/api/login';
+    const endpoint = isRegistration ? '/api/signup' : '/api/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
     if (!validateEmail(formData.email)) {
