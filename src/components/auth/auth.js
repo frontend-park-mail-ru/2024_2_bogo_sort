@@ -8,9 +8,8 @@ import { toggleClasses } from '../../utils/toggleClasses.js';
 const ajax = new Ajax('')
 
 export function renderAuthTemplate(data) {
-    const template = Handlebars.templates['auth.hbs'];
-    const templateData = {title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext};
-    return template(templateData);
+    const template = Handlebars.templates['auth.hbs']; 
+    return template({title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext});
 }
 
 
@@ -30,7 +29,10 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     ajax.post(endpoint, formData)
         .then(data => {
-            if (data?.success) {
+            if (!data?.success) {
+                errorElement.textContent = errorMessage;
+                return;
+            } else {
                 errorElement.textContent = '';
                 closeLoginForm();
                 if (isRegistration) {
@@ -38,9 +40,6 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
                 } else {
                     updateToLoggedIn(data.user);
                 }
-            } else {
-                errorElement.textContent = errorMessage;
-                return;
             }
         });
 }
@@ -98,14 +97,16 @@ function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
             data = loginData;
+            const AUTH_FORM_ANIMATION_DELAY = 170;
             toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
-            setTimeout(() => updateForm(authForm, data), 170);
+            setTimeout(() => updateForm(authForm, data), AUTH_FORM_ANIMATION_DELAY);
         } else {
             data = signupData;
             updateForm(authForm, data);
+            const REGISTER_FORM_ANIMATION_DELAY = 10;
             setTimeout(() => {
                 toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
-            }, 10);
+            }, REGISTER_FORM_ANIMATION_DELAY);
         }
     });
 }
