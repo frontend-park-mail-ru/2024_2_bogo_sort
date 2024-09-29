@@ -70,7 +70,6 @@
 }
 .feature {
     display: block;
-    display: flex;
     flex-direction: row;
     font-weight: 500;
     font-size: 16px;
@@ -85,8 +84,7 @@
 
 .authorization {
     display: block;
-    font-weight: bolder;
-    font-size: 36px;
+    font-weight: 700;
     padding-left: 71px;
     padding-top: 57px;
 }
@@ -163,7 +161,6 @@
     border-radius: 15px;
     width: 354px;
     height: 49px;
-    font-weight: 400;
     font-size: 16px;
     color: white;
     background-color: var(--color-primary100);

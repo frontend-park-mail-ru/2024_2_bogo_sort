@@ -7,3 +7,15 @@
     font-family: regular;
     src: url(../fonts/Inter-Regular.otf);
 }
+
+@font-face {
+    font-family: medium;
+    font-weight: 500;
+    src: url(../fonts/Inter-Medium.otf);
+}
+
+@font-face {
+    font-family: bold;
+    font-weight: 700;
+    src: url(../fonts/Inter-Bold.otf);
+}

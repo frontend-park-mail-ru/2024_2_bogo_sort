@@ -1,22 +1,24 @@
-<div class="auth_wrapper">   
-    <div class="features">
-        <span class="features_logo">Эмпориум</span>
-        <span class="feature"><img src="../../static/images/money.svg" class="icon"> Быстро и удобно продать или купить товары</span>
-        <span class="feature"><img src="../../static/images/time.svg" class="icon"> Найти работу или предложить услугу</span>
-        <span class="feature"><img src="../../static/images/tools.svg" class="icon"> Найти профессионала под специализированную задачу</span>
-    </div>
+<form action="">
+    <div class="auth_wrapper">   
+        <div class="features">
+            <span class="features_logo">Эмпориум</span>
+            <span class="feature"><img src="../../static/images/money.svg" class="icon"> Быстро и удобно продать или купить товары</span>
+            <span class="feature"><img src="../../static/images/time.svg" class="icon"> Найти работу или предложить услугу</span>
+            <span class="feature"><img src="../../static/images/tools.svg" class="icon"> Найти профессионала под специализированную задачу</span>
+        </div>
 
-    <div class="auth">
-        <span class="authorization">{{title}}</span>
-        <span class="authorization_details">{{info}}</span>
-        <span class="authorization_error"></span>
-        
-        <div class="input_wrapper">   
-            {{#each inputs}}
-                <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}" placeholder="{{this.placeholder}}">
-            {{/each}} 
-            <button type="button" class="authorization_enter">{{buttontitle}}</button>
-            <span class="registration_link">{{pretext}} <a class="registration_link link">{{anchortext}}</a></span>
+        <div class="auth">
+            <h1 class="authorization">{{title}}</h1>
+            <span class="authorization_details">{{info}}</span>
+            <span class="authorization_error"></span>
+            
+            <div class="input_wrapper">   
+                {{#each inputs}}
+                    <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}" placeholder="{{this.placeholder}}">
+                {{/each}} 
+                <button type="submit" class="authorization_enter">{{buttontitle}}</button>
+                <span class="registration_link">{{pretext}} <a class="registration_link link">{{anchortext}}</a></span>
+            </div>
         </div>
     </div>
-</div>
+</form>
