@@ -2,6 +2,7 @@
 
 import { signupData, loginData } from './authData.js';
 import { validEmail, validPassword } from '../../modules/validation.js';
+import { Ajax } from '../../modules/ajax.js';
 
 export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
@@ -29,33 +30,25 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
         return;
     }
 
-    fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-        credentials: 'include'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            errorElement.textContent = '';
-            closeLoginForm();
-            if (isRegistration) {
-                showAuthForm(loginData);
+    ajax.post(endpoint, formData)
+        .then(data => {
+            if (data.success) {
+                errorElement.textContent = '';
+                closeLoginForm();
+                if (isRegistration) {
+                    showAuthForm(loginData);
+                } else {
+                    updateToLoggedIn(data.user);
+                    document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`;
+                }
             } else {
-                updateToLoggedIn(data.user);
-                document.cookie = `user=${JSON.stringify(data.user)}; path=/; max-age=86400`;
+                errorElement.textContent = errorMessage;
             }
-        } else {
+        })
+        .catch(error => {
+            console.error('Error:', error);
             errorElement.textContent = errorMessage;
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        errorElement.textContent = errorMessage;
-    });
+        });
 }
 
 export function showAuthForm(data) {
