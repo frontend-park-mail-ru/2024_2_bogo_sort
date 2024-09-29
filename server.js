@@ -12,6 +12,10 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'src', 'index.html'));
 });
 
+app.post('/api/register', (req, res) => {
+    res.send(JSON.stringify({success: 'good'}));
+})
+
 const cards = [
     {
         title: 'rfhnj',

@@ -4,6 +4,8 @@ import { signupData, loginData } from './authData.js';
 import { validEmail, validPassword } from '../../modules/validation.js';
 import { Ajax } from '../../modules/ajax.js';
 
+const ajax = new Ajax('')
+
 export function renderAuthTemplate(title, info, inputs, buttontitle, pretext, anchortext) {
     const template = Handlebars.templates['auth.hbs'];
     return template({title, info, inputs, buttontitle, pretext, anchortext});
@@ -54,6 +56,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 export function showAuthForm(data) {
     let overlay = document.getElementsByClassName('overlay')[0];
     let authForm = document.getElementsByClassName('login_form')[0];
+    let overlayExists = overlay ? true : false;
 
     if (!overlay) {
         overlay = document.createElement('div');
@@ -70,12 +73,14 @@ export function showAuthForm(data) {
         toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
-    overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'));
+    overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'), {once: true});
 
     const registerLink = authForm.getElementsByClassName('link')[0];
     changeForm(registerLink, data, authForm);
-
-    addSubmitClickListener(authForm, data);
+    
+    if(!overlayExists){
+        addSubmitClickListener(authForm, data);
+    }
 }
 
 function addSubmitClickListener(authForm, data) {
@@ -92,7 +97,7 @@ function addSubmitClickListener(authForm, data) {
         });
 
         handleFormSubmission(formData, data.inputs.length > 2, errorElement);
-    }, {once: true});
+    });
 }
 
 function changeForm(registerLink, data, authForm) {
