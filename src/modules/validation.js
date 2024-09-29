@@ -6,6 +6,6 @@ export function validEmail(email) {
 }
 
 export function validPassword(password) {
-    const specialCharRegex = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
-    return specialCharRegex.test(password);
+    const passwordRegex = /^.{8,}$/;
+    return passwordRegex.test(password);
 }

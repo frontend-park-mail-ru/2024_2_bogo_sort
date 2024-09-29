@@ -28,7 +28,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
         return;
     }
     if (!validPassword(formData.password)) {
-        errorElement.textContent = 'Неправильный пароль';
+        errorElement.textContent = 'Пароль должен содержать не менее 8 символов';
         return;
     }
 
