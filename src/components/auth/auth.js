@@ -105,7 +105,7 @@ function changeForm(registerLink, data, authForm) {
         if (data.inputs.length > 2) {
             data = loginData;
             toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
-            setTimeout(() => updateForm(authForm, data), 220);
+            setTimeout(() => updateForm(authForm, data), 170);
         } else {
             data = signupData;
             updateForm(authForm, data);
