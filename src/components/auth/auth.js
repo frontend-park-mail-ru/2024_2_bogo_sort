@@ -20,12 +20,13 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
-    if (!validateEmail(formData.email)) {
-        errorElement.textContent = 'Неправильный email';
+    if (!validateEmail(formData.email) || !validatePassword(formData.password)) {
+        errorElement.textContent = 'Неправильный email или пароль';
         return;
     }
-    if (!validatePassword(formData.password)) {
-        errorElement.textContent = 'Пароль должен содержать не менее 8 символов';
+
+    if (isRegistration && formData.password !== formData.confirmPassword) {
+        errorElement.textContent = 'Пароли не совпадают';
         return;
     }
 

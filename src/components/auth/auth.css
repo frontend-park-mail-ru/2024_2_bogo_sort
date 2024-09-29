@@ -106,7 +106,7 @@
     color: var(--color-error);
     padding-top: 10px;
     padding-left: 71px;
-    padding-bottom: 5px;
+    padding-bottom: 15px;
     height: 30px;
 }
 
@@ -117,8 +117,6 @@
     padding-left: 71px;
     color: var(--color-secondary50);
 }
-
-
 
 .input_email {
     height: 49px;
