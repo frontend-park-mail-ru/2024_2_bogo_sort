@@ -6,6 +6,6 @@ export function validateEmail(email) {
 }
 
 export function validatePassword(password) {
-    const passwordRegex = /^.{8,}$/;
-    return passwordRegex.test(password);
+    const re = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,20}$/u;
+    return re.test(password);
 }
