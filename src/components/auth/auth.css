@@ -118,6 +118,8 @@
     color: var(--color-secondary50);
 }
 
+
+
 .input_email {
     height: 49px;
     width: 354px;
@@ -156,6 +158,41 @@
 .visibility {
     background: url(../../static/images/eye_closed.svg);
 } */
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    background-color: var(--color-tooltip);
+    color: white;
+    text-align: left;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 10;
+    left: 0%;
+    bottom: 90%;
+    opacity: 0;
+    transition: opacity 0.3s;
+    padding: 10px;
+}
+  
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--color-tooltip) transparent transparent transparent;
+}
+  
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
 
 .authorization_enter {
     display: block;
