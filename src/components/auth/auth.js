@@ -69,7 +69,11 @@ export function showAuthForm(data) {
         toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
-    overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'), {once: true});
+    overlay.addEventListener('click', () => {
+        const errorElement = authForm.querySelector('.authorization_error');
+        errorElement.textContent = '';
+        toggleClasses([overlay, authForm], 'not_active', 'active');
+    }, {once: true});
 
     
     
@@ -135,8 +139,10 @@ function updateToLoggedIn(user) {
 function closeLoginForm() {
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login_form');
+    const errorElement = loginForm.querySelector('.authorization_error');
     
     if (overlay && loginForm) {
+        errorElement.textContent = '';
         overlay.classList.add('not_active');
         loginForm.classList.add('not_active');
     
