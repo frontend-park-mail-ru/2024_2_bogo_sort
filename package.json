@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "express": "^4.21.0",
+    "handlebars": "^4.7.8",
+    "path": "^0.12.7"
+  },
+  "name": "2024_2_bogo_sort",
+  "version": "1.0.0",
+  "description": "__Эмпириум__ – это современный онлайн-сервис объявлений, предназначенный для широкой аудитории, которая хочет быстро и удобно продать или купить товары, а также найти специализированного мастера под конкретную задачу, либо предложить услугу.",
+  "main": "server.js",
+  "scripts": {
+    "prestart": "handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js",
+    "start": "node server/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frontend-park-mail-ru/2024_2_bogo_sort.git#main"
+  },
+  "license": "ISC",
+  "homepage": "https://github.com/frontend-park-mail-ru/2024_2_bogo_sort/tree/main#readme"
+}
