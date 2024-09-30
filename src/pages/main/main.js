@@ -5,7 +5,7 @@ import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 
 const apiUrl = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
-
+const url = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';
 // const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
 const ajax = new Ajax(apiUrl)
 
@@ -56,7 +56,7 @@ export class MainPage {
         containerWrapper.appendChild(container);
 
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, apiUrl);
+            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, url);
         });
         this.#element.appendChild(containerWrapper);
     }
