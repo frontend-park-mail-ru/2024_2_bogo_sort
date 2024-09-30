@@ -6,8 +6,8 @@ import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 
-const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-// const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
+// const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
+const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
 
 /**
  * Renders the authentication template using Handlebars.
