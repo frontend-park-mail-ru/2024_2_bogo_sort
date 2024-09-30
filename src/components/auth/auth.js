@@ -4,8 +4,10 @@ import { signupData, loginData } from './authData.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
+import { checkAuth } from '../../utils/checkAuth.js';
 
-const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
+// const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
 
 /**
  * Renders the authentication template using Handlebars.
@@ -72,6 +74,10 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
  * @param {string} data.title - The title of the authentication form.
  */
 export function showAuthForm(data) {
+    if(checkAuth()){
+        history.pushState(null, '', '/');
+        return;
+    }
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
     let overlay = document.getElementById('overlay');

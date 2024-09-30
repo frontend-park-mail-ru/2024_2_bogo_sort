@@ -8,8 +8,8 @@ templates['card.hbs'] = template({"compiler":[8,">= 4.3.0"],"main":function(cont
         return undefined
     };
 
-  return "<div class=\"card\">\n    <div class=\"card_image_wrapper\"><img class=\"card_image\" src=\"http://127.0.0.1:8080"
-    + alias4(((helper = (helper = lookupProperty(helpers,"image_url") || (depth0 != null ? lookupProperty(depth0,"image_url") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"image_url","hash":{},"data":data,"loc":{"start":{"line":2,"column":86},"end":{"line":2,"column":99}}}) : helper)))
+  return "<div class=\"card\">\n    <div class=\"card_image_wrapper\"><img class=\"card_image\" src=\"https://warm-coast-96136-d78b5be652e4.herokuapp.com"
+    + alias4(((helper = (helper = lookupProperty(helpers,"image_url") || (depth0 != null ? lookupProperty(depth0,"image_url") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"image_url","hash":{},"data":data,"loc":{"start":{"line":2,"column":116},"end":{"line":2,"column":129}}}) : helper)))
     + "\"></div>\n    <div class=\"card_details\">"
     + alias4(((helper = (helper = lookupProperty(helpers,"title") || (depth0 != null ? lookupProperty(depth0,"title") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data,"loc":{"start":{"line":3,"column":30},"end":{"line":3,"column":39}}}) : helper)))
     + "<img src=\"../../static/images/like.svg\"></div>\n    <span class=\"price\">"
