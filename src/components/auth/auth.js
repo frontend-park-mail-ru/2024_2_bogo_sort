@@ -44,13 +44,18 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
-    if (!validateEmail(formData.email) || !validatePassword(formData.password)) {
-        errorElement.textContent = 'Неправильный email или пароль';
+    if (isRegistration && formData.password !== formData.confirmPassword) {
+        errorElement.textContent = 'Пароли не совпадают';
         return;
     }
 
-    if (isRegistration && formData.password !== formData.confirmPassword) {
-        errorElement.textContent = 'Пароли не совпадают';
+    if (!validateEmail(formData.email)) {
+        errorElement.textContent = 'Неправильный email';
+        return;
+    }
+
+    if (!validatePassword(formData.password)) {
+        errorElement.textContent = 'Неправильный пароль';
         return;
     }
 
