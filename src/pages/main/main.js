@@ -4,7 +4,7 @@ import { renderCardTemplate } from "../../components/card/card.js";
 import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 
-const ajax = new Ajax('/api')
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
 export class MainPage{
     #element;
@@ -21,7 +21,7 @@ export class MainPage{
 
     async #renderTemplate() {
 
-        const cards = await ajax.get('/cards');
+        const cards = await ajax.get('/adverts');
 
         const header = new Header();
 
@@ -36,7 +36,7 @@ export class MainPage{
         containerWrapper.appendChild(container);  
          
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price);
+            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url);
         });
         this.#element.appendChild(containerWrapper);
     }

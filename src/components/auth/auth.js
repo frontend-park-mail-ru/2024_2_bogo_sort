@@ -5,7 +5,7 @@ import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 
-const ajax = new Ajax('/api')
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs']; 
@@ -36,17 +36,20 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     ajax.post(endpoint, formData)
         .then(data => {
-            if (data?.code === 0) {
-                errorElement.textContent = data.status;
+            if (data?.code !== undefined) {
+                errorElement.textContent = errorMessage;
                 return;
             }
             errorElement.textContent = '';
             closeLoginForm();
-            updateToLoggedIn(data);
+            updateToLoggedIn();
         });
 }
 
 export function showAuthForm(data) {
+
+    history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
+
     let overlay = document.getElementById('overlay');
     let authForm = document.getElementById('login_form');
 
@@ -71,7 +74,11 @@ export function showAuthForm(data) {
         toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
-    overlay.addEventListener('click', () => toggleClasses([overlay, authForm], 'not_active', 'active'), {once: true});
+    overlay.addEventListener('click', () => {
+        toggleClasses([overlay, authForm], 'not_active', 'active');
+        history.pushState(null, '', '/');
+        updateForm(authForm, loginData);
+    }, {once: true});
 
 }
 
@@ -95,11 +102,13 @@ function addSubmitClickListener(authForm, data) {
 function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
+            history.pushState(null, '', '/login');
             data = loginData;
             const AUTH_FORM_ANIMATION_DELAY = 170;
             toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
             setTimeout(() => updateForm(authForm, data), AUTH_FORM_ANIMATION_DELAY);
         } else {
+            history.pushState(null, '', '/signup');
             data = signupData;
             updateForm(authForm, data);
             const REGISTER_FORM_ANIMATION_DELAY = 10;
@@ -116,15 +125,16 @@ function updateForm(authForm, data) {
     addSubmitClickListener(authForm, data);
 }
 
-function updateToLoggedIn(data) {
+function updateToLoggedIn() {
     const header = document.querySelector('header');
-    const loginButton = header.querySelector('.enter');
-    if (loginButton) {
-        loginButton.textContent = data.email;
-        loginButton.classList.remove('enter');
-        loginButton.classList.add('user-profile');
-        loginButton.addEventListener('click', logoutUser);
-    }
+    const headerButton = header.querySelector('.header_button');
+
+    headerButton.textContent = 'Выйти';
+
+    const headerButtonClone = headerButton.cloneNode(true);
+    headerButtonClone.addEventListener('click', logoutUser);
+
+    header.replaceChild(headerButtonClone, headerButton);
 }
 
 function closeLoginForm() {
@@ -140,31 +150,18 @@ function closeLoginForm() {
     }
 }
 
-function checkLoggedInStatus() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'user') {
-            try {
-                const user = JSON.parse(decodeURIComponent(value));
-                updateToLoggedIn(user);
-                return;
-            } catch (error) {
-                console.error('Error parsing user cookie:', error);
-            }
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', checkLoggedInStatus);
-
 function logoutUser() {
-    document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     const header = document.querySelector('header');
-    const userProfileButton = header.querySelector('.user-profile');
-    if (userProfileButton) {
-        userProfileButton.textContent = 'Выйти';
-        userProfileButton.classList.remove('user-profile');
-        userProfileButton.classList.add('enter');
-    }
+    const headerButton = header.querySelector('.header_button');
+
+    ajax.post('/logout');
+    
+    
+    headerButton.textContent = 'Войти';
+    const headerButtonClone = headerButton.cloneNode(true);
+    headerButtonClone.addEventListener('click', () => {
+        showAuthForm(loginData);
+    });
+    
+    header.replaceChild(headerButtonClone, headerButton);
 }
