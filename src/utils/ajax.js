@@ -32,6 +32,7 @@ export class Ajax {
                     'Content-type': 'application/json',
                     ...headers
                 },
+                credentials: 'include',
                 body: JSON.stringify(data)
             });
             return await this.#handleResponse(response);
@@ -42,11 +43,8 @@ export class Ajax {
     }
 
     async #handleResponse(response) {
-        if (!response.ok) {
-            const errorData = await response.json();
-            const error = new Error(errorData.message);
-            error.status = response.status;
-            alert(error);
+        if(!response.ok) {
+            return { code: 400 };
         }
         return response.json();
     }

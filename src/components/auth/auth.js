@@ -5,7 +5,7 @@ import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 
-const ajax = new Ajax('/api')
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs'];
@@ -32,22 +32,20 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     ajax.post(endpoint, formData)
         .then(data => {
-            if (!data?.success) {
+            if (data?.code !== undefined) {
                 errorElement.textContent = errorMessage;
                 return;
-            } else {
-                errorElement.textContent = '';
-                closeLoginForm();
-                if (isRegistration) {
-                    showAuthForm(loginData);
-                } else {
-                    updateToLoggedIn(data.user);
-                }
             }
+            errorElement.textContent = '';
+            closeLoginForm();
+            updateToLoggedIn();
         });
 }
 
 export function showAuthForm(data) {
+
+    history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
+
     let overlay = document.getElementById('overlay');
     let authForm = document.getElementById('login_form');
     let overlayExists = overlay ? true : false;
@@ -65,23 +63,20 @@ export function showAuthForm(data) {
         document.getElementById('root').appendChild(authForm);
         overlay.classList.add('active');
         authForm.classList.add('active');
+
+        addSubmitClickListener(authForm, data);
+        const registerLink = authForm.getElementsByClassName('link')[0];
+        changeForm(registerLink, data, authForm);
     } else {
         toggleClasses([overlay, authForm], 'not_active', 'active');
     }
 
     overlay.addEventListener('click', () => {
-        const errorElement = authForm.querySelector('.authorization_error');
-        errorElement.textContent = '';
         toggleClasses([overlay, authForm], 'not_active', 'active');
-    }, { once: true });
+        history.pushState(null, '', '/');
+        updateForm(authForm, loginData);
+    }, {once: true});
 
-
-
-    if (!overlayExists) {
-        addSubmitClickListener(authForm, data);
-        const registerLink = authForm.getElementsByClassName('link')[0];
-        changeForm(registerLink, data, authForm);
-    }
 }
 
 function addSubmitClickListener(authForm, data) {
@@ -104,11 +99,13 @@ function addSubmitClickListener(authForm, data) {
 function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
+            history.pushState(null, '', '/login');
             data = loginData;
             const AUTH_FORM_ANIMATION_DELAY = 170;
             toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
             setTimeout(() => updateForm(authForm, data), AUTH_FORM_ANIMATION_DELAY);
         } else {
+            history.pushState(null, '', '/signup');
             data = signupData;
             updateForm(authForm, data);
             const REGISTER_FORM_ANIMATION_DELAY = 10;
@@ -125,24 +122,23 @@ function updateForm(authForm, data) {
     addSubmitClickListener(authForm, data);
 }
 
-function updateToLoggedIn(user) {
+function updateToLoggedIn() {
     const header = document.querySelector('header');
-    const loginButton = header.querySelector('.enter');
-    if (loginButton) {
-        loginButton.textContent = user.email;
-        loginButton.classList.remove('enter');
-        loginButton.classList.add('user-profile');
-        loginButton.addEventListener('click', logoutUser);
-    }
+    const headerButton = header.querySelector('.header_button');
+
+    headerButton.textContent = 'Выйти';
+
+    const headerButtonClone = headerButton.cloneNode(true);
+    headerButtonClone.addEventListener('click', logoutUser);
+
+    header.replaceChild(headerButtonClone, headerButton);
 }
 
 function closeLoginForm() {
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login_form');
-    const errorElement = loginForm.querySelector('.authorization_error');
 
     if (overlay && loginForm) {
-        errorElement.textContent = '';
         overlay.classList.add('not_active');
         loginForm.classList.add('not_active');
 
@@ -151,31 +147,18 @@ function closeLoginForm() {
     }
 }
 
-function checkLoggedInStatus() {
-    const cookies = document.cookie.split(';');
-    for (let cookie of cookies) {
-        const [name, value] = cookie.trim().split('=');
-        if (name === 'user') {
-            try {
-                const user = JSON.parse(decodeURIComponent(value));
-                updateToLoggedIn(user);
-                return;
-            } catch (error) {
-                console.error('Error parsing user cookie:', error);
-            }
-        }
-    }
-}
-
-document.addEventListener('DOMContentLoaded', checkLoggedInStatus);
-
 function logoutUser() {
-    document.cookie = 'user=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     const header = document.querySelector('header');
-    const userProfileButton = header.querySelector('.user-profile');
-    if (userProfileButton) {
-        userProfileButton.textContent = 'Выйти';
-        userProfileButton.classList.remove('user-profile');
-        userProfileButton.classList.add('enter');
-    }
+    const headerButton = header.querySelector('.header_button');
+
+    ajax.post('/logout');
+    
+    
+    headerButton.textContent = 'Войти';
+    const headerButtonClone = headerButton.cloneNode(true);
+    headerButtonClone.addEventListener('click', () => {
+        showAuthForm(loginData);
+    });
+    
+    header.replaceChild(headerButtonClone, headerButton);
 }
