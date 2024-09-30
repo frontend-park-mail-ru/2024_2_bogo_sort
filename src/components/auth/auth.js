@@ -1,13 +1,13 @@
 'use strict'
 
-import { signupData, loginData } from './authData.js';
+import { signupData, loginData, BACKEND_URL } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 
-const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-// const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
+// const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
+const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Renders the authentication template using Handlebars.
@@ -44,13 +44,18 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
-    if (!validateEmail(formData.email) || !validatePassword(formData.password)) {
-        errorElement.textContent = 'Неправильный email или пароль';
+    if (isRegistration && formData.password !== formData.confirmPassword) {
+        errorElement.textContent = 'Пароли не совпадают';
         return;
     }
 
-    if (isRegistration && formData.password !== formData.confirmPassword) {
-        errorElement.textContent = 'Пароли не совпадают';
+    if (!validateEmail(formData.email)) {
+        errorElement.textContent = 'Неправильный email';
+        return;
+    }
+
+    if (!validatePassword(formData.password)) {
+        errorElement.textContent = 'Неправильный пароль';
         return;
     }
 

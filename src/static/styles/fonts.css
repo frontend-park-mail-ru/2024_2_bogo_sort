@@ -4,18 +4,19 @@
 }
 
 @font-face {
-    font-family: regular;
+    font-family: inter;
+    font-weight: 400;
     src: url(../fonts/Inter-Regular.otf);
 }
 
 @font-face {
-    font-family: medium;
+    font-family: inter;
     font-weight: 500;
     src: url(../fonts/Inter-Medium.otf);
 }
 
 @font-face {
-    font-family: bold;
+    font-family: inter;
     font-weight: 700;
     src: url(../fonts/Inter-Bold.otf);
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 import { showAuthForm } from "../auth/auth.js";
-import { loginData } from "../auth/authData.js";
+import { loginData } from "../../constants/constants.js";
 import { checkAuth } from "../../utils/checkAuth.js";
 import { logoutUser } from "../auth/auth.js";
 

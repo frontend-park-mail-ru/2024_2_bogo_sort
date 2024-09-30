@@ -1,7 +1,7 @@
 'use strict';
 
 import { showAuthForm } from "../../components/auth/auth.js";
-import { signupData } from '../../components/auth/authData.js';
+import { signupData } from "../../constants/constants.js";
 import { toggleClasses } from "../../utils/toggleClasses.js";
 
 /**
@@ -25,7 +25,7 @@ export class SignUpPage {
     }
 
     /**
-     * Expands the authentication wrapper by toggling classes on specific elements.
+     * Expands the authentication wrapper.
      */
     #expandAuthWrapper() {
         const authForm = document.querySelector('.auth_wrapper');

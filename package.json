@@ -17,5 +17,8 @@
     "url": "git+https://github.com/frontend-park-mail-ru/2024_2_bogo_sort.git#main"
   },
   "license": "ISC",
-  "homepage": "https://github.com/frontend-park-mail-ru/2024_2_bogo_sort/tree/main#readme"
+  "homepage": "https://github.com/frontend-park-mail-ru/2024_2_bogo_sort/tree/main#readme",
+  "devDependencies": {
+    "eslint": "^9.11.1"
+  }
 }
