@@ -6,19 +6,36 @@ import { Ajax } from "../../utils/ajax.js";
 
 const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
+/**
+ * Represents the main page of the application.
+ */
 export class MainPage {
     #element;
 
+    /**
+     * Initializes a new instance of the MainPage class.
+     */
     constructor() {
         this.#element = document.createElement('div');
         this.#element.classList.add('main');
     }
 
+    /**
+     * Renders the main page and returns the main container element.
+     * 
+     * @returns {HTMLElement} The main container element with the rendered content.
+     */
     render() {
         this.#renderTemplate();
         return this.#element;
     }
 
+    /**
+     * Renders the template for the main page.
+     * 
+     * Fetches card data from the API, creates a header, and appends
+     * card elements to the main container.
+     */
     async #renderTemplate() {
 
         const cards = await ajax.get('/adverts');

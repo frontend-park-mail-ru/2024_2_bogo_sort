@@ -4,19 +4,40 @@ import { signupData, loginData } from './authData.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
-import { checkAuth } from '../../utils/checkAuth.js';
 
 const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
+/**
+ * Renders the authentication template using Handlebars.
+ * 
+ * @param {Object} data - The data to be passed to the template.
+ * @returns {string} The rendered HTML string of the authentication template.
+ */
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs'];
     return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
 }
 
+/**
+ * Handlebars helper to check equality of two values and additional conditions.
+ * 
+ * @param {*} a - First value to compare.
+ * @param {*} b - Second value to compare.
+ * @param {*} c - Third value for additional condition.
+ * @param {*} d - Fourth value for additional condition.
+ * @returns {boolean} True if a equals b and c equals d, otherwise false.
+ */
 Handlebars.registerHelper('eq', function (a, b, c, d) {
     return a === b && c === d;
 });
 
+/**
+ * Handles form submission for either registration or login.
+ * 
+ * @param {Object} formData - The data collected from the form inputs.
+ * @param {boolean} isRegistration - Indicates if the form is for registration or login.
+ * @param {HTMLElement} errorElement - The element where error messages will be displayed.
+ */
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
@@ -44,15 +65,17 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
         });
 }
 
+/**
+ * Displays the authentication form based on the provided data.
+ * 
+ * @param {Object} data - The data needed to render the auth form.
+ * @param {string} data.title - The title of the authentication form.
+ */
 export function showAuthForm(data) {
-    if(checkAuth()){
-        logoutUser();
-    }
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
     let overlay = document.getElementById('overlay');
     let authForm = document.getElementById('login_form');
-    let overlayExists = overlay ? true : false;
 
     if (!overlay) {
         overlay = document.createElement('div');
@@ -83,6 +106,12 @@ export function showAuthForm(data) {
 
 }
 
+/**
+ * Adds a click event listener to the submit button of the authentication form.
+ * 
+ * @param {HTMLElement} authForm - The authentication form element.
+ * @param {Object} data - The data needed for form processing.
+ */
 function addSubmitClickListener(authForm, data) {
     const submitButton = authForm.querySelector('.authorization_enter');
     const errorElement = authForm.querySelector('.authorization_error');
@@ -100,6 +129,13 @@ function addSubmitClickListener(authForm, data) {
     });
 }
 
+/**
+ * Changes the authentication form between login and registration modes based on user interaction.
+ * 
+ * @param {HTMLElement} registerLink - The link element that triggers the change.
+ * @param {Object} data - The current data for the authentication form.
+ * @param {HTMLElement} authForm - The authentication form element being modified.
+ */
 function changeForm(registerLink, data, authForm) {
     registerLink.addEventListener('click', () => {
         if (data.inputs.length > 2) {
@@ -120,12 +156,21 @@ function changeForm(registerLink, data, authForm) {
     });
 }
 
+/**
+ * Updates the authentication form with new data.
+ * 
+ * @param {HTMLElement} authForm - The authentication form element to be updated.
+ * @param {Object} data - The data used to render the authentication template.
+ */
 function updateForm(authForm, data) {
     authForm.innerHTML = renderAuthTemplate(data);
     changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
     addSubmitClickListener(authForm, data);
 }
 
+/**
+ * Updates the header to reflect that the user is logged in.
+ */
 function updateToLoggedIn() {
     const header = document.querySelector('header');
     const headerButton = header.querySelector('.header_button');
@@ -138,7 +183,11 @@ function updateToLoggedIn() {
     header.replaceChild(headerButtonClone, headerButton);
 }
 
+/**
+ * Closes the login form and removes it from the DOM.
+ */
 function closeLoginForm() {
+    history.pushState(null, '', '/');
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login_form');
 
@@ -151,17 +200,23 @@ function closeLoginForm() {
     }
 }
 
-export function logoutUser() {
+/**
+ * Logs out the user by sending a request to the server and updating the UI.
+ * 
+ * @async
+ * @returns {Promise<void>}
+ */
+export async function logoutUser() {
     const header = document.querySelector('header');
-    const headerButton = header.querySelector('.header_button');
+    const headerButton = header?.querySelector('.header_button');
 
     const token = localStorage.getItem('jwt');
-    ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})
-    .catch(error => {
-        console.log(error);
+    const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})
+    if(data.code !== undefined){
+        console.log('logout error');
         return;
-    });
-    
+    }
+    localStorage.removeItem('jwt');
     
     headerButton.textContent = 'Войти';
     const headerButtonClone = headerButton.cloneNode(true);
