@@ -19,7 +19,6 @@
   "license": "ISC",
   "homepage": "https://github.com/frontend-park-mail-ru/2024_2_bogo_sort/tree/main#readme",
   "devDependencies": {
-    "eslint": "^9.11.1",
-    "globals": "^15.9.0"
+    "eslint": "^9.11.1"
   }
 }
