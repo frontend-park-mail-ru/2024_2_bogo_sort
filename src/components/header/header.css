@@ -5,13 +5,13 @@
 
 header {
     align-content: center;
-    height:86px;
+    height: 86px;
     background-color: white;
     box-shadow: 0px 3px 4px var(--box-shadow-color);
     font-family: logo;
     display: flex;
     align-items: center;
-    justify-content:center;
+    justify-content: center;
 }
 
 .header_button {
@@ -23,14 +23,14 @@ header {
     border-radius: 10px;
     color: var(--color-secondary100);
     border: 2px solid var(--color-secondary100);
-    margin-left: 640px;   
+    margin-left: 640px;
     transition: background-color 0.5s ease,
-                border 0.5s ease,
-                color 0.5s ease;
+        border 0.5s ease,
+        color 0.5s ease;
 }
 
 .header_button:hover {
     background-color: var(--color-primary50);
-    border:2px solid var(--color-primary50);
+    border: 2px solid var(--color-primary50);
     color: white;
 }
