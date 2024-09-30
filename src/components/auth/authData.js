@@ -27,7 +27,8 @@ export const signupData = {
     title: 'Регистрация',
     info: 'Создайте новый аккаунт',
     inputs: [
-        {   form: 'signup',
+        {
+            form: 'signup',
             type: 'text',
             class: 'input_email',
             name: 'email',

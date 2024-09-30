@@ -1,26 +1,31 @@
 <form action="">
-    <div class="auth_wrapper">   
+    <div class="auth_wrapper">
         <div class="features">
             <span class="features_logo">Эмпориум</span>
-            <span class="feature"><img src="../../static/images/money.svg" class="icon"> Быстро и удобно продать или купить товары</span>
-            <span class="feature"><img src="../../static/images/time.svg" class="icon"> Найти работу или предложить услугу</span>
-            <span class="feature"><img src="../../static/images/tools.svg" class="icon"> Найти профессионала под специализированную задачу</span>
+            <span class="feature"><img src="../../static/images/money.svg" class="icon"> Быстро и удобно продать или
+                купить товары</span>
+            <span class="feature"><img src="../../static/images/time.svg" class="icon"> Найти работу или предложить
+                услугу</span>
+            <span class="feature"><img src="../../static/images/tools.svg" class="icon"> Найти профессионала под
+                специализированную задачу</span>
         </div>
 
         <div class="auth">
             <h1 class="authorization">{{title}}</h1>
             <span class="authorization_details">{{info}}</span>
             <span class="authorization_error"></span>
-            
-            <div class="input_wrapper">   
+
+            <div class="input_wrapper">
                 {{#each inputs}}
                 <div class="tooltip">
-                    <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}" placeholder="{{this.placeholder}}">
+                    <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}"
+                        placeholder="{{this.placeholder}}">
                     {{#if (eq this.name "password" this.form "signup")}}
-                        <span class="tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные буквы, цифры и специальные символы</span>
+                    <span class="tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные
+                        буквы, цифры и специальные символы</span>
                     {{/if}}
                 </div>
-                {{/each}} 
+                {{/each}}
                 <button type="button" class="authorization_enter">{{buttontitle}}</button>
                 <span class="registration_link">{{pretext}} <a class="registration_link link">{{anchortext}}</a></span>
             </div>

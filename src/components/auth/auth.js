@@ -8,8 +8,8 @@ import { toggleClasses } from '../../utils/toggleClasses.js';
 const ajax = new Ajax('/api')
 
 export function renderAuthTemplate(data) {
-    const template = Handlebars.templates['auth.hbs']; 
-    return template({title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext});
+    const template = Handlebars.templates['auth.hbs'];
+    return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
 }
 
 Handlebars.registerHelper('eq', function (a, b, c, d) {
@@ -73,11 +73,11 @@ export function showAuthForm(data) {
         const errorElement = authForm.querySelector('.authorization_error');
         errorElement.textContent = '';
         toggleClasses([overlay, authForm], 'not_active', 'active');
-    }, {once: true});
+    }, { once: true });
 
-    
-    
-    if(!overlayExists){
+
+
+    if (!overlayExists) {
         addSubmitClickListener(authForm, data);
         const registerLink = authForm.getElementsByClassName('link')[0];
         changeForm(registerLink, data, authForm);
@@ -87,10 +87,10 @@ export function showAuthForm(data) {
 function addSubmitClickListener(authForm, data) {
     const submitButton = authForm.querySelector('.authorization_enter');
     const errorElement = authForm.querySelector('.authorization_error');
-    
+
     submitButton.addEventListener('click', () => {
         errorElement.textContent = '';
-        
+
         const inputs = authForm.querySelectorAll('input');
         const formData = {};
         inputs.forEach(input => {
@@ -140,12 +140,12 @@ function closeLoginForm() {
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login_form');
     const errorElement = loginForm.querySelector('.authorization_error');
-    
+
     if (overlay && loginForm) {
         errorElement.textContent = '';
         overlay.classList.add('not_active');
         loginForm.classList.add('not_active');
-    
+
         overlay.remove();
         loginForm.remove();
     }

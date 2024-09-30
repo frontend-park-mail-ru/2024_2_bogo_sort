@@ -6,7 +6,7 @@ import { Ajax } from "../../utils/ajax.js";
 
 const ajax = new Ajax('/api')
 
-export class MainPage{
+export class MainPage {
     #element;
 
     constructor() {
@@ -33,8 +33,8 @@ export class MainPage{
         container.classList.add('cards');
 
         containerWrapper.classList.add('cards_wrapper');
-        containerWrapper.appendChild(container);  
-         
+        containerWrapper.appendChild(container);
+
         cards.forEach(element => {
             container.innerHTML += renderCardTemplate(element.title, element.price);
         });

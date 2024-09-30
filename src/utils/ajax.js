@@ -18,13 +18,13 @@ export class Ajax {
                 }
             });
             return await this.#handleResponse(response);
-        } catch(error) {
+        } catch (error) {
             console.error('GET error:', error);
             alert(error);
         }
     }
 
-    async post(endpoint, data, headers={}) {
+    async post(endpoint, data, headers = {}) {
         try {
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
@@ -42,7 +42,7 @@ export class Ajax {
     }
 
     async #handleResponse(response) {
-        if(!response.ok) {
+        if (!response.ok) {
             const errorData = await response.json();
             const error = new Error(errorData.message);
             error.status = response.status;
