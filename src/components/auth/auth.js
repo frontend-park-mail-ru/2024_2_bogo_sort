@@ -8,30 +8,26 @@ import { toggleClasses } from '../../utils/toggleClasses.js';
 const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
 export function renderAuthTemplate(data) {
-    const template = Handlebars.templates['auth.hbs']; 
-    return template({title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext});
+    const template = Handlebars.templates['auth.hbs'];
+    return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
 }
+
+Handlebars.registerHelper('eq', function (a, b, c, d) {
+    return a === b && c === d;
+});
 
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
 
-    if (!validateEmail(formData.email)) {
-        errorElement.textContent = isRegistration ? 'Неправильный email' : 'Проверьте введенные данные';
-        return;
-    }
-    if (!validatePassword(formData.password)) {
-        errorElement.textContent = isRegistration ? 'Пароль не соответствует требованиям' : 'Проверьте введенные данные';
+    if (!validateEmail(formData.email) || !validatePassword(formData.password)) {
+        errorElement.textContent = 'Неправильный email или пароль';
         return;
     }
 
-    if(isRegistration){
-        if(formData.password !== formData.confirmPassword) {
-            errorElement.textContent = 'Пароли не совпадают';
-            return;
-        } else {
-            formData = {email: formData.email, password: formData.password};
-        }
+    if (isRegistration && formData.password !== formData.confirmPassword) {
+        errorElement.textContent = 'Пароли не совпадают';
+        return;
     }
 
     ajax.post(endpoint, formData)
@@ -52,6 +48,7 @@ export function showAuthForm(data) {
 
     let overlay = document.getElementById('overlay');
     let authForm = document.getElementById('login_form');
+    let overlayExists = overlay ? true : false;
 
     if (!overlay) {
         overlay = document.createElement('div');
@@ -85,10 +82,10 @@ export function showAuthForm(data) {
 function addSubmitClickListener(authForm, data) {
     const submitButton = authForm.querySelector('.authorization_enter');
     const errorElement = authForm.querySelector('.authorization_error');
-    
+
     submitButton.addEventListener('click', () => {
         errorElement.textContent = '';
-        
+
         const inputs = authForm.querySelectorAll('input');
         const formData = {};
         inputs.forEach(input => {
@@ -140,11 +137,11 @@ function updateToLoggedIn() {
 function closeLoginForm() {
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login_form');
-    
+
     if (overlay && loginForm) {
         overlay.classList.add('not_active');
         loginForm.classList.add('not_active');
-    
+
         overlay.remove();
         loginForm.remove();
     }

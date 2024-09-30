@@ -4,12 +4,14 @@ export const loginData = {
     info: 'Войдите в свой аккаунт',
     inputs: [
         {
+            form: 'login',
             type: 'text',
             class: 'input_email',
             name: 'email',
             placeholder: 'Email'
         },
         {
+            form: 'login',
             type: 'password',
             class: 'input_password',
             name: 'password',
@@ -26,18 +28,21 @@ export const signupData = {
     info: 'Создайте новый аккаунт',
     inputs: [
         {
+            form: 'signup',
             type: 'text',
             class: 'input_email',
             name: 'email',
             placeholder: 'Email'
         },
         {
+            form: 'signup',
             type: 'password',
             class: 'input_password',
             name: 'password',
             placeholder: 'Пароль'
         },
         {
+            form: 'signup',
             type: 'password',
             class: 'input_password',
             name: 'confirmPassword',
