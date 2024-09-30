@@ -14,6 +14,10 @@ export class LogInPage {
     render() {
         this.#renderTemplate();
     }
+
+    /**
+     * Renders the authentication.
+     */
     #renderTemplate() {
         showAuthForm(loginData);
     }
