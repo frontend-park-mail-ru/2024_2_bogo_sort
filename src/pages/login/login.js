@@ -1,7 +1,7 @@
 'use strict';
 
 import { showAuthForm } from "../../components/auth/auth.js";
-import { loginData } from '../../components/auth/authData.js';
+import { loginData } from "../../constants/constants.js";
 
 /**
  * Represents the login page.

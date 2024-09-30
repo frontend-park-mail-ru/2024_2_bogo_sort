@@ -1,7 +1,7 @@
 'use strict';
 
 import { showAuthForm } from "../../components/auth/auth.js";
-import { signupData } from '../../components/auth/authData.js';
+import { signupData } from "../../constants/constants.js";
 import { toggleClasses } from "../../utils/toggleClasses.js";
 
 /**

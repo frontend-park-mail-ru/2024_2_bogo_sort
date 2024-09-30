@@ -1,4 +1,5 @@
 'use strict';
+
 export const loginData = {
     title: 'Авторизация',
     info: 'Войдите в свой аккаунт',
@@ -53,3 +54,7 @@ export const signupData = {
     pretext: 'Уже есть аккаунт?',
     anchortext: 'Войти'
 };
+
+export const BACKEND_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
+
+export const IMAGE_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';
