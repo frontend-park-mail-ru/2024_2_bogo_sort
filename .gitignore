@@ -1,4 +1,2 @@
 /node_modules
-/src/components/auth/auth.precompiled.js
-/src/components/card/card.precompiled.js
-/src/components/header/header.precompiled.js
+*.precompiled.js

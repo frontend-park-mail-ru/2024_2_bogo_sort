@@ -4,8 +4,10 @@ import { renderCardTemplate } from "../../components/card/card.js";
 import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 
+const apiUrl = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
+
 // const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-const ajax = new Ajax('https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1')
+const ajax = new Ajax(apiUrl)
 
 /**
  * Represents the main page of the application.
@@ -54,7 +56,7 @@ export class MainPage {
         containerWrapper.appendChild(container);
 
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url);
+            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, apiUrl);
         });
         this.#element.appendChild(containerWrapper);
     }
