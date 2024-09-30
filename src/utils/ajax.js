@@ -20,7 +20,6 @@ export class Ajax {
             return await this.#handleResponse(response);
         } catch(error) {
             console.error('GET error:', error);
-            alert(error);
         }
     }
 
@@ -38,7 +37,6 @@ export class Ajax {
             return await this.#handleResponse(response);
         } catch (error) {
             console.error('POST error:', error);
-            alert(error);
         }
     }
 

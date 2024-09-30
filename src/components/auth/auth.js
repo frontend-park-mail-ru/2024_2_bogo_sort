@@ -4,6 +4,7 @@ import { signupData, loginData } from './authData.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
+import { checkAuth } from '../../utils/checkAuth.js';
 
 const ajax = new Ajax('http://127.0.0.1:8080/api/v1')
 
@@ -40,6 +41,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
                 errorElement.textContent = errorMessage;
                 return;
             }
+            localStorage.setItem('jwt', data.token);
             errorElement.textContent = '';
             closeLoginForm();
             updateToLoggedIn();
@@ -47,7 +49,9 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 }
 
 export function showAuthForm(data) {
-
+    if(checkAuth()){
+        logoutUser();
+    }
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
     let overlay = document.getElementById('overlay');
@@ -150,11 +154,16 @@ function closeLoginForm() {
     }
 }
 
-function logoutUser() {
+export function logoutUser() {
     const header = document.querySelector('header');
     const headerButton = header.querySelector('.header_button');
 
-    ajax.post('/logout');
+    const token = localStorage.getItem('jwt');
+    ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})
+    .catch(error => {
+        console.log(error);
+        return;
+    });
     
     
     headerButton.textContent = 'Войти';

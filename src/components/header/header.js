@@ -2,6 +2,8 @@
 
 import { showAuthForm } from "../auth/auth.js";
 import { loginData } from "../auth/authData.js";
+import { checkAuth } from "../../utils/checkAuth.js";
+import { logoutUser } from "../auth/auth.js";
 
 export class Header {
     #wrapper
@@ -17,13 +19,21 @@ export class Header {
     }
 
     #addListeners() {
-        const headerButton = this.#wrapper.getElementsByClassName('header_button')[0];
+        const headerButton = this.#wrapper.querySelector('.header_button');
         headerButton.addEventListener('click', () => {
-            showAuthForm(loginData);
+            if(checkAuth()){
+                logoutUser();
+            } else {
+                showAuthForm(loginData);
+            }
         });
     }
 
     #renderTemplate() {
         this.#wrapper.innerHTML = Handlebars.templates['header.hbs']();
+        if(checkAuth()) {
+            const headerButton = this.#wrapper.querySelector('.header_button');
+            headerButton.textContent = 'Выйти';
+        }
     }
 }
