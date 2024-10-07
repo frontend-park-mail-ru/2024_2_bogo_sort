@@ -20,8 +20,11 @@
             <div class="input_wrapper">
                 {{#each inputs}}
                 <div class="tooltip">
-                    <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}"
-                        placeholder="{{this.placeholder}}">
+                    {{#if (eq-or this.name "password" "confirmPassword")}}
+                    <span class="eye"></span>
+                    {{/if}}
+                    <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}">
+                    <label for="{{this.name}}" class="input_label">{{this.placeholder}}</label>
                     {{#if (eq this.name "password" this.form "signup")}}
                     <span class="tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные
                         буквы, цифры и специальные символы</span>

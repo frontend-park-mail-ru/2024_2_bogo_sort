@@ -34,6 +34,18 @@ Handlebars.registerHelper('eq', function (a, b, c, d) {
 });
 
 /**
+ * Handlebars helper to check equality.
+ * 
+ * @param {*} a - First value to compare.
+ * @param {*} b - Second value for additional condition.
+ * @param {*} c - Third value for additional condition.
+ * @returns {boolean} True if a equals b or c equals d, otherwise false.
+ */
+Handlebars.registerHelper('eq-or', function (a, b, c) {
+    return a === b || a === c;
+});
+
+/**
  * Handles form submission for either registration or login.
  * 
  * @param {Object} formData - The data collected from the form inputs.
@@ -43,19 +55,22 @@ Handlebars.registerHelper('eq', function (a, b, c, d) {
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
+    let errors = new Map();
 
     if (isRegistration && formData.password !== formData.confirmPassword) {
-        errorElement.textContent = 'Пароли не совпадают';
-        return;
+        errors.set('confirmPassword', 1);
     }
 
     if (!validateEmail(formData.email)) {
-        errorElement.textContent = 'Неправильный email';
-        return;
+        errors.set('email', 1);
     }
 
     if (!validatePassword(formData.password)) {
-        errorElement.textContent = 'Неправильный пароль';
+        errors.set('password', 1);
+    }
+
+    if(errors.size !== 0){
+        displayInputErrors(errors, errorElement);
         return;
     }
 
@@ -72,11 +87,51 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
         });
 }
 
+function displayInputErrors(errors, errorElement) {
+    const authForm = document.querySelector('.auth');
+    let inputs = [];
+    if(errors.get('email')) {
+        const inputEmail = authForm.querySelector('.input_email');
+        inputEmail.classList.add('error');
+        inputs.push(inputEmail);
+    }
+    if(errors.get('password')) {
+        const inputPassword = authForm.querySelector('.input_password');
+        inputPassword.classList.add('error');
+        inputs.push(inputPassword);
+    }
+    if(errors.get('confirmPassword')) {
+        const inputConfirmPassword = authForm.querySelectorAll('.input_password')[1];
+        inputConfirmPassword.classList.add('error');
+        inputs.push(inputConfirmPassword);
+    }
+
+    errorElement.innerText = 'Проверьте введенные данные';
+
+    inputs.forEach(input => {
+        input.addEventListener('input', () => {
+            input.classList.remove('error');
+            if(checkInputs(inputs)){
+                errorElement.innerText = '';
+            }
+        })
+    })
+    
+}
+
+function checkInputs(inputs) {
+    for (const input of inputs) {
+        if(input.classList.contains('error')){
+            return false;
+        }
+    }
+    return true;
+}
+
 /**
  * Displays the authentication form based on the provided data.
  * 
  * @param {Object} data - The data needed to render the auth form.
- * @param {string} data.title - The title of the authentication form.
  */
 export function showAuthForm(data) {
     if(checkAuth()){
@@ -103,6 +158,7 @@ export function showAuthForm(data) {
         authForm.classList.add('active');
 
         addSubmitClickListener(authForm, data);
+        addInputEventListeners();
         const registerLink = authForm.getElementsByClassName('link')[0];
         changeForm(registerLink, data, authForm);
     } else {
@@ -115,6 +171,38 @@ export function showAuthForm(data) {
         updateForm(authForm, loginData);
     }, {once: true});
 
+}
+
+function addInputEventListeners() {
+    const input_wrapper = document.querySelector('.input_wrapper');
+
+    input_wrapper.querySelectorAll('.tooltip input').forEach(input => {
+        input.addEventListener('blur', () => {
+            const label = input.parentElement.querySelector('.input_label');
+            if(input.value.trim() !== "") {
+                label.classList.add('filled');
+            } else {
+                label.classList.remove('filled');
+            }
+        });
+    });
+
+    input_wrapper.querySelectorAll('.tooltip .eye').forEach(eye => {
+        eye.addEventListener('click', () => {
+            togglePasswordVisibility(eye);
+        });
+    })
+}
+
+function togglePasswordVisibility(eye) {
+    eye.classList.toggle('visible');
+    const input = eye.parentElement.querySelector('input');
+
+    if(input.getAttribute('type') === 'password') {
+        input.setAttribute('type', 'text');
+        return;
+    }
+    input.setAttribute('type', 'password');
 }
 
 /**
@@ -177,6 +265,7 @@ function updateForm(authForm, data) {
     authForm.innerHTML = renderAuthTemplate(data);
     changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
     addSubmitClickListener(authForm, data);
+    addInputEventListeners();
 }
 
 /**

@@ -9,7 +9,7 @@
   "description": "__Эмпириум__ – это современный онлайн-сервис объявлений, предназначенный для широкой аудитории, которая хочет быстро и удобно продать или купить товары, а также найти специализированного мастера под конкретную задачу, либо предложить услугу.",
   "main": "server.js",
   "scripts": {
-    "prestart": "handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js",
+    "prestart": "npx eslint && handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js",
     "start": "node server/server.js"
   },
   "repository": {

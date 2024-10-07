@@ -9,7 +9,6 @@
     transition: opacity 0.3s ease, filter 0.3s ease;
     z-index: 2;
     pointer-events: none;
-
 }
 
 .overlay.active {
@@ -61,6 +60,7 @@
     border-bottom-right-radius: 20px;
     transition: height 0.3s ease, margin-top 0.3s ease;
 }
+
 .auth_content{
     display: block;
     padding-left: 71px;
@@ -113,7 +113,7 @@
     font-size: 16px;
     color: var(--color-error);
     padding-top: 10px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     height: 30px;
 }
 
@@ -124,13 +124,23 @@
     color: var(--color-secondary50);
 }
 
+.input_label {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    pointer-events: none;
+    transition: 0.2s ease;
+}
+
 .input_email {
     height: 49px;
     width: 100%;
     border: 1px solid var(--color-secondary50);
     border-radius: 15px;
     font-size: 16px;
+    margin-top: 20px;
     padding-left: 20px;
+    transition: 0.2s ease;
 }
 
 .input_password {
@@ -141,6 +151,35 @@
     border-radius: 15px;
     padding-left: 20px;
     font-size: 16px;
+    padding-right: 50px;
+    transition: 0.2s ease;
+}
+
+.input_email.error,
+.input_password.error {
+    border: 1px solid var(--color-error);
+}
+
+.eye {
+    position: absolute;
+    top: 45%;
+    width: 30px;
+    height: 30px;
+    right: 10px;
+    cursor: pointer;
+    background: url(../../static/images/eye.svg);
+    transition: 0.2s ease;
+}
+
+.eye.visible {
+    background: url(../../static/images/eye_closed.svg);
+}
+
+.input_email:focus + .input_label,
+.input_password:focus + .input_label,
+.input_label.filled {
+    top: 0;
+    font-size: 14px;
 }
 
 .input_password_wrapper {
@@ -151,7 +190,7 @@
 .tooltip {
     position: relative;
     bottom: 40%;
-
+    margin-top: 5px;
 }
 
 .tooltip .tooltiptext {
@@ -173,6 +212,11 @@
 }
 
 .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
+.input_password:focus ~ .tooltiptext {
     visibility: visible;
     opacity: 1;
 }
