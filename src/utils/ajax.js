@@ -1,5 +1,7 @@
 'use strict';
 
+import { getSessionId } from './checkAuth.js';
+
 const GET = 'GET';
 const POST = 'POST';
 
@@ -50,6 +52,10 @@ export class Ajax {
      */
     async post(endpoint, data, headers = {}) {
         try {
+            const sessionID = getSessionId();
+            if (sessionID) {
+                headers['session_id'] = sessionID;
+            }
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
                 headers: {

@@ -2,4 +2,3 @@
 *.precompiled.js
 docker-compose.yml
 Dockerfile
-.gitignore

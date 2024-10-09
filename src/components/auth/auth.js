@@ -66,6 +66,9 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
                 return;
             }
             errorElement.textContent = '';
+            if (data.sessionID) {
+                document.cookie = `session_id=${data.sessionID}; path=/; max-age=3600`;
+            }
             closeLoginForm();
             updateToLoggedIn();
         });
@@ -221,10 +224,13 @@ export async function logoutUser() {
     const headerButton = header?.querySelector('.header_button');
 
     const data = await ajax.post('/logout')
-    if(data.code !== undefined){
-        console.log('logout error');
+    if(data.error || data.code !== undefined){
+        console.log('logout error:', data.error || 'Unknown error');
         return;
     }
+    
+    // очистить печеньку
+    document.cookie = 'session_id=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     
     headerButton.textContent = 'Войти';
     const headerButtonClone = headerButton.cloneNode(true);
