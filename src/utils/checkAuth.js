@@ -5,5 +5,5 @@
  * @returns {boolean} Is user logged in.
  */
 export function checkAuth() {
-    return localStorage.getItem('jwt') !== null;
+    return localStorage.getItem('sessionID') !== null;
 }

@@ -31,7 +31,8 @@ export class Ajax {
                 headers: {
                     'Content-type': 'application/json',
                     ...headers
-                }
+                },
+                credentials: 'include'
             });
             return await this.#handleResponse(response);
         } catch (error) {

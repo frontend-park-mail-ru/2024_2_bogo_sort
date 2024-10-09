@@ -65,7 +65,6 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
                 errorElement.textContent = errorMessage;
                 return;
             }
-            localStorage.setItem('jwt', data.token);
             errorElement.textContent = '';
             closeLoginForm();
             updateToLoggedIn();
@@ -221,13 +220,11 @@ export async function logoutUser() {
     const header = document.querySelector('header');
     const headerButton = header?.querySelector('.header_button');
 
-    const token = localStorage.getItem('jwt');
-    const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})
+    const data = await ajax.post('/logout')
     if(data.code !== undefined){
         console.log('logout error');
         return;
     }
-    localStorage.removeItem('jwt');
     
     headerButton.textContent = 'Войти';
     const headerButtonClone = headerButton.cloneNode(true);
