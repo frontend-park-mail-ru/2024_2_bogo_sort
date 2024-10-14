@@ -7,14 +7,14 @@ export const loginData = {
         {
             form: 'login',
             type: 'text',
-            class: 'input_email',
+            class: 'input__email',
             name: 'email',
             placeholder: 'Email'
         },
         {
             form: 'login',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'password',
             placeholder: 'Пароль'
         }
@@ -31,21 +31,21 @@ export const signupData = {
         {
             form: 'signup',
             type: 'text',
-            class: 'input_email',
+            class: 'input__email',
             name: 'email',
             placeholder: 'Email'
         },
         {
             form: 'signup',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'password',
             placeholder: 'Пароль'
         },
         {
             form: 'signup',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'confirmPassword',
             placeholder: 'Подтвердите пароль'
         }

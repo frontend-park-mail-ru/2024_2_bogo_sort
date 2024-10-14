@@ -5,8 +5,8 @@ import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
 
-// const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-const ajax = new Ajax(BACKEND_URL)
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
+// const ajax = new Ajax(BACKEND_URL)
 
 /**
  * Represents the main page of the application.
@@ -51,12 +51,12 @@ export class MainPage {
 
         container.classList.add('cards');
 
-        containerWrapper.classList.add('cards_wrapper');
-        containerWrapper.appendChild(container);
+        // containerWrapper.classList.add('cards-wrapper');
+        // containerWrapper.appendChild(container);
 
         cards.forEach(element => {
             container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
         });
-        this.#element.appendChild(containerWrapper);
+        this.#element.appendChild(container);
     }
 }

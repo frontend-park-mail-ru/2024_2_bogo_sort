@@ -6,8 +6,8 @@ import { Ajax } from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 
-// const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-const ajax = new Ajax(BACKEND_URL);
+const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
+// const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Renders the authentication template using Handlebars.
@@ -97,17 +97,17 @@ function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
     let inputs = [];
     if(errors.get('email')) {
-        const inputEmail = authForm.querySelector('.input_email');
+        const inputEmail = authForm.querySelector('.input__email');
         inputEmail.classList.add('error');
         inputs.push(inputEmail);
     }
     if(errors.get('password')) {
-        const inputPassword = authForm.querySelector('.input_password');
+        const inputPassword = authForm.querySelector('.input__password');
         inputPassword.classList.add('error');
         inputs.push(inputPassword);
     }
     if(errors.get('confirmPassword')) {
-        const inputConfirmPassword = authForm.querySelectorAll('.input_password')[1];
+        const inputConfirmPassword = authForm.querySelectorAll('.input__password')[1];
         inputConfirmPassword.classList.add('error');
         inputs.push(inputConfirmPassword);
     }
@@ -153,7 +153,7 @@ export function showAuthForm(data) {
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
     let overlay = document.getElementById('overlay');
-    let authForm = document.getElementById('login_form');
+    let authForm = document.getElementById('login-form');
 
     if (!overlay) {
         overlay = document.createElement('div');
@@ -162,8 +162,8 @@ export function showAuthForm(data) {
         document.getElementById('root').appendChild(overlay);
 
         authForm = document.createElement('div');
-        authForm.className = 'login_form';
-        authForm.id = 'login_form';
+        authForm.className = 'login-form';
+        authForm.id = 'login-form';
         authForm.innerHTML = renderAuthTemplate(data);
         document.getElementById('root').appendChild(authForm);
         overlay.classList.add('active');
@@ -174,11 +174,11 @@ export function showAuthForm(data) {
         const registerLink = authForm.getElementsByClassName('link')[0];
         changeForm(registerLink, data, authForm);
     } else {
-        toggleClasses([overlay, authForm], 'not_active', 'active');
+        toggleClasses([overlay, authForm], 'not-active', 'active');
     }
 
     overlay.addEventListener('click', () => {
-        toggleClasses([overlay, authForm], 'not_active', 'active');
+        toggleClasses([overlay, authForm], 'not-active', 'active');
         history.pushState(null, '', '/');
         updateForm(authForm, loginData);
     }, {once: true});
@@ -189,11 +189,11 @@ export function showAuthForm(data) {
  * Adds event listeners on form inputs for errors display.
  */
 function addInputEventListeners() {
-    const input_wrapper = document.querySelector('.input_wrapper');
+    const input_wrapper = document.querySelector('.authorization__input-wrapper');
 
-    input_wrapper.querySelectorAll('.tooltip input').forEach(input => {
+    input_wrapper.querySelectorAll('.form__tooltip input').forEach(input => {
         input.addEventListener('blur', () => {
-            const label = input.parentElement.querySelector('.input_label');
+            const label = input.parentElement.querySelector('.input__label');
             if(input.value.trim() !== "") {
                 label.classList.add('filled');
             } else {
@@ -202,7 +202,7 @@ function addInputEventListeners() {
         });
     });
 
-    input_wrapper.querySelectorAll('.tooltip .eye').forEach(eye => {
+    input_wrapper.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
         eye.addEventListener('click', () => {
             togglePasswordVisibility(eye);
         });
@@ -232,8 +232,8 @@ function togglePasswordVisibility(eye) {
  * @param {Object} data - The data needed for form processing.
  */
 function addSubmitClickListener(authForm, data) {
-    const submitButton = authForm.querySelector('.authorization_enter');
-    const errorElement = authForm.querySelector('.authorization_error');
+    const submitButton = authForm.querySelector('.form__enter');
+    const errorElement = authForm.querySelector('.authorization__error');
 
     submitButton.addEventListener('click', () => {
         errorElement.textContent = '';
@@ -293,7 +293,7 @@ function updateForm(authForm, data) {
  */
 function updateToLoggedIn() {
     const header = document.querySelector('header');
-    const headerButton = header.querySelector('.header_button');
+    const headerButton = header.querySelector('.header__button');
 
     headerButton.textContent = 'Выйти';
 
@@ -309,11 +309,11 @@ function updateToLoggedIn() {
 function closeLoginForm() {
     history.pushState(null, '', '/');
     const overlay = document.querySelector('.overlay');
-    const loginForm = document.querySelector('.login_form');
+    const loginForm = document.querySelector('.login-form');
 
     if (overlay && loginForm) {
-        overlay.classList.add('not_active');
-        loginForm.classList.add('not_active');
+        overlay.classList.add('not-active');
+        loginForm.classList.add('not-active');
 
         overlay.remove();
         loginForm.remove();
@@ -328,7 +328,7 @@ function closeLoginForm() {
  */
 export async function logoutUser() {
     const header = document.querySelector('header');
-    const headerButton = header?.querySelector('.header_button');
+    const headerButton = header?.querySelector('.header__button');
 
     const token = localStorage.getItem('jwt');
     const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})

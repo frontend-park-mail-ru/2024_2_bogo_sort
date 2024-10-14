@@ -16,6 +16,7 @@ export class Header {
      */
     constructor() {
         this.#wrapper = document.createElement('header');
+        this.#wrapper.classList.add('header');
     }
 
     /**
@@ -30,10 +31,21 @@ export class Header {
     }
 
     /**
+     * Renders the header template.
+     */
+    #renderTemplate() {
+        this.#wrapper.innerHTML = Handlebars.templates['header.hbs']();
+        if(checkAuth()) {
+            const headerButton = this.#wrapper.querySelector('.header__button');
+            headerButton.textContent = 'Выйти';
+        }
+    }
+
+    /**
      * Adds event listeners to the header elements.
      */
     #addListeners() {
-        const headerButton = this.#wrapper.querySelector('.header_button');
+        const headerButton = this.#wrapper.querySelector('.header__button');
         headerButton.addEventListener('click', () => {
             if(checkAuth()){
                 logoutUser();
@@ -41,16 +53,5 @@ export class Header {
                 showAuthForm(loginData);
             }
         });
-    }
-
-    /**
-     * Renders the header template.
-     */
-    #renderTemplate() {
-        this.#wrapper.innerHTML = Handlebars.templates['header.hbs']();
-        if(checkAuth()) {
-            const headerButton = this.#wrapper.querySelector('.header_button');
-            headerButton.textContent = 'Выйти';
-        }
     }
 }

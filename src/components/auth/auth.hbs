@@ -1,38 +1,38 @@
-<form class="form_wrapper">
+<form class="form-wrapper">
     <div class="features">
-        <div class="features_content">
-            <span class="features_logo">Эмпориум</span>
-            <span class="feature"><img src="../../static/images/money.svg" class="icon"> Быстро и удобно продать или
+        <div class="features__content">
+            <span class="features__logo">Эмпориум</span>
+            <span class="features__feature"><img src="../../static/images/money.svg" class="features__icon"> Быстро и удобно продать или
                 купить товары</span>
-            <span class="feature"><img src="../../static/images/time.svg" class="icon"> Найти работу или предложить
+            <span class="features__feature"><img src="../../static/images/time.svg" class="features__icon"> Найти работу или предложить
                 услугу</span>
-            <span class="feature"><img src="../../static/images/tools.svg" class="icon"> Найти профессионала под
+            <span class="features__feature"><img src="../../static/images/tools.svg" class="features__icon"> Найти профессионала под
                 специализированную задачу</span>
         </div>
     </div>
 
     <div class="auth">
-        <div class="auth_content">
-            <h1 class="authorization">{{title}}</h1>
-            <span class="authorization_details">{{info}}</span>
-            <span class="authorization_error"></span>
+        <div class="auth__content authorization">
+            <h1 class="authorization__title">{{title}}</h1>
+            <span class="authorization__details">{{info}}</span>
+            <span class="authorization__error"></span>
 
-            <div class="input_wrapper">
+            <div class="authorization__input-wrapper form">
                 {{#each inputs}}
-                <div class="tooltip">
+                <div class="form__tooltip input">
                     {{#if (eq-or this.name "password" "confirmPassword")}}
-                    <span class="eye"></span>
+                    <span class="input__eye"></span>
                     {{/if}}
                     <input type="{{this.type}}" class="{{this.class}}" name="{{this.name}}">
-                    <label for="{{this.name}}" class="input_label">{{this.placeholder}}</label>
+                    <label for="{{this.name}}" class="input__label">{{this.placeholder}}</label>
                     {{#if (eq this.name "password" this.form "signup")}}
-                    <span class="tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные
+                    <span class="input__tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные
                         буквы, цифры и специальные символы</span>
                     {{/if}}
                 </div>
                 {{/each}}
-                <button type="button" class="authorization_enter">{{buttontitle}}</button>
-                <span class="registration_link">{{pretext}} <a class="registration_link link">{{anchortext}}</a></span>
+                <button type="button" class="form__enter">{{buttontitle}}</button>
+                <span class="form__registration-link">{{pretext}} <a class="form__registration-link link">{{anchortext}}</a></span>
             </div>
         </div>
     </div>
