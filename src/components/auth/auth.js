@@ -87,6 +87,12 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
         });
 }
 
+/**
+ * Displays input errors.
+ * 
+ * @param {Map} errors - Map containing form errors.
+ * @param {HTMLElement} errorElement - The element where error messages will be displayed.
+ */
 function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
     let inputs = [];
@@ -119,6 +125,12 @@ function displayInputErrors(errors, errorElement) {
     
 }
 
+/**
+ * Checks if any given inputs has errors.
+ * 
+ * @param {Array} inputs - Array containing inputs.
+ * @returns {boolean} - True, if none of the given inputs has errors.
+ */
 function checkInputs(inputs) {
     for (const input of inputs) {
         if(input.classList.contains('error')){
@@ -173,6 +185,9 @@ export function showAuthForm(data) {
 
 }
 
+/**
+ * Adds event listeners on form inputs for errors display.
+ */
 function addInputEventListeners() {
     const input_wrapper = document.querySelector('.input_wrapper');
 
@@ -194,6 +209,11 @@ function addInputEventListeners() {
     })
 }
 
+/**
+ * Toggles password visibility.
+ * 
+ * @param {HTMLElement} eye - Element containing eye image.
+ */
 function togglePasswordVisibility(eye) {
     eye.classList.toggle('visible');
     const input = eye.parentElement.querySelector('input');

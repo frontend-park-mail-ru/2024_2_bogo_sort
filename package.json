@@ -2,7 +2,8 @@
   "dependencies": {
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "sass": "^1.79.5"
   },
   "name": "2024_2_bogo_sort",
   "version": "1.0.0",
