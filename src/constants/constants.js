@@ -55,6 +55,8 @@ export const signupData = {
     anchortext: 'Войти'
 };
 
+// export const BACKEND_URL = 'http://127.0.0.1:8080/api/v1';
+
 export const BACKEND_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
 
 export const IMAGE_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';

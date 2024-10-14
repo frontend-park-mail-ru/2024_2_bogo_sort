@@ -5,8 +5,7 @@ import { Header } from "../../components/header/header.js";
 import { Ajax } from "../../utils/ajax.js";
 import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
 
-const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-// const ajax = new Ajax(BACKEND_URL)
+const ajax = new Ajax(BACKEND_URL)
 
 /**
  * Represents the main page of the application.

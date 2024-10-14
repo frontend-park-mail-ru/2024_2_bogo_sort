@@ -10,7 +10,8 @@
   "description": "__Эмпириум__ – это современный онлайн-сервис объявлений, предназначенный для широкой аудитории, которая хочет быстро и удобно продать или купить товары, а также найти специализированного мастера под конкретную задачу, либо предложить услугу.",
   "main": "server.js",
   "scripts": {
-    "prestart": "npx eslint && handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js",
+    "compile": "sass --no-source-map --style=compressed src/static/styles/constants.scss:src/static/styles/constants.css src/static/styles/fonts.scss:src/static/styles/fonts.css src/pages/main/main.scss:src/pages/main/main.css src/components/header/header.scss:src/components/header/header.css src/components/card/card.scss:src/components/card/card.css src/components/auth/auth.scss:src/components/auth/auth.css",
+    "prestart": "npm run compile && npx eslint && handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js",
     "start": "node server/server.js"
   },
   "repository": {
