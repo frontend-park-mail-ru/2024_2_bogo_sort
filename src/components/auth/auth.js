@@ -17,7 +17,7 @@ const ajax = new Ajax(BACKEND_URL);
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs'];
 
-return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
+    return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
 }
 
 /**
@@ -72,7 +72,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     if(errors.size !== 0){
         displayInputErrors(errors, errorElement);
 
-return;
+        return;
     }
 
     ajax.post(endpoint, formData)
@@ -80,7 +80,7 @@ return;
             if (data?.code !== undefined) {
                 errorElement.textContent = errorMessage;
 
-return;
+                return;
             }
             localStorage.setItem('jwt', data.token);
             errorElement.textContent = '';
@@ -136,7 +136,7 @@ export function showAuthForm(data) {
     if(checkAuth()){
         history.pushState(null, '', '/');
 
-return;
+        return;
     }
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
@@ -157,7 +157,7 @@ return;
         overlay.classList.add('active');
         authForm.classList.add('active');
 
-        addSubmitClickListener(authForm, data);
+        addSubmitFormListener(authForm, data);
         addInputEventListeners();
         const registerLink = authForm.getElementsByClassName('link')[0];
         changeForm(registerLink, data, authForm);
@@ -209,7 +209,7 @@ function togglePasswordVisibility(eye) {
     if(input.getAttribute('type') === 'password') {
         input.setAttribute('type', 'text');
 
-return;
+        return;
     }
     input.setAttribute('type', 'password');
 }
@@ -220,11 +220,12 @@ return;
  * @param {HTMLElement} authForm - The authentication form element.
  * @param {Object} data - The data needed for form processing.
  */
-function addSubmitClickListener(authForm, data) {
-    const submitButton = authForm.querySelector('.form__enter');
+function addSubmitFormListener(authForm, data) {
+    const form = authForm.querySelector('.form-wrapper');
     const errorElement = authForm.querySelector('.auth__error');
 
-    submitButton.addEventListener('click', () => {
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
         errorElement.textContent = '';
 
         const inputs = authForm.querySelectorAll('input');
@@ -273,7 +274,7 @@ function changeForm(registerLink, data, authForm) {
 function updateForm(authForm, data) {
     authForm.innerHTML = renderAuthTemplate(data);
     changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
-    addSubmitClickListener(authForm, data);
+    addSubmitFormListener(authForm, data);
     addInputEventListeners();
 }
 
@@ -324,7 +325,7 @@ export async function logoutUser() {
     if(data.code !== undefined){
         console.log('logout error');
 
-return;
+        return;
     }
     localStorage.removeItem('jwt');
 

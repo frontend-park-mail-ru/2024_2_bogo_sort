@@ -12,5 +12,5 @@
 export function renderCardTemplate(title, price, imageUrl, apiUrl) {
     const template = Handlebars.templates['card.hbs'];
 
-return template({title, price, imageUrl, apiUrl});
+    return template({title, price, imageUrl, apiUrl});
 }

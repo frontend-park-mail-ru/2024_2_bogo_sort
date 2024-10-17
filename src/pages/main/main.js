@@ -29,7 +29,7 @@ export class MainPage {
     render() {
         this.#renderTemplate();
 
-return this.#element;
+        return this.#element;
     }
 
     /**

@@ -34,7 +34,7 @@ export class Ajax {
                 }
             });
 
-return await this.#handleResponse(response);
+            return await this.#handleResponse(response);
         } catch (error) {
             console.error('GET error:', error);
         }
@@ -60,7 +60,7 @@ return await this.#handleResponse(response);
                 body: JSON.stringify(data)
             });
 
-return await this.#handleResponse(response);
+            return await this.#handleResponse(response);
         } catch (error) {
             console.error('POST error:', error);
         }
@@ -78,6 +78,6 @@ return await this.#handleResponse(response);
             return { code: 400 };
         }
 
-return response.json();
+        return response.json();
     }
 }
