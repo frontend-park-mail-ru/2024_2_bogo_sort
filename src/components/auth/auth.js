@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 import { signupData, loginData, BACKEND_URL } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
@@ -10,18 +10,19 @@ const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Renders the authentication template using Handlebars.
- * 
+ *
  * @param {Object} data - The data to be passed to the template.
  * @returns {string} The rendered HTML string of the authentication template.
  */
 export function renderAuthTemplate(data) {
     const template = Handlebars.templates['auth.hbs'];
-    return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
+
+return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
 }
 
 /**
  * Handlebars helper to check equality of two values and additional conditions.
- * 
+ *
  * @param {*} a - First value to compare.
  * @param {*} b - Second value to compare.
  * @param {*} c - Third value for additional condition.
@@ -34,7 +35,7 @@ Handlebars.registerHelper('eq', function (a, b, c, d) {
 
 /**
  * Handlebars helper to check equality.
- * 
+ *
  * @param {*} a - First value to compare.
  * @param {*} b - Second value for additional condition.
  * @param {*} c - Third value for additional condition.
@@ -46,7 +47,7 @@ Handlebars.registerHelper('eq-or', function (a, b, c) {
 
 /**
  * Handles form submission for either registration or login.
- * 
+ *
  * @param {Object} formData - The data collected from the form inputs.
  * @param {boolean} isRegistration - Indicates if the form is for registration or login.
  * @param {HTMLElement} errorElement - The element where error messages will be displayed.
@@ -54,7 +55,7 @@ Handlebars.registerHelper('eq-or', function (a, b, c) {
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
-    let errors = new Map();
+    const errors = new Map();
 
     if (isRegistration && formData.password !== formData.confirmPassword) {
         errors.set('confirmPassword', 1);
@@ -70,14 +71,16 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     if(errors.size !== 0){
         displayInputErrors(errors, errorElement);
-        return;
+
+return;
     }
 
     ajax.post(endpoint, formData)
         .then(data => {
             if (data?.code !== undefined) {
                 errorElement.textContent = errorMessage;
-                return;
+
+return;
             }
             localStorage.setItem('jwt', data.token);
             errorElement.textContent = '';
@@ -88,13 +91,13 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
 /**
  * Displays input errors.
- * 
+ *
  * @param {Map} errors - Map containing form errors.
  * @param {HTMLElement} errorElement - The element where error messages will be displayed.
  */
 function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
-    let inputs = [];
+    const inputs = [];
     if(errors.get('email')) {
         const inputEmail = authForm.querySelector('.input__email');
         inputEmail.classList.add('error');
@@ -119,14 +122,14 @@ function displayInputErrors(errors, errorElement) {
             if(checkInputs(inputs)){
                 errorElement.innerText = '';
             }
-        })
-    })
-    
+        });
+    });
+
 }
 
 /**
  * Checks if any given inputs has errors.
- * 
+ *
  * @param {Array} inputs - Array containing inputs.
  * @returns {boolean} - True, if none of the given inputs has errors.
  */
@@ -136,18 +139,20 @@ function checkInputs(inputs) {
             return false;
         }
     }
-    return true;
+
+return true;
 }
 
 /**
  * Displays the authentication form based on the provided data.
- * 
+ *
  * @param {Object} data - The data needed to render the auth form.
  */
 export function showAuthForm(data) {
     if(checkAuth()){
         history.pushState(null, '', '/');
-        return;
+
+return;
     }
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
@@ -188,12 +193,12 @@ export function showAuthForm(data) {
  * Adds event listeners on form inputs for errors display.
  */
 function addInputEventListeners() {
-    const input_wrapper = document.querySelector('.authorization__input-wrapper');
+    const inputWrapper = document.querySelector('.authorization__input-wrapper');
 
-    input_wrapper.querySelectorAll('.form__tooltip input').forEach(input => {
+    inputWrapper.querySelectorAll('.form__tooltip input').forEach(input => {
         input.addEventListener('blur', () => {
             const label = input.parentElement.querySelector('.input__label');
-            if(input.value.trim() !== "") {
+            if(input.value.trim() !== '') {
                 label.classList.add('filled');
             } else {
                 label.classList.remove('filled');
@@ -201,16 +206,16 @@ function addInputEventListeners() {
         });
     });
 
-    input_wrapper.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
+    inputWrapper.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
         eye.addEventListener('click', () => {
             togglePasswordVisibility(eye);
         });
-    })
+    });
 }
 
 /**
  * Toggles password visibility.
- * 
+ *
  * @param {HTMLElement} eye - Element containing eye image.
  */
 function togglePasswordVisibility(eye) {
@@ -219,14 +224,15 @@ function togglePasswordVisibility(eye) {
 
     if(input.getAttribute('type') === 'password') {
         input.setAttribute('type', 'text');
-        return;
+
+return;
     }
     input.setAttribute('type', 'password');
 }
 
 /**
  * Adds a click event listener to the submit button of the authentication form.
- * 
+ *
  * @param {HTMLElement} authForm - The authentication form element.
  * @param {Object} data - The data needed for form processing.
  */
@@ -249,7 +255,7 @@ function addSubmitClickListener(authForm, data) {
 
 /**
  * Changes the authentication form between login and registration modes based on user interaction.
- * 
+ *
  * @param {HTMLElement} registerLink - The link element that triggers the change.
  * @param {Object} data - The current data for the authentication form.
  * @param {HTMLElement} authForm - The authentication form element being modified.
@@ -276,7 +282,7 @@ function changeForm(registerLink, data, authForm) {
 
 /**
  * Updates the authentication form with new data.
- * 
+ *
  * @param {HTMLElement} authForm - The authentication form element to be updated.
  * @param {Object} data - The data used to render the authentication template.
  */
@@ -321,7 +327,7 @@ function closeLoginForm() {
 
 /**
  * Logs out the user by sending a request to the server and updating the UI.
- * 
+ *
  * @async
  * @returns {Promise<void>}
  */
@@ -330,18 +336,19 @@ export async function logoutUser() {
     const headerButton = header?.querySelector('.header__button');
 
     const token = localStorage.getItem('jwt');
-    const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`})
+    const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`});
     if(data.code !== undefined){
         console.log('logout error');
-        return;
+
+return;
     }
     localStorage.removeItem('jwt');
-    
+
     headerButton.textContent = 'Войти';
     const headerButtonClone = headerButton.cloneNode(true);
     headerButtonClone.addEventListener('click', () => {
         showAuthForm(loginData);
     });
-    
+
     header.replaceChild(headerButtonClone, headerButton);
 }

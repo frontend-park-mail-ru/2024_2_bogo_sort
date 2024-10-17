@@ -1,8 +1,8 @@
 'use strict';
 
-import { MainPage } from "./pages/main/main.js";
-import { LogInPage } from "../pages/login/login.js";
-import { SignUpPage } from "../pages/signup/signup.js";
+import { MainPage } from './pages/main/main.js';
+import { LogInPage } from '../pages/login/login.js';
+import { SignUpPage } from '../pages/signup/signup.js';
 
 const base = document.getElementById('root');
 

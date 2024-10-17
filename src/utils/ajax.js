@@ -10,7 +10,7 @@ export class Ajax {
 
     /**
      * Creates an instance of the Ajax client with a specified base URL.
-     * 
+     *
      * @param {string} baseURL - The base URL for all requests made by this client.
      */
     constructor(baseURL) {
@@ -19,7 +19,7 @@ export class Ajax {
 
     /**
      * Makes a GET request to the specified endpoint.
-     * 
+     *
      * @param {string} endpoint - The endpoint to which the GET request is made.
      * @param {Object} [headers={}] - Optional headers to include in the request.
      * @returns {Promise<Object>} The response data parsed as JSON, or an error object if the request fails.
@@ -33,7 +33,8 @@ export class Ajax {
                     ...headers
                 }
             });
-            return await this.#handleResponse(response);
+
+return await this.#handleResponse(response);
         } catch (error) {
             console.error('GET error:', error);
         }
@@ -41,7 +42,7 @@ export class Ajax {
 
     /**
      * Makes a POST request to the specified endpoint with the given data.
-     * 
+     *
      * @param {string} endpoint - The endpoint to which the POST request is made.
      * @param {Object} data - The data to send in the body of the POST request.
      * @param {Object} [headers={}] - Optional headers to include in the request.
@@ -58,7 +59,8 @@ export class Ajax {
                 credentials: 'include',
                 body: JSON.stringify(data)
             });
-            return await this.#handleResponse(response);
+
+return await this.#handleResponse(response);
         } catch (error) {
             console.error('POST error:', error);
         }
@@ -66,7 +68,7 @@ export class Ajax {
 
     /**
      * Handles the HTTP response by checking its status and parsing it as JSON.
-     * 
+     *
      * @param {Response} response - The response object from the fetch call.
      * @returns {Promise<Object>} The parsed JSON data if the response is OK, or an error object.
      * @private
@@ -75,6 +77,7 @@ export class Ajax {
         if(!response.ok) {
             return { code: 400 };
         }
-        return response.json();
+
+return response.json();
     }
 }

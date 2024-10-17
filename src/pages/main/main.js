@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-import { renderCardTemplate } from "../../components/card/card.js";
-import { Header } from "../../components/header/header.js";
-import { Ajax } from "../../utils/ajax.js";
-import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
+import { renderCardTemplate } from '../../components/card/card.js';
+import { Header } from '../../components/header/header.js';
+import { Ajax } from '../../utils/ajax.js';
+import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
 
-const ajax = new Ajax(BACKEND_URL)
+const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Represents the main page of the application.
@@ -23,17 +23,18 @@ export class MainPage {
 
     /**
      * Renders the main page and returns the main container element.
-     * 
+     *
      * @returns {HTMLElement} The main container element with the rendered content.
      */
     render() {
         this.#renderTemplate();
-        return this.#element;
+
+return this.#element;
     }
 
     /**
      * Renders the template for the main page.
-     * 
+     *
      * Fetches card data from the API, creates a header, and appends
      * card elements to the main container.
      */
