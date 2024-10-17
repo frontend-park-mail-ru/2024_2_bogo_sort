@@ -47,7 +47,6 @@ export class MainPage {
         this.#element.appendChild(header.render());
 
         const container = document.createElement('div');
-        const containerWrapper = document.createElement('div');
 
         container.classList.add('cards');
 

@@ -99,18 +99,18 @@ function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
     const inputs = [];
     if(errors.has('email')) {
-        const inputEmail = authForm.querySelector('.input__email');
-        inputEmail.classList.add('error');
+        const inputEmail = authForm?.querySelector('.input__email');
+        inputEmail?.classList.add('error');
         inputs.push(inputEmail);
     }
     if(errors.has('password')) {
-        const inputPassword = authForm.querySelector('.input__password');
-        inputPassword.classList.add('error');
+        const inputPassword = authForm?.querySelector('.input__password');
+        inputPassword?.classList.add('error');
         inputs.push(inputPassword);
     }
     if(errors.has('confirmPassword')) {
-        const inputConfirmPassword = authForm.querySelectorAll('.input__password')[1];
-        inputConfirmPassword.classList.add('error');
+        const inputConfirmPassword = authForm?.querySelectorAll('.input__password')[1];
+        inputConfirmPassword?.classList.add('error');
         inputs.push(inputConfirmPassword);
     }
 
@@ -165,7 +165,7 @@ export function showAuthForm(data) {
         toggleClasses([overlay, authForm], 'not-active', 'active');
     }
 
-    overlay.addEventListener('click', () => {
+    overlay?.addEventListener('click', () => {
         toggleClasses([overlay, authForm], 'not-active', 'active');
         history.pushState(null, '', '/');
         updateForm(authForm, loginData);
@@ -179,18 +179,18 @@ export function showAuthForm(data) {
 function addInputEventListeners() {
     const inputWrapper = document.querySelector('.auth__input-wrapper');
 
-    inputWrapper.querySelectorAll('.form__tooltip input').forEach(input => {
-        input.addEventListener('blur', () => {
+    inputWrapper?.querySelectorAll('.form__tooltip input').forEach(input => {
+        input?.addEventListener('blur', () => {
             const label = input.parentElement.querySelector('.input__label');
             if(input.value !== '') {
-                label.classList.add('filled');
+                label?.classList.add('filled');
             } else {
-                label.classList.remove('filled');
+                label?.classList.remove('filled');
             }
         });
     });
 
-    inputWrapper.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
+    inputWrapper?.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
         eye.addEventListener('click', () => {
             togglePasswordVisibility(eye);
         });
@@ -206,12 +206,12 @@ function togglePasswordVisibility(eye) {
     eye.classList.toggle('visible');
     const input = eye.parentElement.querySelector('input');
 
-    if(input.getAttribute('type') === 'password') {
+    if(input?.getAttribute('type') === 'password') {
         input.setAttribute('type', 'text');
 
         return;
     }
-    input.setAttribute('type', 'password');
+    input?.setAttribute('type', 'password');
 }
 
 /**
@@ -224,13 +224,13 @@ function addSubmitFormListener(authForm, data) {
     const form = authForm.querySelector('.form-wrapper');
     const errorElement = authForm.querySelector('.auth__error');
 
-    form.addEventListener('submit', (event) => {
+    form?.addEventListener('submit', (event) => {
         event.preventDefault();
         errorElement.textContent = '';
 
         const inputs = authForm.querySelectorAll('input');
         const formData = {};
-        inputs.forEach(input => {
+        inputs?.forEach(input => {
             formData[input.name] = input.value;
         });
 
@@ -287,10 +287,10 @@ function updateToLoggedIn() {
 
     headerButton.textContent = 'Выйти';
 
-    const headerButtonClone = headerButton.cloneNode(true);
-    headerButtonClone.addEventListener('click', logoutUser);
+    const headerButtonClone = headerButton?.cloneNode(true);
+    headerButtonClone?.addEventListener('click', logoutUser);
 
-    header.replaceChild(headerButtonClone, headerButton);
+    header?.replaceChild(headerButtonClone, headerButton);
 }
 
 /**
@@ -302,11 +302,11 @@ function closeLoginForm() {
     const loginForm = document.querySelector('.login-form');
 
     if (overlay && loginForm) {
-        overlay.classList.add('not-active');
-        loginForm.classList.add('not-active');
+        overlay?.classList.add('not-active');
+        loginForm?.classList.add('not-active');
 
-        overlay.remove();
-        loginForm.remove();
+        overlay?.remove();
+        loginForm?.remove();
     }
 }
 
@@ -322,7 +322,7 @@ export async function logoutUser() {
 
     const token = localStorage.getItem('jwt');
     const data = await ajax.post('/logout', null, {'Authorization': `Bearer ${token}`});
-    if(data.code !== undefined){
+    if(data?.code !== undefined){
         console.log('logout error');
 
         return;
@@ -330,8 +330,8 @@ export async function logoutUser() {
     localStorage.removeItem('jwt');
 
     headerButton.textContent = 'Войти';
-    const headerButtonClone = headerButton.cloneNode(true);
-    headerButtonClone.addEventListener('click', () => {
+    const headerButtonClone = headerButton?.cloneNode(true);
+    headerButtonClone?.addEventListener('click', () => {
         showAuthForm(loginData);
     });
 

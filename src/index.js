@@ -7,7 +7,7 @@ import { SignUpPage } from '../pages/signup/signup.js';
 const base = document.getElementById('root');
 
 const main = new MainPage();
-base.appendChild(main.render());
+base?.appendChild(main.render());
 
 window.addEventListener('load', () => {
     switch(window.location.pathname) {

@@ -28,7 +28,7 @@ export class Header {
         this.#renderTemplate();
         this.#addListeners();
 
-return this.#wrapper;
+        return this.#wrapper;
     }
 
     /**
@@ -47,7 +47,7 @@ return this.#wrapper;
      */
     #addListeners() {
         const headerButton = this.#wrapper.querySelector('.header__button');
-        headerButton.addEventListener('click', () => {
+        headerButton?.addEventListener('click', () => {
             if(checkAuth()){
                 logoutUser();
             } else {
