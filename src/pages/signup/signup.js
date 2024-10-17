@@ -28,8 +28,8 @@ export class SignUpPage {
      * Expands the authentication wrapper.
      */
     #expandAuthWrapper() {
-        const authForm = document.querySelector('.form_wrapper');
-        toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+        const authForm = document.querySelector('.form-wrapper');
+        toggleClasses([authForm.getElementsByClassName('auth-wrapper')[0], authForm.getElementsByClassName('features')[0]], 'expand');
     }
 }
 

@@ -2,22 +2,22 @@
     <div class="features">
         <div class="features__content">
             <span class="features__logo">Эмпориум</span>
-            <span class="features__feature"><img src="../../static/images/money.svg" class="features__icon"> Быстро и удобно продать или
+            <span class="features__feature feature"><img src="../../static/images/money.svg" class="feature__icon"> Быстро и удобно продать или
                 купить товары</span>
-            <span class="features__feature"><img src="../../static/images/time.svg" class="features__icon"> Найти работу или предложить
+            <span class="features__feature feature"><img src="../../static/images/time.svg" class="feature__icon"> Найти работу или предложить
                 услугу</span>
-            <span class="features__feature"><img src="../../static/images/tools.svg" class="features__icon"> Найти профессионала под
+            <span class="features__feature feature"><img src="../../static/images/tools.svg" class="feature__icon"> Найти профессионала под
                 специализированную задачу</span>
         </div>
     </div>
 
-    <div class="auth">
-        <div class="auth__content authorization">
-            <h1 class="authorization__title">{{title}}</h1>
-            <span class="authorization__details">{{info}}</span>
-            <span class="authorization__error"></span>
+    <div class="auth-wrapper">
+        <div class="auth-wrapper__auth auth">
+            <h1 class="auth__title">{{title}}</h1>
+            <span class="auth__details">{{info}}</span>
+            <span class="auth__error"></span>
 
-            <div class="authorization__input-wrapper form">
+            <div class="auth__input-wrapper form">
                 {{#each inputs}}
                 <div class="form__tooltip input">
                     {{#if (eq-or this.name "password" "confirmPassword")}}

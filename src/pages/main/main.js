@@ -51,9 +51,6 @@ return this.#element;
 
         container.classList.add('cards');
 
-        // containerWrapper.classList.add('cards-wrapper');
-        // containerWrapper.appendChild(container);
-
         cards.forEach(element => {
             container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
         });

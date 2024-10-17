@@ -55,18 +55,18 @@ Handlebars.registerHelper('eq-or', function (a, b, c) {
 function handleFormSubmission(formData, isRegistration, errorElement) {
     const endpoint = isRegistration ? '/signup' : '/login';
     const errorMessage = isRegistration ? 'Ошибка регистрации!' : 'Ошибка авторизации!';
-    const errors = new Map();
+    const errors = new Set();
 
     if (isRegistration && formData.password !== formData.confirmPassword) {
-        errors.set('confirmPassword', 1);
+        errors.add('confirmPassword', 1);
     }
 
     if (!validateEmail(formData.email)) {
-        errors.set('email', 1);
+        errors.add('email', 1);
     }
 
     if (!validatePassword(formData.password)) {
-        errors.set('password', 1);
+        errors.add('password', 1);
     }
 
     if(errors.size !== 0){
@@ -98,17 +98,17 @@ return;
 function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
     const inputs = [];
-    if(errors.get('email')) {
+    if(errors.has('email')) {
         const inputEmail = authForm.querySelector('.input__email');
         inputEmail.classList.add('error');
         inputs.push(inputEmail);
     }
-    if(errors.get('password')) {
+    if(errors.has('password')) {
         const inputPassword = authForm.querySelector('.input__password');
         inputPassword.classList.add('error');
         inputs.push(inputPassword);
     }
-    if(errors.get('confirmPassword')) {
+    if(errors.has('confirmPassword')) {
         const inputConfirmPassword = authForm.querySelectorAll('.input__password')[1];
         inputConfirmPassword.classList.add('error');
         inputs.push(inputConfirmPassword);
@@ -119,28 +119,12 @@ function displayInputErrors(errors, errorElement) {
     inputs.forEach(input => {
         input.addEventListener('input', () => {
             input.classList.remove('error');
-            if(checkInputs(inputs)){
+            if(!inputs.some((input) => input.classList.contains('error'))){
                 errorElement.innerText = '';
             }
         });
     });
 
-}
-
-/**
- * Checks if any given inputs has errors.
- *
- * @param {Array} inputs - Array containing inputs.
- * @returns {boolean} - True, if none of the given inputs has errors.
- */
-function checkInputs(inputs) {
-    for (const input of inputs) {
-        if(input.classList.contains('error')){
-            return false;
-        }
-    }
-
-return true;
 }
 
 /**
@@ -193,12 +177,12 @@ return;
  * Adds event listeners on form inputs for errors display.
  */
 function addInputEventListeners() {
-    const inputWrapper = document.querySelector('.authorization__input-wrapper');
+    const inputWrapper = document.querySelector('.auth__input-wrapper');
 
     inputWrapper.querySelectorAll('.form__tooltip input').forEach(input => {
         input.addEventListener('blur', () => {
             const label = input.parentElement.querySelector('.input__label');
-            if(input.value.trim() !== '') {
+            if(input.value !== '') {
                 label.classList.add('filled');
             } else {
                 label.classList.remove('filled');
@@ -238,7 +222,7 @@ return;
  */
 function addSubmitClickListener(authForm, data) {
     const submitButton = authForm.querySelector('.form__enter');
-    const errorElement = authForm.querySelector('.authorization__error');
+    const errorElement = authForm.querySelector('.auth__error');
 
     submitButton.addEventListener('click', () => {
         errorElement.textContent = '';
@@ -266,7 +250,7 @@ function changeForm(registerLink, data, authForm) {
             history.pushState(null, '', '/login');
             data = loginData;
             const AUTH_FORM_ANIMATION_DELAY = 170;
-            toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+            toggleClasses([authForm.getElementsByClassName('auth-wrapper')[0], authForm.getElementsByClassName('features')[0]], 'expand');
             setTimeout(() => updateForm(authForm, data), AUTH_FORM_ANIMATION_DELAY);
         } else {
             history.pushState(null, '', '/signup');
@@ -274,7 +258,7 @@ function changeForm(registerLink, data, authForm) {
             updateForm(authForm, data);
             const REGISTER_FORM_ANIMATION_DELAY = 10;
             setTimeout(() => {
-                toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+                toggleClasses([authForm.getElementsByClassName('auth-wrapper')[0], authForm.getElementsByClassName('features')[0]], 'expand');
             }, REGISTER_FORM_ANIMATION_DELAY);
         }
     });

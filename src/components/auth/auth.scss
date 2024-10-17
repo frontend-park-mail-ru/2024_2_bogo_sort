@@ -44,16 +44,13 @@
     height: 100%;
     z-index: 4;
     background-color: var(--color-secondary25);
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 20px 0 0 20px;
     transition: height 0.3s ease, margin-top 0.3s ease;
 
     &__content {
         display: flex;
-        flex-wrap: wrap;
-        padding-left: 43px;
-        padding-right: 20px;
-        padding-top: 57px;
+        flex-direction: column;
+        padding: 57px 20px 0 43px;
         row-gap: 50px;
     }
 
@@ -70,13 +67,15 @@
         font-size: 16px;
         align-items: center;
     }
+}
 
+.feature {
     &__icon {
         padding-right: 10px;
     }
 }
 
-.auth {
+.auth-wrapper {
     display: block;
     width: 50%;
     height: 100%;
@@ -86,14 +85,14 @@
     border-bottom-right-radius: 20px;
     transition: height 0.3s ease, margin-top 0.3s ease;
 
-    &__content {
+    &__auth {
         padding-left: 71px;
         padding-right: 74px;
         padding-top: 57px;
     }
 }
 
-.authorization {
+.auth {
     display: block;
 
     &__title {
@@ -135,7 +134,8 @@
         transition: 0.2s ease;
     }
 
-    &__email {
+    &__email,
+    &__password {
         height: 49px;
         width: 100%;
         border: 1px solid var(--color-secondary50);
@@ -151,7 +151,6 @@
     }
 
     &__password {
-        @extend .input__email;
         padding-right: 50px;
     }
 
