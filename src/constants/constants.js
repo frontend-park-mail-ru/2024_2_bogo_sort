@@ -7,14 +7,14 @@ export const loginData = {
         {
             form: 'login',
             type: 'text',
-            class: 'input_email',
+            class: 'input__email',
             name: 'email',
             placeholder: 'Email'
         },
         {
             form: 'login',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'password',
             placeholder: 'Пароль'
         }
@@ -31,21 +31,21 @@ export const signupData = {
         {
             form: 'signup',
             type: 'text',
-            class: 'input_email',
+            class: 'input__email',
             name: 'email',
             placeholder: 'Email'
         },
         {
             form: 'signup',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'password',
             placeholder: 'Пароль'
         },
         {
             form: 'signup',
             type: 'password',
-            class: 'input_password',
+            class: 'input__password',
             name: 'confirmPassword',
             placeholder: 'Подтвердите пароль'
         }
@@ -55,6 +55,7 @@ export const signupData = {
     anchortext: 'Войти'
 };
 
+// export const BACKEND_URL = 'http://127.0.0.1:8080/api/v1';
 export const BACKEND_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
 
 export const IMAGE_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';
