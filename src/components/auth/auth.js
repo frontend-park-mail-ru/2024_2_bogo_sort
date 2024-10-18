@@ -58,15 +58,15 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
     const errors = new Set();
 
     if (isRegistration && formData.password !== formData.confirmPassword) {
-        errors.add('confirmPassword', 1);
+        errors.add('confirmPassword');
     }
 
     if (!validateEmail(formData.email)) {
-        errors.add('email', 1);
+        errors.add('email');
     }
 
     if (!validatePassword(formData.password)) {
-        errors.add('password', 1);
+        errors.add('password');
     }
 
     if(errors.size !== 0){
