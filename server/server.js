@@ -20,5 +20,5 @@ app.get('/signup', (req, res) => {
 });
 
 app.listen(8008, () => {
-    console.log(`Server is running at http://localhost:${8008}`)
-})
+    console.log(`Server is running at http://localhost:${8008}`);
+});

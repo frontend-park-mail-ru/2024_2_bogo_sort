@@ -1,8 +1,8 @@
 'use strict';
 
-import { showAuthForm } from "../../components/auth/auth.js";
-import { signupData } from "../../constants/constants.js";
-import { toggleClasses } from "../../utils/toggleClasses.js";
+import { showAuthForm } from '../../components/auth/auth.js';
+import { signupData } from '../../constants/constants.js';
+import { toggleClasses } from '../../utils/toggleClasses.js';
 
 /**
  * Represents the sign-up page of the application.
@@ -28,8 +28,8 @@ export class SignUpPage {
      * Expands the authentication wrapper.
      */
     #expandAuthWrapper() {
-        const authForm = document.querySelector('.auth_wrapper');
-        toggleClasses([authForm.getElementsByClassName('auth')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+        const authForm = document.querySelector('.form-wrapper');
+        toggleClasses([authForm?.getElementsByClassName('auth-wrapper')[0], authForm?.getElementsByClassName('features')[0]], 'expand');
     }
 }
 

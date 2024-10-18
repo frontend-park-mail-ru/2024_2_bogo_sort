@@ -1,0 +1,11 @@
+.main {
+    display: grid;
+}
+
+.cards {
+    display: flex;
+    width: 960px;
+    flex-direction: row;
+    justify-self: center;
+    flex-wrap: wrap;
+}
