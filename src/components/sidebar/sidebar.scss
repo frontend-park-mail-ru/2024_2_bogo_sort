@@ -1,0 +1,58 @@
+.side_menu {
+    flex: 0 0 200px;
+    background: white;
+    width: 15vw;
+    height: 80vh;
+    border-radius: 20px;
+    padding: 30px;
+    padding-top: 40px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.200);
+
+    .wrap {
+        display: grid;
+        gap: 15px;
+    }
+
+    .menu-item {
+        display: grid;
+        gap: 10px;
+    }
+
+    .container {
+        margin-top: 10px;
+    }
+
+    .item {
+        color: #6B6B6B;
+        background: none;
+        border: none;
+        text-align: start;
+        font-size: 16px;
+        height: 40px;
+        padding: 0;
+
+        &:hover {
+            color: #9D9D9D;
+        }
+
+        &:focus {
+            color: #000000;
+            font-weight: bolder;
+        }
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .date {
+        color: #9D9D9D;
+    }
+
+    .img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: #cbcbcb;
+    }
+}

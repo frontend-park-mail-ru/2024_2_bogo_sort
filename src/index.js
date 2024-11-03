@@ -1,8 +1,8 @@
 'use strict';
 
 import { MainPage } from './pages/main/main.js';
-import { LogInPage } from '../pages/login/login.js';
-import { SignUpPage } from '../pages/signup/signup.js';
+import { LogInPage } from './pages/login/login.js';
+import { SignUpPage } from './pages/signup/signup.js';
 
 const base = document.getElementById('root');
 
@@ -19,5 +19,9 @@ window.addEventListener('load', () => {
             const signupPage = new SignUpPage();
             signupPage.render();
             break;
-        }
+        // case '/user':
+        //     const userPage = new UserPage();
+        //     userPage.render();
+        //     break;
+    }
 });

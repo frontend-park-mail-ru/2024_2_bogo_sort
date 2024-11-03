@@ -2,13 +2,14 @@
 
 import { renderCardTemplate } from '../../components/card/card.js';
 import { Header } from '../../components/header/header.js';
-import { Ajax } from '../../utils/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+//import { Ajax } from '../../utils/ajax.js';
+//import { BACKEND_URL, API_URL } from '../../constants/constants.js';
+import { mockCards } from '../../constants/mockData.js';
 
-const ajax = new Ajax(BACKEND_URL);
+//const ajax = new Ajax(BACKEND_URL);
 
 /**
- * Represents the main page of the application.
+ * Represents the main page of the application.API_URL
  */
 export class MainPage {
     #element;
@@ -40,19 +41,18 @@ export class MainPage {
      */
     async #renderTemplate() {
 
-        const cards = await ajax.get('/adverts');
+        //const cards = await ajax.get('/adverts');
 
         const header = new Header();
-
         this.#element.appendChild(header.render());
 
         const container = document.createElement('div');
-
         container.classList.add('cards');
 
-        cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
+        mockCards.forEach(card => {
+            container.innerHTML += renderCardTemplate(card.title, card.price, card.imageUrl, card.API_URL);
         });
+
         this.#element.appendChild(container);
     }
 }
