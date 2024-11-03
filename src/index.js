@@ -19,9 +19,9 @@ window.addEventListener('load', () => {
             const signupPage = new SignUpPage();
             signupPage.render();
             break;
-        // case '/user':
-        //     const userPage = new UserPage();
-        //     userPage.render();
-        //     break;
+        case '/user':
+            const userPage = new UserPage();
+            userPage.render();
+            break;
     }
 });

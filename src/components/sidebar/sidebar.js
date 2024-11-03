@@ -13,6 +13,7 @@ export class Sidebar {
     render() {
         this.#renderTemplate();
         this.#addListeners();
+        
         return this.#wrapper;
     }
 
@@ -21,14 +22,15 @@ export class Sidebar {
     }
 
     #addListeners() {
-        const buttons = this.#wrapper.getElementsByClassName('item');
+        const myAdvertsButton = this.#wrapper.querySelector('.item:nth-child(1)');
+        const myOrdersButton = this.#wrapper.querySelector('.item:nth-child(2)');
+        const myFavouritesButton = this.#wrapper.querySelector('.item:nth-child(3)');
+        const mySettingsButton = this.#wrapper.querySelector('.item:nth-child(4)');
 
-        if (buttons.length >= 4) {
-            buttons[0].addEventListener('click', this.myAdverts);
-            buttons[1].addEventListener('click', this.myOrders);
-            buttons[2].addEventListener('click', this.myFavourites);
-            buttons[3].addEventListener('click', this.mySettings);
-        }
+        myAdvertsButton.addEventListener('click', this.myAdverts);
+        myOrdersButton.addEventListener('click', this.myOrders);
+        myFavouritesButton.addEventListener('click', this.myFavourites);
+        mySettingsButton.addEventListener('click', this.mySettings);
     }
 
     myAdverts() {
