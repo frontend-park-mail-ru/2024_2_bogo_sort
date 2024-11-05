@@ -35,17 +35,17 @@ export class UserPage {
         main.classList.add('user-main');
 
         this.titleElement = document.createElement('h1');
-        this.titleElement.textContent = 'Hello world';
+        this.titleElement.textContent = 'Мои объявления';
         main.appendChild(this.titleElement);
 
-        const cardsWrapper = document.createElement('div');
-        cardsWrapper.classList.add('user-cards');
+        // const cardsWrapper = document.createElement('div');
+        // cardsWrapper.classList.add('user-cards');
 
-        mockCards.forEach(card => {
-            cardsWrapper.innerHTML += renderCardTemplate(card.title, card.price, card.imageUrl, card.API_URL);
-        });
+        // mockCards.forEach(card => {
+        //     cardsWrapper.innerHTML += renderCardTemplate(card.title, card.price, card.imageUrl, card.API_URL);
+        // });
         
-        main.appendChild(cardsWrapper);
+        // main.appendChild(cardsWrapper);
         container.appendChild(main);
         page.appendChild(container);
         this.#element.appendChild(page);

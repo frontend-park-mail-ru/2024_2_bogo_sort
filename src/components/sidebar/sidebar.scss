@@ -7,7 +7,7 @@
     border-radius: 20px;
     padding: 30px;
     padding-top: 40px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.200);
+    box-shadow: 0px 1px 4px var(--box-shadow-color);
 
     .wrap {
         display: grid;
@@ -24,7 +24,7 @@
     }
 
     .item {
-        color: #6B6B6B;
+        color: var(--color-secondary70);
         background: none;
         border: none;
         text-align: start;
@@ -33,11 +33,11 @@
         padding: 0;
 
         &:hover {
-            color: #9D9D9D;
+            color: var(--color-secondary50);
         }
 
         &:focus {
-            color: #000000;
+            color: var(--color-secondary100);
             font-weight: bolder;
         }
     }
@@ -47,13 +47,13 @@
     }
 
     .date {
-        color: #9D9D9D;
+        color: var(--color-secondary50);
     }
 
     .img {
         width: 150px;
         height: 150px;
         border-radius: 50%;
-        background: #cbcbcb;
+        background: var(--color-secondary25);
     }
 }
