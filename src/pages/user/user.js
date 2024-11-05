@@ -8,22 +8,28 @@ export class UserPage {
 
     constructor() {
         this.#element = document.createElement('div');
-        this.#element.classList.add('contents');
+        this.#element.classList.add('user-page');
     }
 
     render() {
         this.#renderTemplate();
-
         return this.#element;
     }
 
-    async #renderTemplate() {
+    #renderTemplate() {
         const header = new Header();
         this.#element.appendChild(header.render());
 
-        const sidebar = new Sidebar();
-        this.#element.appendChild(sidebar.render());
+        const main = document.createElement('div');
+        main.classList.add('user-main');
 
-        return this.#element;
+        const container = document.createElement('div');
+        container.classList.add('contents');
+
+        const sidebar = new Sidebar();
+        container.appendChild(sidebar.render());
+
+        main.appendChild(container);
+        this.#element.appendChild(main);
     }
 }

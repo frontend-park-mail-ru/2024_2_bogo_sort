@@ -3,6 +3,7 @@
 import { MainPage } from './pages/main/main.js';
 import { LogInPage } from './pages/login/login.js';
 import { SignUpPage } from './pages/signup/signup.js';
+import { UserPage } from './pages/user/user.js';
 
 const base = document.getElementById('root');
 
@@ -13,15 +14,18 @@ window.addEventListener('load', () => {
     switch(window.location.pathname) {
         case '/login':
             const loginPage = new LogInPage();
-            loginPage.render();
+            base.innerHTML = '';
+            base.appendChild(loginPage.render());
             break;
         case '/signup':
             const signupPage = new SignUpPage();
-            signupPage.render();
+            base.innerHTML = '';
+            base.appendChild(signupPage.render());
             break;
         case '/user':
             const userPage = new UserPage();
-            userPage.render();
+            base.innerHTML = '';
+            base.appendChild(userPage.render());
             break;
     }
 });
