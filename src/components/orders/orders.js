@@ -1,11 +1,11 @@
 'use strict';
 
-export class Settings {
+export class MyOrders {
     #element;
 
     constructor() {
         this.#element = document.createElement('div');
-        this.#element.classList.add('settings');
+        this.#element.classList.add('orders');
     }
 
     render() {
@@ -14,6 +14,6 @@ export class Settings {
     }
 
     #renderTemplate() {
-        this.#element.innerHTML = Handlebars.templates['settings.hbs']();
+        this.#element.innerHTML = Handlebars.templates['orders.hbs']();
     }
 }

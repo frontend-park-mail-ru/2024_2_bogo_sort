@@ -4,8 +4,12 @@
 @import "components/header/header.css";
 @import "components/auth/auth.css";
 @import "components/sidebar/sidebar.css";
+@import "components/settings/settings.css";
+@import "components/orders/orders.css";
 @import "pages/main/main.css";
 @import "pages/user/user.css";
+
+
 
 
 body {
