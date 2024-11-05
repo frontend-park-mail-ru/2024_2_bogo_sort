@@ -39,7 +39,7 @@ export class ChangeAdvertPage {
         wrapper.querySelector('.advert-form__address-input').value = advert.location;
         wrapper.querySelector('.advert-form__upload-box-image').classList.add('big');
         wrapper.querySelector('.advert-form__upload-box-text').classList.add('not-active');
-        wrapper.querySelector('.advert-form__upload-box-text-additioinal').classList.add('not-active');
+        wrapper.querySelector('.advert-form__upload-box-text-additional').classList.add('not-active');
         wrapper.querySelector('.advert-form__upload-box-image').src = IMAGE_URL + advert.image_url;
 
         wrapper.querySelector('.advert-form__submit').textContent = 'Сохранить изменения';

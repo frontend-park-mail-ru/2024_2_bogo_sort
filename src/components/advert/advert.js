@@ -145,5 +145,11 @@ export class AdvertComponent {
         changeButton?.addEventListener('click', () => {
             window.location.href = `/change/${advertId}`;
         });
+
+        const deleteButton = wrapper.querySelector('.modal__delete');
+        deleteButton?.addEventListener('click', () => {
+            ajax.delete(`/adverts/${advertId}`, null);
+            window.location.href = '/';
+        });
     }
 };
