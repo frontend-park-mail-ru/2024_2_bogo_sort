@@ -1,25 +1,15 @@
-'use strict';
-
-import { renderCardTemplate } from '../../components/card/card.js';
-import { Header } from '../../components/header/header.js';
-import { Ajax } from '../../utils/ajax.js';
+import { renderCardTemplate, addCardListeners } from '../../components/card/card.js';
+import ajax from '../../utils/ajax.js';
+// import { Ajax } from '../../utils/ajax.js';
 import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 
-const ajax = new Ajax(BACKEND_URL);
+// const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Represents the main page of the application.
  */
 export class MainPage {
-    #element;
-
-    /**
-     * Initializes a new instance of the MainPage class.
-     */
-    constructor() {
-        this.#element = document.createElement('div');
-        this.#element.classList.add('main');
-    }
 
     /**
      * Renders the main page and returns the main container element.
@@ -28,8 +18,6 @@ export class MainPage {
      */
     render() {
         this.#renderTemplate();
-
-        return this.#element;
     }
 
     /**
@@ -39,20 +27,27 @@ export class MainPage {
      * card elements to the main container.
      */
     async #renderTemplate() {
+        const main = initHeaderAndMain();
 
-        const cards = await ajax.get('/adverts');
+        const title = document.createElement('h1');
+        title.className = 'category-title';
+        title.textContent = 'Все объявления';
+        main.appendChild(title);
 
-        const header = new Header();
-
-        this.#element.appendChild(header.render());
+        const cards = await ajax.get('/adverts?limit=30&offset=0');
 
         const container = document.createElement('div');
 
         container.classList.add('cards');
 
+        let noInactiveCards = [];
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
+            if(element.status !== 'inactive'){
+                container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
+                noInactiveCards.push(element);
+            }
         });
-        this.#element.appendChild(container);
+        main.appendChild(container);
+        addCardListeners(noInactiveCards);
     }
 }

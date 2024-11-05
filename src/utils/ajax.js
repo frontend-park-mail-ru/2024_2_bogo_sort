@@ -1,20 +1,34 @@
 'use strict';
 
+import { BACKEND_URL } from "../constants/constants.js";
+
 const GET = 'GET';
 const POST = 'POST';
+const PUT = 'PUT';
+const DELETE = 'DELETE';
 
 /**
  * Represents an Ajax client for making HTTP requests.
  */
-export class Ajax {
-
+class Ajax {
     /**
      * Creates an instance of the Ajax client with a specified base URL.
      *
      * @param {string} baseURL - The base URL for all requests made by this client.
      */
     constructor(baseURL) {
+        // this.getCSRF();
         this.baseURL = baseURL;
+    }
+
+    async getCSRF() {
+        await fetch(`${this.baseURL}/csrf-token`, {
+            method: GET,
+            credentials: 'include',
+        }).then(res => {
+            this.csrf = res.headers.get('X-Csrf-Token');
+        });
+
     }
 
     /**
@@ -31,7 +45,8 @@ export class Ajax {
                 headers: {
                     'Content-type': 'application/json',
                     ...headers
-                }
+                },
+                credentials: 'include',
             });
 
             return await this.#handleResponse(response);
@@ -50,10 +65,12 @@ export class Ajax {
      */
     async post(endpoint, data, headers = {}) {
         try {
+            this.csrf ?? await this.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
                 headers: {
                     'Content-type': 'application/json',
+                    'X-CSRF-Token': this.csrf,
                     ...headers
                 },
                 credentials: 'include',
@@ -63,6 +80,68 @@ export class Ajax {
             return await this.#handleResponse(response);
         } catch (error) {
             console.error('POST error:', error);
+        }
+    }
+
+    async put(endpoint, data, headers = {}) {
+        try {
+            this.csrf ?? await this.getCSRF();
+            const response = await fetch(`${this.baseURL}${endpoint}`, {
+                method: PUT,
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRF-Token': this.csrf,
+                    ...headers
+                },
+                credentials: 'include',
+                body: JSON.stringify(data)
+            });
+
+            return await this.#handleResponse(response);
+        } catch (error) {
+            console.error('PUT error:', error);
+        }
+    }
+
+    async delete(endpoint, data, headers = {}) {
+        try {
+            this.csrf ?? await this.getCSRF();
+            const response = await fetch(`${this.baseURL}${endpoint}`, {
+                method: DELETE,
+                headers: {
+                    'Content-type': 'application/json',
+                    'X-CSRF-Token': this.csrf,
+                    ...headers
+                },
+                credentials: 'include',
+                body: JSON.stringify(data)
+            });
+
+            if(response.headers.get('X-Authenticated') === false && localStorage.getItem('id')) {
+                localStorage.removeItem('id');
+            }
+
+            return await this.#handleResponse(response);
+        } catch (error) {
+            console.error('DELETE error:', error);
+        }
+    }
+
+    async imagePut(endpoint, data) {
+        try {
+            this.csrf ?? await this.getCSRF();
+            const response = await fetch(`${this.baseURL}${endpoint}`, {
+                method: PUT,
+                headers: {
+                    'X-CSRF-Token': this.csrf
+                },
+                credentials: 'include',
+                body: data
+            });
+
+            return await this.#handleResponse(response);
+        } catch (error) {
+            console.error('PUT error:', error);
         }
     }
 
@@ -81,3 +160,5 @@ export class Ajax {
         return response.json();
     }
 }
+
+export default new Ajax(BACKEND_URL);

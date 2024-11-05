@@ -29,6 +29,12 @@
     justify-content: center;
     overflow: auto;
     pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+
+    &.active {
+        opacity: 1;
+    }
 }
 
 .form-wrapper {
@@ -147,6 +153,10 @@
 
         &.error {
             border: 1px solid var(--color-error);
+        }
+
+        &:focus {
+            outline: none;
         }
     }
 

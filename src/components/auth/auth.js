@@ -1,12 +1,14 @@
 'use strict';
 
+import header from '../../components/header/header.js';
 import { signupData, loginData, BACKEND_URL } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
-import { Ajax } from '../../utils/ajax.js';
+// import { Ajax } from '../../utils/ajax.js';
+import ajax from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 
-const ajax = new Ajax(BACKEND_URL);
+// const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Renders the authentication template using Handlebars.
@@ -67,6 +69,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
     if (!validatePassword(formData.password)) {
         errors.add('password');
+        errors.add('confirmPassword');
     }
 
     if(errors.size !== 0){
@@ -82,10 +85,9 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
 
                 return;
             }
-            localStorage.setItem('jwt', data.token);
             errorElement.textContent = '';
-            closeLoginForm();
             updateToLoggedIn();
+            closeLoginForm();
         });
 }
 
@@ -97,7 +99,7 @@ function handleFormSubmission(formData, isRegistration, errorElement) {
  */
 function displayInputErrors(errors, errorElement) {
     const authForm = document.querySelector('.auth');
-    const inputs = [];
+    let inputs = [];
     if(errors.has('email')) {
         const inputEmail = authForm?.querySelector('.input__email');
         inputEmail?.classList.add('error');
@@ -138,6 +140,7 @@ export function showAuthForm(data) {
 
         return;
     }
+    const initalUrl = window.location.pathname;
     history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
 
     let overlay = document.getElementById('overlay');
@@ -167,7 +170,7 @@ export function showAuthForm(data) {
 
     overlay?.addEventListener('click', () => {
         toggleClasses([overlay, authForm], 'not-active', 'active');
-        history.pushState(null, '', '/');
+        closeLoginForm(initalUrl);
         updateForm(authForm, loginData);
     }, {once: true});
 
@@ -281,33 +284,36 @@ function updateForm(authForm, data) {
 /**
  * Updates the header to reflect that the user is logged in.
  */
-function updateToLoggedIn() {
-    const header = document.querySelector('header');
-    const headerButton = header.querySelector('.header__button');
+async function updateToLoggedIn() {
+    let user = await ajax.get('/me');
+    user.username = 'Пользователь';
 
-    headerButton.textContent = 'Выйти';
+    ajax.put(`/user/${user.id}`, user);
 
-    const headerButtonClone = headerButton?.cloneNode(true);
-    headerButtonClone?.addEventListener('click', logoutUser);
+    localStorage.setItem('id', user.id);
+    localStorage.setItem('name', user.username);
+    localStorage.setItem('imageUrl', user.image_url);
 
-    header?.replaceChild(headerButtonClone, headerButton);
+    header.changeHeader();
 }
 
 /**
- * Closes the login form and removes it from the DOM.
+ * Closes the login form.
  */
-function closeLoginForm() {
-    history.pushState(null, '', '/');
+function closeLoginForm(initalUrl) {
     const overlay = document.querySelector('.overlay');
     const loginForm = document.querySelector('.login-form');
 
     if (overlay && loginForm) {
         overlay?.classList.add('not-active');
         loginForm?.classList.add('not-active');
-
-        overlay?.remove();
-        loginForm?.remove();
     }
+    if(!initalUrl) {
+        history.pushState(null, '', '/');
+
+        return;
+    }
+    history.pushState(null, '', `${initalUrl}`);
 }
 
 /**

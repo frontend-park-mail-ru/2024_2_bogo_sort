@@ -2,10 +2,20 @@
     display: grid;
 }
 
+.category-title {
+    font-size: 2vw;
+    margin-left: 18vw;
+    margin-bottom: 0.5vw;
+}
+
 .cards {
     display: flex;
-    width: 960px;
+    width: 64vw;
     flex-direction: row;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
     justify-self: center;
     flex-wrap: wrap;
+    row-gap: 1vw;
+    column-gap: 1.5vw;
 }

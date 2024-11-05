@@ -1,2 +1,35 @@
-<h1 class="header__logo">Эмпориум</h1>
-<button type="button" class="header__button">Войти</button>
+<div class="header__content-wrapper">
+    <h1 class="header__logo"><a class="header__link" href="/">Эмпориум</a></h1>
+    <button type="button" class="header__list-button"><img class="header__list-icon" src="../../static/images/textalign-left.svg">Каталог</button>
+    <ol class="header__list list not-active">
+        {{#each category}}
+        <li class="list__item">
+            <a class="list__link" href="{{this.redirectUrl}}"><img class="list__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+        </li>
+        {{/each}}
+    </ol>
+
+    {{#if checkAuth}}
+    <button type="button" class="header__create-advert-button"><a class="header__create-advert-link" href="/create">Разметсить объявление</a></button>
+    <section class="header__user-menu user-menu ">
+        <span class="user-menu__user-name" data-user-id="{{userId}}" data-username="{{userName}}">
+            {{userName}} 
+            <img src="../../static/images/arrow-down.svg" class="user-menu__list-icon"> 
+            <img src="{{userImgUrl}}" class="user-menu__user-img">
+        </span>
+        <ol class="user-menu__menu menu not-active">
+            {{#each menuItems}}
+            <li class="menu__item">
+                <a class="menu__link" href="{{this.redirectUrl}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
+
+
+    {{else}}
+
+    <button type="button" class="header__button">Войти</button>
+    {{/if}}
+
+</div>

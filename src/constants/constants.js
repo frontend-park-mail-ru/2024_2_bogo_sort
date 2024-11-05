@@ -55,7 +55,86 @@ export const signupData = {
     anchortext: 'Войти'
 };
 
-// export const BACKEND_URL = 'http://127.0.0.1:8080/api/v1';
-export const BACKEND_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
+export const headerData = {
+    category: [
+        {
+            name: 'Женский гардероб',
+            iconUrl: '../../static/images/list-icons/user-female.svg',
+            redirectUrl: '/category/d4d10f10-4f9a-4bd5-ab1e-d2fc3ed35748'
+        }, {
+            name: 'Мужской гардероб',
+            iconUrl: '../../static/images/list-icons/user-male.svg',
+            redirectUrl: '/category/d49a98a6-f041-4432-b255-f23d4a97edde'
+        }, {
+            name: 'Детский гардероб',
+            iconUrl: '../../static/images/list-icons/baby.svg',
+            redirectUrl: '/category/f21963b7-fd2b-4770-97f0-8dfac77c6155'
+        }, {
+            name: 'Детские товары',
+            iconUrl: '../../static/images/list-icons/puzzle.svg',
+            redirectUrl: '/category/97f4f702-5412-4588-8e53-b682499df8c7'
+        }, {
+            name: 'Стройматериалы и инструменты',
+            iconUrl: '../../static/images/list-icons/paint-roller.svg',
+            redirectUrl: '/category/1a4f92f6-c6f5-4930-91e8-163ec679ed0d'
+        }, {
+            name: 'Компьютерная техника',
+            iconUrl: '../../static/images/list-icons/phone.svg',
+            redirectUrl: '/category/aeeb6c57-b428-450c-8049-fbb942aa0d1c'
+        }, {
+            name: 'Для дома и дачи',
+            iconUrl: '../../static/images/list-icons/sofa.svg',
+            redirectUrl: '/category/e310f974-9ea8-4e78-ad86-4fb49c92842a'
+        }, {
+            name: 'Бытовая техника',
+            iconUrl: '../../static/images/list-icons/bulb.svg',
+            redirectUrl: '/category/c513af49-3189-49cf-aed5-6a23465b5056'
+        }, {
+            name: 'Спорт и отдых',
+            iconUrl: '../../static/images/list-icons/dribbble.svg',
+            redirectUrl: '/category/cb905cad-0bd2-42fd-a3da-712ea07d8a8b'
+        }, {
+            name: 'Хобби и развлечения',
+            iconUrl: '../../static/images/list-icons/paint-brush-2.svg',
+            redirectUrl: '/category/fe767d7e-5754-45b3-9a35-7015ff103aee'
+        }, {
+            name: 'Красота и здоровье',
+            iconUrl: '../../static/images/list-icons/tooth.svg',
+            redirectUrl: '/category/4368d269-9710-448c-8d99-0f76b8e4eb30'
+        }
+    ],
 
-export const IMAGE_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';
+    menuItems: [
+        {
+            name: 'Корзина',
+            iconUrl: '../../static/images/user-menu-icons/cart.svg',
+            redirectUrl: '/cart'
+        },
+        {
+            name: 'Мои объявления',
+            iconUrl: '../../static/images/user-menu-icons/adverts.svg',
+            redirectUrl: ''
+        },
+        {
+            name: 'Мои заказы',
+            iconUrl: '../../static/images/user-menu-icons/orders.svg',
+            redirectUrl: ''
+        },
+        {
+            name: 'Настройки',
+            iconUrl: '../../static/images/user-menu-icons/6.svg',
+            redirectUrl: ''
+        },
+        {
+            name: 'Выйти',
+            iconUrl: '../../static/images/user-menu-icons/Sign_out.svg',
+            redirectUrl: '/logout'
+        },
+    ],
+};
+
+export const BACKEND_URL = 'http://127.0.0.1:8080/api/v1';
+// export const BACKEND_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com/api/v1';
+
+export const IMAGE_URL = 'http://127.0.0.1:8080/';
+// export const IMAGE_URL = 'https://warm-coast-96136-d78b5be652e4.herokuapp.com';
