@@ -5,8 +5,20 @@
     padding-top: 10px;
 }
 
-.user-main {
+.user-page {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.user-main{
+    display: block;
+    padding-left: 20px;
+}
+
+.user-cards {
+    display: grid;
+    align-content: start;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    width: 75vw;
 }

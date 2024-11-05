@@ -27,5 +27,10 @@ window.addEventListener('load', () => {
             base.innerHTML = '';
             base.appendChild(userPage.render());
             break;
+        // case '/settings':
+        //     const mySettings = new mySettings();
+        //     base.innerHTML = '';
+        //     base.appendChild(mySettings.render());
+        //     break;
     }
 });
