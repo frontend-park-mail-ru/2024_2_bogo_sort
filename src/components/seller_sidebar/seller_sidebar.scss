@@ -1,0 +1,55 @@
+.seller-sidebar {
+    flex: 0 0 200px;
+    background: white;
+    width: 15vw;
+    min-width: 220px;
+    height: 30vh;
+    border-radius: 20px;
+    padding: 30px;
+    padding-top: 40px;
+    box-shadow: 0px 1px 4px var(--box-shadow-color);
+
+    .wrap {
+        display: grid;
+        gap: 15px;
+    }
+
+    .menu-item {
+        display: grid;
+        gap: 10px;
+    }
+
+    .item {
+        color: var(--color-secondary70);
+        background: none;
+        border: none;
+        text-align: start;
+        font-size: 16px;
+        height: 40px;
+        padding: 0;
+
+        &:hover {
+            color: var(--color-secondary50);
+        }
+
+        &:focus {
+            color: var(--color-secondary100);
+            font-weight: bolder;
+        }
+    }
+
+    .name {
+        font-size: 24px;
+    }
+
+    .date {
+        color: var(--color-secondary50);
+    }
+
+    .img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: var(--color-secondary25);
+    }
+}

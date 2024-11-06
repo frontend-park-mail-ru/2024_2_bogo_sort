@@ -6,9 +6,10 @@
 @import "components/sidebar/sidebar.css";
 @import "components/settings/settings.css";
 @import "components/orders/orders.css";
+@import "components/seller_sidebar/seller_sidebar.css";
 @import "pages/main/main.css";
 @import "pages/user/user.css";
-
+@import "pages/seller/seller.css";
 
 
 

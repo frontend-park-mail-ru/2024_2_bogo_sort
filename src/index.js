@@ -4,6 +4,7 @@ import { MainPage } from './pages/main/main.js';
 import { LogInPage } from './pages/login/login.js';
 import { SignUpPage } from './pages/signup/signup.js';
 import { UserPage } from './pages/user/user.js';
+import { SellerPage } from './pages/seller/seller.js';
 
 const base = document.getElementById('root');
 
@@ -27,10 +28,10 @@ window.addEventListener('load', () => {
             base.innerHTML = '';
             base.appendChild(userPage.render());
             break;
-        // case '/settings':
-        //     const mySettings = new mySettings();
-        //     base.innerHTML = '';
-        //     base.appendChild(mySettings.render());
-        //     break;
+        case '/seller':
+            const sellerPage = new SellerPage();
+            base.innerHTML = '';
+            base.appendChild(sellerPage.render());
+            break;
     }
 });

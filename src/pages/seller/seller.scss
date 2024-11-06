@@ -1,0 +1,13 @@
+.user-title {
+    display: flex;
+    align-items: end;
+}
+h1{
+    float: left;
+    padding-right: 20px;
+}
+h2{
+    float: right;
+    color:var(--color-secondary50);
+    font-weight: 400;
+}
