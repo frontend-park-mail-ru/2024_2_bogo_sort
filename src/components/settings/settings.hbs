@@ -1,0 +1,20 @@
+<h1 class="user__title">Настройки</h1>
+<form class="user__settings-form settings-form">
+    <label class="settings-form__label" for="name">Имя</label>
+    <input class="settings-form__name-input" name="username" id="name">
+
+    <label class="settings-form__label" for="email">Почта</label>
+    <input class="settings-form__email-input" name="email" id="email">
+
+    <label class="settings-form__label" for="image">Фотография</label>
+    <div class="settings-form__input-wrapper">
+        <input class="settings-form__image-input" id="image" type="file">
+        <label class="settings-form__upload-box" for="image">
+            <img class="settings-form__upload-box-image" src="../../static/images/image.svg">
+            <span class="settings-form__upload-box-text">Добавить</span>
+            <span class="settings-form__upload-box-text-additional">jpg или jpeg</span>
+        </label>
+    </div>
+
+    <button class="settings-form__submit" type="submit">Сохранить изменения</button>
+</form>

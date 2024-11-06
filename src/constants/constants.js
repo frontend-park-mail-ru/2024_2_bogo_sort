@@ -113,17 +113,17 @@ export const headerData = {
         {
             name: 'Мои объявления',
             iconUrl: '../../static/images/user-menu-icons/adverts.svg',
-            redirectUrl: ''
+            redirectUrl: '/user/adverts'
         },
         {
             name: 'Мои заказы',
             iconUrl: '../../static/images/user-menu-icons/orders.svg',
-            redirectUrl: ''
+            redirectUrl: '/user/orders'
         },
         {
             name: 'Настройки',
             iconUrl: '../../static/images/user-menu-icons/6.svg',
-            redirectUrl: ''
+            redirectUrl: '/user/settings'
         },
         {
             name: 'Выйти',

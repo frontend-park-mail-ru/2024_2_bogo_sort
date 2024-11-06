@@ -1,0 +1,9 @@
+<h1 class="user__title">Мои заказы</h1>
+<section class="user__orders orders">
+    {{#each orders}}
+    <div class="orders__order">
+        <span class="orders__status">{{this.status}}</span>
+        <span class="orders__title">Заказ №{{this.id}}</span>
+    </div>
+    {{/each}}
+</section>

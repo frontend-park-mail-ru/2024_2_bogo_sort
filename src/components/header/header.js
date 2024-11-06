@@ -7,6 +7,7 @@ import { headerData } from '../../constants/constants.js'
 import ajax from '../../utils/ajax.js';
 import { BACKEND_URL } from '../../constants/constants.js';
 import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
+import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 // const ajax = new Ajax(BACKEND_URL);
 
@@ -40,13 +41,10 @@ class Header {
 
     #getData() {
         const data = headerData;
-        // const categories = ajax.get('/categories');
-        // for(let i = 0; i < headerData.category.length; i++) {
-        //     headerData.category[i].redirectUrl = '/category/' + getCategoryIdByName(headerData.category[i].name, categories);
-        // }
+
         data.checkAuth = checkAuth();
         data.userName = localStorage.getItem('name');
-        data.userImgUrl = localStorage.getItem('imageUrl') === 'undefined' ? '../../static/images/user_avatar.webp' : localStorage.getItem('imageUrl');
+        data.userImgUrl = localStorage.getItem('imageUrl');
         return data;
     }
 

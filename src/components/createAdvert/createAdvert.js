@@ -1,8 +1,4 @@
 import ajax from '../../utils/ajax.js';
-// import { Ajax } from "../../utils/ajax.js";
-import { BACKEND_URL } from "../../constants/constants.js";
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class CreateAdvert {
     form;

@@ -1,0 +1,23 @@
+.orders {
+    display: flex;
+    flex-direction: column;
+    width: 44vw;
+    margin-left: 1vw;
+    gap: 1vw;
+
+    &__order {
+        background-color: white;
+        border-radius: 0.8vw;
+        box-shadow: 0 4px 5px var(--box-shadow-color);
+        height: fit-content;
+        padding: 1vw;
+    }
+
+    &__status {
+        font-weight: 600;
+    }
+
+    &__title {
+        margin-left: 5vw;
+    }
+}

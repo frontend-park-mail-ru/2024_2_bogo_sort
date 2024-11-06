@@ -7,6 +7,7 @@ import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../utils/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
+import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 // const ajax = new Ajax(BACKEND_URL);
 
@@ -292,7 +293,7 @@ async function updateToLoggedIn() {
 
     localStorage.setItem('id', user.id);
     localStorage.setItem('name', user.username);
-    localStorage.setItem('imageUrl', user.image_url);
+    localStorage.setItem('imageUrl', await getUserImageUrl(user));
 
     header.changeHeader();
 }

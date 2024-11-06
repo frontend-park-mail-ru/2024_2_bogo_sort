@@ -9,6 +9,8 @@ import { CreateAdvertPage } from './pages/createAdvert/createAdvert.js';
 import { CartPage } from './pages/cart/cart.js';
 import { CategoryPage } from './pages/category/category.js';
 import { ChangeAdvertPage } from './pages/change/change.js';
+import { UserPage } from './pages/user/user.js';
+import { SellerPage } from './pages/seller/seller.js';
 
 const base = document.getElementById('root');
 const main = new MainPage();
@@ -63,6 +65,14 @@ window.addEventListener('load', () => {
         case '/change':
             const changeAdvertPage = new ChangeAdvertPage();
             changeAdvertPage.render();
+            break;
+        case '/user':
+            const userPage = new UserPage();
+            userPage.render();
+            break;
+        case '/seller':
+            const sellerPage = new SellerPage();
+            sellerPage.render();
             break;
     }
 });

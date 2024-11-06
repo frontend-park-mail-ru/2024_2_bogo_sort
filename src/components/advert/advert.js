@@ -6,6 +6,7 @@ import { loginData } from '../../constants/constants.js';
 import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
 import { brokenImageUrlForamtter } from "../../utils/brokenImageUrlFormatter.js";
 import { checkAuth } from "../../utils/checkAuth.js";
+import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
 
 // const ajax = new Ajax(BACKEND_URL);
 
@@ -17,6 +18,8 @@ export class AdvertComponent {
         const sellerId = await ajax.get(`/seller/${advert.seller_id}`);
 
         const seller = await ajax.get(`/profile/${sellerId.user_id}`);
+
+        this.seller = sellerId;
         
         let me;
         if(checkAuth()) {
@@ -36,7 +39,7 @@ export class AdvertComponent {
             isAuthor: me ? me.id === seller.id : false, 
 
             sellerName: seller.username.length > 0 ? seller.username : 'Пользователь',
-            sellerImgUrl: '../../static/images/user_avatar.webp',
+            sellerImgUrl: await getUserImageUrl(seller),
             sellerPhone: seller.phone,
             sellerTimestamp: timestampFormatter(seller.created_at, true),
 
@@ -150,6 +153,11 @@ export class AdvertComponent {
         deleteButton?.addEventListener('click', () => {
             ajax.delete(`/adverts/${advertId}`, null);
             window.location.href = '/';
+        });
+
+        const seller = wrapper.querySelector('.seller');
+        seller?.addEventListener('click', () => {
+            window.location.href = `/seller/${this.seller.id}`;
         });
     }
 };

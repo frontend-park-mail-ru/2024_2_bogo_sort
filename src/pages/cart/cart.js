@@ -1,10 +1,8 @@
-'use strict';
-
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { renderCart, updateQuantityAndCost, popItem } from '../../components/cart/cart.js';
 import ajax from '../../utils/ajax.js';
 // import { Ajax } from '../../utils/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+import { IMAGE_URL } from '../../constants/constants.js';
 
 // const ajax = new Ajax(BACKEND_URL);
 
@@ -73,7 +71,7 @@ export class CartPage {
                 'payment_method': 'cash',
                 'delivery_method': 'pickup'
             });
-            window.location.href = '/';
+            window.location.href = '/user/orders';
         });
     }
 }
