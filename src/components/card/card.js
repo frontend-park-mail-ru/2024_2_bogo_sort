@@ -20,7 +20,7 @@ export function addCardListeners(cardsJSON) {
     const cards = document.querySelectorAll('.card');
     for(let i = 0; i < cards.length; i++) {
         cards[i].addEventListener('click', () => {
-            window.location.href = `http://localhost:8008/advert/${cardsJSON[i].id}`;
+            window.location.href = `/advert/${cardsJSON[i].id}`;
         });
     }
 }

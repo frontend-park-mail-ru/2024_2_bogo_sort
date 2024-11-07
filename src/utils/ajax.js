@@ -65,7 +65,9 @@ class Ajax {
      */
     async post(endpoint, data, headers = {}) {
         try {
-            this.csrf ?? await this.getCSRF();
+            if(endpoint !== '/login' && endpoint !== '/signup'){
+                this.csrf ?? await this.getCSRF();
+            }
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
                 headers: {
