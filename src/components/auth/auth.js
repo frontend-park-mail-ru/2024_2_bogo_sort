@@ -287,9 +287,6 @@ function updateForm(authForm, data) {
  */
 async function updateToLoggedIn() {
     let user = await ajax.get('/me');
-    user.username = 'Пользователь';
-
-    ajax.put(`/user/${user.id}`, user);
 
     localStorage.setItem('id', user.id);
     localStorage.setItem('name', user.username);
