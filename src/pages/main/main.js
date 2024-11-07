@@ -77,5 +77,10 @@ export class MainPage {
             }
         })
         addCardListeners(newCardsNoInactive);
+        if(newCards.length < 30) {
+            this.noMoreCards = true;
+            return;
+        }
+        this.loadedCrads += 30;
     }
 }
