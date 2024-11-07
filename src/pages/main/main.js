@@ -70,7 +70,7 @@ export class MainPage {
         }
 
         let newCardsNoInactive = [];
-        cards.forEach(card => {
+        newCards.forEach(card => {
             if(card.status !== 'inactive'){
                 container.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
                 newCardsNoInactive.push(crad);
