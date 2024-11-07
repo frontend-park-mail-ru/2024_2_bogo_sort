@@ -134,7 +134,7 @@ export const headerData = {
 };
 
 // export const BACKEND_URL = 'http://127.0.0.1:8080/api/v1';
-export const BACKEND_URL = 'http://http://5.188.141.136:8080/api/v1';
+export const BACKEND_URL = 'http://5.188.141.136:8080/api/v1';
 
 // export const IMAGE_URL = 'http://127.0.0.1:8080/';
-export const IMAGE_URL = 'http://http://5.188.141.136:8080/';
+export const IMAGE_URL = 'http://5.188.141.136:8080/';

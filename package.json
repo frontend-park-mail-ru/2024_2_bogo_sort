@@ -20,6 +20,7 @@
     "eslint": "^9.11.1"
   },
   "dependencies": {
+    "dependencies": "^0.0.1",
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
     "path": "^0.12.7",
