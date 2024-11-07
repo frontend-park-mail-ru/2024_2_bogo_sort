@@ -36,6 +36,9 @@ export class MainPage {
 
         const cards = await ajax.get('/adverts?limit=30&offset=0');
 
+        this.noMoreCards = false;
+        this.loadedCrads = 30;
+
         const container = document.createElement('div');
 
         container.classList.add('cards');
@@ -49,5 +52,30 @@ export class MainPage {
         });
         main.appendChild(container);
         addCardListeners(noInactiveCards);
+
+        document.addEventListener('scroll', () => {
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if(!this.noMoreCards){
+                    this.#addCards(container);
+                }
+            }
+        })
+    }
+
+    async #addCards(container) {
+        const newCards = await ajax.get(`/adverts?limit=30&offset=${this.loadedCrads}`);
+        if(newCards.code === 400) {
+            this.noMoreCards = true;
+            return;
+        }
+
+        let newCardsNoInactive = [];
+        cards.forEach(card => {
+            if(card.status !== 'inactive'){
+                container.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
+                newCardsNoInactive.push(crad);
+            }
+        })
+        addCardListeners(newCardsNoInactive);
     }
 }
