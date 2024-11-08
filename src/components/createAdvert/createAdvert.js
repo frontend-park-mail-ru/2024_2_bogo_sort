@@ -72,7 +72,7 @@ export class CreateAdvert {
             errors.add('title');
         }
 
-        if(data['price'].length > 11 || data['price'].length === 0) {
+        if(data['price'].length > 6 || data['price'].length === 0) {
             errors.add('price');
         }
 
@@ -104,7 +104,7 @@ export class CreateAdvert {
         const image = imageInput.files[0];
         const formData = new FormData();
         formData.append('image', image);
-        ajax.imagePut(`/adverts/${advert.id}/image`, formData);
+        await ajax.imagePut(`/adverts/${advert.id}/image`, formData);
 
         window.location.href = `/advert/${advert.id}`;
     }

@@ -28,7 +28,7 @@ export class Settings {
         this.me = await ajax.get('/me');
         wrapper.querySelector('.settings-form__name-input').value = this.me.username;
         wrapper.querySelector('.settings-form__email-input').value = this.me.email;
-        wrapper.querySelector('.settings-form__phone-input').value = formatPhone(this.me.phone);
+        wrapper.querySelector('.settings-form__phone-input').value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
         wrapper.querySelector('.settings-form__upload-box-image').classList.add('big');
         wrapper.querySelector('.settings-form__upload-box-text').classList.add('not-active');
         wrapper.querySelector('.settings-form__upload-box-text-additional').classList.add('not-active');
@@ -67,8 +67,8 @@ export class Settings {
             const data = {};
             inputs.forEach(input => {
                 if(input.type !== 'file') {
-                    if(input.name === 'Phone'){
-                        data[input.name] = input.value.split('-').join('');
+                    if(input.name === 'Phone' && input.value !== ''){
+                        data[input.name] = input.value.split('-').join('').split(' ').join('').split('(').join('').split(')').join('');
                     } else {
                         data[input.name] = input.value;
                     }
@@ -92,7 +92,7 @@ export class Settings {
             errors.add('email');
         }
 
-        if(data['Phone'].length !== 12) {
+        if(data['Phone'].length !== 12 && data['Phone'].length !== 0) {
             errors.add('phone');
         }
 
@@ -110,7 +110,8 @@ export class Settings {
         formData.append('image', image);
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
-            localStorage.setItem('imageUrl', await getUserImageUrl(data));
+            const me = await ajax.get('/me');
+            localStorage.setItem('imageUrl', await getUserImageUrl(me));
         }
         localStorage.setItem('name', data.Username);
         header.render();

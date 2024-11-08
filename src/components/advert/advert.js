@@ -24,6 +24,9 @@ export class AdvertComponent {
         let me;
         if(checkAuth()) {
             me = await ajax.get('/me');
+            if(advert.status === 'inactive' && seller.id !== me.id) {
+                return false;
+            }
         }
 
         const categories = await ajax.get('/categories');
@@ -53,8 +56,12 @@ export class AdvertComponent {
             this.applyAdvertStatus(wrapper, advert.status);
         }
 
+        if(me) {
+            await this.alreadyInCart(advert, me, wrapper);
+        }
+
         this.addListeners(wrapper, advert.id, me?.id);
-        
+
         return advert;
     }
 
@@ -74,7 +81,7 @@ export class AdvertComponent {
             return;
         }
 
-        title.textContent += ' (Зарезервированно)';
+        title.textContent += ' (Зарезервировано)';
         wrapper.querySelector('.buttons__add-to-cart').remove();
     }
 
@@ -114,6 +121,10 @@ export class AdvertComponent {
                 showAuthForm(loginData);
                 return;
             }
+            if(this.inCart){
+                window.location.href = '/cart';
+                return;
+            }
 
             const data = {
                 'advert_id': advertId,
@@ -142,6 +153,7 @@ export class AdvertComponent {
         closeAdvertButton?.addEventListener('click', () => {
             ajax.put(`/adverts/${advertId}/status?status=inactive`);
             toggleOverlay();
+            window.location.href = window.location.href;
         }, {once: true});
 
         const changeButton = wrapper.querySelector('.buttons__change');
@@ -159,5 +171,18 @@ export class AdvertComponent {
         seller?.addEventListener('click', () => {
             window.location.href = `/seller/${this.seller.id}`;
         });
+    }
+
+    async alreadyInCart(advert, me, wrapper) {
+        const cart = await ajax.get(`/cart/user/${me.id}`);
+
+        for(const cartAdvert of cart.adverts) {
+            if(cartAdvert.id === advert.id){
+                const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
+                addToCartButton.innerText = 'Товар уже в корзине';
+
+                this.inCart = true;
+            }
+        }
     }
 };

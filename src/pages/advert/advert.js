@@ -23,6 +23,9 @@ export class AdvertPage {
         main.appendChild(wrapper);
         
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
+        if(requestedAdvert === false){
+            window.location.href = '/';
+        }
 
         const container = document.createElement('div');
         container.classList.add('cards');

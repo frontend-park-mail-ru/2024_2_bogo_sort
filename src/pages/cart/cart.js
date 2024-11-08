@@ -41,6 +41,15 @@ export class CartPage {
             updateQuantityAndCost(wrapper);
         }
 
+        if(adverts) {
+            const items = wrapper.querySelectorAll('.adverts');
+            for(let i = 0; i < adverts.length; i++){
+                items[i].addEventListener('click', () => {
+                    window.location.href = `/advert/${adverts[i].id}`;
+                });
+            }
+        }
+
         this.#addListeners(wrapper);
     }
 
