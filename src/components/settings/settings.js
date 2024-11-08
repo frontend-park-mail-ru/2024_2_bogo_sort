@@ -109,9 +109,9 @@ export class Settings {
         formData.append('image', image);
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
+            localStorage.setItem('imageUrl', await getUserImageUrl(data));
         }
-        localStorage.setItem('name', data.username);
-        localStorage.setItem('imageUrl', await getUserImageUrl(data));
+        localStorage.setItem('name', data.Username);
         header.render();
         window.location.href = '/user/settings';
     }
