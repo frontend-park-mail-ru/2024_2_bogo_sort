@@ -1,14 +1,10 @@
-// import { Ajax } from "../../utils/ajax.js";
 import ajax from "../../utils/ajax.js";
 import { timestampFormatter } from "../../utils/timestampFormatter.js";
 import { showAuthForm } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
 import { brokenImageUrlForamtter } from "../../utils/brokenImageUrlFormatter.js";
 import { checkAuth } from "../../utils/checkAuth.js";
 import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class AdvertComponent {
 
@@ -76,12 +72,12 @@ export class AdvertComponent {
         if(status === 'inactive') {
             wrapper.querySelector('.advert__buttons')?.remove();
             wrapper.querySelector('.recomended')?.remove();
-            title.textContent += ' (Объявление закрыто)';
+            title.textContent += ' (объявление закрыто)';
             wrapper.querySelector('.advert')?.classList.add('inactive');
             return;
         }
 
-        title.textContent += ' (Зарезервировано)';
+        title.textContent += ' (зарезервировано)';
         wrapper.querySelector('.buttons__add-to-cart').remove();
     }
 

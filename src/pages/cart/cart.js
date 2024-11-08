@@ -44,7 +44,10 @@ export class CartPage {
         if(adverts) {
             const items = wrapper.querySelectorAll('.adverts');
             for(let i = 0; i < adverts.length; i++){
-                items[i].addEventListener('click', () => {
+                items[i].addEventListener('click', (event) => {
+                    if(event.target === wrapper.querySelector('.adverts__remove')){
+                        return;
+                    }
                     window.location.href = `/advert/${adverts[i].id}`;
                 });
             }
