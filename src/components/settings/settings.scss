@@ -19,6 +19,7 @@
 
     &__name-input,
     &__email-input,
+    &__phone-input,
     &__submit {
         height: 2.3vw;
         border-radius: 0.6vw;
@@ -39,6 +40,10 @@
         &.error {
             border-color: var(--color-error);
         }
+    }
+
+    &__phone-input {
+        width: 10.5vw;
     }
 
     &__submit {

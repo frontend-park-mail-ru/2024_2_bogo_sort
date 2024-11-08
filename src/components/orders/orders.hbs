@@ -1,4 +1,5 @@
 <h1 class="user__title">Мои заказы</h1>
+{{#if notEmpty}}
 <section class="user__orders orders">
     {{#each orders}}
     <div class="orders__order">
@@ -7,3 +8,12 @@
     </div>
     {{/each}}
 </section>
+{{else}}
+<div class="orders__empty-wrapper">
+    <div class="orders__empty">
+        <img class="orders__empty-image" src="../../static/images/cart_empty.svg">
+        <span class="orders__empty-text">Пока здесь пусто...</span>
+        <button class="orders__empty-button" type="button">За покупками!</button>
+    </div>
+</div>
+{{/if}}

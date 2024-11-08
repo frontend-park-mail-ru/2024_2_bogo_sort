@@ -78,7 +78,9 @@ export class UserPage {
         container.appendChild(title);
 
         const cards = await ajax.get(`/adverts/seller/${me.id}`);
+        // if(cards.length === 0){
 
+        // }
         cards.forEach(card => {
             cardsContainer.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
         })
@@ -104,23 +106,32 @@ export class UserPage {
         const container = document.createElement('div');
         container.classList.add('user__orders');
         const orders = await ajax.get(`/purchase/${me.id}`);
-        orders.forEach(order => {
-            switch(order.status) {
-                case 'pending':
-                    order.status = 'В ожидании';
-                    break;
-                case 'in_progress':
-                    order.status = 'Активен';
-                    break;
-                case 'completed':
-                    order.status = 'Завершен';
-                    break;
-                case 'canceled':
-                    order.status = 'Отменен';
-                    break;
-            }
+        let notEmpty = true;
+        if(!orders) {
+            notEmpty = false;
+        } else {
+            orders.forEach(order => {
+                switch(order.status) {
+                    case 'pending':
+                        order.status = 'В ожидании';
+                        break;
+                    case 'in_progress':
+                        order.status = 'Активен';
+                        break;
+                    case 'completed':
+                        order.status = 'Завершен';
+                        break;
+                    case 'canceled':
+                        order.status = 'Отменен';
+                        break;
+                }
+            });
+        }
+
+        container.innerHTML += Handlebars.templates['orders.hbs']({orders: orders, notEmpty});
+        container.querySelector('.orders__empty-button')?.addEventListener('click', () => {
+            window.location.href = '/';
         });
-        container.innerHTML += Handlebars.templates['orders.hbs']({orders: orders});
         wrapper.appendChild(container);
         main.appendChild(wrapper);
     }

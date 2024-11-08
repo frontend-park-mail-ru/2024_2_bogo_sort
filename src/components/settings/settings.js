@@ -3,6 +3,7 @@ import ajax from "../../utils/ajax.js";
 import header from '../../components/header/header.js'
 import { validateEmail } from "../../utils/validation.js";
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
+import { formatPhone } from "../../utils/formatPhone.js";
 
 export class Settings {
     renderSettings() {
@@ -46,6 +47,12 @@ export class Settings {
             additional.classList.add('not-active');
             this.previewImage(upload);
         });
+
+        const phoneInput = wrapper.querySelector('.settings-form__phone-input');
+        phoneInput?.addEventListener('input', () => {
+            phoneInput.value = formatPhone(phoneInput.value);
+        });
+
         this.addSubmitFormListener(wrapper);
     }
 
@@ -56,12 +63,18 @@ export class Settings {
             event.preventDefault();
 
             const inputs = wrapper.querySelectorAll('input');
-            const data = this.me;
+            const data = {};
             inputs.forEach(input => {
                 if(input.type !== 'file') {
-                    data[input.name] = input.value;
+                    if(input.name === 'phone'){
+                        data[input.name] = input.value.split('-').join('');
+                    } else {
+                        data[input.name] = input.value;
+                    }
                 }
             });
+
+            data['ID'] = me.id;
 
             this.handleFormSubmission(data);
         })
@@ -76,6 +89,10 @@ export class Settings {
 
         if(!validateEmail(data['email'])) {
             errors.add('email');
+        }
+
+        if(data['phone'].length !== 12) {
+            errors.add('phone');
         }
 
         if(errors.size !== 0) {
@@ -111,6 +128,12 @@ export class Settings {
             const emailInput = document.querySelector('.settings-form__email-input');
             emailInput.classList.add('error');
             inputs.push(emailInput);
+        }
+
+        if(errors.has('phone')) {
+            const phoneInput = document.querySelector('.settings-form__phone-input');
+            phoneInput.classList.add('error');
+            inputs.push(phoneInput);
         }
 
         inputs.forEach(input => {
