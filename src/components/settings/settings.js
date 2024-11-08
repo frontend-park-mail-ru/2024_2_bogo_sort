@@ -66,7 +66,7 @@ export class Settings {
             const data = {};
             inputs.forEach(input => {
                 if(input.type !== 'file') {
-                    if(input.name === 'phone'){
+                    if(input.name === 'Phone'){
                         data[input.name] = input.value.split('-').join('');
                     } else {
                         data[input.name] = input.value;
@@ -83,15 +83,15 @@ export class Settings {
     async handleFormSubmission(data) {
         const errors = new Set();
 
-        if(data['username'].length > 50 || data['username'].length === 0){
+        if(data['Username'].length > 50 || data['Username'].length === 0){
             errors.add('username');
         }
 
-        if(!validateEmail(data['email'])) {
+        if(!validateEmail(data['Email'])) {
             errors.add('email');
         }
 
-        if(data['phone'].length !== 12) {
+        if(data['Phone'].length !== 12) {
             errors.add('phone');
         }
 
