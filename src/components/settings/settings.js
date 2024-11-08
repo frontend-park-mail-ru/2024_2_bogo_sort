@@ -28,7 +28,7 @@ export class Settings {
         this.me = await ajax.get('/me');
         wrapper.querySelector('.settings-form__name-input').value = this.me.username;
         wrapper.querySelector('.settings-form__email-input').value = this.me.email;
-        wrapper.querySelector('.settings-form__phone-input').value = this.me.phone;
+        wrapper.querySelector('.settings-form__phone-input').value = formatPhone(this.me.phone);
         wrapper.querySelector('.settings-form__upload-box-image').classList.add('big');
         wrapper.querySelector('.settings-form__upload-box-text').classList.add('not-active');
         wrapper.querySelector('.settings-form__upload-box-text-additional').classList.add('not-active');
