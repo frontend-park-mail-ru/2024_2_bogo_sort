@@ -175,13 +175,15 @@ export class AdvertComponent {
 
     async alreadyInCart(advert, me, wrapper) {
         const cart = await ajax.get(`/cart/user/${me.id}`);
+        
+        if(cart.adverts){
+            for(const cartAdvert of cart.adverts) {
+                if(cartAdvert.id === advert.id){
+                    const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
+                    addToCartButton.innerText = 'Товар уже в корзине';
 
-        for(const cartAdvert of cart.adverts) {
-            if(cartAdvert.id === advert.id){
-                const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
-                addToCartButton.innerText = 'Товар уже в корзине';
-
-                this.inCart = true;
+                    this.inCart = true;
+                }
             }
         }
     }
