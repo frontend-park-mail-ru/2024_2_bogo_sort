@@ -78,6 +78,7 @@
 .feature {
     &__icon {
         padding-right: 0.5vw;
+        width: 1.8vw;
     }
 }
 
@@ -105,6 +106,7 @@
         display: block;
         font-weight: 700;
         margin: 0;
+        font-size: 1.8vw;
     }
 
     &__details {
@@ -138,6 +140,7 @@
         top: 50%;
         pointer-events: none;
         transition: 0.2s ease;
+        font-size: 0.8vw;
     }
 
     &__email,
@@ -201,7 +204,7 @@
 
         & .input__tooltiptext {
             visibility: hidden;
-            font-size: 12px;
+            font-size: 0.6vw;
             background-color: var(--color-tooltip);
             color: white;
             width: 15.6vw;
