@@ -74,7 +74,7 @@ export class Settings {
                 }
             });
 
-            data['ID'] = me.id;
+            data['ID'] = this.me.id;
 
             this.handleFormSubmission(data);
         })
