@@ -43,15 +43,15 @@ export class MainPage {
 
         container.classList.add('cards');
 
-        let noInactiveCards = [];
+        this.noInactiveCards = [];
         cards.forEach(element => {
             if(element.status !== 'inactive'){
                 container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
-                noInactiveCards.push(element);
+                this.noInactiveCards.push(element);
             }
         });
         main.appendChild(container);
-        addCardListeners(noInactiveCards);
+        addCardListeners(this.noInactiveCards);
 
         document.addEventListener('scroll', () => {
             if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -69,14 +69,14 @@ export class MainPage {
             return;
         }
 
-        let newCardsNoInactive = [];
+        this.noInactiveCards = [];
         newCards.forEach(card => {
             if(card.status !== 'inactive'){
                 container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL));
-                newCardsNoInactive.push(card);
+                this.noInactiveCards.push(card);
             }
         })
-        addCardListeners(newCardsNoInactive);
+        addCardListeners(this.noInactiveCards);
         if(newCards.length < 30) {
             this.noMoreCards = true;
             return;
