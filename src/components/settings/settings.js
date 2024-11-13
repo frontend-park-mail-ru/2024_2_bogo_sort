@@ -1,5 +1,5 @@
 import { IMAGE_URL } from "../../constants/constants.js";
-import ajax from "../../utils/ajax.js";
+import ajax from "../../modules/ajax.js";
 import header from '../../components/header/header.js'
 import { validateEmail } from "../../utils/validation.js";
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';

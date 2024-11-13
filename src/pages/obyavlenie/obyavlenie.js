@@ -1,11 +1,8 @@
-import { AdvertComponent } from '../../components/advert/advert.js';
-import { renderCardTemplate, addCardListeners } from '../../components/card/card.js';
+import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.js';
+import { renderCardTemplate } from '../../components/card/card.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
-import ajax from '../../utils/ajax.js';
-// import { Ajax } from '../../utils/ajax.js';
+import ajax from '../../modules/ajax.js';
 import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class AdvertPage {
     render() {
@@ -23,7 +20,7 @@ export class AdvertPage {
         main.appendChild(wrapper);
         
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
-        if(requestedAdvert === false){
+        if(requestedAdvert === null){
             window.location.href = '/';
         }
 
@@ -31,19 +28,18 @@ export class AdvertPage {
         container.classList.add('cards');
 
         const cards = await ajax.get(`/adverts/category/${requestedAdvert.category_id}`);
-        let cardsWithoutCurrent = [];
+        let cardsWithoutCurrent = 0;
 
         cards.forEach(element => {
             if(element.id !== requestedAdvert.id && element.status !== 'inactive') {
-                container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
-                cardsWithoutCurrent.push(element);
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
+                cardsWithoutCurrent++;
             }
         });
-        if(cardsWithoutCurrent.length === 0 || requestedAdvert.status !== 'active'){
+        if(cardsWithoutCurrent === 0 || requestedAdvert.status !== 'active'){
             wrapper.querySelector('.recomended').remove();
             return;
         } 
         wrapper.appendChild(container);
-        addCardListeners(cardsWithoutCurrent);
     }
 }

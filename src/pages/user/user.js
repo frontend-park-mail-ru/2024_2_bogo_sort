@@ -1,11 +1,11 @@
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { renderUser } from '../../components/user/user.js';
-import { renderCardTemplate, addCardListeners } from '../../components/card/card.js';
+import { renderCardTemplate } from '../../components/card/card.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { IMAGE_URL } from '../../constants/constants.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js'
 import { Settings } from '../../components/settings/settings.js';
-import ajax from '../../utils/ajax.js';
+import ajax from '../../modules/ajax.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class UserPage {
@@ -82,12 +82,11 @@ export class UserPage {
 
         // }
         cards.forEach(card => {
-            cardsContainer.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
+            cardsContainer.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL, card.id));
         })
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);
-        addCardListeners(cards);
     }
 
     renderSettings(wrapper, me, main) {

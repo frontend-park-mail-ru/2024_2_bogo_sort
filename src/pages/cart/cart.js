@@ -1,16 +1,14 @@
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
-import { renderCart, updateQuantityAndCost, popItem } from '../../components/cart/cart.js';
-import ajax from '../../utils/ajax.js';
-// import { Ajax } from '../../utils/ajax.js';
+import { Cart } from '../../components/cart/cart.js';
+import ajax from '../../modules/ajax.js';
 import { IMAGE_URL } from '../../constants/constants.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class CartPage {
     cartId;
 
     render() {
         this.#renderTemplate();
+        this.cartComponent = new Cart(); 
     }
 
     async #renderTemplate() {
@@ -26,6 +24,12 @@ export class CartPage {
 
             data = {adverts: adverts};
             data.notEmpty = adverts?.length > 0;
+            data.numberOfItems = adverts.length;
+            data.totalPrice = 0;
+            adverts.forEach(advert => {
+                data.totalPrice += Number(advert.price);
+            });
+            data.totalPrice = String(data.totalPrice);
         } else {
             data.notEmpty = false;
         }
@@ -34,12 +38,8 @@ export class CartPage {
 
         const wrapper = document.createElement('div');
         wrapper.classList.add('cart');
-        wrapper.innerHTML += renderCart(data);
+        wrapper.innerHTML += this.cartComponent.renderCart(data);
         main.appendChild(wrapper);
-
-        if(data.notEmpty) {
-            updateQuantityAndCost(wrapper);
-        }
 
         if(adverts) {
             const items = wrapper.querySelectorAll('.adverts');
@@ -66,8 +66,8 @@ export class CartPage {
                     cart_id: this.cartId
                 };
                 ajax.delete('/cart/delete', data);
-                popItem(event, wrapper);
-                setTimeout(() => updateQuantityAndCost(wrapper), 650);
+                this.cartComponent.popItem(event, wrapper);
+                setTimeout(() => this.cartComponent.updateQuantityAndCost(wrapper), 650);
             });
         });
 

@@ -1,10 +1,7 @@
-import { renderCardTemplate, addCardListeners } from '../../components/card/card.js';
-import ajax from '../../utils/ajax.js';
-// import { Ajax } from '../../utils/ajax.js';
+import { renderCardTemplate } from '../../components/card/card.js';
+import ajax from '../../modules/ajax.js';
 import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class CategoryPage {
     category;
@@ -42,14 +39,11 @@ export class CategoryPage {
 
         container.classList.add('cards');
 
-        let activeCards = [];
         cards.forEach(element => {
             if(element.status === 'active') {
-                container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
-                activeCards.push(element);
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
             }
         });
         main.appendChild(container);
-        addCardListeners(activeCards);        
     }
 }

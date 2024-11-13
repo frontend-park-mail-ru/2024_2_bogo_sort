@@ -1,10 +1,7 @@
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { CreateAdvert } from '../../components/createAdvert/createAdvert.js';
-import ajax from '../../utils/ajax.js';
-// import { Ajax } from '../../utils/ajax.js';
+import ajax from '../../modules/ajax.js';
 import { BACKEND_URL, IMAGE_URL, headerData } from '../../constants/constants.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 export class CreateAdvertPage {
     #advert;
@@ -16,7 +13,11 @@ export class CreateAdvertPage {
 
     #renderTemplate() {
         const main = initHeaderAndMain();
-        const categories = { category: headerData.category };
+        let createAdvertCategories = headerData.category;
+        createAdvertCategories.forEach(item => {
+            item.id = item.redirectUrl.slice(item.redirectUrl.lastIndexOf('/') + 1, item.redirectUrl.length);
+        });
+        const categories = { category: createAdvertCategories };
 
         const wrapper = document.createElement('div');
         wrapper.classList.add('create-advert');

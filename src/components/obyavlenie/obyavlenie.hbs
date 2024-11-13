@@ -2,12 +2,20 @@
     <ol class="breadcrumbs__list">
         <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/">Главная</a></li>
         <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{categoryUrl}}">{{category}}</a></li>
-        <li class="breadcrumbs__item"><span class="breadcrumbs__link-not-active">{{title}}</span></li>
+        <li class="breadcrumbs__item"><span class="breadcrumbs__link_not-active">{{title}}</span></li>
     </ol>
 </nav>
 
 <div class="advert-wrapper__advert advert">
-    <h1 class="advert__title">{{title}}</h1>
+    <h1 class="advert__title">
+        {{title}}
+        {{#if reserved}}
+        (зарезервировано)
+        {{/if}}
+        {{#if inactive}}
+        (закрыто)
+        {{/if}}
+    </h1>
     <div class="advert__content">
         <section class="advert__images">
             <img class="advert__image" src="{{imageUrl}}">
@@ -18,9 +26,21 @@
                 {{#if isAuthor}}
                 <button class="buttons__change" type="button">Редактировать</button>
                 <button class="buttons__disable" type="button">Снять с публикации</button>
-                {{else}}
-                <button class="buttons__add-to-cart" type="button">В корзину</button>
+                {{/if}}
+                {{#if reserved}}
                 <button class="buttons__show-phone-number" type="button">Показать номер</button>
+                {{/if}}
+                {{#if normal}}
+                <button class="buttons__add-to-cart" type="button">
+                    {{#if inCart}}
+                    Товар уже в корзине
+                    {{else}}
+                    В корзину
+                    {{/if}}
+                </button>
+                <button class="buttons__show-phone-number" type="button">Показать номер</button>
+                {{/if}}
+                {{#if inactive}}
                 {{/if}}
             </div>
 
@@ -52,13 +72,6 @@
                 <div class="seller__deatils">
                     <h3 class="seller__name">{{sellerName}}</h3>
                     <h5 class="seller__timestamp">С нами с {{sellerTimestamp}}</h5>
-                    {{!-- <span class="seller__rating">{{rating}}
-                        <img src="../../static/images/star.svg" class="seller__star">
-                        <img src="../../static/images/star.svg" class="seller__star">
-                        <img src="../../static/images/star.svg" class="seller__star">
-                        <img src="../../static/images/star.svg" class="seller__star">
-                        <img src="../../static/images/star.svg" class="seller__star">
-                    </span> --}}
                 </div>
             </div>
         </section>

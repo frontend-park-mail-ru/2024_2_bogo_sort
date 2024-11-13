@@ -1,10 +1,7 @@
-import { renderCardTemplate, addCardListeners } from '../../components/card/card.js';
-import ajax from '../../utils/ajax.js';
-// import { Ajax } from '../../utils/ajax.js';
+import { renderCardTemplate } from '../../components/card/card.js';
+import ajax from '../../modules/ajax.js';
 import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Represents the main page of the application.
@@ -43,15 +40,13 @@ export class MainPage {
 
         container.classList.add('cards');
 
-        this.noInactiveCards = [];
         cards.forEach(element => {
             if(element.status !== 'inactive'){
-                container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
-                this.noInactiveCards.push(element);
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
             }
         });
+
         main.appendChild(container);
-        addCardListeners(this.noInactiveCards);
 
         document.addEventListener('scroll', () => {
             if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
@@ -71,11 +66,10 @@ export class MainPage {
 
         newCards.forEach(card => {
             if(card.status !== 'inactive'){
-                container.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
-                this.noInactiveCards.push(card);
+                container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL));
             }
-        })
-        addCardListeners(this.noInactiveCards);
+        });
+
         if(newCards.length < 30) {
             this.noMoreCards = true;
             return;

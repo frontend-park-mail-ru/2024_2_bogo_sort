@@ -1,9 +1,9 @@
 import { IMAGE_URL } from "../../constants/constants.js";
-import ajax from "../../utils/ajax.js";
+import ajax from "../../modules/ajax.js";
 import { initHeaderAndMain } from "../../utils/initHeaderAndMain.js";
 import { timestampFormatter } from "../../utils/timestampFormatter.js";
 import { renderUser } from "../../components/user/user.js";
-import { addCardListeners, renderCardTemplate } from "../../components/card/card.js";
+import { renderCardTemplate } from "../../components/card/card.js";
 import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
 
 export class SellerPage {
@@ -34,11 +34,10 @@ export class SellerPage {
         const cards = await ajax.get(`/adverts/seller/${userSeller.id}`);
 
         cards.forEach(card => {
-            container.innerHTML += renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL);
+            container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL, card.id));
         });
 
         wrapper.appendChild(container);
         main.appendChild(wrapper);
-        addCardListeners(cards);
     }
 }

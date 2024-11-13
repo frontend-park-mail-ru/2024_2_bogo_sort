@@ -4,13 +4,14 @@ import { MainPage } from './pages/main/main.js';
 import { LogInPage } from '../pages/login/login.js';
 import { SignUpPage } from '../pages/signup/signup.js';
 import { LogOutPage } from '../pages/logout/logout.js';
-import { AdvertPage } from '../pages/advert/advert.js';
+import { AdvertPage } from '../pages/obyavlenie/obyavlenie.js';
 import { CreateAdvertPage } from './pages/createAdvert/createAdvert.js';
 import { CartPage } from './pages/cart/cart.js';
 import { CategoryPage } from './pages/category/category.js';
 import { ChangeAdvertPage } from './pages/change/change.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
+import './utils/hbsHelpers.js';
 
 const base = document.getElementById('root');
 const main = new MainPage();

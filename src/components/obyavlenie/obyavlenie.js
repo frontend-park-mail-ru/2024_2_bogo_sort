@@ -1,6 +1,6 @@
-import ajax from "../../utils/ajax.js";
+import ajax from "../../modules/ajax.js";
 import { timestampFormatter } from "../../utils/timestampFormatter.js";
-import { showAuthForm } from '../../components/auth/auth.js';
+import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 import { brokenImageUrlForamtter } from "../../utils/brokenImageUrlFormatter.js";
 import { checkAuth } from "../../utils/checkAuth.js";
@@ -8,21 +8,30 @@ import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
 
 export class AdvertComponent {
 
+    constructor() {
+        this.auth = new AuthComponent();
+    }
+
     async addComponent(wrapper, advertId) {
         const advert = await ajax.get(`/adverts/${advertId}`);
 
-        const sellerId = await ajax.get(`/seller/${advert.seller_id}`);
+        const seller = await ajax.get(`/seller/${advert.seller_id}`);
 
-        const seller = await ajax.get(`/profile/${sellerId.user_id}`);
+        const sellerUser = await ajax.get(`/profile/${seller.user_id}`);
 
-        this.seller = sellerId;
+        this.seller = seller;
         
         let me;
         if(checkAuth()) {
             me = await ajax.get('/me');
-            if(advert.status === 'inactive' && seller.id !== me.id) {
-                return false;
+            this.myAdvert = sellerUser.id === me.id;
+            if(advert.status === 'inactive' && !this.myAdvert) {
+                return null;
             }
+        }
+
+        if(me) {
+            await this.checkIfInCart(advert, me, wrapper);
         }
 
         const categories = await ajax.get('/categories');
@@ -35,12 +44,17 @@ export class AdvertComponent {
 
             category: categories.find(obj => obj.ID === advert.category_id)?.Title,
             categoryUrl: `/category/${advert.category_id}`,
-            isAuthor: me ? me.id === seller.id : false, 
 
-            sellerName: seller.username.length > 0 ? seller.username : 'Пользователь',
-            sellerImgUrl: await getUserImageUrl(seller),
-            sellerPhone: seller.phone,
-            sellerTimestamp: timestampFormatter(seller.created_at, true),
+            isAuthor: this.myAdvert ? this.myAdvert && advert.status !== 'inactive': false, 
+            reserved: advert.status === 'reserved' && !this.myAdvert,
+            inactive: advert.status === 'inactive',
+            normal: advert.status === 'active' && !this.myAdvert,
+            inCart: this.inCart,
+
+            sellerName: sellerUser.username.length > 0 ? sellerUser.username : 'Пользователь',
+            sellerImgUrl: await getUserImageUrl(sellerUser),
+            sellerPhone: sellerUser.phone,
+            sellerTimestamp: timestampFormatter(sellerUser.created_at, true),
 
             location: advert.location,
             createdAt: timestampFormatter(advert.created_at, false),
@@ -48,12 +62,8 @@ export class AdvertComponent {
 
         wrapper.innerHTML += this.renderAdTemplate(data);
 
-        if(advert.status !== 'active') {
-            this.applyAdvertStatus(wrapper, advert.status);
-        }
-
-        if(me) {
-            await this.alreadyInCart(advert, me, wrapper);
+        if(data.inactive) {
+            wrapper.querySelector('.advert')?.classList.add('inactive');
         }
 
         this.addListeners(wrapper, advert.id, me?.id);
@@ -62,24 +72,22 @@ export class AdvertComponent {
     }
 
     renderAdTemplate(data) {
-        return Handlebars.templates['advert.hbs']({ title: data.title, description: data.description, price: data.price, 
-            category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, 
+        data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
+        return Handlebars.templates['obyavlenie.hbs']({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart,
+            category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal,
             sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, rating: data.rating, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl });
     }
 
-    applyAdvertStatus(wrapper, status) {
-        const title = wrapper.querySelector('.advert__title');
-        if(status === 'inactive') {
-            wrapper.querySelector('.advert__buttons')?.remove();
-            wrapper.querySelector('.recomended')?.remove();
-            title.textContent += ' (объявление закрыто)';
-            wrapper.querySelector('.advert')?.classList.add('inactive');
-            return;
-        }
+    // applyAdvertStatus(wrapper, status) {
+    //     const title = wrapper.querySelector('.advert__title');
+    //     if(status === 'inactive') {
+    //         title.textContent += ' (объявление закрыто)';
+    //         wrapper.querySelector('.advert')?.classList.add('inactive');
+    //         return;
+    //     }
 
-        title.textContent += ' (зарезервировано)';
-        wrapper.querySelector('.buttons__add-to-cart').remove();
-    }
+    //     title.textContent += ' (зарезервировано)';
+    // }
 
     addListeners(wrapper, advertId, userId) {
         const overlay = wrapper.querySelector('.advert__overlay');
@@ -114,7 +122,7 @@ export class AdvertComponent {
         const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
         addToCartButton?.addEventListener('click', async () => {
             if(!userId) {
-                showAuthForm(loginData);
+                this.auth.showAuthForm(loginData);
                 return;
             }
             if(this.inCart){
@@ -146,8 +154,8 @@ export class AdvertComponent {
         });
 
         const closeAdvertButton = wrapper.querySelector('.modal__close');
-        closeAdvertButton?.addEventListener('click', () => {
-            ajax.put(`/adverts/${advertId}/status?status=inactive`);
+        closeAdvertButton?.addEventListener('click', async () => {
+            await ajax.put(`/adverts/${advertId}/status?status=inactive`);
             toggleOverlay();
             window.location.href = window.location.href;
         }, {once: true});
@@ -158,8 +166,8 @@ export class AdvertComponent {
         });
 
         const deleteButton = wrapper.querySelector('.modal__delete');
-        deleteButton?.addEventListener('click', () => {
-            ajax.delete(`/adverts/${advertId}`, null);
+        deleteButton?.addEventListener('click', async () => {
+            await ajax.delete(`/adverts/${advertId}`, null);
             window.location.href = '/';
         });
 
@@ -169,14 +177,14 @@ export class AdvertComponent {
         });
     }
 
-    async alreadyInCart(advert, me, wrapper) {
+    async checkIfInCart(advert, me, wrapper) {
         const cart = await ajax.get(`/cart/user/${me.id}`);
         
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
                 if(cartAdvert.id === advert.id){
-                    const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
-                    addToCartButton.innerText = 'Товар уже в корзине';
+                    // const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
+                    // addToCartButton.innerText = 'Товар уже в корзине';
 
                     this.inCart = true;
                 }

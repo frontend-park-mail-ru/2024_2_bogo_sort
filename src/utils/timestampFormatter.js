@@ -1,50 +1,27 @@
 'use strict';
 
+const MONTHS = {
+    1: 'января',
+    2: 'февраля',
+    3: 'марта',
+    4: 'апреля',
+    5: 'мая',
+    6: 'июня',
+    7: 'июля',
+    8: 'августа',
+    9: 'сентября',
+    10: 'октября',
+    11: 'ноября',
+    12: 'декабря'
+};
+
 export function timestampFormatter(timestamp, includeYear) {
-    timestamp = timestamp.slice(0, 10).split('-');
-    timestamp[2] = String(Number(timestamp[2]));  //избавляемся от нуля '01' -> '1'
-    let month;
-    switch(Number(timestamp[1])) {
-        case 1:
-            month = 'января';
-            break
-        case 2:
-            month = 'февраля';
-            break
-        case 3:
-            month = 'марта';
-            break
-        case 4:
-            month = 'апреля';
-            break
-        case 5:
-            month = 'мая';
-            break
-        case 6:
-            month = 'июня';
-            break
-        case 7:
-            month = 'июля';
-            break
-        case 8:
-            month = 'августа';
-            break
-        case 9:
-            month = 'сентября';
-            break 
-        case 10:
-            month = 'октября';
-            break
-        case 11:
-            month = 'ноября';
-            break
-        case 12:
-            month = 'декабря';
-            break
-    }
+    let [year, month, day] = timestamp.slice(0, 10).split('-');
+    day = String(parseInt(day));  //избавляемся от нуля '01' -> '1'
+    month = MONTHS[Number(month)];
 
     if(includeYear){
-        return timestamp[2] + ' ' + month + ' ' + timestamp[0];
+        return day + ' ' + month + ' ' + year;
     }
-    return timestamp[2] + ' ' + month;
+    return day + ' ' + month;
 }

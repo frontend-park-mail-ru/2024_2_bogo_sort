@@ -1,15 +1,11 @@
-import { showAuthForm } from '../auth/auth.js';
+import { AuthComponent } from '../auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 import { checkAuth } from '../../utils/checkAuth.js';
-import { logoutUser } from '../auth/auth.js';
 import { headerData } from '../../constants/constants.js'
-// import { Ajax } from '../../utils/ajax.js';
-import ajax from '../../utils/ajax.js';
+import ajax from '../../modules/ajax.js';
 import { BACKEND_URL } from '../../constants/constants.js';
 import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
-
-// const ajax = new Ajax(BACKEND_URL);
 
 /**
  * Represents a header component.
@@ -25,6 +21,7 @@ class Header {
         // this.#data = ajax.get('/me'); 
         this.#wrapper = document.createElement('header');
         this.#wrapper.classList.add('header');
+        this.auth = new AuthComponent();
     }
 
     /**
@@ -67,7 +64,7 @@ class Header {
             if(checkAuth()){
                 logoutUser();
             } else {
-                showAuthForm(loginData);
+                this.auth.showAuthForm(loginData);
             }
         });
 

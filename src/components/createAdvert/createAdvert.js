@@ -1,4 +1,4 @@
-import ajax from '../../utils/ajax.js';
+import ajax from '../../modules/ajax.js';
 
 export class CreateAdvert {
     form;
@@ -22,10 +22,7 @@ export class CreateAdvert {
     }
 
     trimNumber(number, maxLength) {
-        if(number.length > maxLength) {
-            number = number.slice(0, maxLength);
-        }
-        return number;
+        return number.slice(0, maxLength);
     }
 
     addSubmitFormListener(updateAdvertId) {
@@ -43,13 +40,7 @@ export class CreateAdvert {
             });
 
             const select = this.form.querySelector('select');
-            const categories = await ajax.get('/categories');
-            for(const category of categories) {
-                if(category.Title === select.value) {
-                    data['category_id'] = category.ID;
-                    break;
-                }
-            }
+            data['category_id'] = select.value;
 
             const textArea = this.form.querySelector('textarea');
             data[textArea.name] = textArea.value;
@@ -72,7 +63,7 @@ export class CreateAdvert {
             errors.add('title');
         }
 
-        if(data['price'].length > 6 || data['price'].length === 0) {
+        if(data['price'].length > 6 || data['price'].length === 0 || Number(data['price']) < 0 ) {
             errors.add('price');
         }
 
