@@ -1,10 +1,10 @@
-import { BASE_URL } from "../../constants/constants.js";
-import ajax from "../../modules/ajax.js";
-import { initHeaderAndMain } from "../../utils/initHeaderAndMain.js";
-import { timestampFormatter } from "../../utils/timestampFormatter.js";
-import { renderUser } from "../../components/user/user.js";
-import { renderCardTemplate } from "../../components/card/card.js";
-import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
+import { BASE_URL } from '../../constants/constants.js';
+import ajax from '../../modules/ajax.js';
+import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
+import { timestampFormatter } from '../../utils/timestampFormatter.js';
+import { renderUser } from '../../components/user/user.js';
+import { renderCardTemplate } from '../../components/card/card.js';
+import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class SellerPage {
     render() {
@@ -15,13 +15,13 @@ export class SellerPage {
     async renderTemplate() {
         const main = initHeaderAndMain();
         const seller = await ajax.get(`/seller/${this.sellerId}`);
-        const userSeller = await ajax.get(`/profile/${seller.user_id}`)
+        const userSeller = await ajax.get(`/profile/${seller.user_id}`);
 
         const data = {
             userImageUrl: await getUserImageUrl(userSeller),
             username: userSeller.username,
             timestamp: timestampFormatter(userSeller.created_at, true)
-        }
+        };
 
         const wrapper = document.createElement('div');
         wrapper.classList.add('user');

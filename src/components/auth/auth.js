@@ -75,7 +75,7 @@ export class AuthComponent {
      */
     displayInputErrors(errors, errorElement) {
         const authForm = document.querySelector('.auth');
-        let inputs = [];
+        const inputs = [];
         if(errors.has('email')) {
             const inputEmail = authForm?.querySelector('.input__email');
             inputEmail?.classList.add('error');
@@ -261,7 +261,7 @@ export class AuthComponent {
      * Updates the header to reflect that the user is logged in.
      */
     async updateToLoggedIn() {
-        let user = await ajax.get('/me');
+        const user = await ajax.get('/me');
         user.username === '' ? 'Пользователь' : user.username;
 
         localStorage.setItem('id', user.id);

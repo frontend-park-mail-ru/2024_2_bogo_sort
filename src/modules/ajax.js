@@ -1,6 +1,6 @@
 'use strict';
 
-import { BACKEND_BASE_URL } from "../constants/constants.js";
+import { BACKEND_BASE_URL } from '../constants/constants.js';
 
 const GET = 'GET';
 const POST = 'POST';

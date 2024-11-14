@@ -1,7 +1,7 @@
 import { AuthComponent } from '../auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 import { checkAuth } from '../../utils/checkAuth.js';
-import { headerData } from '../../constants/constants.js'
+import { headerData } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
 import { BACKEND_BASE_URL } from '../../constants/constants.js';
 import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
@@ -18,7 +18,6 @@ class Header {
      * Creates an instance of the Header class.
      */
     constructor() {
-        // this.#data = ajax.get('/me'); 
         this.#wrapper = document.createElement('header');
         this.#wrapper.classList.add('header');
         this.auth = new AuthComponent();
@@ -42,6 +41,7 @@ class Header {
         data.checkAuth = checkAuth();
         data.userName = localStorage.getItem('name');
         data.userImgUrl = localStorage.getItem('imageUrl');
+
         return data;
     }
 
@@ -50,7 +50,6 @@ class Header {
      */
     #renderTemplate() {
         const data = this.#getData();
-        
         this.#wrapper.innerHTML = Handlebars.templates['header.hbs']({ category: data.category, checkAuth: data.checkAuth, userName: data.userName, userImgUrl: data.userImgUrl, menuItems: data.menuItems });
     }
 
@@ -76,9 +75,10 @@ class Header {
                 list.classList.remove('not-active');
 
                 return;
-            } 
+            }
+
             list.classList.add('not-active');
-        })
+        });
 
         const menuButton = this.#wrapper.querySelector('.user-menu');
         const userMenu = this.#wrapper.querySelector('.user-menu__menu');
@@ -88,11 +88,11 @@ class Header {
                 userMenu.classList.remove('not-active');
 
                 return;
-            } 
-            userMenu?.classList.add('not-active');
-        })
+            }
 
-        
+            userMenu?.classList.add('not-active');
+        });
+
         if(userMenu || list) {
             window.addEventListener('mousedown', (event) => {
                 if(!list?.contains(event.target) && !listButton?.contains(event.target)) {

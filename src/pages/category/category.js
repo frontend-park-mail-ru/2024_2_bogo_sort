@@ -29,12 +29,13 @@ export class CategoryPage {
         if(title.textContent === '') {
             title.textContent = 'Такой категории не существует';
             main.appendChild(title);
+
             return;
         }
 
 
         const cards = await ajax.get(`/adverts/category/${this.category}`);
-        
+
         main.appendChild(title);
 
         container.classList.add('cards');

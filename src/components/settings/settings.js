@@ -1,9 +1,9 @@
-import { BASE_URL } from "../../constants/constants.js";
-import ajax from "../../modules/ajax.js";
-import header from '../../components/header/header.js'
-import { validateEmail } from "../../utils/validation.js";
+import { BASE_URL } from '../../constants/constants.js';
+import ajax from '../../modules/ajax.js';
+import header from '../../components/header/header.js';
+import { validateEmail } from '../../utils/validation.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
-import { formatPhone } from "../../utils/formatPhone.js";
+import { formatPhone } from '../../utils/formatPhone.js';
 
 export class Settings {
     renderSettings() {
@@ -66,7 +66,7 @@ export class Settings {
                 if(input.type !== 'file') {
                     if(input.name === 'Phone' && input.value !== ''){
                         const pattern = /\+7\s*\(\s*(\d{3})\s*\)\s*(\d{3})-(\d{2})-(\d{2})/;
-                        const replacement = "+7$1$2$3$4";
+                        const replacement = '+7$1$2$3$4';
                         data[input.name] = input.value.replace(pattern, replacement);
                     } else {
                         data[input.name] = input.value;
@@ -77,7 +77,7 @@ export class Settings {
             data['ID'] = this.me.id;
 
             this.handleFormSubmission(data);
-        })
+        });
     }
 
     async handleFormSubmission(data) {
@@ -118,7 +118,7 @@ export class Settings {
     }
 
     displayInputErrors(errors) {
-        let inputs = [];
+        const inputs = [];
         if(errors.has('username')) {
             const nameInput = document.querySelector('.settings-form__name-input');
             nameInput.classList.add('error');

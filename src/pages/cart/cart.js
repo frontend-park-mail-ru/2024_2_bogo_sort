@@ -8,20 +8,20 @@ export class CartPage {
 
     render() {
         this.#renderTemplate();
-        this.cartComponent = new Cart(); 
+        this.cartComponent = new Cart();
     }
 
     async #renderTemplate() {
         const main = initHeaderAndMain();
         const userId = localStorage.getItem('id');
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
-        let data = {}
+        let data = {};
         let adverts;
         if(cartExists.exists) {
-            const cart = await ajax.get(`/cart/user/${userId}`)
+            const cart = await ajax.get(`/cart/user/${userId}`);
             this.cartId = cart.id;
-            
-            adverts = await ajax.get(`/adverts/cart/${cart.id}`)
+
+            adverts = await ajax.get(`/adverts/cart/${cart.id}`);
 
             data = {adverts: adverts};
             data.notEmpty = adverts?.length > 0;
@@ -59,7 +59,7 @@ export class CartPage {
 
     #addListeners(wrapper) {
         const removeButtonList = wrapper.querySelectorAll('.adverts__remove');
-        removeButtonList?.forEach(removeButton => { 
+        removeButtonList?.forEach(removeButton => {
             removeButton.addEventListener('click', (event) => {
                 const advertId = removeButton.parentNode.dataset.advertId;
                 const data = {
@@ -79,7 +79,7 @@ export class CartPage {
 
         const buyButton = wrapper.querySelector('.cart__buy-button');
         buyButton?.addEventListener('click', async () => {
-            await ajax.post('/purchase', { 
+            await ajax.post('/purchase', {
                 'cart_id': this.cartId,
                 'payment_method': 'cash',
                 'delivery_method': 'pickup'

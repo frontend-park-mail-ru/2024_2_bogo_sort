@@ -17,11 +17,13 @@ const MONTHS = {
 
 export function timestampFormatter(timestamp, includeYear) {
     let [year, month, day] = timestamp.slice(0, 10).split('-');
-    day = String(parseInt(day));  //избавляемся от нуля '01' -> '1'
+    day = String(parseInt(day));
     month = MONTHS[Number(month)];
 
     if(includeYear){
+
         return day + ' ' + month + ' ' + year;
     }
+
     return day + ' ' + month;
 }

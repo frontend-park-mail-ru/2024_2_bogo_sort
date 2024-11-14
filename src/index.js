@@ -22,7 +22,7 @@ window.addEventListener('load', () => {
     let path = window.location.pathname;
     let numberOfSlashes = 0;
     for(const char of path) {
-        numberOfSlashes += Number(char === '/'); 
+        numberOfSlashes += Number(char === '/');
     }
     if(numberOfSlashes > 1) {
         path = path.slice(0, path.indexOf('/', 1));

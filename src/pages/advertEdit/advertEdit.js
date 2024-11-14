@@ -1,8 +1,8 @@
-import { CreateAdvert } from "../../components/advertCreate/advertCreate.js";
-import { headerData } from "../../constants/constants.js";
-import ajax from "../../modules/ajax.js";
-import { initHeaderAndMain } from "../../utils/initHeaderAndMain.js";
-import { BASE_URL } from "../../constants/constants.js";
+import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
+import { headerData } from '../../constants/constants.js';
+import ajax from '../../modules/ajax.js';
+import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
+import { BASE_URL } from '../../constants/constants.js';
 
 export class AdvertEditPage {
     render() {
@@ -12,7 +12,7 @@ export class AdvertEditPage {
         const wrapper = document.createElement('div');
         wrapper.classList.add('create-advert');
 
-        let createAdvertCategories = headerData.category;
+        const createAdvertCategories = headerData.category;
         createAdvertCategories.forEach(item => {
             item.id = item.redirectUrl.slice(item.redirectUrl.lastIndexOf('/') + 1, item.redirectUrl.length);
         });

@@ -1,10 +1,10 @@
-import ajax from "../../modules/ajax.js";
-import { timestampFormatter } from "../../utils/timestampFormatter.js";
+import ajax from '../../modules/ajax.js';
+import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { makeImageUrl } from "../../utils/brokenImageUrlFormatter.js";
-import { checkAuth } from "../../utils/checkAuth.js";
-import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
+import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
+import { checkAuth } from '../../utils/checkAuth.js';
+import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class AdvertComponent {
     auth;
@@ -23,7 +23,6 @@ export class AdvertComponent {
         const sellerUser = await ajax.get(`/profile/${seller.user_id}`);
 
         this.seller = seller;
-        
         let me;
         if(checkAuth()) {
             me = await ajax.get('/me');
@@ -48,7 +47,7 @@ export class AdvertComponent {
             category: categories.find(obj => obj.ID === advert.category_id)?.Title,
             categoryUrl: `/category/${advert.category_id}`,
 
-            isAuthor: this.myAdvert ? this.myAdvert && advert.status !== 'inactive': false, 
+            isAuthor: this.myAdvert ? this.myAdvert && advert.status !== 'inactive': false,
             reserved: advert.status === 'reserved' && !this.myAdvert,
             inactive: advert.status === 'inactive',
             normal: advert.status === 'active' && !this.myAdvert,
@@ -61,7 +60,7 @@ export class AdvertComponent {
 
             location: advert.location,
             createdAt: timestampFormatter(advert.created_at, false),
-        } 
+        };
 
         wrapper.innerHTML += this.renderAdTemplate(data);
 
@@ -76,6 +75,7 @@ export class AdvertComponent {
 
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
+
         return Handlebars.templates['obyavlenie.hbs']({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart,
             category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal,
             sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, rating: data.rating, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl });
@@ -104,7 +104,7 @@ export class AdvertComponent {
                 }
                 overlay.classList.remove('active');
             }
-        })
+        });
 
         const disableButton = wrapper.querySelector('.buttons__disable');
         const numberButton = wrapper.querySelector('.buttons__show-phone-number');
@@ -115,21 +115,23 @@ export class AdvertComponent {
 
                 return;
             }
-            overlay?.classList.add('active')
-        }
+            overlay?.classList.add('active');
+        };
 
         disableButton?.addEventListener('click', toggleOverlay);
         numberButton?.addEventListener('click', toggleOverlay);
 
-        let once = userId ? true : false;
+        const once = userId ? true : false;
         const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
         addToCartButton?.addEventListener('click', async () => {
             if(!userId) {
                 this.auth.showAuthForm(loginData);
+
                 return;
             }
             if(this.inCart){
                 window.location.href = '/cart';
+
                 return;
             }
 
@@ -144,7 +146,7 @@ export class AdvertComponent {
                 const buyerContent = wrapper.querySelector('.modal__buyer-content');
                 goToCart?.classList.remove('not-active');
                 buyerContent?.classList.add('not-active');
-                overlay?.classList.add('active')
+                overlay?.classList.add('active');
                 addToCartButton.innerText = 'Товар уже в корзине';
             } else {
                 addToCartButton.innerText = 'Товар уже в корзине';
@@ -182,13 +184,10 @@ export class AdvertComponent {
 
     async checkIfInCart(advert, me, wrapper) {
         const cart = await ajax.get(`/cart/user/${me.id}`);
-        
+
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
                 if(cartAdvert.id === advert.id){
-                    // const addToCartButton = wrapper.querySelector('.buttons__add-to-cart');
-                    // addToCartButton.innerText = 'Товар уже в корзине';
-
                     this.inCart = true;
                 }
             }

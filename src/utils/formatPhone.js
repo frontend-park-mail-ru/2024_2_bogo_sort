@@ -12,5 +12,6 @@ export function formatPhone(phone) {
     if (phone.length >= 5) formattedNumber += ') ' + phone.substring(4, 7);
     if (phone.length >= 8) formattedNumber += '-' + phone.substring(7, 9);
     if (phone.length >= 10) formattedNumber += '-' + phone.substring(9, 11);
+
     return formattedNumber;
 }

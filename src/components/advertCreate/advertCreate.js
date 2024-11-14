@@ -37,7 +37,7 @@ export class CreateAdvert {
 
         inputNumber?.addEventListener('input', () => {
             inputNumber.value = this.trimNumber(inputNumber.value, 11);
-        })
+        });
     }
 
     trimNumber(number, maxLength) {
@@ -66,18 +66,17 @@ export class CreateAdvert {
 
             const userId = localStorage.getItem('id');
 
-            const seller = await ajax.get(`/seller/user/${userId}`)
+            const seller = await ajax.get(`/seller/user/${userId}`);
             data['seller_id'] = seller.id;
             data['has_delivery'] = false;
             data['status'] = 'active';
 
             this.handleFormSubmission(data, updateAdvertId);
-        })
+        });
     }
 
     async handleFormSubmission(data, updateAdvertId = null) {
         const errors = new Set();
-    
         if(data['title'].length > 45 || data['title'].length === 0) {
             errors.add('title');
         }
@@ -96,7 +95,7 @@ export class CreateAdvert {
 
         if(errors.size !== 0) {
             this.displayInputErrors(errors);
-            
+
             return;
         }
 
@@ -120,7 +119,7 @@ export class CreateAdvert {
     }
 
     displayInputErrors(errors) {
-        let inputs = [];
+        const inputs = [];
         if(errors.has('title')) {
             const titleInput = this.form.querySelector('.advert-form__name-input');
             titleInput?.classList.add('error');

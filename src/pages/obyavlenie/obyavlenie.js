@@ -15,10 +15,10 @@ export class AdvertPage {
 
         const main = initHeaderAndMain();
 
-        const wrapper = document.createElement('main')
+        const wrapper = document.createElement('main');
         wrapper.classList.add('advert-wrapper');
         main.appendChild(wrapper);
-        
+
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
         if(requestedAdvert === null){
             window.location.href = '/';
@@ -38,8 +38,9 @@ export class AdvertPage {
         });
         if(cardsWithoutCurrent === 0 || requestedAdvert.status !== 'active'){
             wrapper.querySelector('.recomended').remove();
+
             return;
-        } 
+        }
         wrapper.appendChild(container);
     }
 }

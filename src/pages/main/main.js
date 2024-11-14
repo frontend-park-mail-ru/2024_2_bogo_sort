@@ -54,13 +54,14 @@ export class MainPage {
                     this.#addCards(container);
                 }
             }
-        })
+        });
     }
 
     async #addCards(container) {
         const newCards = await ajax.get(`/adverts?limit=30&offset=${this.loadedCrads}`);
         if(newCards.code === 400) {
             this.noMoreCards = true;
+
             return;
         }
 
@@ -72,6 +73,7 @@ export class MainPage {
 
         if(newCards.length < 30) {
             this.noMoreCards = true;
+
             return;
         }
         this.loadedCrads += newCards.length;

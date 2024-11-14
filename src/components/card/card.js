@@ -17,5 +17,6 @@ export function renderCardTemplate(title, price, imageUrl, baseUrl, id) {
     parentTemp.firstChild.addEventListener('click', () => {
         window.location.href = `/advert/${id}`;
     });
+
     return parentTemp.firstChild;
 }

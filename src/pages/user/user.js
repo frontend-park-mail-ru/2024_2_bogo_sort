@@ -3,7 +3,7 @@ import { renderUser } from '../../components/user/user.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { BASE_URL } from '../../constants/constants.js';
-import { timestampFormatter } from '../../utils/timestampFormatter.js'
+import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { Settings } from '../../components/settings/settings.js';
 import ajax from '../../modules/ajax.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
@@ -11,7 +11,7 @@ import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 export class UserPage {
 
     render() {
-        this.location =  window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
+        this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
         this.#renderTemplate();
     }
 
@@ -25,7 +25,7 @@ export class UserPage {
             userImageUrl: await getUserImageUrl(me),
             username: me.username,
             timestamp: timestampFormatter(me.created_at, true)
-        }
+        };
 
         const wrapper = document.createElement('div');
         wrapper.classList.add('user');
@@ -54,17 +54,17 @@ export class UserPage {
         const ordersButton = wrapper.querySelector('.navigation__orders');
         ordersButton?.addEventListener('click', () => {
             window.location.href = '/user/orders';
-        })
+        });
 
         const settingsButton = wrapper.querySelector('.navigation__settings');
         settingsButton?.addEventListener('click', () => {
             window.location.href = '/user/settings';
-        })
+        });
 
         const logoutButton = wrapper.querySelector('.navigation__logout');
         logoutButton?.addEventListener('click', () => {
             window.location.href = '/logout';
-        })
+        });
     }
 
     async renderAdverts(wrapper, me, main) {
@@ -83,7 +83,7 @@ export class UserPage {
         // }
         cards.forEach(card => {
             cardsContainer.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
-        })
+        });
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);

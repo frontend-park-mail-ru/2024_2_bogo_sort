@@ -13,7 +13,7 @@ export class CreateAdvertPage {
 
     #renderTemplate() {
         const main = initHeaderAndMain();
-        let createAdvertCategories = headerData.category;
+        const createAdvertCategories = headerData.category;
         createAdvertCategories.forEach(item => {
             item.id = item.redirectUrl.slice(item.redirectUrl.lastIndexOf('/') + 1, item.redirectUrl.length);
         });
@@ -23,7 +23,7 @@ export class CreateAdvertPage {
         wrapper.classList.add('create-advert');
         wrapper.innerHTML += this.#advert.renderAdvertCreation(data);
         main.appendChild(wrapper);
-        
+
         this.#addListeners(wrapper);
     }
 
