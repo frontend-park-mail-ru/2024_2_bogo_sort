@@ -1,6 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 
 /**
@@ -34,7 +34,7 @@ export class MainPage {
         const cards = await ajax.get('/adverts?limit=30&offset=0');
 
         this.noMoreCards = false;
-        this.loadedCrads = 30;
+        this.loadedCrads = cards.length;
 
         const container = document.createElement('div');
 
@@ -42,7 +42,7 @@ export class MainPage {
 
         cards.forEach(element => {
             if(element.status !== 'inactive'){
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
             }
         });
 
@@ -66,7 +66,7 @@ export class MainPage {
 
         newCards.forEach(card => {
             if(card.status !== 'inactive'){
-                container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL));
+                container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL));
             }
         });
 
@@ -74,6 +74,6 @@ export class MainPage {
             this.noMoreCards = true;
             return;
         }
-        this.loadedCrads += 30;
+        this.loadedCrads += newCards.length;
     }
 }

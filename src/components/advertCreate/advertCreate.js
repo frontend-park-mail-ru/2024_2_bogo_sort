@@ -4,7 +4,7 @@ export class CreateAdvert {
     form;
 
     renderAdvertCreation(data){
-        return Handlebars.templates['createAdvert.hbs']({ category: data.category });
+        return Handlebars.templates['advertCreate.hbs']({ category: data.category, imagePreview: data.imagePreview });
     }
 
     previewImage(upload) {
@@ -21,11 +21,30 @@ export class CreateAdvert {
         }
     }
 
+    addFileAndNumberInputListeners(wrapper) {
+        const fileInput = wrapper.querySelector('.advert-form__image-input');
+        fileInput?.addEventListener('change', (upload) => {
+            const img = wrapper.querySelector('.advert-form__upload-box-image');
+            const text = wrapper.querySelector('.advert-form__upload-box-text');
+            const additional = wrapper.querySelector('.advert-form__upload-box-text-additional');
+            img?.classList.add('big');
+            text?.classList.add('not-active');
+            additional?.classList.add('not-active');
+            this.previewImage(upload);
+        });
+
+        const inputNumber = wrapper.querySelector('.advert-form__price-input');
+
+        inputNumber?.addEventListener('input', () => {
+            inputNumber.value = this.trimNumber(inputNumber.value, 11);
+        })
+    }
+
     trimNumber(number, maxLength) {
         return number.slice(0, maxLength);
     }
 
-    addSubmitFormListener(updateAdvertId) {
+    addSubmitFormListener(updateAdvertId = null) {
         this.form = document.querySelector('.advert-form');
 
         this.form?.addEventListener('submit', async (event) => {

@@ -2,11 +2,14 @@ import ajax from "../../modules/ajax.js";
 import { timestampFormatter } from "../../utils/timestampFormatter.js";
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { brokenImageUrlForamtter } from "../../utils/brokenImageUrlFormatter.js";
+import { makeImageUrl } from "../../utils/brokenImageUrlFormatter.js";
 import { checkAuth } from "../../utils/checkAuth.js";
 import { getUserImageUrl } from "../../utils/getUserImageUrl.js";
 
 export class AdvertComponent {
+    auth;
+    seller;
+    inCart;
 
     constructor() {
         this.auth = new AuthComponent();
@@ -38,7 +41,7 @@ export class AdvertComponent {
 
         const data = {
             title: advert.title,
-            imageUrl: brokenImageUrlForamtter(advert.image_url),
+            imageUrl: makeImageUrl(advert.image_url),
             description: advert.description,
             price: advert.price,
 

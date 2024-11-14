@@ -1,7 +1,7 @@
 'use strict';
 
 import header from '../header/header.js';
-import { signupData, loginData, BACKEND_URL } from '../../constants/constants.js';
+import { signupData, loginData, BACKEND_BASE_URL } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';

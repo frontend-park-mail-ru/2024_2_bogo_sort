@@ -1,13 +1,13 @@
 'use strict';
 
-import { brokenImageUrlForamtter } from "../../utils/brokenImageUrlFormatter.js";
+import { makeImageUrl } from "../../utils/brokenImageUrlFormatter.js";
 
 
 export class Cart {
     renderCart(data){
         if(data.adverts){
             for(const advert of data.adverts) {
-                advert.image_url = brokenImageUrlForamtter(advert.image_url);
+                advert.image_url = makeImageUrl(advert.image_url);
             }
         }
         data.numberOfItems = data.numberOfItems + this.getProductWord(data.numberOfItems);

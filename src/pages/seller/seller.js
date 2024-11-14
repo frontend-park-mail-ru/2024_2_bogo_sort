@@ -1,4 +1,4 @@
-import { IMAGE_URL } from "../../constants/constants.js";
+import { BASE_URL } from "../../constants/constants.js";
 import ajax from "../../modules/ajax.js";
 import { initHeaderAndMain } from "../../utils/initHeaderAndMain.js";
 import { timestampFormatter } from "../../utils/timestampFormatter.js";
@@ -34,7 +34,7 @@ export class SellerPage {
         const cards = await ajax.get(`/adverts/seller/${userSeller.id}`);
 
         cards.forEach(card => {
-            container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, IMAGE_URL, card.id));
+            container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
         });
 
         wrapper.appendChild(container);

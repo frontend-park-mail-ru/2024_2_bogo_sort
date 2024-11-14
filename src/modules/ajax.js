@@ -1,6 +1,6 @@
 'use strict';
 
-import { BACKEND_URL } from "../constants/constants.js";
+import { BACKEND_BASE_URL } from "../constants/constants.js";
 
 const GET = 'GET';
 const POST = 'POST';
@@ -163,4 +163,4 @@ class Ajax {
     }
 }
 
-export default new Ajax(BACKEND_URL);
+export default new Ajax(BACKEND_BASE_URL);

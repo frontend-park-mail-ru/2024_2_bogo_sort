@@ -5,10 +5,10 @@ import { LogInPage } from '../pages/login/login.js';
 import { SignUpPage } from '../pages/signup/signup.js';
 import { LogOutPage } from '../pages/logout/logout.js';
 import { AdvertPage } from '../pages/obyavlenie/obyavlenie.js';
-import { CreateAdvertPage } from './pages/createAdvert/createAdvert.js';
+import { CreateAdvertPage } from './pages/advertCreate/advertCreate.js';
 import { CartPage } from './pages/cart/cart.js';
 import { CategoryPage } from './pages/category/category.js';
-import { ChangeAdvertPage } from './pages/change/change.js';
+import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
 import './utils/hbsHelpers.js';
@@ -64,7 +64,7 @@ window.addEventListener('load', () => {
             categoryPage.render();
             break;
         case '/change':
-            const changeAdvertPage = new ChangeAdvertPage();
+            const changeAdvertPage = new AdvertEditPage();
             changeAdvertPage.render();
             break;
         case '/user':

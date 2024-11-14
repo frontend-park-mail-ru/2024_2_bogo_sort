@@ -2,7 +2,7 @@ import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
 
 export class AdvertPage {
     render() {
@@ -32,7 +32,7 @@ export class AdvertPage {
 
         cards.forEach(element => {
             if(element.id !== requestedAdvert.id && element.status !== 'inactive') {
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
                 cardsWithoutCurrent++;
             }
         });

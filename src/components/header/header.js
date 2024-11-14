@@ -3,7 +3,7 @@ import { loginData } from '../../constants/constants.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { headerData } from '../../constants/constants.js'
 import ajax from '../../modules/ajax.js';
-import { BACKEND_URL } from '../../constants/constants.js';
+import { BACKEND_BASE_URL } from '../../constants/constants.js';
 import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 

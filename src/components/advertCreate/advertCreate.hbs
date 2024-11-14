@@ -29,9 +29,14 @@
     <div class="advert-form__input-wrapper">
         <input class="advert-form__image-input" id="image" type="file">
         <label class="advert-form__upload-box" for="image">
+            {{#if imagePreview}}
+            <img class="advert-form__upload-box-image big" src="../../static/images/image.svg">
+
+            {{else}}
             <img class="advert-form__upload-box-image" src="../../static/images/image.svg">
             <span class="advert-form__upload-box-text">Добавить</span>
             <span class="advert-form__upload-box-text-additional">jpg или jpeg</span>
+            {{/if}}
         </label>
     </div>
 

@@ -1,6 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
+import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 
 export class CategoryPage {
@@ -41,7 +41,7 @@ export class CategoryPage {
 
         cards.forEach(element => {
             if(element.status === 'active') {
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL, element.id));
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
             }
         });
         main.appendChild(container);

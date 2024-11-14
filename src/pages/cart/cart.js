@@ -1,7 +1,7 @@
 import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { Cart } from '../../components/cart/cart.js';
 import ajax from '../../modules/ajax.js';
-import { IMAGE_URL } from '../../constants/constants.js';
+import { BASE_URL } from '../../constants/constants.js';
 
 export class CartPage {
     cartId;
@@ -15,7 +15,8 @@ export class CartPage {
         const main = initHeaderAndMain();
         const userId = localStorage.getItem('id');
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
-        let data = {}, adverts;
+        let data = {}
+        let adverts;
         if(cartExists.exists) {
             const cart = await ajax.get(`/cart/user/${userId}`)
             this.cartId = cart.id;
@@ -33,7 +34,7 @@ export class CartPage {
         } else {
             data.notEmpty = false;
         }
-        data.imgUrl = IMAGE_URL;
+        data.imgUrl = BASE_URL;
 
 
         const wrapper = document.createElement('div');
