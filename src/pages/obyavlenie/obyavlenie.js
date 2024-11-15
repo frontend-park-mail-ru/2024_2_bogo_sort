@@ -5,15 +5,12 @@ import ajax from '../../modules/ajax.js';
 import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
 
 export class AdvertPage {
-    render() {
-        const advertId = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        this.#renderTemplate(advertId);
+    render(main, advertId) {
+        this.#renderTemplate(main, advertId);
     }
 
-    async #renderTemplate(advertId) {
+    async #renderTemplate(main, advertId) {
         const advert = new AdvertComponent();
-
-        const main = initHeaderAndMain();
 
         const wrapper = document.createElement('main');
         wrapper.classList.add('advert-wrapper');

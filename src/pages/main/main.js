@@ -13,8 +13,8 @@ export class MainPage {
      *
      * @returns {HTMLElement} The main container element with the rendered content.
      */
-    render() {
-        this.#renderTemplate();
+    render(main) {
+        this.#renderTemplate(main);
     }
 
     /**
@@ -23,13 +23,15 @@ export class MainPage {
      * Fetches card data from the API, creates a header, and appends
      * card elements to the main container.
      */
-    async #renderTemplate() {
-        const main = initHeaderAndMain();
+    async #renderTemplate(main) {
+        const wrapper = document.createElement('main');
+        wrapper.className = 'cards-wrapper';
 
         const title = document.createElement('h1');
         title.className = 'category-title';
         title.textContent = 'Все объявления';
-        main.appendChild(title);
+
+        wrapper.appendChild(title);
 
         const cards = await ajax.get('/adverts?limit=30&offset=0');
 
@@ -46,7 +48,8 @@ export class MainPage {
             }
         });
 
-        main.appendChild(container);
+        wrapper.appendChild(container);
+        main.appendChild(wrapper);
 
         document.addEventListener('scroll', () => {
             if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {

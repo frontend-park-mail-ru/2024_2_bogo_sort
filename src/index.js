@@ -11,68 +11,100 @@ import { CategoryPage } from './pages/category/category.js';
 import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
+import routing from './modules/routing.js';
+import { ROUTES } from './constants/constants.js';
 import './utils/hbsHelpers.js';
 
-const base = document.getElementById('root');
-const main = new MainPage();
+routing.init(ROUTES);
+routing.addNewRouteWithRender('/', renderMain);
+routing.addNewRouteWithRender('/advert', renderAdvert);
+routing.addNewRouteWithRender('/create', renderCreateAdvert);
+routing.addNewRouteWithRender('/cart', renderCart);
+routing.addNewRouteWithRender('/category', renderCategory);
+routing.addNewRouteWithRender('/edit', renderAdvertEdit);
+routing.addNewRouteWithRender('/user', renderUser);
+routing.addNewRouteWithRender('/seller', renderSeller);
+routing.addNewRouteWithRender('/login', renderLogIn);
+routing.addNewRouteWithRender('/logout', renderLogOut);
+routing.addNewRouteWithRender('/signup', renderSignUp);
 
+function renderMain(main) {
+    const mainPage = new MainPage();
+    return mainPage.render(main);
+}
 
+function renderAdvert(main, advertId) {
+    const advertPage = new AdvertPage();
+    return advertPage.render(main, advertId);
+}
+
+function renderCreateAdvert(main) {
+    const createPage = new CreateAdvertPage();
+    return createPage.render(main);
+}
+
+function renderCart(main) {
+    const cartPage = new CartPage();
+    return cartPage.render(main);
+}
+
+function renderCategory(main, categoryId) {
+    const categoryPage = new CategoryPage();
+    return categoryPage.render(main, categoryId);
+}
+
+function renderAdvertEdit(main, advertId) {
+    const advertEditPage = new AdvertEditPage();
+    return advertEditPage.render(main, advertId);
+}
+
+function renderUser(main, location) {
+    const userPage = new UserPage();
+    return userPage.render(main, location);
+}
+
+function renderSeller(main, sellerId) {
+    const sellerPage = new SellerPage();
+    return sellerPage.render(main, sellerId);
+}
+
+function renderLogIn() {
+    const loginPage = new LogInPage();
+    return loginPage.render();
+}
+
+function renderLogOut(main) {
+    const mainPage = new MainPage();
+    logout();
+    return mainPage.render(main);
+}
+
+function renderSignUp() {
+    const signUpPage = new SignUpPage();
+    return signUpPage.render();
+}
 
 window.addEventListener('load', () => {
-    let path = window.location.pathname;
-    let numberOfSlashes = 0;
-    for(const char of path) {
-        numberOfSlashes += Number(char === '/');
-    }
-    if(numberOfSlashes > 1) {
-        path = path.slice(0, path.indexOf('/', 1));
+    const path = window.location.pathname;
+
+    routing.goToPage(path);
+});
+
+window.addEventListener('popstate', event => {
+    routing.goToPage(location.pathname, true);
+});
+
+document.addEventListener('click', event => {
+    const target = event.target;
+
+    if(target.tagName === 'A') {
+        event.preventDefault();
+        routing.goToPage(target.pathname);
     }
 
-    switch(path) {
-        case '/':
-            main.render();
-            break;
-        case '/login':
-            main.render();
-            const loginPage = new LogInPage();
-            loginPage.render();
-            break;
-        case '/signup':
-            main.render();
-            const signupPage = new SignUpPage();
-            signupPage.render();
-            break;
-        case '/logout':
-            main.render();
-            logout();
-            break;
-        case '/advert':
-            const advertPage = new AdvertPage();
-            advertPage.render();
-            break;
-        case '/create':
-            const createPage = new CreateAdvertPage();
-            createPage.render();
-            break;
-        case '/cart':
-            const cartPage = new CartPage();
-            cartPage.render();
-            break;
-        case '/category':
-            const categoryPage = new CategoryPage();
-            categoryPage.render();
-            break;
-        case '/change':
-            const changeAdvertPage = new AdvertEditPage();
-            changeAdvertPage.render();
-            break;
-        case '/user':
-            const userPage = new UserPage();
-            userPage.render();
-            break;
-        case '/seller':
-            const sellerPage = new SellerPage();
-            sellerPage.render();
-            break;
+    //костыль для иконок категорий, без этого страница перезагружается
+    if(target.className === 'list__icon') {
+        event.preventDefault();
+        routing.goToPage(target.parentNode.pathname);
     }
 });

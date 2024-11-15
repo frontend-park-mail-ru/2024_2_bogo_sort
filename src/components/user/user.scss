@@ -9,12 +9,17 @@
         flex-wrap: wrap;
         gap: 1vw;
         margin-left: 1.2vw;
+        width: fit-content;
     }
 
     &__title {
         font-size: 2vw;
         margin-left: 1.2vw;
         margin-top: 0;
+    }
+
+    &__wrapper {
+        width: fit-content;
     }
 }
 

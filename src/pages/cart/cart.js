@@ -7,13 +7,12 @@ export class CartPage {
     cartId;
     adverts;
 
-    render() {
-        this.#renderTemplate();
+    render(main) {
+        this.#renderTemplate(main);
         this.cartComponent = new Cart();
     }
 
-    async #renderTemplate() {
-        const main = initHeaderAndMain();
+    async #renderTemplate(main) {
         const userId = localStorage.getItem('id');
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
         let data = {};

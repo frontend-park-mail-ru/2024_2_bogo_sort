@@ -6,13 +6,12 @@ import { BACKEND_BASE_URL, BASE_URL, headerData } from '../../constants/constant
 export class CreateAdvertPage {
     #advert;
 
-    render() {
+    render(main) {
         this.#advert = new CreateAdvert();
-        this.#renderTemplate();
+        this.#renderTemplate(main);
     }
 
-    #renderTemplate() {
-        const main = initHeaderAndMain();
+    #renderTemplate(main) {
         const createAdvertCategories = headerData.category;
         createAdvertCategories.forEach(item => {
             item.id = item.redirectUrl.slice(item.redirectUrl.lastIndexOf('/') + 1, item.redirectUrl.length);

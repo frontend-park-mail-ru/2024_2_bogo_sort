@@ -1,4 +1,3 @@
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { renderUser } from '../../components/user/user.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import { checkAuth } from '../../utils/checkAuth.js';
@@ -7,18 +6,18 @@ import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { Settings } from '../../components/settings/settings.js';
 import ajax from '../../modules/ajax.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
+import routing from '../../modules/routing.js';
 
 export class UserPage {
 
-    render() {
-        this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        this.#renderTemplate();
+    render(main, location) {
+        this.location = location;
+        this.#renderTemplate(main);
     }
 
-    async #renderTemplate() {
-        const main = initHeaderAndMain();
+    async #renderTemplate(main) {
         if(!checkAuth()){
-            window.location.href = '/';
+            routing.goToPage('/');
         }
         const me = await ajax.get('/me');
         const data = {
@@ -32,44 +31,45 @@ export class UserPage {
         data.forUser = true;
         wrapper.innerHTML += renderUser(data);
 
-        this.addListeners(wrapper);
+        this.addListeners(wrapper, main);
 
         if(this.location === 'user' || this.location === 'adverts'){
             this.renderAdverts(wrapper, me, main);
         } else if(this.location === 'settings') {
-            this.renderSettings(wrapper, me, main);
+            this.renderSettings(wrapper, main);
         } else if(this.location === 'orders') {
             this.renderOrders(wrapper, me, main);
         } else {
-            window.location.href = '/';
+            routing.goToPage('/');
         }
     }
 
-    addListeners(wrapper) {
+    addListeners(wrapper, main) {
         const advertButton = wrapper.querySelector('.navigation__adverts');
         advertButton?.addEventListener('click', () => {
-            window.location.href = '/user/adverts';
+            routing.goToPage('/user/adverts');
         });
 
         const ordersButton = wrapper.querySelector('.navigation__orders');
         ordersButton?.addEventListener('click', () => {
-            window.location.href = '/user/orders';
+            routing.goToPage('/user/orders');
         });
 
         const settingsButton = wrapper.querySelector('.navigation__settings');
         settingsButton?.addEventListener('click', () => {
-            window.location.href = '/user/settings';
+            routing.goToPage('/user/settings');
         });
 
         const logoutButton = wrapper.querySelector('.navigation__logout');
         logoutButton?.addEventListener('click', () => {
-            window.location.href = '/logout';
+            routing.goToPage('/logout');
         });
     }
 
     async renderAdverts(wrapper, me, main) {
         wrapper.querySelector('.navigation__adverts').classList.add('active');
         const container = document.createElement('div');
+        container.className = 'user__wrapper';
         const cardsContainer = document.createElement('div');
         cardsContainer.classList.add('user__cards');
         const title = document.createElement('h1');
@@ -78,9 +78,7 @@ export class UserPage {
         container.appendChild(title);
 
         const cards = await ajax.get(`/adverts/seller/${me.id}`);
-        // if(cards.length === 0){
 
-        // }
         cards.forEach(card => {
             cardsContainer.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
         });
@@ -89,7 +87,7 @@ export class UserPage {
         main.appendChild(wrapper);
     }
 
-    renderSettings(wrapper, me, main) {
+    renderSettings(wrapper, main) {
         wrapper.querySelector('.navigation__settings').classList.add('active');
         const container = document.createElement('div');
         container.classList.add('user__settings');
@@ -129,7 +127,7 @@ export class UserPage {
 
         container.innerHTML += Handlebars.templates['orders.hbs']({orders: orders, notEmpty});
         container.querySelector('.orders__empty-button')?.addEventListener('click', () => {
-            window.location.href = '/';
+            routing.goToPage('/');
         });
         wrapper.appendChild(container);
         main.appendChild(wrapper);

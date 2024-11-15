@@ -6,7 +6,7 @@ import ajax from '../../modules/ajax.js';
 import { BACKEND_BASE_URL } from '../../constants/constants.js';
 import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
-
+import routing from '../../modules/routing.js';
 /**
  * Represents a header component.
  */
@@ -65,6 +65,11 @@ class Header {
             } else {
                 this.auth.showAuthForm(loginData);
             }
+        });
+
+        const createAdvertButton = this.#wrapper.querySelector('.header__create-advert-button');
+        createAdvertButton?.addEventListener('click', () => {
+            routing.goToPage('/create');
         });
 
         const listButton = this.#wrapper.querySelector('.header__list-button');

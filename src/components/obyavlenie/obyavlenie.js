@@ -53,7 +53,7 @@ export class AdvertComponent {
             normal: advert.status === 'active' && !this.myAdvert,
             inCart: this.inCart,
 
-            sellerName: sellerUser.username.length > 0 ? sellerUser.username : 'Пользователь',
+            sellerName: sellerUser.username,
             sellerImgUrl: await getUserImageUrl(sellerUser),
             sellerPhone: sellerUser.phone,
             sellerTimestamp: timestampFormatter(sellerUser.created_at, true),
@@ -167,7 +167,7 @@ export class AdvertComponent {
 
         const changeButton = wrapper.querySelector('.buttons__change');
         changeButton?.addEventListener('click', () => {
-            window.location.href = `/change/${advertId}`;
+            window.location.href = `/edit/${advertId}`;
         });
 
         const deleteButton = wrapper.querySelector('.modal__delete');

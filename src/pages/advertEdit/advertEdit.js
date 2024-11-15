@@ -5,9 +5,7 @@ import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { BASE_URL } from '../../constants/constants.js';
 
 export class AdvertEditPage {
-    render() {
-        const advertId = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        const main = initHeaderAndMain();
+    render(main, advertId) {
         const template = new CreateAdvert();
         const wrapper = document.createElement('div');
         wrapper.classList.add('create-advert');

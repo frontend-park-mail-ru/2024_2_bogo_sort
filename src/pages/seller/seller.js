@@ -7,13 +7,12 @@ import { renderCardTemplate } from '../../components/card/card.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class SellerPage {
-    render() {
-        this.sellerId = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        this.renderTemplate();
+    render(main, sellerId) {
+        this.sellerId = sellerId;
+        this.renderTemplate(main);
     }
 
-    async renderTemplate() {
-        const main = initHeaderAndMain();
+    async renderTemplate(main) {
         const seller = await ajax.get(`/seller/${this.sellerId}`);
         const userSeller = await ajax.get(`/profile/${seller.user_id}`);
 

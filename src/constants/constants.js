@@ -1,5 +1,52 @@
 'use strict';
 
+export const ROUTES = {
+    '/': {
+        href: '/',
+        name: 'mainPage'
+    },
+    '/login': {
+        href: '/login',
+        name: 'loginPage'
+    },
+    '/signup': {
+        href: '/signup',
+        name: 'signupPage'
+    },
+    '/logout': {
+        href: '/logout',
+        name: 'logout'
+    },
+    '/advert': {
+        href: '/advert/:id',
+        name: 'advertPage'
+    },
+    '/create': {
+        href: '/create',
+        name: 'advertCreatePage'
+    },
+    '/cart': {
+        href: '/cart',
+        name: 'cartPage'
+    },
+    '/category': {
+        href: '/categpry/:id',
+        name: 'categoryPage'
+    },
+    '/edit': {
+        href: '/edit/:id',
+        name: 'advertEditPage'
+    },
+    '/user': {
+        href: '/user/:id',
+        name: 'userPage'
+    },
+    '/seller': {
+        href: '/seller/:id',
+        name: 'sellerPage'
+    }
+}
+
 export const loginData = {
     title: 'Авторизация',
     info: 'Войдите в свой аккаунт',
