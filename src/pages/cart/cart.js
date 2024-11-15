@@ -5,6 +5,7 @@ import { BASE_URL } from '../../constants/constants.js';
 
 export class CartPage {
     cartId;
+    adverts;
 
     render() {
         this.#renderTemplate();
@@ -16,18 +17,17 @@ export class CartPage {
         const userId = localStorage.getItem('id');
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
         let data = {};
-        let adverts;
         if(cartExists.exists) {
             const cart = await ajax.get(`/cart/user/${userId}`);
             this.cartId = cart.id;
 
-            adverts = await ajax.get(`/adverts/cart/${cart.id}`);
+            this.adverts = await ajax.get(`/adverts/cart/${cart.id}`);
 
-            data = {adverts: adverts};
-            data.notEmpty = adverts?.length > 0;
-            data.numberOfItems = adverts.length;
+            data = {adverts: this.adverts};
+            data.notEmpty = this.adverts?.length > 0;
+            data.numberOfItems = this.adverts.length;
             data.totalPrice = 0;
-            adverts.forEach(advert => {
+            this.adverts.forEach(advert => {
                 data.totalPrice += Number(advert.price);
             });
             data.totalPrice = String(data.totalPrice);
@@ -42,14 +42,14 @@ export class CartPage {
         wrapper.innerHTML += this.cartComponent.renderCart(data);
         main.appendChild(wrapper);
 
-        if(adverts) {
+        if(this.adverts) {
             const items = wrapper.querySelectorAll('.adverts');
-            for(let i = 0; i < adverts.length; i++){
+            for(let i = 0; i < this.adverts.length; i++){
                 items[i].addEventListener('click', (event) => {
                     if(event.target === wrapper.querySelector('.adverts__remove')){
                         return;
                     }
-                    window.location.href = `/advert/${adverts[i].id}`;
+                    window.location.href = `/advert/${this.adverts[i].id}`;
                 });
             }
         }
@@ -67,8 +67,7 @@ export class CartPage {
                     cart_id: this.cartId
                 };
                 ajax.delete('/cart/delete', data);
-                this.cartComponent.popItem(event, wrapper);
-                setTimeout(() => this.cartComponent.updateQuantityAndCost(wrapper), 650);
+                this.adverts = this.cartComponent.popItem(wrapper, event, this.adverts);
             });
         });
 

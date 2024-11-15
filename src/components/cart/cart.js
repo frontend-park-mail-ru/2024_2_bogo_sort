@@ -16,26 +16,29 @@ export class Cart {
     }
 
 
-    popItem(event) {
+    popItem(wrapper, event, adverts) {
         const parent = event.target.parentElement;
         parent.classList.add('non-visible');
         setTimeout(() => parent.parentElement.removeChild(parent), 650);
+
+        return this.updateQuantityAndCost(wrapper, parent.dataset.advertId, adverts);
     }
 
-    updateQuantityAndCost(wrapper) {
-    const itemsElement = wrapper.querySelector('.cart__items');
+    updateQuantityAndCost(wrapper, advertId, adverts) {
+        const itemsElement = wrapper.querySelector('.cart__items');
 
-    const adverts = wrapper.querySelectorAll('.adverts');
-    const itemsInner = itemsElement.innerHTML;
-    itemsElement.innerHTML = String(adverts.length) + this.getProductWord(adverts.length) + itemsInner.slice(itemsInner.indexOf('<'), itemsInner.length);
+        adverts = adverts.filter(advert => advert.id !== advertId);
+        const itemsInner = itemsElement.innerHTML;
+        itemsElement.innerHTML = String(adverts.length) + this.getProductWord(adverts.length) + itemsInner.slice(itemsInner.indexOf('<'), itemsInner.length);
 
-    let totalCost = 0;
-    adverts.forEach(advert => {
-        const strCost = advert.querySelector('.adverts__price').innerText;
-        totalCost += Number(strCost.slice(0, strCost.length - 1));
-    });
+        let totalCost = 0;
+        adverts.forEach(advert => {
+            totalCost += Number(advert.price);
+        });
 
-    wrapper.querySelector('.cart__price').innerText = String(totalCost) + '₽';
+        wrapper.querySelector('.cart__price').innerText = String(totalCost) + '₽';
+
+        return adverts;
     }
 
     getProductWord(quantity) {

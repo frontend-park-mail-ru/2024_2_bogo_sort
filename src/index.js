@@ -3,7 +3,7 @@
 import { MainPage } from './pages/main/main.js';
 import { LogInPage } from '../pages/login/login.js';
 import { SignUpPage } from '../pages/signup/signup.js';
-import { LogOutPage } from '../pages/logout/logout.js';
+import { logout } from './modules/logout.js';
 import { AdvertPage } from '../pages/obyavlenie/obyavlenie.js';
 import { CreateAdvertPage } from './pages/advertCreate/advertCreate.js';
 import { CartPage } from './pages/cart/cart.js';
@@ -44,8 +44,7 @@ window.addEventListener('load', () => {
             break;
         case '/logout':
             main.render();
-            const logoutPage = new LogOutPage();
-            logoutPage.render();
+            logout();
             break;
         case '/advert':
             const advertPage = new AdvertPage();
