@@ -1,0 +1,24 @@
+@import "static/styles/fonts.css";
+@import "static/styles/constants.css";
+@import "components/card/card.css";
+@import "components/header/header.css";
+@import "components/auth/auth.css";
+@import "components/obyavlenie/obyavlenie.css";
+@import "components/cart/cart.css";
+@import "components/advertCreate/advertCreate.css";
+@import "components/user/user.css";
+@import "components/settings/settings.css";
+@import "components/orders/orders.css";
+@import "pages/main/main.css";
+
+
+body {
+    font-family: inter;
+    font-weight: 400;
+    background-color: rgb(0, 0, 0, 0.07);
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+}

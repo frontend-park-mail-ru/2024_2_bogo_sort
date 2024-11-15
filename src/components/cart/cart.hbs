@@ -1,0 +1,28 @@
+
+{{#if notEmpty}}
+<aside class="cart__buy">
+    <div class="cart__items">{{numberOfItems}}<span class="cart__price">{{totalPrice}}₽</span></div>
+    <button class="cart__buy-button" type="button">Купить</button>
+</aside>
+
+<section class="cart__main-section">
+    <h1 class="cart__title">Корзина</h1>
+        {{#each adverts}}
+            <div class="cart__adverts adverts" data-advert-id="{{this.id}}">
+                <img class="adverts__image" src="{{this.image_url}}">
+                <h4 class="adverts__title">{{this.title}}</h4>
+                <h3 class="adverts__price">{{this.price}}₽</h3>
+                <img class="adverts__remove" src="../../static/images/trash.svg">
+            </div>
+        {{/each}}
+</section>
+
+{{else}}
+    <div class="cart__empty-wrapper">
+        <div class="cart__empty">
+            <img class="cart__empty-image" src="../../static/images/cart_empty.svg">
+            <span class="cart__empty-text">Пока здесь пусто...</span>
+            <button class="cart__empty-button" type="button">За покупками!</button>
+        </div>
+    </div>
+{{/if}}

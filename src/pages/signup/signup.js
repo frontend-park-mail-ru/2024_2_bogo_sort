@@ -1,6 +1,6 @@
 'use strict';
 
-import { showAuthForm } from '../../components/auth/auth.js';
+import { AuthComponent } from '../../components/auth/auth.js';
 import { signupData } from '../../constants/constants.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 
@@ -20,7 +20,8 @@ export class SignUpPage {
      * Renders the sign-up form template and expands the authentication wrapper.
      */
     #renderTemplate() {
-        showAuthForm(signupData);
+        this.auth = new AuthComponent();
+        this.auth.showAuthForm(signupData);
         this.#expandAuthWrapper();
     }
 
@@ -28,8 +29,7 @@ export class SignUpPage {
      * Expands the authentication wrapper.
      */
     #expandAuthWrapper() {
-        const authForm = document.querySelector('.form-wrapper');
-        toggleClasses([authForm?.getElementsByClassName('auth-wrapper')[0], authForm?.getElementsByClassName('features')[0]], 'expand');
+        this.auth.expandAuthForm();
     }
 }
 

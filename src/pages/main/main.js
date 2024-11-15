@@ -1,25 +1,12 @@
-'use strict';
-
 import { renderCardTemplate } from '../../components/card/card.js';
-import { Header } from '../../components/header/header.js';
-import { Ajax } from '../../utils/ajax.js';
-import { BACKEND_URL, IMAGE_URL } from '../../constants/constants.js';
-
-const ajax = new Ajax(BACKEND_URL);
+import ajax from '../../modules/ajax.js';
+import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
+import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 
 /**
  * Represents the main page of the application.
  */
 export class MainPage {
-    #element;
-
-    /**
-     * Initializes a new instance of the MainPage class.
-     */
-    constructor() {
-        this.#element = document.createElement('div');
-        this.#element.classList.add('main');
-    }
 
     /**
      * Renders the main page and returns the main container element.
@@ -28,8 +15,6 @@ export class MainPage {
      */
     render() {
         this.#renderTemplate();
-
-        return this.#element;
     }
 
     /**
@@ -39,20 +24,58 @@ export class MainPage {
      * card elements to the main container.
      */
     async #renderTemplate() {
+        const main = initHeaderAndMain();
 
-        const cards = await ajax.get('/adverts');
+        const title = document.createElement('h1');
+        title.className = 'category-title';
+        title.textContent = 'Все объявления';
+        main.appendChild(title);
 
-        const header = new Header();
+        const cards = await ajax.get('/adverts?limit=30&offset=0');
 
-        this.#element.appendChild(header.render());
+        this.noMoreCards = false;
+        this.loadedCrads = cards.length;
 
         const container = document.createElement('div');
 
         container.classList.add('cards');
 
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
+            if(element.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
+            }
         });
-        this.#element.appendChild(container);
+
+        main.appendChild(container);
+
+        document.addEventListener('scroll', () => {
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if(!this.noMoreCards){
+                    this.#addCards(container);
+                }
+            }
+        });
+    }
+
+    async #addCards(container) {
+        const newCards = await ajax.get(`/adverts?limit=30&offset=${this.loadedCrads}`);
+        if(newCards.code === 400) {
+            this.noMoreCards = true;
+
+            return;
+        }
+
+        newCards.forEach(card => {
+            if(card.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL));
+            }
+        });
+
+        if(newCards.length < 30) {
+            this.noMoreCards = true;
+
+            return;
+        }
+        this.loadedCrads += newCards.length;
     }
 }

@@ -1,6 +1,6 @@
 'use strict';
 
-import { showAuthForm } from '../../components/auth/auth.js';
+import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 
 /**
@@ -19,6 +19,7 @@ export class LogInPage {
      * Renders the authentication.
      */
     #renderTemplate() {
-        showAuthForm(loginData);
+        const auth = new AuthComponent();
+        auth.showAuthForm(loginData);
     }
 }

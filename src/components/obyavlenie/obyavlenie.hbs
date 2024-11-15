@@ -1,0 +1,93 @@
+<nav class="advert-wrapper__nav breadcrumbs">
+    <ol class="breadcrumbs__list">
+        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/">Главная</a></li>
+        <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{categoryUrl}}">{{category}}</a></li>
+        <li class="breadcrumbs__item"><span class="breadcrumbs__link_not-active">{{title}}</span></li>
+    </ol>
+</nav>
+
+<div class="advert-wrapper__advert advert">
+    <h1 class="advert__title">
+        {{title}}
+        {{#if reserved}}
+        (зарезервировано)
+        {{/if}}
+        {{#if inactive}}
+        (закрыто)
+        {{/if}}
+    </h1>
+    <div class="advert__content">
+        <section class="advert__images">
+            <img class="advert__image" src="{{imageUrl}}">
+        </section>
+        <section class="advert__details">
+            <h2 class="advert__price">{{price}}₽</h2>
+            <div class="advert__buttons buttons">
+                {{#if isAuthor}}
+                <button class="buttons__change" type="button">Редактировать</button>
+                <button class="buttons__disable" type="button">Снять с публикации</button>
+                {{/if}}
+                {{#if reserved}}
+                <button class="buttons__show-phone-number" type="button">Показать номер</button>
+                {{/if}}
+                {{#if normal}}
+                <button class="buttons__add-to-cart" type="button">
+                    {{#if inCart}}
+                    Товар уже в корзине
+                    {{else}}
+                    В корзину
+                    {{/if}}
+                </button>
+                <button class="buttons__show-phone-number" type="button">Показать номер</button>
+                {{/if}}
+                {{#if inactive}}
+                {{/if}}
+            </div>
+
+            <section class="advert__overlay">
+                <div class="advert__modal modal">
+                    {{#if isAuthor}}
+                    <div class="modal__author-content">
+                        <h1 class="modal__title">Снять с публикации</h1>
+                        <span class="modal__close-title">Закрытое <span class="modal__close-description">объявление будет отображаться в вашем профиле как завершенное</span> </span>
+                        <span class="modal__delete-title">Удаленное <span class="modal__delete-description">объявление будет недоступно для вас и остальных пользователей</span> </span>
+                        <button class="modal__close" type="button">Закрыть объявление</button>
+                        <button class="modal__delete" type="button">Удалить объявление</button>
+                    </div>
+                    {{else}}
+                    <span class="modal__buyer-content">
+                        <h1 class="modal__title">Номер продавца</h1>
+                        <h1 class="modal__number">{{sellerPhone}}</h1>
+                    </span>
+                    <div class="modal__go-to-cart not-active">
+                        <h1 class="modal__title">Товар добавлен в корзину!</h1>
+                        <button class="modal__go-to-cart-button" type="button">Перейти в корзину</button>
+                    </div>
+                    {{/if}}                    
+                </div>
+            </section>
+
+            <div class="advert__seller seller">
+                <img src="{{sellerImgUrl}}" alt="../../static/images/user_avatar.webp" class="seller__image">
+                <div class="seller__deatils">
+                    <h3 class="seller__name">{{sellerName}}</h3>
+                    <h5 class="seller__timestamp">С нами с {{sellerTimestamp}}</h5>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="advert__description description">
+            <h1 class="description__title">Описание</h1>
+            <span class="description__content">{{description}}</span>  
+            <div class="description__additional">
+                <span class="description__category">Категория товара:<span class="description__details">{{category}}</span></span>
+                
+                <span class="description__category">Адрес:<span class="description__details">{{location}}</span></span>
+
+                <span class="description__category">Дата создания:<span class="description__details">{{createdAt}}</span></span>
+            </div>  
+    </div>
+</div>
+<div class="advert-wrapper__recomended recomended">
+    <h1 class="recomended__title">Похожие товары</h1>
+</div>

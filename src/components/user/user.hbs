@@ -1,0 +1,15 @@
+<aside class="user__aside aside">
+    <section class="aside__user-section">
+        <img class="aside__user-img" src="{{userImageUrl}}">
+        <h2 class="aside__user-name">{{username}}</h2>
+        <span class="aside__user-timestamp">С нами с {{timestamp}}</span>
+    </section>
+    {{#if forUser}}
+    <nav class="aside__navigation navigation">
+        <span class="navigation__adverts"><img class="navigation__icon" src="../../static/images/user-menu-icons/adverts.svg">Мои объявления</span>
+        <span class="navigation__orders"><img class="navigation__icon" src="../../static/images/user-menu-icons/orders.svg">Мои заказы</span>
+        <span class="navigation__settings"><img class="navigation__icon" src="../../static/images/user-menu-icons/6.svg">Настройки</span>
+        <span class="navigation__logout"><img class="navigation__icon" src="../../static/images/user-menu-icons/Sign_out.svg">Выйти</span>
+    </nav>
+    {{/if}}
+</aside>
