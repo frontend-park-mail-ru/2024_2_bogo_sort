@@ -238,7 +238,7 @@ export class AuthComponent {
                 this.updateForm(authForm, data);
                 const REGISTER_FORM_ANIMATION_DELAY = 10;
                 setTimeout(() => {
-                    toggleClasses([authForm.querySelector('.auth-wrapper'), authForm.querySelector('features')], 'expand');
+                    toggleClasses([authForm.querySelector('.auth-wrapper'), authForm.querySelector('.features')], 'expand');
                 }, REGISTER_FORM_ANIMATION_DELAY);
             }
         });
