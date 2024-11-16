@@ -103,13 +103,13 @@ function renderSeller(main, sellerId) {
 function renderLogIn(main) {
     const loginPage = new LogInPage();
 
-    return loginPage.render(main);
+    return loginPage.render();
 }
 
 function renderSignUp(main) {
     const signUpPage = new SignUpPage();
 
-    return signUpPage.render(main);
+    return signUpPage.render();
 }
 
 window.addEventListener('load', () => {
