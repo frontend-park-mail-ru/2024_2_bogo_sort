@@ -45,7 +45,7 @@ export const ROUTES = {
         href: '/seller/:id',
         name: 'sellerPage'
     }
-}
+};
 
 export const loginData = {
     title: 'Авторизация',

@@ -8,7 +8,7 @@ class Router {
     }
 
     addNewRouteWithRender(route, render) {
-        this.routes[route].render = render
+        this.routes[route].render = render;
     }
 
     goToPage(path, noPush = false){
@@ -41,6 +41,7 @@ class Router {
             route = path.slice(0, path.indexOf('/', 1));
             param = path.slice(path.lastIndexOf('/') + 1, path.length);
         }
+
         return [route, param];
     }
 }
