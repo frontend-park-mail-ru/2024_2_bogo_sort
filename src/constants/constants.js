@@ -175,7 +175,7 @@ export const headerData = {
         {
             name: 'Выйти',
             iconUrl: '../../static/images/user-menu-icons/Sign_out.svg',
-            redirectUrl: '/logout'
+            redirectUrl: '#'
         },
     ],
 };

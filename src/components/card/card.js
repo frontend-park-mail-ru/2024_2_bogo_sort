@@ -1,5 +1,5 @@
 'use strict';
-import routing from '../../modules/routing.js';
+import { router } from '../../modules/router.js';
 /**
  * Renders the card template using Handlebars.
  *
@@ -15,7 +15,7 @@ export function renderCardTemplate(title, price, imageUrl, baseUrl, id) {
     const parentTemp = document.createElement('div');
     parentTemp.innerHTML += template;
     parentTemp.firstChild.addEventListener('click', () => {
-        routing.goToPage(`/advert/${id}`);
+        router.goToPage(`/advert/${id}`);
     });
 
     return parentTemp.firstChild;

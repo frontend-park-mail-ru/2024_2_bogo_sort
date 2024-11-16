@@ -2,17 +2,13 @@ import { AuthComponent } from '../auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { headerData } from '../../constants/constants.js';
-import ajax from '../../modules/ajax.js';
-import { BACKEND_BASE_URL } from '../../constants/constants.js';
-import { getCategoryIdByName } from '../../utils/getCategoryIdByName.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
-import routing from '../../modules/routing.js';
+import { router } from '../../modules/router.js';
+import { logout } from '../../modules/logout.js';
 /**
  * Represents a header component.
  */
 class Header {
     #wrapper;
-    // #data;
 
     /**
      * Creates an instance of the Header class.
@@ -69,7 +65,14 @@ class Header {
 
         const createAdvertButton = this.#wrapper.querySelector('.header__create-advert-button');
         createAdvertButton?.addEventListener('click', () => {
-            routing.goToPage('/create');
+            router.goToPage('/create');
+        });
+
+        const logoutButton = this.#wrapper.querySelector('#Выйти');
+        logoutButton?.addEventListener('click', event => {
+            event.preventDefault();
+            logout();
+            // router.goToPage('/');
         });
 
         const listButton = this.#wrapper.querySelector('.header__list-button');

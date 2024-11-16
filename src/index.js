@@ -1,9 +1,8 @@
 'use strict';
-
+import header from './components/header/header.js';
 import { MainPage } from './pages/main/main.js';
 import { LogInPage } from '../pages/login/login.js';
 import { SignUpPage } from '../pages/signup/signup.js';
-import { logout } from './modules/logout.js';
 import { AdvertPage } from '../pages/obyavlenie/obyavlenie.js';
 import { CreateAdvertPage } from './pages/advertCreate/advertCreate.js';
 import { CartPage } from './pages/cart/cart.js';
@@ -11,22 +10,22 @@ import { CategoryPage } from './pages/category/category.js';
 import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
-import routing from './modules/routing.js';
+import { router } from './modules/router.js';
 import { ROUTES } from './constants/constants.js';
 import './utils/hbsHelpers.js';
 
-routing.init(ROUTES);
-routing.addNewRouteWithRender('/', renderMain);
-routing.addNewRouteWithRender('/advert', renderAdvert);
-routing.addNewRouteWithRender('/create', renderCreateAdvert);
-routing.addNewRouteWithRender('/cart', renderCart);
-routing.addNewRouteWithRender('/category', renderCategory);
-routing.addNewRouteWithRender('/edit', renderAdvertEdit);
-routing.addNewRouteWithRender('/user', renderUser);
-routing.addNewRouteWithRender('/seller', renderSeller);
-routing.addNewRouteWithRender('/login', renderLogIn);
-routing.addNewRouteWithRender('/logout', renderLogOut);
-routing.addNewRouteWithRender('/signup', renderSignUp);
+const main = initHeaderAndMain();
+router.init(ROUTES, main);
+router.addNewRouteWithRender('/', renderMain);
+router.addNewRouteWithRender('/advert', renderAdvert);
+router.addNewRouteWithRender('/create', renderCreateAdvert);
+router.addNewRouteWithRender('/cart', renderCart);
+router.addNewRouteWithRender('/category', renderCategory);
+router.addNewRouteWithRender('/edit', renderAdvertEdit);
+router.addNewRouteWithRender('/user', renderUser);
+router.addNewRouteWithRender('/seller', renderSeller);
+router.addNewRouteWithRender('/login', renderLogIn);
+router.addNewRouteWithRender('/signup', renderSignUp);
 
 function renderMain(main) {
     const mainPage = new MainPage();
@@ -73,12 +72,6 @@ function renderLogIn() {
     return loginPage.render();
 }
 
-function renderLogOut(main) {
-    const mainPage = new MainPage();
-    logout();
-    return mainPage.render(main);
-}
-
 function renderSignUp() {
     const signUpPage = new SignUpPage();
     return signUpPage.render();
@@ -87,11 +80,11 @@ function renderSignUp() {
 window.addEventListener('load', () => {
     const path = window.location.pathname;
 
-    routing.goToPage(path);
+    router.goToPage(path);
 });
 
-window.addEventListener('popstate', event => {
-    routing.goToPage(location.pathname, true);
+window.addEventListener('popstate', () => {
+    router.goToPage(location.pathname, true);
 });
 
 document.addEventListener('click', event => {
@@ -99,12 +92,22 @@ document.addEventListener('click', event => {
 
     if(target.tagName === 'A') {
         event.preventDefault();
-        routing.goToPage(target.pathname);
+        router.goToPage(target.pathname);
     }
 
     //костыль для иконок категорий, без этого страница перезагружается
     if(target.className === 'list__icon') {
         event.preventDefault();
-        routing.goToPage(target.parentNode.pathname);
+        router.goToPage(target.parentNode.pathname);
     }
 });
+
+function initHeaderAndMain() {
+    const root = document.querySelector('#root');
+    const main = document.createElement('div');
+    main.classList.add('main');
+    root.appendChild(main);
+    main.appendChild(header.render());
+
+    return main;
+}

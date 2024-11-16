@@ -1,10 +1,10 @@
-import header from '../../components/header/header.js';
-
-class Routing {
+class Router {
     routes;
+    main;
 
-    init(routes) {
+    init(routes, main) {
         this.routes = routes;
+        this.main = main;
     }
 
     addNewRouteWithRender(route, render) {
@@ -14,13 +14,8 @@ class Routing {
     goToPage(path, noPush = false){
         const [route, param] = this.getRouteAndParams(path);
 
-        let main;
-        if(!document.querySelector('header')) {
-            main = this.initHeaderAndMain();
-        }
-        main ??= document.querySelector('.main');
-        if(main.childElementCount !== 1){
-            main.lastChild.remove();
+        if(this.main.childElementCount !== 1){
+            this.main.lastChild.remove();
         }
         const exactRoute = this.routes[route];
         if(exactRoute){
@@ -28,21 +23,11 @@ class Routing {
                 history.pushState({page: exactRoute.name}, '', path);
             }
             if(param){
-                exactRoute.render(main, param);
+                exactRoute.render(this.main, param);
             } else {
-                exactRoute.render(main);
+                exactRoute.render(this.main);
             }
         }
-    }
-
-    initHeaderAndMain() {
-        const root = document.querySelector('#root');
-        const main = document.createElement('div');
-        main.classList.add('main');
-        root.appendChild(main);
-        main.appendChild(header.render());
-
-        return main;
     }
 
     getRouteAndParams(path) {
@@ -60,4 +45,4 @@ class Routing {
     }
 }
 
-export default new Routing();
+export const router = new Router();

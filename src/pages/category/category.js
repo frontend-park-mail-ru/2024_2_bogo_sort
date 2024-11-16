@@ -1,7 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
+import { BASE_URL } from '../../constants/constants.js';
 
 export class CategoryPage {
     category;

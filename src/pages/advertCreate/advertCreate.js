@@ -1,7 +1,5 @@
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
-import ajax from '../../modules/ajax.js';
-import { BACKEND_BASE_URL, BASE_URL, headerData } from '../../constants/constants.js';
+import { headerData } from '../../constants/constants.js';
 
 export class CreateAdvertPage {
     #advert;

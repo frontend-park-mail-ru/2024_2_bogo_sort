@@ -1,8 +1,8 @@
 import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.js';
 import { renderCardTemplate } from '../../components/card/card.js';
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
+import { BASE_URL } from '../../constants/constants.js';
+import { router } from '../../modules/router.js';
 
 export class AdvertPage {
     render(main, advertId) {
@@ -18,7 +18,7 @@ export class AdvertPage {
 
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
         if(requestedAdvert === null){
-            window.location.href = '/';
+            router.goToPage('/');
         }
 
         const container = document.createElement('div');

@@ -1,9 +1,9 @@
-import { BASE_URL } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
 import header from '../../components/header/header.js';
 import { validateEmail } from '../../utils/validation.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { formatPhone } from '../../utils/formatPhone.js';
+import { router } from '../../modules/router.js';
 
 export class Settings {
     renderSettings() {
@@ -114,7 +114,7 @@ export class Settings {
         }
         localStorage.setItem('name', data.Username);
         header.render();
-        window.location.href = '/user/settings';
+        router.goToPage('/user/settings');
     }
 
     displayInputErrors(errors) {

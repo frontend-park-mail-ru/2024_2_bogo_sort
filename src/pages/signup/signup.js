@@ -2,7 +2,6 @@
 
 import { AuthComponent } from '../../components/auth/auth.js';
 import { signupData } from '../../constants/constants.js';
-import { toggleClasses } from '../../utils/toggleClasses.js';
 
 /**
  * Represents the sign-up page of the application.

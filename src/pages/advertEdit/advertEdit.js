@@ -1,7 +1,6 @@
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
 import { headerData } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { BASE_URL } from '../../constants/constants.js';
 
 export class AdvertEditPage {

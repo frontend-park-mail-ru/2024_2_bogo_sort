@@ -1,4 +1,5 @@
 import ajax from '../../modules/ajax.js';
+import { router } from '../../modules/router.js';
 
 export class CreateAdvert {
     form;
@@ -115,7 +116,7 @@ export class CreateAdvert {
         formData.append('image', image);
         await ajax.imagePut(`/adverts/${advert.id}/image`, formData);
 
-        window.location.href = `/advert/${advert.id}`;
+        router.goToPage(`/advert/${advert.id}`);
     }
 
     displayInputErrors(errors) {

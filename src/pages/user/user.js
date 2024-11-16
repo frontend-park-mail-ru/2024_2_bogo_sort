@@ -6,7 +6,8 @@ import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { Settings } from '../../components/settings/settings.js';
 import ajax from '../../modules/ajax.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
-import routing from '../../modules/routing.js';
+import { router } from '../../modules/router.js';
+import { logout } from '../../modules/logout.js';
 
 export class UserPage {
 
@@ -17,7 +18,7 @@ export class UserPage {
 
     async #renderTemplate(main) {
         if(!checkAuth()){
-            routing.goToPage('/');
+            router.goToPage('/');
         }
         const me = await ajax.get('/me');
         const data = {
@@ -40,29 +41,30 @@ export class UserPage {
         } else if(this.location === 'orders') {
             this.renderOrders(wrapper, me, main);
         } else {
-            routing.goToPage('/');
+            router.goToPage('/');
         }
     }
 
     addListeners(wrapper, main) {
         const advertButton = wrapper.querySelector('.navigation__adverts');
         advertButton?.addEventListener('click', () => {
-            routing.goToPage('/user/adverts');
+            router.goToPage('/user/adverts');
         });
 
         const ordersButton = wrapper.querySelector('.navigation__orders');
         ordersButton?.addEventListener('click', () => {
-            routing.goToPage('/user/orders');
+            router.goToPage('/user/orders');
         });
 
         const settingsButton = wrapper.querySelector('.navigation__settings');
         settingsButton?.addEventListener('click', () => {
-            routing.goToPage('/user/settings');
+            router.goToPage('/user/settings');
         });
 
         const logoutButton = wrapper.querySelector('.navigation__logout');
         logoutButton?.addEventListener('click', () => {
-            routing.goToPage('/logout');
+            logout();
+            router.goToPage('/');
         });
     }
 
@@ -127,7 +129,7 @@ export class UserPage {
 
         container.innerHTML += Handlebars.templates['orders.hbs']({orders: orders, notEmpty});
         container.querySelector('.orders__empty-button')?.addEventListener('click', () => {
-            routing.goToPage('/');
+            router.goToPage('/');
         });
         wrapper.appendChild(container);
         main.appendChild(wrapper);

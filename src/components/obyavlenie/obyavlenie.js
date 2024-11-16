@@ -5,6 +5,7 @@ import { loginData } from '../../constants/constants.js';
 import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
+import { router } from '../../modules/router.js';
 
 export class AdvertComponent {
     auth;
@@ -130,7 +131,7 @@ export class AdvertComponent {
                 return;
             }
             if(this.inCart){
-                window.location.href = '/cart';
+                router.goToPage('/cart');
 
                 return;
             }
@@ -155,30 +156,30 @@ export class AdvertComponent {
 
         const goToCartButton = wrapper.querySelector('.modal__go-to-cart-button');
         goToCartButton?.addEventListener('click', () => {
-            window.location.href = '/cart';
+            router.goToPage('/cart');
         });
 
         const closeAdvertButton = wrapper.querySelector('.modal__close');
         closeAdvertButton?.addEventListener('click', async () => {
             await ajax.put(`/adverts/${advertId}/status?status=inactive`);
             toggleOverlay();
-            window.location.href = window.location.href;
+            router.goToPage(`/advert/${advertId}`);
         }, {once: true});
 
         const changeButton = wrapper.querySelector('.buttons__change');
         changeButton?.addEventListener('click', () => {
-            window.location.href = `/edit/${advertId}`;
+            router.goToPage(`/edit/${advertId}`);
         });
 
         const deleteButton = wrapper.querySelector('.modal__delete');
         deleteButton?.addEventListener('click', async () => {
             await ajax.delete(`/adverts/${advertId}`, null);
-            window.location.href = '/';
+            router.goToPage('/');
         });
 
         const seller = wrapper.querySelector('.seller');
         seller?.addEventListener('click', () => {
-            window.location.href = `/seller/${this.seller.id}`;
+            router.goToPage(`/seller/${this.seller.id}`);
         });
     }
 

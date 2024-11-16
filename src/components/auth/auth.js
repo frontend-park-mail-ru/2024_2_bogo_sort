@@ -284,6 +284,8 @@ export class AuthComponent {
         const loginForm = document.querySelector('.login-form');
 
         if (overlay && loginForm) {
+            overlay?.classList.remove('active');
+            loginForm?.classList.remove('active');
             overlay?.classList.add('not-active');
             loginForm?.classList.add('not-active');
         }
