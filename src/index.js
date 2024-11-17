@@ -1,5 +1,4 @@
 'use strict';
-
 import { pipe } from './modules/pipe.js';
 import { informationStorage } from './modules/informationStorage.js';
 import header from './components/header/header.js';
