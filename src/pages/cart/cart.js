@@ -2,6 +2,7 @@ import { Cart } from '../../components/cart/cart.js';
 import ajax from '../../modules/ajax.js';
 import { BASE_URL } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 
 export class CartPage {
     cartId;
@@ -13,7 +14,7 @@ export class CartPage {
     }
 
     async #renderTemplate(main) {
-        const userId = localStorage.getItem('id');
+        const userId = informationStorage.getUser()?.id;
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
         let data = {};
         if(cartExists.exists) {

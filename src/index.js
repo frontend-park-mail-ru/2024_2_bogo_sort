@@ -1,5 +1,9 @@
 'use strict';
+
+import { pipe } from './modules/pipe.js';
+import { informationStorage } from './modules/informationStorage.js';
 import header from './components/header/header.js';
+import { AuthComponent } from './components/auth/auth.js';
 import { MainPage } from './pages/main/main.js';
 import { LogInPage } from '../pages/login/login.js';
 import { SignUpPage } from '../pages/signup/signup.js';
@@ -11,8 +15,21 @@ import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
 import { router } from './modules/router.js';
-import { ROUTES } from './constants/constants.js';
+import { ROUTES, PIPE_NAMES } from './constants/constants.js';
 import './utils/hbsHelpers.js';
+
+pipe.init(PIPE_NAMES);
+pipe.registerNewCallback('updateHeader', changeHeader);
+pipe.registerNewCallback('showAuthForm', showAuthForm);
+
+function changeHeader() {
+    return header.changeHeader();
+}
+
+function showAuthForm() {
+    const authComponent = new AuthComponent();
+    return authComponent.showAuthForm();
+}
 
 const main = initHeaderAndMain();
 router.init(ROUTES, main);
@@ -92,6 +109,8 @@ window.addEventListener('load', () => {
 
     router.goToPage(path);
 });
+
+await informationStorage.init();
 
 window.addEventListener('popstate', () => {
     router.goToPage(location.pathname, true);

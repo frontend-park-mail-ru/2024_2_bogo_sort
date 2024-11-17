@@ -49,6 +49,11 @@ export const ROUTES = {
     }
 };
 
+export const PIPE_NAMES = {
+    'updateHeader': {},
+    'showAuthForm': {}
+}
+
 export const loginData = {
     title: 'Авторизация',
     info: 'Войдите в свой аккаунт',

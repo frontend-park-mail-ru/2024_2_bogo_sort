@@ -1,6 +1,7 @@
 'use strict';
 
 import { BACKEND_BASE_URL } from '../constants/constants.js';
+import { informationStorage } from './informationStorage.js';
 
 const GET = 'GET';
 const POST = 'POST';
@@ -22,13 +23,12 @@ class Ajax {
     }
 
     async getCSRF() {
-        await fetch(`${this.baseURL}/csrf-token`, {
+        const response = await fetch(`${this.baseURL}/csrf-token`, {
             method: GET,
             credentials: 'include',
-        }).then(res => {
-            this.csrf = res.headers.get('X-Csrf-Token');
         });
 
+        return response.headers.get('X-Csrf-Token');
     }
 
     /**
@@ -48,6 +48,10 @@ class Ajax {
                 },
                 credentials: 'include',
             });
+            
+            if(response.headers.get('x-authenticated') === 'false' && informationStorage.isAuth()) {
+                informationStorage.changeToNotAuthenticated(response);
+            }
 
             return await this.#handleResponse(response);
         } catch (error) {
@@ -66,7 +70,7 @@ class Ajax {
     async post(endpoint, data, headers = {}) {
         try {
             if(endpoint !== '/login' && endpoint !== '/signup'){
-                this.csrf ?? await this.getCSRF();
+                this.csrf ??= informationStorage.getCSRF();
             }
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
@@ -87,7 +91,7 @@ class Ajax {
 
     async put(endpoint, data, headers = {}) {
         try {
-            this.csrf ?? await this.getCSRF();
+            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
                 headers: {
@@ -107,7 +111,7 @@ class Ajax {
 
     async delete(endpoint, data, headers = {}) {
         try {
-            this.csrf ?? await this.getCSRF();
+            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: DELETE,
                 headers: {
@@ -119,10 +123,6 @@ class Ajax {
                 body: JSON.stringify(data)
             });
 
-            if(response.headers.get('X-Authenticated') === false && localStorage.getItem('id')) {
-                localStorage.removeItem('id');
-            }
-
             return await this.#handleResponse(response);
         } catch (error) {
             console.error('DELETE error:', error);
@@ -131,7 +131,7 @@ class Ajax {
 
     async imagePut(endpoint, data) {
         try {
-            this.csrf ?? await this.getCSRF();
+            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
                 headers: {

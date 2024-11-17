@@ -1,9 +1,10 @@
-import { AuthComponent } from '../auth/auth.js';
-import { loginData } from '../../constants/constants.js';
+import { pipe } from '../../modules/pipe.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { headerData } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
+
 /**
  * Represents a header component.
  */
@@ -16,7 +17,6 @@ class Header {
     constructor() {
         this.#wrapper = document.createElement('header');
         this.#wrapper.classList.add('header');
-        this.auth = new AuthComponent();
     }
 
     /**
@@ -33,10 +33,9 @@ class Header {
 
     #getData() {
         const data = headerData;
-
-        data.checkAuth = checkAuth();
-        data.userName = localStorage.getItem('name');
-        data.userImgUrl = localStorage.getItem('imageUrl');
+        data.checkAuth = informationStorage.isAuth();
+        data.userName = informationStorage.getUser()?.username;
+        data.userImgUrl = informationStorage.getUserImgUrl();
 
         return data;
     }
@@ -59,7 +58,7 @@ class Header {
             if(checkAuth()){
                 logoutUser();
             } else {
-                this.auth.showAuthForm(loginData);
+                pipe.executeCallback('showAuthForm');
             }
         });
 

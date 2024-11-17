@@ -1,12 +1,9 @@
-'use strict';
-
-import header from '../header/header.js';
-import { signupData, loginData, BACKEND_BASE_URL } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class AuthComponent {
     /**
@@ -110,7 +107,7 @@ export class AuthComponent {
      *
      * @param {Object} data - The data needed to render the auth form.
      */
-    showAuthForm(data) {
+    showAuthForm(data = loginData) {
         if(checkAuth()){
             history.pushState(null, '', '/');
 
@@ -258,17 +255,10 @@ export class AuthComponent {
     }
 
     /**
-     * Updates the header to reflect that the user is logged in.
+     * Updates the information to reflect that the user is logged in.
      */
     async updateToLoggedIn() {
-        const user = await ajax.get('/me');
-        user.username === '' ? 'Пользователь' : user.username;
-
-        localStorage.setItem('id', user.id);
-        localStorage.setItem('name', user.username);
-        localStorage.setItem('imageUrl', await getUserImageUrl(user));
-
-        header.changeHeader();
+        informationStorage.proceedAuthenticated();
     }
 
     expandAuthForm() {
