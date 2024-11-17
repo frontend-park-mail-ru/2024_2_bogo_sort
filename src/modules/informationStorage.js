@@ -1,6 +1,5 @@
 import { pipe } from './pipe.js';
 import { BACKEND_BASE_URL, IMAGE_URL } from '../constants/constants.js';
-import { getUserImageUrl } from '../utils/getUserImageUrl.js';
 import ajax from './ajax.js';
 
 class InformationStorage {
