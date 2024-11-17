@@ -105,13 +105,13 @@ function renderSeller(main, sellerId) {
 function renderLogIn(main) {
     const loginPage = new LogInPage();
 
-    return loginPage.render();
+    return loginPage.render(main);
 }
 
 function renderSignUp(main) {
     const signUpPage = new SignUpPage();
 
-    return signUpPage.render();
+    return signUpPage.render(main);
 }
 
 function renderSearch(main, searchQuery){
