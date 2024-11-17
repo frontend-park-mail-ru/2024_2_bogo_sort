@@ -103,13 +103,13 @@ function renderSeller(main, sellerId) {
 function renderLogIn(main) {
     const loginPage = new LogInPage();
 
-    return loginPage.render();
+    return loginPage.render(main);
 }
 
 function renderSignUp(main) {
     const signUpPage = new SignUpPage();
 
-    return signUpPage.render();
+    return signUpPage.render(main);
 }
 
 window.addEventListener('load', () => {
@@ -121,8 +121,6 @@ window.addEventListener('load', () => {
 
     router.goToPage(path);
 });
-
-
 
 await informationStorage.init();
 
