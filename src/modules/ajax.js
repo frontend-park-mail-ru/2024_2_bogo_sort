@@ -2,6 +2,7 @@
 
 import { BACKEND_BASE_URL } from '../constants/constants.js';
 import { informationStorage } from './informationStorage.js';
+import { informationStorage } from './informationStorage.js';
 
 const GET = 'GET';
 const POST = 'POST';
@@ -24,10 +25,12 @@ class Ajax {
 
     async getCSRF() {
         const response = await fetch(`${this.baseURL}/csrf-token`, {
+        const response = await fetch(`${this.baseURL}/csrf-token`, {
             method: GET,
             credentials: 'include',
         });
 
+        return response.headers.get('X-Csrf-Token');
         return response.headers.get('X-Csrf-Token');
     }
 
@@ -53,10 +56,6 @@ class Ajax {
                 informationStorage.changeToNotAuthenticated(response);
             }
 
-            if(response.headers.get('x-authenticated') === 'false' && informationStorage.isAuth()) {
-                informationStorage.changeToNotAuthenticated(response);
-            }
-
             return await this.#handleResponse(response);
         } catch (error) {
             console.error('GET error:', error);
@@ -74,6 +73,7 @@ class Ajax {
     async post(endpoint, data, headers = {}) {
         try {
             if(endpoint !== '/login' && endpoint !== '/signup'){
+                this.csrf ??= informationStorage.getCSRF();
                 this.csrf ??= informationStorage.getCSRF();
             }
             const response = await fetch(`${this.baseURL}${endpoint}`, {
@@ -96,6 +96,7 @@ class Ajax {
     async put(endpoint, data, headers = {}) {
         try {
             this.csrf ??= informationStorage.getCSRF();
+            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
                 headers: {
@@ -116,6 +117,7 @@ class Ajax {
     async delete(endpoint, data, headers = {}) {
         try {
             this.csrf ??= informationStorage.getCSRF();
+            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: DELETE,
                 headers: {
@@ -135,6 +137,7 @@ class Ajax {
 
     async imagePut(endpoint, data) {
         try {
+            this.csrf ??= informationStorage.getCSRF();
             this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
