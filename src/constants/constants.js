@@ -45,6 +45,11 @@ export const ROUTES = {
         href: '/seller/:id',
         name: 'sellerPage'
     }
+};
+
+export const PIPE_NAMES = {
+    'updateHeader': {},
+    'showAuthForm': {}
 }
 
 export const loginData = {

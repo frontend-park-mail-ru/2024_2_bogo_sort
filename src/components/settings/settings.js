@@ -1,5 +1,6 @@
+import { informationStorage } from '../../modules/informationStorage.js';
 import ajax from '../../modules/ajax.js';
-import header from '../../components/header/header.js';
+import { pipe } from '../../modules/pipe.js';
 import { validateEmail } from '../../utils/validation.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { formatPhone } from '../../utils/formatPhone.js';
@@ -110,10 +111,10 @@ export class Settings {
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
             const me = await ajax.get('/me');
-            localStorage.setItem('imageUrl', await getUserImageUrl(me));
+            informationStorage.setUser(me);
         }
-        localStorage.setItem('name', data.Username);
-        header.render();
+        informationStorage.setUsername(data.Username);
+        pipe.executeCallback('updateHeader');
         router.goToPage('/user/settings');
     }
 

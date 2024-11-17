@@ -1,3 +1,4 @@
+import { informationStorage } from '../../modules/informationStorage.js';
 import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
 
@@ -65,7 +66,7 @@ export class CreateAdvert {
             const textArea = this.form.querySelector('textarea');
             data[textArea.name] = textArea.value;
 
-            const userId = localStorage.getItem('id');
+            const userId = informationStorage.getUser()?.id;
 
             const seller = await ajax.get(`/seller/user/${userId}`);
             data['seller_id'] = seller.id;
@@ -112,9 +113,11 @@ export class CreateAdvert {
 
         const imageInput = this.form.querySelector('.advert-form__image-input');
         const image = imageInput.files[0];
-        const formData = new FormData();
-        formData.append('image', image);
-        await ajax.imagePut(`/adverts/${advert.id}/image`, formData);
+        if(image){
+            const formData = new FormData();
+            formData.append('image', image);
+            await ajax.imagePut(`/adverts/${advert.id}/image`, formData);
+        }
 
         router.goToPage(`/advert/${advert.id}`);
     }
