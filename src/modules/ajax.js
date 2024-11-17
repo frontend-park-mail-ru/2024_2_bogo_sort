@@ -71,7 +71,6 @@ class Ajax {
         try {
             if(endpoint !== '/login' && endpoint !== '/signup'){
                 this.csrf ??= informationStorage.getCSRF();
-                this.csrf ??= informationStorage.getCSRF();
             }
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: POST,
