@@ -2,6 +2,9 @@
 
 import { pipe } from './modules/pipe.js';
 import { informationStorage } from './modules/informationStorage.js';
+
+import { pipe } from './modules/pipe.js';
+import { informationStorage } from './modules/informationStorage.js';
 import header from './components/header/header.js';
 import { AuthComponent } from './components/auth/auth.js';
 import { MainPage } from './pages/main/main.js';
