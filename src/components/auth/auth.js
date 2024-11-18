@@ -3,6 +3,10 @@ import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
+<<<<<<< HEAD
+=======
+import { checkAuth } from '../../utils/checkAuth.js';
+>>>>>>> 6d9058a (TP-14c added webpack, babel and service worker)
 import template from './auth.hbs';
 
 export class AuthComponent {
