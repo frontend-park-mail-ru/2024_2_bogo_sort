@@ -5,9 +5,9 @@ import { informationStorage } from './modules/informationStorage.js';
 import header from './components/header/header.js';
 import { AuthComponent } from './components/auth/auth.js';
 import { MainPage } from './pages/main/main.js';
-import { LogInPage } from '../pages/login/login.js';
-import { SignUpPage } from '../pages/signup/signup.js';
-import { AdvertPage } from '../pages/obyavlenie/obyavlenie.js';
+import { LogInPage } from './pages/login/login.js';
+import { SignUpPage } from './pages/signup/signup.js';
+import { AdvertPage } from './pages/obyavlenie/obyavlenie.js';
 import { CreateAdvertPage } from './pages/advertCreate/advertCreate.js';
 import { CartPage } from './pages/cart/cart.js';
 import { CategoryPage } from './pages/category/category.js';
@@ -15,12 +15,13 @@ import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
 import { router } from './modules/router.js';
-import { ROUTES, PIPE_NAMES } from './constants/constants.js';
+import { ROUTES, PIPE_NAMES, signupData } from './constants/constants.js';
 import './utils/hbsHelpers.js';
 
 pipe.init(PIPE_NAMES);
 pipe.registerNewCallback('updateHeader', changeHeader);
 pipe.registerNewCallback('showAuthForm', showAuthForm);
+pipe.registerNewCallback('showSignupForm', showSignupForm);
 
 function changeHeader() {
     return header.changeHeader();
@@ -30,6 +31,12 @@ function showAuthForm() {
     const authComponent = new AuthComponent();
 
     return authComponent.showAuthForm();
+}
+
+function showSignupForm() {
+    const authComponent = new AuthComponent();
+
+    return authComponent.showAuthForm(signupData);
 }
 
 const main = initHeaderAndMain();
@@ -93,16 +100,16 @@ function renderSeller(main, sellerId) {
     return sellerPage.render(main, sellerId);
 }
 
-function renderLogIn() {
+function renderLogIn(main) {
     const loginPage = new LogInPage();
 
-    return loginPage.render();
+    return loginPage.render(main);
 }
 
-function renderSignUp() {
+function renderSignUp(main) {
     const signUpPage = new SignUpPage();
 
-    return signUpPage.render();
+    return signUpPage.render(main);
 }
 
 window.addEventListener('load', () => {
