@@ -6,6 +6,7 @@ import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { router } from '../../modules/router.js';
+import template from './obyavlenie.hbs';
 
 export class AdvertComponent {
     auth;
@@ -77,7 +78,7 @@ export class AdvertComponent {
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
 
-        return Handlebars.templates['obyavlenie.hbs']({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart,
+        return template({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart,
             category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal,
             sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, rating: data.rating, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl });
     }

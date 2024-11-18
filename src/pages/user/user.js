@@ -8,6 +8,7 @@ import ajax from '../../modules/ajax.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
+import template from '../../components/orders/orders.hbs'
 
 export class UserPage {
 
@@ -127,7 +128,7 @@ export class UserPage {
             });
         }
 
-        container.innerHTML += Handlebars.templates['orders.hbs']({orders: orders, notEmpty});
+        container.innerHTML += template({orders: orders, notEmpty});
         container.querySelector('.orders__empty-button')?.addEventListener('click', () => {
             router.goToPage('/');
         });

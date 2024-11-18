@@ -115,8 +115,14 @@ function renderSignUp(main) {
 window.addEventListener('load', () => {
     const path = window.location.pathname;
 
+    if('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js');
+    }
+
     router.goToPage(path);
 });
+
+
 
 await informationStorage.init();
 
@@ -148,3 +154,4 @@ function initHeaderAndMain() {
 
     return main;
 }
+

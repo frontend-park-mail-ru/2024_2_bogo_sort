@@ -3,3 +3,4 @@
 *.precompiled.js
 .sass-cache
 /src/components/auth/authTypes.ts
+/src/dist
