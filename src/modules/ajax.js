@@ -2,7 +2,6 @@
 
 import { BACKEND_BASE_URL } from '../constants/constants.js';
 import { informationStorage } from './informationStorage.js';
-import { informationStorage } from './informationStorage.js';
 
 const GET = 'GET';
 const POST = 'POST';
@@ -25,12 +24,10 @@ class Ajax {
 
     async getCSRF() {
         const response = await fetch(`${this.baseURL}/csrf-token`, {
-        const response = await fetch(`${this.baseURL}/csrf-token`, {
             method: GET,
             credentials: 'include',
         });
 
-        return response.headers.get('X-Csrf-Token');
         return response.headers.get('X-Csrf-Token');
     }
 
@@ -96,7 +93,6 @@ class Ajax {
     async put(endpoint, data, headers = {}) {
         try {
             this.csrf ??= informationStorage.getCSRF();
-            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
                 headers: {
@@ -117,7 +113,6 @@ class Ajax {
     async delete(endpoint, data, headers = {}) {
         try {
             this.csrf ??= informationStorage.getCSRF();
-            this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: DELETE,
                 headers: {
@@ -137,7 +132,6 @@ class Ajax {
 
     async imagePut(endpoint, data) {
         try {
-            this.csrf ??= informationStorage.getCSRF();
             this.csrf ??= informationStorage.getCSRF();
             const response = await fetch(`${this.baseURL}${endpoint}`, {
                 method: PUT,
