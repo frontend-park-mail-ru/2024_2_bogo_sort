@@ -1,5 +1,11 @@
 'use strict';
 
+export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
+// export const BACKEND_BASE_URL = 'http://5.188.141.136:8080/api/v1';
+
+export const BASE_URL = 'http://127.0.0.1:8080/';
+// export const BASE_URL = 'http://5.188.141.136:8080/';
+
 export const ROUTES = {
     '/': {
         href: '/',
@@ -12,10 +18,6 @@ export const ROUTES = {
     '/signup': {
         href: '/signup',
         name: 'signupPage'
-    },
-    '/logout': {
-        href: '/logout',
-        name: 'logout'
     },
     '/advert': {
         href: '/advert/:id',
@@ -160,33 +162,32 @@ export const headerData = {
         {
             name: 'Корзина',
             iconUrl: '../../static/images/user-menu-icons/cart.svg',
-            redirectUrl: '/cart'
+            redirectUrl: '/cart',
+            engName: 'cart'
         },
         {
             name: 'Мои объявления',
             iconUrl: '../../static/images/user-menu-icons/adverts.svg',
-            redirectUrl: '/user/adverts'
+            redirectUrl: '/user/adverts',
+            engName: 'adverts',
         },
         {
             name: 'Мои заказы',
             iconUrl: '../../static/images/user-menu-icons/orders.svg',
-            redirectUrl: '/user/orders'
+            redirectUrl: '/user/orders',
+            engName: 'orders'
         },
         {
             name: 'Настройки',
             iconUrl: '../../static/images/user-menu-icons/6.svg',
-            redirectUrl: '/user/settings'
+            redirectUrl: '/user/settings',
+            engName: 'settings'
         },
         {
             name: 'Выйти',
             iconUrl: '../../static/images/user-menu-icons/Sign_out.svg',
-            redirectUrl: '#'
+            redirectUrl: '/',
+            engName: 'logout'
         },
     ],
 };
-
-export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
-// export const BACKEND_BASE_URL = 'http://5.188.141.136:8080/api/v1';
-
-export const BASE_URL = 'http://127.0.0.1:8080/';
-// export const IMAGE_URL = 'http://5.188.141.136:8080/';

@@ -67,7 +67,7 @@ class Header {
             router.goToPage('/create');
         });
 
-        const logoutButton = this.#wrapper.querySelector('#Выйти');
+        const logoutButton = this.#wrapper.querySelector('.menu__link-logout');
         logoutButton?.addEventListener('click', event => {
             event.preventDefault();
             logout();
