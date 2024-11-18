@@ -6,6 +6,7 @@ import { toggleClasses } from '../../utils/toggleClasses.js';
 import { checkAuth } from '../../utils/checkAuth.js';
 
 export class AuthComponent {
+    #expanded = false;
     /**
      * Renders the authentication template using Handlebars.
      *
@@ -114,7 +115,8 @@ export class AuthComponent {
             return;
         }
         const initalUrl = window.location.pathname;
-        history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
+        const path = data.title === 'Авторизация' ? '/login' : '/signup';
+        history.pushState(null, '', path);
 
         let overlay = document.getElementById('overlay');
         let authForm = document.getElementById('login-form');
@@ -137,6 +139,9 @@ export class AuthComponent {
             this.addInputEventListeners();
             const registerLink = authForm.querySelector('.link');
             this.changeForm(registerLink, data, authForm);
+            if(path === '/signup' && !this.#expanded){
+                this.expandAuthForm();
+            }
         } else {
             toggleClasses([overlay, authForm], 'not-active', 'active');
         }
@@ -262,6 +267,7 @@ export class AuthComponent {
     }
 
     expandAuthForm() {
+        this.#expanded = !this.#expanded;
         const authForm = document.querySelector('.form-wrapper');
         toggleClasses([authForm?.querySelector('.auth-wrapper'), authForm?.querySelector('.features')], 'expand');
     }
