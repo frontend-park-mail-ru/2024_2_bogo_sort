@@ -28,6 +28,7 @@ function changeHeader() {
 
 function showAuthForm() {
     const authComponent = new AuthComponent();
+
     return authComponent.showAuthForm();
 }
 

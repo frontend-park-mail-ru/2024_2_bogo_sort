@@ -75,7 +75,7 @@ class InformationStorage {
         this.#isAuth = false;
         this.#user = null;
         pipe.executeCallback('updateHeader');
-    } 
+    }
 }
 
 export const informationStorage = new InformationStorage();
