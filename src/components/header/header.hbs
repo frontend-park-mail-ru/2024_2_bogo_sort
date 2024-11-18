@@ -20,7 +20,7 @@
         <ol class="user-menu__menu menu not-active">
             {{#each menuItems}}
             <li class="menu__item">
-                <a class="menu__link" href="{{this.redirectUrl}}" id="{{this.name}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+                <a class="menu__link-{{this.engName}}" href="{{this.redirectUrl}}" id="{{this.name}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
             </li>
             {{/each}}
         </ol>

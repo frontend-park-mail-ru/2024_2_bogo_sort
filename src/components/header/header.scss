@@ -179,7 +179,11 @@
         padding: 0;
     }
 
-    &__link {
+    &__link-cart,
+    &__link-adverts,
+    &__link-orders,
+    &__link-settings,
+    &__link-logout {
         text-decoration: none;
         font-family: inter;
         font-weight: 200;
@@ -193,9 +197,6 @@
 
         &:hover {
             color: var(--color-primary50);
-            
-            // & + menu__icon {
-            // }
         }
     }
 
