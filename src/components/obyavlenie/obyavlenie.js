@@ -13,7 +13,7 @@ export class AdvertComponent {
     seller;
     inCart;
 
-    constructor() {import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
+    constructor() {
 
         this.auth = new AuthComponent();
     }
