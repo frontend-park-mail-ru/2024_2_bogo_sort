@@ -1,6 +1,7 @@
 'use strict';
 
 import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
+import template from './cart.hbs';
 
 
 export class Cart {
@@ -12,7 +13,7 @@ export class Cart {
         }
         data.numberOfItems = data.numberOfItems + this.getProductWord(data.numberOfItems);
 
-        return Handlebars.templates['cart.hbs']({ notEmpty: data.notEmpty, imgUrl: data.imgUrl, adverts: data.adverts, numberOfItems: data.numberOfItems, totalPrice: data.totalPrice });
+        return template({ notEmpty: data.notEmpty, imgUrl: data.imgUrl, adverts: data.adverts, numberOfItems: data.numberOfItems, totalPrice: data.totalPrice });
     }
 
 

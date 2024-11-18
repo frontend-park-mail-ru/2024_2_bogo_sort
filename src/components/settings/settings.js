@@ -4,10 +4,11 @@ import { pipe } from '../../modules/pipe.js';
 import { validateEmail } from '../../utils/validation.js';
 import { formatPhone } from '../../utils/formatPhone.js';
 import { router } from '../../modules/router.js';
+import template from './settings.hbs';
 
 export class Settings {
     renderSettings() {
-        return Handlebars.templates['settings.hbs']();
+        return template();
     }
 
     previewImage(upload) {

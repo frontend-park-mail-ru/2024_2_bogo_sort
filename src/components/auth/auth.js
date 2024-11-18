@@ -3,6 +3,8 @@ import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
+import { checkAuth } from '../../utils/checkAuth.js';
+import template from './auth.hbs';
 
 export class AuthComponent {
     #expanded = false;
@@ -13,8 +15,6 @@ export class AuthComponent {
      * @returns {string} The rendered HTML string of the authentication template.
      */
     renderAuthTemplate(data) {
-        const template = Handlebars.templates['auth.hbs'];
-
         return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
     }
 

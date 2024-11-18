@@ -1,12 +1,13 @@
 import { informationStorage } from '../../modules/informationStorage.js';
 import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
+import template from './advertCreate.hbs';
 
 export class CreateAdvert {
     form;
 
     renderAdvertCreation(data){
-        return Handlebars.templates['advertCreate.hbs']({ category: data.category, imagePreview: data.imagePreview });
+        return template({ category: data.category, imagePreview: data.imagePreview });
     }
 
     previewImage(upload) {

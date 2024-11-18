@@ -1,5 +1,7 @@
 'use strict';
 
+const Handlebars = require('handlebars/runtime');
+
 /**
  * Handlebars helper to check equality of two values and additional conditions.
  *
@@ -24,3 +26,5 @@ Handlebars.registerHelper('eq', function (a, b, c, d) {
 Handlebars.registerHelper('eq-or', function (a, b, c) {
     return a === b || a === c;
 });
+
+module.exports = Handlebars;
