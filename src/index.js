@@ -122,6 +122,8 @@ window.addEventListener('load', () => {
     router.goToPage(path);
 });
 
+
+
 await informationStorage.init();
 
 window.addEventListener('popstate', () => {
