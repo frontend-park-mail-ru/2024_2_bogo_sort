@@ -1,19 +1,18 @@
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { Cart } from '../../components/cart/cart.js';
 import ajax from '../../modules/ajax.js';
 import { BASE_URL } from '../../constants/constants.js';
+import { router } from '../../modules/router.js';
 
 export class CartPage {
     cartId;
     adverts;
 
-    render() {
-        this.#renderTemplate();
+    render(main) {
+        this.#renderTemplate(main);
         this.cartComponent = new Cart();
     }
 
-    async #renderTemplate() {
-        const main = initHeaderAndMain();
+    async #renderTemplate(main) {
         const userId = localStorage.getItem('id');
         const cartExists = await ajax.get(`/cart/exists/${userId}`);
         let data = {};
@@ -49,7 +48,7 @@ export class CartPage {
                     if(event.target === wrapper.querySelector('.adverts__remove')){
                         return;
                     }
-                    window.location.href = `/advert/${this.adverts[i].id}`;
+                    router.goToPage(`/advert/${this.adverts[i].id}`);
                 });
             }
         }
@@ -73,7 +72,7 @@ export class CartPage {
 
         const goBuyButton = wrapper.querySelector('.cart__empty-button');
         goBuyButton?.addEventListener('click', () => {
-            window.location.href = '/';
+            router.goToPage('/');
         });
 
         const buyButton = wrapper.querySelector('.cart__buy-button');
@@ -83,7 +82,7 @@ export class CartPage {
                 'payment_method': 'cash',
                 'delivery_method': 'pickup'
             });
-            window.location.href = '/user/orders';
+            router.goToPage('/user/orders');
         });
     }
 }

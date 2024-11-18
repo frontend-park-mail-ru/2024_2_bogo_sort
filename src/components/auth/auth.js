@@ -138,7 +138,7 @@ export class AuthComponent {
 
             this.addSubmitFormListener(authForm, data);
             this.addInputEventListeners();
-            const registerLink = authForm.getElementsByClassName('link')[0];
+            const registerLink = authForm.querySelector('.link');
             this.changeForm(registerLink, data, authForm);
         } else {
             toggleClasses([overlay, authForm], 'not-active', 'active');
@@ -230,7 +230,7 @@ export class AuthComponent {
                 history.pushState(null, '', '/login');
                 data = loginData;
                 const AUTH_FORM_ANIMATION_DELAY = 170;
-                toggleClasses([authForm.getElementsByClassName('auth-wrapper')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+                toggleClasses([authForm.querySelector('.auth-wrapper'), authForm.querySelector('.features')], 'expand');
                 setTimeout(() => this.updateForm(authForm, data), AUTH_FORM_ANIMATION_DELAY);
             } else {
                 history.pushState(null, '', '/signup');
@@ -238,7 +238,7 @@ export class AuthComponent {
                 this.updateForm(authForm, data);
                 const REGISTER_FORM_ANIMATION_DELAY = 10;
                 setTimeout(() => {
-                    toggleClasses([authForm.getElementsByClassName('auth-wrapper')[0], authForm.getElementsByClassName('features')[0]], 'expand');
+                    toggleClasses([authForm.querySelector('.auth-wrapper'), authForm.querySelector('.features')], 'expand');
                 }, REGISTER_FORM_ANIMATION_DELAY);
             }
         });
@@ -252,7 +252,7 @@ export class AuthComponent {
      */
     updateForm(authForm, data) {
         authForm.innerHTML = this.renderAuthTemplate(data);
-        this.changeForm(authForm.getElementsByClassName('link')[0], data, authForm);
+        this.changeForm(authForm.querySelector('.link'), data, authForm);
         this.addSubmitFormListener(authForm, data);
         this.addInputEventListeners();
     }
@@ -273,7 +273,7 @@ export class AuthComponent {
 
     expandAuthForm() {
         const authForm = document.querySelector('.form-wrapper');
-        toggleClasses([authForm?.getElementsByClassName('auth-wrapper')[0], authForm?.getElementsByClassName('features')[0]], 'expand');
+        toggleClasses([authForm?.querySelector('.auth-wrapper'), authForm?.querySelector('.features')], 'expand');
     }
 
     /**
@@ -284,6 +284,8 @@ export class AuthComponent {
         const loginForm = document.querySelector('.login-form');
 
         if (overlay && loginForm) {
+            overlay?.classList.remove('active');
+            loginForm?.classList.remove('active');
             overlay?.classList.add('not-active');
             loginForm?.classList.add('not-active');
         }

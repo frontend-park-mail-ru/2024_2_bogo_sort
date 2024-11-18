@@ -1,5 +1,54 @@
 'use strict';
 
+export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
+// export const BACKEND_BASE_URL = 'http://5.188.141.136:8080/api/v1';
+
+export const BASE_URL = 'http://127.0.0.1:8080/';
+// export const BASE_URL = 'http://5.188.141.136:8080/';
+
+export const ROUTES = {
+    '/': {
+        href: '/',
+        name: 'mainPage'
+    },
+    '/login': {
+        href: '/login',
+        name: 'loginPage'
+    },
+    '/signup': {
+        href: '/signup',
+        name: 'signupPage'
+    },
+    '/advert': {
+        href: '/advert/:id',
+        name: 'advertPage'
+    },
+    '/create': {
+        href: '/create',
+        name: 'advertCreatePage'
+    },
+    '/cart': {
+        href: '/cart',
+        name: 'cartPage'
+    },
+    '/category': {
+        href: '/categpry/:id',
+        name: 'categoryPage'
+    },
+    '/edit': {
+        href: '/edit/:id',
+        name: 'advertEditPage'
+    },
+    '/user': {
+        href: '/user/:id',
+        name: 'userPage'
+    },
+    '/seller': {
+        href: '/seller/:id',
+        name: 'sellerPage'
+    }
+};
+
 export const loginData = {
     title: 'Авторизация',
     info: 'Войдите в свой аккаунт',
@@ -108,33 +157,32 @@ export const headerData = {
         {
             name: 'Корзина',
             iconUrl: '../../static/images/user-menu-icons/cart.svg',
-            redirectUrl: '/cart'
+            redirectUrl: '/cart',
+            engName: 'cart'
         },
         {
             name: 'Мои объявления',
             iconUrl: '../../static/images/user-menu-icons/adverts.svg',
-            redirectUrl: '/user/adverts'
+            redirectUrl: '/user/adverts',
+            engName: 'adverts',
         },
         {
             name: 'Мои заказы',
             iconUrl: '../../static/images/user-menu-icons/orders.svg',
-            redirectUrl: '/user/orders'
+            redirectUrl: '/user/orders',
+            engName: 'orders'
         },
         {
             name: 'Настройки',
             iconUrl: '../../static/images/user-menu-icons/6.svg',
-            redirectUrl: '/user/settings'
+            redirectUrl: '/user/settings',
+            engName: 'settings'
         },
         {
             name: 'Выйти',
             iconUrl: '../../static/images/user-menu-icons/Sign_out.svg',
-            redirectUrl: '/logout'
+            redirectUrl: '/',
+            engName: 'logout'
         },
     ],
 };
-
-export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
-// export const BACKEND_BASE_URL = 'http://5.188.141.136:8080/api/v1';
-
-export const BASE_URL = 'http://127.0.0.1:8080/';
-// export const IMAGE_URL = 'http://5.188.141.136:8080/';

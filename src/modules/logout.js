@@ -8,6 +8,5 @@ export function logout() {
     localStorage.removeItem('id');
     localStorage.removeItem('name');
     localStorage.removeItem('imageUrl');
-    history.pushState(null, '', '/');
     header.changeHeader();
 }

@@ -1,18 +1,18 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BACKEND_BASE_URL, BASE_URL } from '../../constants/constants.js';
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
+import { BASE_URL } from '../../constants/constants.js';
 
 export class CategoryPage {
     category;
 
-    render() {
-        this.category = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        this.#renderTemplate();
+    render(main, category) {
+        this.category = category;
+        this.#renderTemplate(main);
     }
 
-    async #renderTemplate() {
-        const main = initHeaderAndMain();
+    async #renderTemplate(main) {
+        const wrapper = document.createElement('main');
+        wrapper.className = 'cards-wrapper';
 
         const title = document.createElement('h1');
         title.className = 'category-title';
@@ -36,7 +36,7 @@ export class CategoryPage {
 
         const cards = await ajax.get(`/adverts/category/${this.category}`);
 
-        main.appendChild(title);
+        wrapper.appendChild(title);
 
         container.classList.add('cards');
 
@@ -45,6 +45,7 @@ export class CategoryPage {
                 container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
             }
         });
-        main.appendChild(container);
+        wrapper.appendChild(container);
+        main.appendChild(wrapper);
     }
 }

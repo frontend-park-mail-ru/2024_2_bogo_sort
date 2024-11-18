@@ -10,7 +10,7 @@
     </ol>
 
     {{#if checkAuth}}
-    <button type="button" class="header__create-advert-button"><a class="header__create-advert-link" href="/create">Разместить объявление</a></button>
+    <button type="button" class="header__create-advert-button">Разместить объявление</button>
     <section class="header__user-menu user-menu ">
         <span class="user-menu__user-name" data-user-id="{{userId}}" data-username="{{userName}}">
             {{userName}} 
@@ -20,7 +20,7 @@
         <ol class="user-menu__menu menu not-active">
             {{#each menuItems}}
             <li class="menu__item">
-                <a class="menu__link" href="{{this.redirectUrl}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+                <a class="menu__link-{{this.engName}}" href="{{this.redirectUrl}}" id="{{this.name}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
             </li>
             {{/each}}
         </ol>

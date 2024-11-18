@@ -1,13 +1,10 @@
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
 import { headerData } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
-import { initHeaderAndMain } from '../../utils/initHeaderAndMain.js';
 import { BASE_URL } from '../../constants/constants.js';
 
 export class AdvertEditPage {
-    render() {
-        const advertId = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
-        const main = initHeaderAndMain();
+    render(main, advertId) {
         const template = new CreateAdvert();
         const wrapper = document.createElement('div');
         wrapper.classList.add('create-advert');
