@@ -21,20 +21,9 @@
   "license": "ISC",
   "homepage": "https://github.com/frontend-park-mail-ru/2024_2_bogo_sort/tree/main#readme",
   "devDependencies": {
-    "@babel/core": "^7.26.0",
-    "@babel/preset-env": "^7.26.0",
-    "babel-loader": "^9.2.1",
-    "eslint": "^9.11.1",
-    "handlebars-loader": "^1.7.3",
-    "serviceworker-webpack5-plugin": "^2.0.0",
-    "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "eslint": "^9.11.1"
   },
   "dependencies": {
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^12.0.2",
-    "css-minimizer-webpack-plugin": "^7.0.0",
     "dependencies": "^0.0.1",
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
