@@ -1,6 +1,5 @@
 import { pipe } from '../../modules/pipe.js';
 import { informationStorage } from '../../modules/informationStorage.js';
-import { checkAuth } from '../../utils/checkAuth.js';
 import { headerData } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
@@ -56,7 +55,7 @@ class Header {
         const headerButton = this.#wrapper.querySelector('.header__button');
 
         headerButton?.addEventListener('click', () => {
-            if(checkAuth()){
+            if(informationStorage.isAuth()){
                 logoutUser();
             } else {
                 pipe.executeCallback('showAuthForm');
