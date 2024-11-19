@@ -12,7 +12,9 @@
     "build:prod": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
     "wStart": "webpack serve --config webpack.config.js",
-    "wBuild": "webpack"
+    "wBuild": "webpack",
+    "build:prod": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js"
   },
   "repository": {
     "type": "git",
