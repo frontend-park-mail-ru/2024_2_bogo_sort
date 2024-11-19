@@ -241,6 +241,10 @@
 
     &__registration-link {
         font-size: 15px;
+    }
+    
+    &__change-button {
+        font-size: 0.8vw;
         color: var(--color-secondary70);
         display: flex;
         flex-direction: row;

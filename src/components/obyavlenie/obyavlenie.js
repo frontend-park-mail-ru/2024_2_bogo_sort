@@ -41,9 +41,9 @@ export class AdvertComponent {
             await this.checkIfInCart(advert, me, wrapper);
         }
 
+        this.isLiked = advert.is_saved;
         const categories = await informationStorage.getCateogies();
 
-        this.isLiked = advert.is_saved;
         const data = {
             isLiked: this.isLiked,
             title: advert.advert.title,
@@ -211,9 +211,14 @@ export class AdvertComponent {
         });
     }
 
-    async checkIfInCart(advert, me) {
-        const cartId = await ajax.get(`/cart/exists/${me.id}`);
-        const cart = await ajax.get(`/cart/${cartId.cart_id}`);
+    async checkIfInCart(advert, me, wrapper) {
+        const cartExists = await ajax.get(`/cart/exists/${me.id}`)
+        if(!cartExists) {
+            this.inCart = false;
+            
+            return;
+        }
+        const cart = await ajax.get(`/cart/user/${me.id}`);
 
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
