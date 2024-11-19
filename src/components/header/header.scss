@@ -37,6 +37,7 @@
     box-shadow: 0px 3px 4px var(--box-shadow-color);
     font-family: logo;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     position: sticky;
@@ -263,6 +264,10 @@
         flex: 1;
         height: inherit;
         transition: all 0.5s ease;
+
+        &:focus + .searchbar__find-button {
+            background-color: var(--color-primary100);
+        }
     }
 
     &__find-button {
