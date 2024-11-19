@@ -3,8 +3,7 @@ import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
 import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
-import { checkAuth } from '../../utils/checkAuth.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import { router } from '../../modules/router.js';
 
 export class AdvertComponent {
@@ -25,8 +24,8 @@ export class AdvertComponent {
 
         this.seller = seller;
         let me;
-        if(checkAuth()) {
-            me = await ajax.get('/me');
+        if(informationStorage.isAuth()) {
+            me = informationStorage.getUser();
             this.myAdvert = sellerUser.id === me.id;
             if(advert.status === 'inactive' && !this.myAdvert) {
                 return null;
@@ -37,7 +36,7 @@ export class AdvertComponent {
             await this.checkIfInCart(advert, me, wrapper);
         }
 
-        const categories = await ajax.get('/categories');
+        const categories = await informationStorage.getCateogies();
 
         const data = {
             title: advert.title,
@@ -55,7 +54,7 @@ export class AdvertComponent {
             inCart: this.inCart,
 
             sellerName: sellerUser.username,
-            sellerImgUrl: await getUserImageUrl(sellerUser),
+            sellerImgUrl: await informationStorage.getUserImageUrl(sellerUser),
             sellerPhone: sellerUser.phone,
             sellerTimestamp: timestampFormatter(sellerUser.created_at, true),
 
@@ -184,6 +183,12 @@ export class AdvertComponent {
     }
 
     async checkIfInCart(advert, me, wrapper) {
+        const cartExists = await ajax.get(`/cart/exists/${me.id}`)
+        if(!cartExists) {
+            this.inCart = false;
+            
+            return;
+        }
         const cart = await ajax.get(`/cart/user/${me.id}`);
 
         if(cart.adverts){

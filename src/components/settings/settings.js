@@ -2,7 +2,6 @@ import { informationStorage } from '../../modules/informationStorage.js';
 import ajax from '../../modules/ajax.js';
 import { pipe } from '../../modules/pipe.js';
 import { validateEmail } from '../../utils/validation.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { formatPhone } from '../../utils/formatPhone.js';
 import { router } from '../../modules/router.js';
 
@@ -26,11 +25,11 @@ export class Settings {
     }
 
     async fillData(wrapper) {
-        this.me = await ajax.get('/me');
+        this.me = informationStorage.getUser();
         wrapper.querySelector('.settings-form__name-input').value = this.me.username;
         wrapper.querySelector('.settings-form__email-input').value = this.me.email;
         wrapper.querySelector('.settings-form__phone-input').value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
-        wrapper.querySelector('.settings-form__upload-box-image').src = await getUserImageUrl(this.me);
+        wrapper.querySelector('.settings-form__upload-box-image').src = await informationStorage.getUserImageUrl(this.me);
 
         this.addListeners(wrapper);
     }
@@ -110,10 +109,9 @@ export class Settings {
         formData.append('image', image);
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
-            const me = await ajax.get('/me');
-            informationStorage.setUser(me);
         }
-        informationStorage.setUsername(data.Username);
+        const me = await ajax.get('/me');
+        informationStorage.setUser(me);
         pipe.executeCallback('updateHeader');
         router.goToPage('/user/settings');
     }

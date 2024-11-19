@@ -1,6 +1,5 @@
 import { pipe } from './pipe.js';
-import { BACKEND_BASE_URL } from '../constants/constants.js';
-import { getUserImageUrl } from '../utils/getUserImageUrl.js';
+import { BACKEND_BASE_URL, BASE_URL } from '../constants/constants.js';
 import ajax from './ajax.js';
 
 class InformationStorage {
@@ -33,7 +32,7 @@ class InformationStorage {
         this.#isAuth = true;
         this.#csrf = await ajax.getCSRF();
         this.#user = await ajax.get('/me');
-        this.#userImageUrl = await getUserImageUrl(this.#user);
+        this.#userImageUrl = await this.getUserImageUrl(this.#user);
         pipe.executeCallback('updateHeader');
     }
 
@@ -53,16 +52,22 @@ class InformationStorage {
 
     async setUser(user) {
         this.#user = user;
-        this.#userImageUrl = await getUserImageUrl(this.#user);
-    }
-
-    setUsername(username) {
-        this.#user.username = username;
+        this.#userImageUrl = await this.getUserImageUrl(this.#user);
     }
 
     getUserImgUrl() {
         return this.#userImageUrl;
     }
+
+    async getUserImageUrl(user) {
+        if(!user.avatar_id){
+            return;
+        }
+        const path = await ajax.get(`/files/${user.avatar_id}`);
+    
+        return BASE_URL + path;
+    }
+    
 
     isAuth() {
         return this.#isAuth;

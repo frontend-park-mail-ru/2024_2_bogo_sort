@@ -239,14 +239,14 @@
         }
     }
 
-    &__registration-link {
+    &__change-button {
         font-size: 0.8vw;
         color: var(--color-secondary70);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        &.link {
+        &.change-button {
             color: var(--color-primary100);
             cursor: pointer;
         }

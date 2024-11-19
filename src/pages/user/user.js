@@ -1,11 +1,10 @@
+import { informationStorage } from '../../modules/informationStorage.js';
 import { renderUser } from '../../components/user/user.js';
 import { renderCardTemplate } from '../../components/card/card.js';
-import { checkAuth } from '../../utils/checkAuth.js';
 import { BASE_URL } from '../../constants/constants.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { Settings } from '../../components/settings/settings.js';
 import ajax from '../../modules/ajax.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
 
@@ -17,12 +16,12 @@ export class UserPage {
     }
 
     async #renderTemplate(main) {
-        if(!checkAuth()){
+        if(!informationStorage.isAuth()){
             router.goToPage('/');
         }
-        const me = await ajax.get('/me');
+        const me = informationStorage.getUser();
         const data = {
-            userImageUrl: await getUserImageUrl(me),
+            userImageUrl: await informationStorage.getUserImageUrl(me),
             username: me.username,
             timestamp: timestampFormatter(me.created_at, true)
         };

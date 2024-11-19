@@ -3,7 +3,6 @@ import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
-import { checkAuth } from '../../utils/checkAuth.js';
 
 export class AuthComponent {
     #expanded = false;
@@ -109,7 +108,7 @@ export class AuthComponent {
      * @param {Object} data - The data needed to render the auth form.
      */
     showAuthForm(data = loginData) {
-        if(checkAuth()){
+        if(informationStorage.isAuth()){
             history.pushState(null, '', '/');
 
             return;
@@ -137,7 +136,7 @@ export class AuthComponent {
 
             this.addSubmitFormListener(authForm, data);
             this.addInputEventListeners();
-            const registerLink = authForm.querySelector('.link');
+            const registerLink = authForm.querySelector('.change-button');
             this.changeForm(registerLink, data, authForm);
             if(path === '/signup' && !this.#expanded){
                 this.expandAuthForm();
@@ -254,7 +253,7 @@ export class AuthComponent {
      */
     updateForm(authForm, data) {
         authForm.innerHTML = this.renderAuthTemplate(data);
-        this.changeForm(authForm.querySelector('.link'), data, authForm);
+        this.changeForm(authForm.querySelector('.change-button'), data, authForm);
         this.addSubmitFormListener(authForm, data);
         this.addInputEventListeners();
     }
