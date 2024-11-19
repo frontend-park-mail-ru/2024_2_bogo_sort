@@ -3,7 +3,8 @@ import { informationStorage } from '../../modules/informationStorage.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { checkAuth } from '../../utils/checkAuth.js';
+import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import { router } from '../../modules/router.js';
 import template from './obyavlenie.hbs';
 import { pipe } from '../../modules/pipe.js';
@@ -28,7 +29,7 @@ export class AdvertComponent {
 
         this.seller = seller;
         let me;
-        if(checkAuth()) {
+        if(informationStorage.isAuth()) {
             me = informationStorage.getUser();
             this.myAdvert = sellerUser.id === me.id;
             if(advert.advert.status === 'inactive' && !this.myAdvert) {
@@ -40,8 +41,9 @@ export class AdvertComponent {
             await this.checkIfInCart(advert, me, wrapper);
         }
 
-        const categories = await ajax.get('/categories');
         this.isLiked = advert.is_saved;
+        const categories = await informationStorage.getCateogies();
+
         const data = {
             isLiked: this.isLiked,
             title: advert.advert.title,

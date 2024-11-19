@@ -6,6 +6,6 @@ import ajax from './ajax.js';
 
 export function logout() {
     ajax.post('/logout');
-    informationStorage.setUser({});
+    informationStorage.setUser(null);
     header.changeHeader();
 }

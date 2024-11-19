@@ -109,8 +109,8 @@ export class AuthComponent {
      * @param {Object} data - The data needed to render the auth form.
      */
     showAuthForm(data = loginData) {
-        if(checkAuth()){
-            history.pushState(null, '', window.location.pathname);
+        if(informationStorage.isAuth()){
+            history.pushState(null, '', '/');
 
             return;
         }
@@ -137,7 +137,7 @@ export class AuthComponent {
 
             this.addSubmitFormListener(authForm, data);
             this.addInputEventListeners();
-            const registerLink = authForm.querySelector('.link');
+            const registerLink = authForm.querySelector('.change-button');
             this.changeForm(registerLink, data, authForm);
             if(path === '/signup' && !this.#expanded){
                 this.expandAuthForm();
@@ -254,7 +254,7 @@ export class AuthComponent {
      */
     updateForm(authForm, data) {
         authForm.innerHTML = this.renderAuthTemplate(data);
-        this.changeForm(authForm.querySelector('.link'), data, authForm);
+        this.changeForm(authForm.querySelector('.change-button'), data, authForm);
         this.addSubmitFormListener(authForm, data);
         this.addInputEventListeners();
     }
