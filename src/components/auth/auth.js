@@ -3,7 +3,6 @@ import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
-import { checkAuth } from '../../utils/checkAuth.js';
 import template from './auth.hbs';
 
 export class AuthComponent {
