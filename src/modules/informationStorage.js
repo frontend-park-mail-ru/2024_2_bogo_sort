@@ -60,7 +60,6 @@ class InformationStorage {
     }
 
     async getUserImageUrl(user) {
-
         if(!user.avatar_id){
             return;
         }
