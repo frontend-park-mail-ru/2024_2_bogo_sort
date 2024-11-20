@@ -1,7 +1,7 @@
 'use strict';
 
 const CACHE_NAME = 'app-cache';
-const CACHE_PATHS = ['src/bundle.js', '/'];
+const CACHE_PATHS = ['/'];
 
 self.addEventListener('install', event => {
     event.waitUntil(
