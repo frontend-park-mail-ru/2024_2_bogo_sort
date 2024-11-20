@@ -12,17 +12,15 @@ class InformationStorage {
 
     async init() {
         this.#inited = true;
-        await fetch(`${BACKEND_BASE_URL}/adverts?limit=1&offset=0`, {
-            method: 'GET',
-            credentials: 'include'
-        })
-        .then(res => {
-            this.#isAuth = res.headers.get('x-authenticated') === 'true' ? true : false;
-        });
+        const me = await ajax.get('/me');
+        if(me.code) {
+            this.#isAuth = false;
 
-        if(this.#isAuth) {
-            await this.proceedAuthenticated();
+            return;
         }
+
+        this.#isAuth = true; 
+        await this.proceedAuthenticated();
     }
 
     async proceedAuthenticated() {
