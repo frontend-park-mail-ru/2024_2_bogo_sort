@@ -38,13 +38,6 @@
     </form>
     <button type="button" class="header__create-advert-button">Разместить объявление</button>
 
-    <form class="header__searchbar searchbar">
-        <img class="searchbar__icon" src="../../static/images/lupa.svg">
-        <input class="searchbar__input" type="text" placeholder="Поиск по объявлениям">
-        <button class="searchbar__find-button" type="submit">Найти</button>
-    </form>
-    <button type="button" class="header__create-advert-button">Разместить объявление</button>
-
     {{#if checkAuth}}
     <section class="header__user-menu user-menu ">
         <span class="user-menu__user-name" data-user-id="{{userId}}" data-username="{{userName}}">
