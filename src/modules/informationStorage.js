@@ -12,9 +12,10 @@ class InformationStorage {
 
     async init() {
         this.#inited = true;
-        const me = await ajax.get('/me');
-        if(me.code) {
+        this.#user = await ajax.get('/me');
+        if(this.#user.code) {
             this.#isAuth = false;
+            this.#user = null;
 
             return;
         }
@@ -29,7 +30,6 @@ class InformationStorage {
         }
         this.#isAuth = true;
         this.#csrf = await ajax.getCSRF();
-        this.#user = await ajax.get('/me');
         this.#userImageUrl = await this.getUserImageUrl(this.#user);
         pipe.executeCallback('updateHeader');
     }
