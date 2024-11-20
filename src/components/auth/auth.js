@@ -1,14 +1,11 @@
-'use strict';
-
-import header from '../header/header.js';
-import { signupData, loginData, BACKEND_BASE_URL } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { signupData, loginData } from '../../constants/constants.js';
 import { validateEmail, validatePassword } from '../../utils/validation.js';
 import ajax from '../../modules/ajax.js';
 import { toggleClasses } from '../../utils/toggleClasses.js';
-import { checkAuth } from '../../utils/checkAuth.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 
 export class AuthComponent {
+    #expanded = false;
     /**
      * Renders the authentication template using Handlebars.
      *
@@ -110,14 +107,15 @@ export class AuthComponent {
      *
      * @param {Object} data - The data needed to render the auth form.
      */
-    showAuthForm(data) {
-        if(checkAuth()){
+    showAuthForm(data = loginData) {
+        if(informationStorage.isAuth()){
             history.pushState(null, '', '/');
 
             return;
         }
         const initalUrl = window.location.pathname;
-        history.pushState(null, '', data.title === 'Авторизация' ? '/login' : '/signup');
+        const path = data.title === 'Авторизация' ? '/login' : '/signup';
+        history.pushState(null, '', path);
 
         let overlay = document.getElementById('overlay');
         let authForm = document.getElementById('login-form');
@@ -138,8 +136,11 @@ export class AuthComponent {
 
             this.addSubmitFormListener(authForm, data);
             this.addInputEventListeners();
-            const registerLink = authForm.querySelector('.link');
+            const registerLink = authForm.querySelector('.change-button');
             this.changeForm(registerLink, data, authForm);
+            if(path === '/signup' && !this.#expanded){
+                this.expandAuthForm();
+            }
         } else {
             toggleClasses([overlay, authForm], 'not-active', 'active');
         }
@@ -252,26 +253,20 @@ export class AuthComponent {
      */
     updateForm(authForm, data) {
         authForm.innerHTML = this.renderAuthTemplate(data);
-        this.changeForm(authForm.querySelector('.link'), data, authForm);
+        this.changeForm(authForm.querySelector('.change-button'), data, authForm);
         this.addSubmitFormListener(authForm, data);
         this.addInputEventListeners();
     }
 
     /**
-     * Updates the header to reflect that the user is logged in.
+     * Updates the information to reflect that the user is logged in.
      */
     async updateToLoggedIn() {
-        const user = await ajax.get('/me');
-        user.username === '' ? 'Пользователь' : user.username;
-
-        localStorage.setItem('id', user.id);
-        localStorage.setItem('name', user.username);
-        localStorage.setItem('imageUrl', await getUserImageUrl(user));
-
-        header.changeHeader();
+        informationStorage.proceedAuthenticated();
     }
 
     expandAuthForm() {
+        this.#expanded = !this.#expanded;
         const authForm = document.querySelector('.form-wrapper');
         toggleClasses([authForm?.querySelector('.auth-wrapper'), authForm?.querySelector('.features')], 'expand');
     }

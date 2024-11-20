@@ -1,8 +1,7 @@
 'use strict';
 
-import { AuthComponent } from '../../components/auth/auth.js';
-import { loginData } from '../../constants/constants.js';
-
+import { MainPage } from '../main/main.js';
+import { pipe } from '../../modules/pipe.js';
 /**
  * Represents the login page.
  */
@@ -11,15 +10,16 @@ export class LogInPage {
     /**
      * Renders the login page.
      */
-    render() {
-        this.#renderTemplate();
+    render(main) {
+        this.#renderTemplate(main);
     }
 
     /**
      * Renders the authentication.
      */
-    #renderTemplate() {
-        const auth = new AuthComponent();
-        auth.showAuthForm(loginData);
+    #renderTemplate(main) {
+        const mainPage = new MainPage();
+        mainPage.render(main);
+        pipe.executeCallback('showAuthForm');
     }
 }
