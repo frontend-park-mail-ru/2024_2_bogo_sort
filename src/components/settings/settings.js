@@ -112,7 +112,7 @@ export class Settings {
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
             const me = await ajax.get('/me');
-            informationStorage.setUser(me);
+            await informationStorage.setUser(me);
         }
         informationStorage.setUsername(data.Username);
         pipe.executeCallback('updateHeader');

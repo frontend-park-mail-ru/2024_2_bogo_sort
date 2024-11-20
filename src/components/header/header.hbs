@@ -1,13 +1,15 @@
 <div class="header__content-wrapper">
     <h1 class="header__logo"><a class="header__link" href="/">Эмпориум</a></h1>
-    <button type="button" class="header__list-button"><img class="header__list-icon" src="../../static/images/textalign-left.svg">Каталог</button>
-    <ol class="header__list list not-active">
-        {{#each category}}
-        <li class="list__item">
-            <a class="list__link" href="{{this.redirectUrl}}"><img class="list__icon" src="{{this.iconUrl}}">{{this.name}}</a>
-        </li>
-        {{/each}}
-    </ol>
+    <section class="header__category-list">
+        <button type="button" class="header__list-button"><img class="header__list-icon" src="../../static/images/textalign-left.svg">Каталог</button>
+        <ol class="header__list list not-active">
+            {{#each category}}
+            <li class="list__item">
+                <a class="list__link" href="{{this.redirectUrl}}"><img class="list__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
 
     <form class="header__searchbar searchbar">
         <img class="searchbar__icon" src="../../static/images/lupa.svg">

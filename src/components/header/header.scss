@@ -1,3 +1,15 @@
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 500px) {
+            @content;
+        }
+    } @else if $breakpoint == tablet {
+        @media (max-width: 1235px) {
+            @content;
+        }
+    }
+}
+
 .header {
     align-content: center;
     height: 86px;
@@ -5,7 +17,6 @@
     box-shadow: 0px 3px 4px var(--box-shadow-color);
     font-family: logo;
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     position: sticky;
@@ -13,14 +24,32 @@
     z-index: 2;
     transition: all 0.3s ease;
 
-    @media (max-width: 1000px) {
-        height: 40px;
+    @include respond-to(tablet) {
+        height: fit-content;
+        width: 100%;
+    }
+
+    &__content-wrapper {
+        display: flex;
+        width: 1235px;
+        align-items: center;
+
+        @include respond-to(tablet) {
+            flex-wrap: wrap;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 1%;
+        }
     }
 
     &__logo {
         font-size: 38px;
         font-weight: 500;
         cursor: pointer;
+
+        @include respond-to(tablet) {
+            order: 2;
+        }
     }
 
     &__link {
@@ -39,6 +68,7 @@
         color: var(--color-secondary100);
         border: 1.5px solid var(--color-secondary100);
         margin-left: auto;
+        text-wrap: nowrap;
         transition: background-color 0.5s ease,
             border-color 0.5s ease,
             color 0.5s ease;
@@ -50,19 +80,31 @@
         }
     }
 
-    &__button {
-        margin-left: 20px;
-    }
+    &__create-advert-button {
+        width: 211px;
+        background-color: var(--color-primary75);
+        border-color: var(--color-primary75);
+        color: white;
 
-    &__create-advert {
-        &-button {
-            width: 211px;
-            background-color: var(--color-primary75);
-            border-color: var(--color-primary75);
-            color: white;
+        @include respond-to(tablet) {
+            position: fixed;
+            bottom: 44px;
+            width: clamp(200px, 250px, 30vw);
+            left: calc(50% - calc(clamp(200px, 250px, 30vw) / 2));
         }
     }
 
+    &__button {
+        margin-left: 20px;
+
+        @include respond-to(tablet) {
+            order: 1;
+        }
+    }
+
+    &__category-list {
+        position: relative;
+    }
 
     &__list-button {
         display: flex;
@@ -87,24 +129,37 @@
             border-color: var(--color-primary100);
             color: white;
         }
+
+        @include respond-to(tablet) {
+            margin: 0;
+            font-size: 0;
+            width: 58px;
+            height: 58px;
+            background-color: transparent;
+            border-color: transparent;
+
+            &:hover {
+                background-color: transparent;
+                border-color: transparent;
+            }
+        }
     }
 
     &__list-icon {
         height: 15px;
         margin-right: 10px;
-    }
 
-    &__content-wrapper {
-        display: flex;
-        width: 1235px;
-        align-items: center;
+        @include respond-to(tablet) {
+            margin: 0;
+            height: 40px;
+            filter: invert(1);
+        }
     }
 }
 
 .list {
     position: absolute;
-    top: 77px;
-    left: 576px;
+    top: 120%;
     width: 422px;
     background-color: white;
     border-radius: 10px;
@@ -159,7 +214,15 @@
     align-items: center;
     margin: 0 19px;
     padding-left: 15px;
+    flex-grow: 1;
     flex: 1;
+
+    @include respond-to(tablet) {
+        order: 4; 
+        width: -webkit-fill-available;
+        margin: 0 0 1% 0;  
+        flex: none;
+    }
 
     &__icon {
         width: 19px;
@@ -174,15 +237,16 @@
         height: inherit;
         transition: all 0.5s ease;
 
-        &:focus + .searchbar__find-button {
-            background-color: var(--color-primary100);
+        &:focus ~ .searchbar__find-button {
+            background-color: var(--color-primary75);
+            border-color: var(--color-primary75);
         }
     }
 
     &__find-button {
         font-weight: 500;
         font-size: 15px;
-        height: 44px;
+        height: 46px;
         width: 108px;
         background-color: var(--color-secondary50);
         border-radius: 0 13px 13px 0;
@@ -196,14 +260,18 @@
         &:hover {
             background-color: var(--color-primary100);
             border-color: var(--color-primary100);
-            color: white;
         }
     }
 }
 
 .user-menu {
     margin-left: 29px;
+    position: relative;
     cursor: pointer;
+
+    @include respond-to(tablet) {
+        order: 3;
+    }
 
     &__user-name {
         font-family: inter;
@@ -226,13 +294,19 @@
         &:hover {
             border-color: var(--color-primary75);
         }
+
+        @include respond-to(tablet) {
+            &:hover {
+                border-color: var(--color-secondary25);
+            }
+        }
     }
 }
 
 .menu {
     position: absolute;
-    top: 77px;
-    left: 1363px;
+    top: 110%;
+    right: 0;
     width: 211px;
     background-color: white;
     border-radius: 10px;
