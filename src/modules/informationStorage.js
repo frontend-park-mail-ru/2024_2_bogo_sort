@@ -13,9 +13,10 @@ class InformationStorage {
 
     async init() {
         this.#inited = true;
-        const me = await ajax.get('/me');
-        if(me.code) {
+        this.#user = await ajax.get('/me');
+        if(this.#user.code) {
             this.#isAuth = false;
+            this.#user = null;
 
             return;
         }
