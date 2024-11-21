@@ -1,5 +1,5 @@
 import { pipe } from './pipe.js';
-import { BACKEND_BASE_URL } from '../constants/constants.js';
+import { BACKEND_BASE_URL, IMAGE_URL } from '../constants/constants.js';
 import { getUserImageUrl } from '../utils/getUserImageUrl.js';
 import ajax from './ajax.js';
 
@@ -33,7 +33,7 @@ class InformationStorage {
         this.#isAuth = true;
         this.#csrf = await ajax.getCSRF();
         this.#user = await ajax.get('/me');
-        this.#userImageUrl = await getUserImageUrl(this.#user);
+        this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
         pipe.executeCallback('updateHeader');
     }
 
@@ -53,7 +53,7 @@ class InformationStorage {
 
     async setUser(user) {
         this.#user = user;
-        this.#userImageUrl = await getUserImageUrl(this.#user);
+        this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
     }
 
     setUsername(username) {
@@ -62,6 +62,10 @@ class InformationStorage {
 
     getUserImgUrl() {
         return this.#userImageUrl;
+    }
+
+    getImageUrl(imageId) {
+        return IMAGE_URL + imageId;
     }
 
     isAuth() {

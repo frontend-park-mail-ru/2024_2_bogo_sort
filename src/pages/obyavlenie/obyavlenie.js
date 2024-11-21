@@ -1,7 +1,6 @@
 import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BASE_URL } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
 
 export class AdvertPage {
@@ -24,16 +23,16 @@ export class AdvertPage {
         const container = document.createElement('div');
         container.classList.add('cards');
 
-        const cards = await ajax.get(`/adverts/category/${requestedAdvert.category_id}`);
+        const cards = await ajax.get(`/adverts/category/${requestedAdvert.advert.category_id}`);
         let cardsWithoutCurrent = 0;
 
         cards.forEach(element => {
-            if(element.id !== requestedAdvert.id && element.status !== 'inactive') {
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
+            if(element.preview.id !== requestedAdvert.advert.id && element.preview.status !== 'inactive') {
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
                 cardsWithoutCurrent++;
             }
         });
-        if(cardsWithoutCurrent === 0 || requestedAdvert.status !== 'active'){
+        if(cardsWithoutCurrent === 0 || requestedAdvert.advert.status !== 'active'){
             wrapper.querySelector('.recomended').remove();
 
             return;

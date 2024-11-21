@@ -50,6 +50,48 @@
         font-size: 29px;
     }
 
+    &__title-wrapper {
+        display: flex;
+        width: 806px;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: space-between;
+    }
+
+    &__like-button {
+        height: 30px;
+        margin-left: 5px;
+        transition: all 0.3s ease;
+
+        &.liked {
+            fill: var(--color-like);
+
+            & > path {
+                stroke: var(--color-like);
+            }
+        }
+        
+        & > path {
+            transition: all 0.3s ease;
+        }
+    }
+
+    &__add-to-favourites {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        transition: all 0.5s ease;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: underline;
+
+            & > .advert__like-button path {
+                stroke: var(--color-like-hover-outline);
+            }
+        }
+    }
+
     &__images {
         background-color: rgb(0, 0, 0, 0.07);
         border-radius: 5px;

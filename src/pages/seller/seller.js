@@ -1,4 +1,5 @@
 import { BASE_URL } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import ajax from '../../modules/ajax.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { renderUser } from '../../components/user/user.js';
@@ -16,7 +17,7 @@ export class SellerPage {
         const userSeller = await ajax.get(`/profile/${seller.user_id}`);
 
         const data = {
-            userImageUrl: await getUserImageUrl(userSeller),
+            userImageUrl: informationStorage.getImageUrl(userSeller.avatar_id),
             username: userSeller.username,
             timestamp: timestampFormatter(userSeller.created_at, true)
         };
@@ -29,10 +30,10 @@ export class SellerPage {
         const container = document.createElement('div');
         container.classList.add('user__cards');
 
-        const cards = await ajax.get(`/adverts/seller/${userSeller.id}`);
+        const cards = await ajax.get(`/adverts/seller/${seller.id}`);
 
         cards.forEach(card => {
-            container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
+            container.appendChild(renderCardTemplate(card.preview.title, card.preview.price, card.preview.image_id, card.preview.id));
         });
 
         wrapper.appendChild(container);

@@ -14,6 +14,7 @@ import { CategoryPage } from './pages/category/category.js';
 import { AdvertEditPage } from './pages/advertEdit/advertEdit.js';
 import { UserPage } from './pages/user/user.js';
 import { SellerPage } from './pages/seller/seller.js';
+import { SearchPage } from './pages/search/search.js';
 import { router } from './modules/router.js';
 import { ROUTES, PIPE_NAMES, signupData } from './constants/constants.js';
 import './utils/hbsHelpers.js';
@@ -51,6 +52,7 @@ router.addNewRouteWithRender('/user', renderUser);
 router.addNewRouteWithRender('/seller', renderSeller);
 router.addNewRouteWithRender('/login', renderLogIn);
 router.addNewRouteWithRender('/signup', renderSignUp);
+router.addNewRouteWithRender('/search', renderSearch);
 
 function renderMain(main) {
     const mainPage = new MainPage();
@@ -112,19 +114,26 @@ function renderSignUp(main) {
     return signUpPage.render(main);
 }
 
-window.addEventListener('load', () => {
+function renderSearch(main, searchQuery){
+    const searchPage = new SearchPage();
+
+    return searchPage.render(main, searchQuery);
+}
+
+window.addEventListener('load', async () => {
     const path = window.location.pathname;
 
-    if('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js');
-    }
+    // if('serviceWorker' in navigator) {
+    //     navigator.serviceWorker.register('/sw.js');
+    // }
+
+    await informationStorage.init();
 
     router.goToPage(path);
 });
 
 
 
-await informationStorage.init();
 
 window.addEventListener('popstate', () => {
     router.goToPage(location.pathname, true);

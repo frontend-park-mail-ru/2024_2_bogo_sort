@@ -1,12 +1,12 @@
 import ajax from '../../modules/ajax.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
 import { checkAuth } from '../../utils/checkAuth.js';
-import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
 import { router } from '../../modules/router.js';
 import template from './obyavlenie.hbs';
+import { pipe } from '../../modules/pipe.js';
 
 export class AdvertComponent {
     auth;
@@ -18,9 +18,11 @@ export class AdvertComponent {
     }
 
     async addComponent(wrapper, advertId) {
+        const view = await ajax.post(`/adverts/viewed/${advertId}`);
+
         const advert = await ajax.get(`/adverts/${advertId}`);
 
-        const seller = await ajax.get(`/seller/${advert.seller_id}`);
+        const seller = await ajax.get(`/seller/${advert.advert.seller_id}`);
 
         const sellerUser = await ajax.get(`/profile/${seller.user_id}`);
 
@@ -29,7 +31,7 @@ export class AdvertComponent {
         if(checkAuth()) {
             me = await ajax.get('/me');
             this.myAdvert = sellerUser.id === me.id;
-            if(advert.status === 'inactive' && !this.myAdvert) {
+            if(advert.advert.status === 'inactive' && !this.myAdvert) {
                 return null;
             }
         }
@@ -39,29 +41,32 @@ export class AdvertComponent {
         }
 
         const categories = await ajax.get('/categories');
-
+        this.isLiked = advert.is_saved;
         const data = {
-            title: advert.title,
-            imageUrl: makeImageUrl(advert.image_url),
-            description: advert.description,
-            price: advert.price,
+            isLiked: this.isLiked,
+            title: advert.advert.title,
+            imageUrl: informationStorage.getImageUrl(advert.advert.image_id),
+            description: advert.advert.description,
+            price: advert.advert.price,
+            views: advert.advert.views_number,
+            likes: advert.advert.saves_number,
 
-            category: categories.find(obj => obj.ID === advert.category_id)?.Title,
-            categoryUrl: `/category/${advert.category_id}`,
+            category: categories.find(obj => obj.ID === advert.advert.category_id)?.Title,
+            categoryUrl: `/category/${advert.advert.category_id}`,
 
-            isAuthor: this.myAdvert ? this.myAdvert && advert.status !== 'inactive': false,
-            reserved: advert.status === 'reserved' && !this.myAdvert,
-            inactive: advert.status === 'inactive',
-            normal: advert.status === 'active' && !this.myAdvert,
+            isAuthor: this.myAdvert ? this.myAdvert && advert.advert.status !== 'inactive': false,
+            reserved: advert.advert.status === 'reserved' && !this.myAdvert,
+            inactive: advert.advert.status === 'inactive',
+            normal: advert.advert.status === 'active' && !this.myAdvert,
             inCart: this.inCart,
 
             sellerName: sellerUser.username,
-            sellerImgUrl: await getUserImageUrl(sellerUser),
+            sellerImgUrl: informationStorage.getImageUrl(sellerUser.avatar_id),
             sellerPhone: sellerUser.phone,
             sellerTimestamp: timestampFormatter(sellerUser.created_at, true),
 
-            location: advert.location,
-            createdAt: timestampFormatter(advert.created_at, false),
+            location: advert.advert.location,
+            createdAt: timestampFormatter(advert.advert.created_at, false),
         };
 
         wrapper.innerHTML += this.renderAdTemplate(data);
@@ -70,7 +75,7 @@ export class AdvertComponent {
             wrapper.querySelector('.advert')?.classList.add('inactive');
         }
 
-        this.addListeners(wrapper, advert.id, me?.id);
+        this.addListeners(wrapper, advert.advert.id, me?.id);
 
         return advert;
     }
@@ -78,23 +83,36 @@ export class AdvertComponent {
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
 
-        return template({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart,
-            category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal,
-            sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, rating: data.rating, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl });
+        return template({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart, isLiked: data.isLiked,
+            category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal, views: data.views,
+            sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, rating: data.rating, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl, likes: data.likes });
     }
 
-    // applyAdvertStatus(wrapper, status) {
-    //     const title = wrapper.querySelector('.advert__title');
-    //     if(status === 'inactive') {
-    //         title.textContent += ' (объявление закрыто)';
-    //         wrapper.querySelector('.advert')?.classList.add('inactive');
-    //         return;
-    //     }
-
-    //     title.textContent += ' (зарезервировано)';
-    // }
-
     addListeners(wrapper, advertId, userId) {
+        const addToFavourites = wrapper.querySelector('.advert__add-to-favourites');
+        const likeButton = addToFavourites.querySelector('.advert__like-button');
+        
+        addToFavourites?.addEventListener('click', async () => {
+            if(!informationStorage.isAuth()){
+                pipe.executeCallback('showAuthForm');
+            }
+            if(this.isLiked && likeButton?.classList.contains('liked')) {
+                const response = await ajax.delete(`/adverts/saved/${advertId}`);
+                if(response.code === 400){
+                    return;
+                }
+                likeButton.classList.remove('liked');
+                this.isLiked = false;
+            } else if(!this.isLiked && !likeButton?.classList.contains('liked')) {
+                const response = await ajax.post(`/adverts/saved/${advertId}`);
+                if(response.code === 400){
+                    return;
+                }
+                likeButton.classList.add('liked');
+                this.isLiked = true;
+            }
+        });
+
         const overlay = wrapper.querySelector('.advert__overlay');
 
         overlay?.addEventListener('click', (event) => {
@@ -184,12 +202,12 @@ export class AdvertComponent {
         });
     }
 
-    async checkIfInCart(advert, me, wrapper) {
+    async checkIfInCart(advert, me) {
         const cart = await ajax.get(`/cart/user/${me.id}`);
 
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
-                if(cartAdvert.id === advert.id){
+                if(cartAdvert.advert.id === advert.advert.id){
                     this.inCart = true;
                 }
             }

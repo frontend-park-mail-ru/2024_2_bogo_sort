@@ -42,8 +42,8 @@ export class MainPage {
         container.classList.add('cards');
 
         cards.forEach(element => {
-            if(element.status !== 'inactive'){
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
+            if(element.preview.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
             }
         });
 
@@ -67,9 +67,9 @@ export class MainPage {
             return;
         }
 
-        newCards.forEach(card => {
-            if(card.status !== 'inactive'){
-                container.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL));
+        newCards.forEach(element => {
+            if(element.preview.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
             }
         });
 

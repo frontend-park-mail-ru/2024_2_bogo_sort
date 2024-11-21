@@ -1,3 +1,4 @@
+import { informationStorage } from '../../modules/informationStorage.js';
 import { renderUser } from '../../components/user/user.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import { checkAuth } from '../../utils/checkAuth.js';
@@ -17,13 +18,13 @@ export class UserPage {
         this.#renderTemplate(main);
     }
 
-    async #renderTemplate(main) {
+    #renderTemplate(main) {
         if(!checkAuth()){
             router.goToPage('/');
         }
-        const me = await ajax.get('/me');
+        const me = informationStorage.getUser();
         const data = {
-            userImageUrl: await getUserImageUrl(me),
+            userImageUrl: informationStorage.getUserImgUrl(),
             username: me.username,
             timestamp: timestampFormatter(me.created_at, true)
         };
@@ -80,10 +81,10 @@ export class UserPage {
         title.textContent = 'Мои объявления';
         container.appendChild(title);
 
-        const cards = await ajax.get(`/adverts/seller/${me.id}`);
+        const cards = await ajax.get(`/adverts/my`);
 
-        cards.forEach(card => {
-            cardsContainer.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
+        cards.forEach(element => {
+            container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
         });
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);

@@ -1,6 +1,10 @@
 'use strict';
 import { router } from '../../modules/router.js';
 import template from './card.hbs';
+import { IMAGE_URL } from '../../constants/constants.js';
+import ajax from '../../modules/ajax.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { pipe } from '../../modules/pipe.js';
 /**
  * Renders the card template using Handlebars.
  *
@@ -10,14 +14,35 @@ import template from './card.hbs';
  * @param {string} apiUrl - API URL.
  * @returns {string} The rendered HTML string of the card template.
  */
-export function renderCardTemplate(title, price, imageUrl, baseUrl, id) {
+export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId) {
 
-    const cardTemplate = template({title, price, imageUrl, baseUrl});
+    const baseUrl = IMAGE_URL;
+    const isAuthor = informationStorage.getUser()?.id === sellerId;
+    const cardTemplate = template({title, price, imageId, baseUrl, isLiked, isAuthor});
     const parentTemp = document.createElement('div');
     parentTemp.innerHTML += cardTemplate;
-    parentTemp.firstChild.addEventListener('click', () => {
+    const card = parentTemp.firstChild;
+    const likeButton = card.querySelector('.card__like-button');
+    card.addEventListener('click', async (event) => {
+        if(event.target === likeButton || event.target === likeButton.querySelector('path')){
+            if(!informationStorage.isAuth()){
+                pipe.executeCallback('showAuthForm');
+
+                return;
+            }
+            if(likeButton.classList.contains('active')) {
+                likeButton.classList.remove('active');
+                await ajax.delete(`/adverts/saved/${id}`);
+                
+                return;
+            }
+            likeButton.classList.add('active');
+            await ajax.post(`/adverts/saved/${id}`);
+
+            return;
+        }
         router.goToPage(`/advert/${id}`);
     });
 
-    return parentTemp.firstChild;
+    return card;
 }

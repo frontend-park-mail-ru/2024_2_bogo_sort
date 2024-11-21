@@ -217,6 +217,10 @@
     flex-grow: 1;
     flex: 1;
 
+    &.focus {
+        border-color: var(--color-primary75);
+    }
+
     @include respond-to(tablet) {
         order: 4; 
         width: -webkit-fill-available;
@@ -236,11 +240,6 @@
         flex: 1;
         height: inherit;
         transition: all 0.5s ease;
-
-        &:focus ~ .searchbar__find-button {
-            background-color: var(--color-primary75);
-            border-color: var(--color-primary75);
-        }
     }
 
     &__find-button {
@@ -260,6 +259,11 @@
         &:hover {
             background-color: var(--color-primary100);
             border-color: var(--color-primary100);
+        }
+
+        &.focus {
+            background-color: var(--color-primary75);
+            border-color: var(--color-primary75);
         }
     }
 }

@@ -6,6 +6,9 @@ export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
 export const BASE_URL = 'http://127.0.0.1:8080/';
 // export const BASE_URL = 'http://5.188.141.136:8080/';
 
+export const IMAGE_URL = 'http://127.0.0.1:8080/api/v1/files/stream/';
+// export const IMAGE_URL = 'http://5.188.141.136:8080/api/v1/files/stream/';
+
 export const ROUTES = {
     '/': {
         href: '/',
@@ -46,6 +49,10 @@ export const ROUTES = {
     '/seller': {
         href: '/seller/:id',
         name: 'sellerPage'
+    },
+    '/search': {
+        href: '/search/:query',
+        name: 'searchPage'
     }
 };
 

@@ -1,7 +1,7 @@
 'use strict';
 
-import { BASE_URL } from '../constants/constants.js';
+import { IMAGE_URL } from '../constants/constants.js';
 
-export function makeImageUrl(pathToImage) {
-    return BASE_URL + pathToImage;
+export function makeImageUrl(imageId) {
+    return IMAGE_URL + imageId;
 }
