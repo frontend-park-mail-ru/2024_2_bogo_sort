@@ -5,7 +5,6 @@ import { IMAGE_URL } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
 import { informationStorage } from '../../modules/informationStorage.js';
 import { pipe } from '../../modules/pipe.js';
-
 /**
  * Renders the card template using Handlebars.
  *
