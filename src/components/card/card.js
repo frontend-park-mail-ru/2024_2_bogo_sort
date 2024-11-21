@@ -1,13 +1,11 @@
 'use strict';
 import { router } from '../../modules/router.js';
 import template from './card.hbs';
-<<<<<<< HEAD
 import { IMAGE_URL } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
 import { informationStorage } from '../../modules/informationStorage.js';
 import { pipe } from '../../modules/pipe.js';
-=======
->>>>>>> de94471 (TP-14c added webpack, babel and service worker)
+
 /**
  * Renders the card template using Handlebars.
  *
