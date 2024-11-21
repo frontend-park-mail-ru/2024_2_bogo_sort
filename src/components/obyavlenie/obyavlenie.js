@@ -19,7 +19,7 @@ export class AdvertComponent {
     }
 
     async addComponent(wrapper, advertId) {
-        await ajax.post(`/adverts/viewed/${advertId}`);
+        const view = await ajax.post(`/adverts/viewed/${advertId}`);
 
         const advert = await ajax.get(`/adverts/${advertId}`);
 
@@ -44,6 +44,7 @@ export class AdvertComponent {
         this.isLiked = advert.is_saved;
         const categories = await informationStorage.getCateogies();
 
+        this.isLiked = advert.is_saved;
         const data = {
             isLiked: this.isLiked,
             title: advert.advert.title,

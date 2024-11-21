@@ -37,6 +37,7 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        height: 38px;
         font-size: 24px;
         font-weight: 500;
         padding: 5px 13px 0 13px;
@@ -56,8 +57,12 @@
         width: clamp(26px, 5vw, 38px);
         transition: all 0.3s ease;
 
-        &:hover > path {
-            stroke: var(--color-like-hover-outline);
+        &:hover {
+            height: calc(clamp(26px, 5vw, 38px) - 3px);
+
+            & > path {
+                stroke: var(--color-like-hover-outline);
+            }
         }
 
         &.active {
