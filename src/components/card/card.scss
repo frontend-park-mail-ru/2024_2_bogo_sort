@@ -57,12 +57,8 @@
         width: clamp(26px, 5vw, 38px);
         transition: all 0.3s ease;
 
-        &:hover {
-            height: calc(clamp(26px, 5vw, 38px) - 3px);
-
-            & > path {
-                stroke: var(--color-like-hover-outline);
-            }
+        &:hover > path {
+            stroke: var(--color-like-hover-outline);
         }
 
         &.active {
