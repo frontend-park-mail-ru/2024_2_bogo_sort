@@ -18,7 +18,7 @@ export class AdvertComponent {
     }
 
     async addComponent(wrapper, advertId) {
-        const view = await ajax.post(`/adverts/viewed/${advertId}`);
+        await ajax.post(`/adverts/viewed/${advertId}`);
 
         const advert = await ajax.get(`/adverts/${advertId}`);
 
@@ -29,7 +29,7 @@ export class AdvertComponent {
         this.seller = seller;
         let me;
         if(checkAuth()) {
-            me = await ajax.get('/me');
+            me = informationStorage.getUser();
             this.myAdvert = sellerUser.id === me.id;
             if(advert.advert.status === 'inactive' && !this.myAdvert) {
                 return null;
@@ -95,7 +95,10 @@ export class AdvertComponent {
         addToFavourites?.addEventListener('click', async () => {
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
+
+                return;
             }
+            const likes = wrapper.querySelector('#likes');
             if(this.isLiked && likeButton?.classList.contains('liked')) {
                 const response = await ajax.delete(`/adverts/saved/${advertId}`);
                 if(response.code === 400){
@@ -103,6 +106,7 @@ export class AdvertComponent {
                 }
                 likeButton.classList.remove('liked');
                 this.isLiked = false;
+                likes.innerText = String(Number(likes.innerText) - 1);
             } else if(!this.isLiked && !likeButton?.classList.contains('liked')) {
                 const response = await ajax.post(`/adverts/saved/${advertId}`);
                 if(response.code === 400){
@@ -110,6 +114,7 @@ export class AdvertComponent {
                 }
                 likeButton.classList.add('liked');
                 this.isLiked = true;
+                likes.innerText = String(Number(likes.innerText) + 1);
             }
         });
 
@@ -203,11 +208,12 @@ export class AdvertComponent {
     }
 
     async checkIfInCart(advert, me) {
-        const cart = await ajax.get(`/cart/user/${me.id}`);
+        const cartId = await ajax.get(`/cart/exists/${me.id}`);
+        const cart = await ajax.get(`/cart/${cartId.cart_id}`);
 
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
-                if(cartAdvert.advert.id === advert.advert.id){
+                if(cartAdvert.preview.id === advert.advert.id){
                     this.inCart = true;
                 }
             }

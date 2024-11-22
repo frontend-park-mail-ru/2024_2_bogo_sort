@@ -1,6 +1,8 @@
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
 import { headerData, IMAGE_URL } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { router } from '../../modules/router.js';
 
 export class AdvertEditPage {
     render(main, advertId) {
@@ -24,6 +26,9 @@ export class AdvertEditPage {
 
     async fillData(advertId, wrapper) {
         const advert = await ajax.get(`/adverts/${advertId}`);
+        if(informationStorage.getMeSeller().id !== advert.advert.seller_id) {
+            router.goToPage('/');
+        }
         const select = wrapper.querySelector('.advert-form__select');
         select.value = advert.advert.category_id;
 

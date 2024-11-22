@@ -102,7 +102,7 @@
 .adverts {
     background-color: white;
     border-radius: 15px;
-    padding: 29px;//19px 29px 19px 29px;
+    padding: 29px;
     display: flex;
     width: 854px;
     margin-bottom: 19px;
@@ -127,10 +127,44 @@
         margin: 0 0 0 auto;
     }
 
-    &__remove {
-        margin: 0 0 0 58px;
+    &__like-button {
+        cursor: pointer;
+        margin-left: 50px;
+        transition: all 0.3s ease;
+
+        &:hover > path {
+            stroke: var(--color-like-hover-outline);
+        }
+
+        &.liked {
+            fill: var(--color-like);
+
+            & > path {
+                stroke: var(--color-like);
+            }
+
+            &:hover {
+                fill: var(--color-like-hover);
+
+                & > path {
+                    stroke: var(--color-like-hover);
+                }
+            }
+        }
+    }
+
+    &__remove-button {
+        margin: 0 0 0 25px;
         align-self:baseline;
         cursor: pointer;
+
+        & > path {
+            transition: all 0.5s ease;
+        }
+
+        &:hover > path {
+            stroke: var(--color-error);
+        }
     }
 }
 

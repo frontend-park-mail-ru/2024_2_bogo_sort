@@ -65,6 +65,11 @@ class Header {
 
         const createAdvertButton = this.#wrapper.querySelector('.header__create-advert-button');
         createAdvertButton?.addEventListener('click', () => {
+            if(!informationStorage.isAuth()){
+                pipe.executeCallback('showAuthForm');
+
+                return;
+            }
             router.goToPage('/create');
         });
 

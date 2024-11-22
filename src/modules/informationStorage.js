@@ -9,6 +9,7 @@ class InformationStorage {
     #csrf;
     #user;
     #userImageUrl;
+    #meSeller;
     categories;
 
     async init() {
@@ -33,6 +34,7 @@ class InformationStorage {
         this.#isAuth = true;
         this.#csrf = await ajax.getCSRF();
         this.#user = await ajax.get('/me');
+        this.#meSeller = await ajax.get(`/seller/user/${this.#user.id}`);
         this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
         pipe.executeCallback('updateHeader');
     }
@@ -49,6 +51,10 @@ class InformationStorage {
 
     getUser() {
         return this.#user;
+    }
+
+    getMeSeller() {
+        return this.#meSeller;
     }
 
     async setUser(user) {

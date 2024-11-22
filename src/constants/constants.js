@@ -186,6 +186,12 @@ export const headerData = {
             engName: 'orders'
         },
         {
+            name: 'Избранное',
+            iconUrl: '../../static/images/user-menu-icons/like.svg',
+            redirectUrl: 'user/favourites',
+            engName: 'favourites'
+        },
+        {
             name: 'Настройки',
             iconUrl: '../../static/images/user-menu-icons/6.svg',
             redirectUrl: '/user/settings',

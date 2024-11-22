@@ -30,6 +30,10 @@ class Router {
         }
     }
 
+    pushPageWithoutRedirect(path) {
+        history.pushState(null, '', path);
+    }
+
     getRouteAndParams(path) {
         let numberOfSlashes = 0;
         let route = path;

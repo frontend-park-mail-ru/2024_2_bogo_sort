@@ -17,17 +17,18 @@ import { pipe } from '../../modules/pipe.js';
 export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId) {
 
     const baseUrl = IMAGE_URL;
-    const isAuthor = informationStorage.getUser()?.id === sellerId;
+    const isAuthor = informationStorage.getMeSeller()?.id === sellerId;
     const cardTemplate = template({title, price, imageId, baseUrl, isLiked, isAuthor});
     const parentTemp = document.createElement('div');
     parentTemp.innerHTML += cardTemplate;
     const card = parentTemp.firstChild;
     const likeButton = card.querySelector('.card__like-button');
+    const path = likeButton?.querySelector('path');
     card.addEventListener('click', async (event) => {
-        if(event.target === likeButton || event.target === likeButton.querySelector('path')){
+        if(event.target === likeButton || event.target === path){
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
-
+    
                 return;
             }
             if(likeButton.classList.contains('active')) {
@@ -38,7 +39,7 @@ export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId)
             }
             likeButton.classList.add('active');
             await ajax.post(`/adverts/saved/${id}`);
-
+    
             return;
         }
         router.goToPage(`/advert/${id}`);

@@ -10,6 +10,21 @@
     }
 }
 
+.preheader {
+    display: flex;
+    flex-direction: row;
+    height: 12px;
+    margin: 0 0 10px 0;
+    width: 1235px;
+    justify-content:flex-end;    
+
+    &__favourites,
+    &__cart {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
 .header {
     align-content: center;
     height: 86px;
@@ -22,6 +37,8 @@
     position: sticky;
     top: 0;
     z-index: 2;
+    flex-direction: column;
+    
     transition: all 0.3s ease;
 
     @include respond-to(tablet) {
@@ -45,6 +62,7 @@
     &__logo {
         font-size: 38px;
         font-weight: 500;
+        margin: 0;
         cursor: pointer;
 
         @include respond-to(tablet) {
@@ -327,6 +345,7 @@
 
     &__link-cart,
     &__link-adverts,
+    &__link-favourites,
     &__link-orders,
     &__link-settings,
     &__link-logout {

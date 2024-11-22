@@ -8,6 +8,7 @@ import template from './auth.hbs';
 
 export class AuthComponent {
     #expanded = false;
+    #initialUrl;
     /**
      * Renders the authentication template using Handlebars.
      *
@@ -109,11 +110,11 @@ export class AuthComponent {
      */
     showAuthForm(data = loginData) {
         if(checkAuth()){
-            history.pushState(null, '', '/');
+            history.pushState(null, '', window.location.pathname);
 
             return;
         }
-        const initalUrl = window.location.pathname;
+        this.#initialUrl = window.location.pathname;
         const path = data.title === 'Авторизация' ? '/login' : '/signup';
         history.pushState(null, '', path);
 
@@ -274,7 +275,7 @@ export class AuthComponent {
     /**
      * Closes the login form.
      */
-    closeLoginForm(initalUrl) {
+    closeLoginForm() {
         const overlay = document.querySelector('.overlay');
         const loginForm = document.querySelector('.login-form');
 
@@ -284,11 +285,11 @@ export class AuthComponent {
             overlay?.classList.add('not-active');
             loginForm?.classList.add('not-active');
         }
-        if(!initalUrl) {
+        if(!this.#initialUrl) {
             history.pushState(null, '', '/');
 
             return;
         }
-        history.pushState(null, '', `${initalUrl}`);
+        history.pushState(null, '', `${this.#initialUrl}`);
     }
 };
