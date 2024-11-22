@@ -211,14 +211,9 @@ export class AdvertComponent {
         });
     }
 
-    async checkIfInCart(advert, me, wrapper) {
-        const cartExists = await ajax.get(`/cart/exists/${me.id}`)
-        if(!cartExists) {
-            this.inCart = false;
-            
-            return;
-        }
-        const cart = await ajax.get(`/cart/user/${me.id}`);
+    async checkIfInCart(advert, me) {
+        const cartId = await ajax.get(`/cart/exists/${me.id}`);
+        const cart = await ajax.get(`/cart/${cartId.cart_id}`);
 
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {
