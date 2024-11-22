@@ -19,7 +19,7 @@ export class AdvertComponent {
     }
 
     async addComponent(wrapper, advertId) {
-        const view = await ajax.post(`/adverts/viewed/${advertId}`);
+        await ajax.post(`/adverts/viewed/${advertId}`);
 
         const advert = await ajax.get(`/adverts/${advertId}`);
 

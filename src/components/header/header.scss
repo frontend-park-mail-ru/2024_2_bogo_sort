@@ -15,6 +15,21 @@
     }
 }
 
+.preheader {
+    display: flex;
+    flex-direction: row;
+    height: 12px;
+    margin: 0 0 10px 0;
+    width: 1235px;
+    justify-content:flex-end;    
+
+    &__favourites,
+    &__cart {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
 .header {
     align-content: center;
     height: 86px;

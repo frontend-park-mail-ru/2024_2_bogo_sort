@@ -40,9 +40,9 @@ export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId)
                 
                 return;
             }
-            const respone = await ajax.post(`/adverts/saved/${id}`);
-            if(respone.code !== 400) {
-                likeButton.classList.add('active');
+                const respone = await ajax.post(`/adverts/saved/${id}`);
+                if(respone.code !== 400) {
+                    likeButton.classList.add('active');
             }
             
             return;
