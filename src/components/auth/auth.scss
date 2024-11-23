@@ -1,3 +1,5 @@
+@import "../../static/styles/mixins.scss";
+
 .overlay {
     position: fixed;
     top: 0;
@@ -30,7 +32,11 @@
     overflow: auto;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: all 0.5s ease;
+
+    @include respond-to(tablet) {
+        // left: calc(50% - calc(499px / 2));
+    }
 
     &.active {
         opacity: 1;
@@ -42,6 +48,14 @@
     width: 998px;
     height: 509px;
     pointer-events: auto;
+    margin: 0;
+    margin-block: 0;
+    transition: all 0.3s ease;
+
+    @include respond-to(tablet) {
+        width: 80vw;  
+        height: 550px;      
+    }
 }
 
 .features {
@@ -52,6 +66,10 @@
     background-color: var(--color-secondary25);
     border-radius: 19px 0 0 19px;
     transition: height 0.3s ease, margin-top 0.3s ease;
+
+    @include respond-to(tablet) {
+        display: none;
+    }
 
     &__content {
         display: flex;
@@ -84,7 +102,6 @@
 
 .auth-wrapper {
     display: block;
-    width: 50%;
     height: 100%;
     z-index: 5;
     background-color: white;
@@ -92,10 +109,19 @@
     border-bottom-right-radius: 19px;
     transition: height 0.3s ease, margin-top 0.3s ease;
 
+    @include respond-to(tablet) {
+        border-radius: 19px;
+        width: inherit;
+    }
+
     &__auth {
         padding-left: 71px;
         padding-right: 71px;
         padding-top: 56px;
+
+        @include respond-to(tablet) {
+            padding: 6vw 9vw 0 9vw;
+        }
     }
 }
 
@@ -107,6 +133,10 @@
         font-weight: 700;
         margin: 0;
         font-size: 35px;
+
+        @include respond-to(tablet) {
+            font-size: 42px;
+        }
     }
 
     &__details {
@@ -114,6 +144,10 @@
         font-size: 15px;
         color: var(--color-secondary70);
         margin-top: 19px;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
     }
 
     &__error {
@@ -123,6 +157,10 @@
         padding-top: 10px;
         padding-bottom: 10px;
         height: 29px;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
     }
 
     &__input-wrapper {
@@ -130,6 +168,10 @@
         height: 48px;
         width: 346px;
         color: var(--color-secondary50);
+
+        @include respond-to(tablet) {
+            width: inherit;
+        }
     }
 }
 
@@ -141,6 +183,11 @@
         pointer-events: none;
         transition: 0.2s ease;
         font-size: 15px;
+
+        @include respond-to(tablet) {
+            font-size: 18px;
+            top: 48%;
+        }
     }
 
     &__email,
@@ -153,6 +200,11 @@
         margin-top: 19px;
         padding-left: 19px;
         transition: 0.2s ease;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+            height: 60px;
+        }
 
         &.error {
             border: 1px solid var(--color-error);
@@ -233,6 +285,11 @@
         border: 2px solid var(--color-primary100);
         transition: background-color 0.2s ease, border 0.2s ease;
 
+        @include respond-to(tablet) {
+            height: 60px;
+            font-size: 20px;
+        }
+
         &:hover {
             background-color: var(--color-primary50);
             border: 2px solid var(--color-primary50);
@@ -246,6 +303,10 @@
         flex-direction: row;
         justify-content: space-between;
 
+        @include respond-to(tablet) {
+            font-size: 18px;
+        }
+
         &.link {
             color: var(--color-primary100);
             cursor: pointer;
@@ -256,6 +317,10 @@
 .expand {
     height: 568px;
     margin-top: -35px;
+
+    @include respond-to(tablet) {
+        height: 625px;
+    }
 }
 
 .not-active {
