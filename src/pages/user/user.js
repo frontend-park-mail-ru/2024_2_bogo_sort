@@ -8,6 +8,7 @@ import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
 import template from '../../components/orders/orders.hbs'
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class UserPage {
 
@@ -110,6 +111,9 @@ export class UserPage {
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 
     async renderFavourites(wrapper, me, main) {
@@ -131,6 +135,9 @@ export class UserPage {
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 
     renderSettings(wrapper, main) {
@@ -142,6 +149,9 @@ export class UserPage {
         wrapper.appendChild(container);
         main.appendChild(wrapper);
         settings.fillData(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 
     async renderOrders(wrapper, me, main) {
@@ -177,5 +187,8 @@ export class UserPage {
         });
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 }

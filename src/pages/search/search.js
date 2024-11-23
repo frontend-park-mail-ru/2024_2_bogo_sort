@@ -1,5 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class SearchPage {
     searchQuery;
@@ -30,5 +31,8 @@ export class SearchPage {
         });
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 }

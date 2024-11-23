@@ -18,6 +18,8 @@ import { SearchPage } from './pages/search/search.js';
 import { router } from './modules/router.js';
 import { ROUTES, PIPE_NAMES, signupData } from './constants/constants.js';
 import './utils/hbsHelpers.js';
+import { CsatPage } from './pages/csat/csat.js';
+import { StatsPage } from './pages/stats/stats.js';
 
 pipe.init(PIPE_NAMES);
 pipe.registerNewCallback('updateHeader', changeHeader);
@@ -53,6 +55,8 @@ router.addNewRouteWithRender('/seller', renderSeller);
 router.addNewRouteWithRender('/login', renderLogIn);
 router.addNewRouteWithRender('/signup', renderSignUp);
 router.addNewRouteWithRender('/search', renderSearch);
+router.addNewRouteWithRender('/csat', renderCsat);
+router.addNewRouteWithRender('/stats', renderStats);
 
 function renderMain(main) {
     const mainPage = new MainPage();
@@ -118,6 +122,18 @@ function renderSearch(main, searchQuery){
     const searchPage = new SearchPage();
 
     return searchPage.render(main, searchQuery);
+}
+
+function renderCsat() {
+    const csatPage = new CsatPage();
+
+    return csatPage.render();
+}
+
+function renderStats(main) {
+    const statsPage = new StatsPage();
+
+    return statsPage.render(main);
 }
 
 window.addEventListener('load', async () => {

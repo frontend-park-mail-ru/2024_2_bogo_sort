@@ -2,6 +2,7 @@ import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class AdvertPage {
     render(main, advertId) {
@@ -14,6 +15,9 @@ export class AdvertPage {
         const wrapper = document.createElement('main');
         wrapper.classList.add('advert-wrapper');
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
 
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
         if(requestedAdvert === null){

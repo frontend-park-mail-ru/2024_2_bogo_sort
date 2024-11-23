@@ -1,0 +1,22 @@
+<h1 class="stats__title">Статистика</h1>
+<div class="stats__wrapper">
+    {{#each survey}}
+        <div class="stats_stat stat">
+            <h3 class="stat__survey-title">{{this.title}}</h3>
+            <section class="stat__questions">
+                Вопросы
+                {{#each this.questions}}
+                    <hr>
+                    <div class="stat__question question">
+                        <span class="question__title">{{this.title}}</span>
+                        <span class="question__avg">Средняя оценка: {{this.avg}} <img src="../../static/images/star.svg"></span>
+                        <section class="question__histogram-section">
+                            <span class="question__histogram-label">Распределение оценок</span>
+                            <canvas class="question__histogram" id="{{this.id}}"></canvas>
+                        </section>
+                    </div>
+                {{/each}}
+            </section>
+        </div>
+    {{/each}}
+</div>

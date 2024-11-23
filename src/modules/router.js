@@ -1,6 +1,7 @@
 class Router {
     routes;
     main;
+    ifrmae = false;
 
     init(routes, main) {
         this.routes = routes;
@@ -15,7 +16,14 @@ class Router {
         const [route, param] = this.getRouteAndParams(path);
 
         if(this.main.childElementCount !== 1){
-            this.main.lastChild.remove();
+            if(document.querySelector('.csat__iframe-wrapper')) {
+                this.iframe = true;
+                // this.main.firstChild.nextElementSibling.remove();
+                this.main.lastChild.remove();
+            }
+            // } else {
+                this.main.lastChild.remove();
+            // }
         }
         const exactRoute = this.routes[route];
         if(exactRoute){
@@ -27,6 +35,14 @@ class Router {
             } else {
                 exactRoute.render(this.main);
             }
+            // if(this.iframe) {
+            //     const iframe = document.querySelector('.csat__iframe-wrapper');
+            //     const nextNode = iframe.nextElementSibling;
+            //     const temp = document.createElement('div');
+            //     temp.appendChild(nextNode.cloneNode(true));
+            //     nextNode.replaceWith(ifrmae);
+            //     iframe.replaceWith(temp.firstChild);
+            // }
         }
     }
 

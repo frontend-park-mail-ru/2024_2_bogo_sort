@@ -1,0 +1,41 @@
+.stats {
+    width: 1235px;
+    display: flex;
+    justify-self: center;
+    flex-direction: column;
+
+    &__wrapper {
+        background-color: white;
+        border-radius: 29px;
+        padding: 0 40px;
+    }
+}
+
+.stat {
+    &__survey-title {
+        font-size: 26px;
+        font-weight: 500;
+    }
+}
+
+.question {
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__histogram-section {
+        display: flex;
+        align-items: center;
+    }
+
+    &__title {
+        width: 340px;
+    }
+
+    &__avg {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}

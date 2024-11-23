@@ -5,6 +5,7 @@ import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { renderUser } from '../../components/user/user.js';
 import { renderCardTemplate } from '../../components/card/card.js';
 import { getUserImageUrl } from '../../utils/getUserImageUrl.js';
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class SellerPage {
     render(main, sellerId) {
@@ -38,5 +39,8 @@ export class SellerPage {
 
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 }

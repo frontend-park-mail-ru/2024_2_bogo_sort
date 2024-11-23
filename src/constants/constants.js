@@ -53,6 +53,14 @@ export const ROUTES = {
     '/search': {
         href: '/search/:query',
         name: 'searchPage'
+    },
+    '/csat': {
+        href: '/csat',
+        name: 'csatPage'
+    },
+    '/stats': {
+        href: '/stats',
+        name: 'statsPage'
     }
 };
 

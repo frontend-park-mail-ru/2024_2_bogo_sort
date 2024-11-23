@@ -1,7 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BASE_URL } from '../../constants/constants.js';
-
+import { renderIframe } from '../../components/iframe/iframe.js';
 /**
  * Represents the main page of the application.
  */
@@ -49,6 +48,10 @@ export class MainPage {
 
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
 
         document.addEventListener('scroll', () => {
             if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {

@@ -1,6 +1,6 @@
 import { renderCardTemplate } from '../../components/card/card.js';
 import ajax from '../../modules/ajax.js';
-import { BASE_URL } from '../../constants/constants.js';
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class CategoryPage {
     category;
@@ -37,6 +37,7 @@ export class CategoryPage {
         const cards = await ajax.get(`/adverts/category/${this.category}`);
 
         wrapper.appendChild(title);
+        
 
         container.classList.add('cards');
 
@@ -47,5 +48,8 @@ export class CategoryPage {
         });
         wrapper.appendChild(container);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
     }
 }

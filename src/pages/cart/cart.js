@@ -3,6 +3,7 @@ import ajax from '../../modules/ajax.js';
 import { BASE_URL } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
 import { informationStorage } from '../../modules/informationStorage.js';
+import { renderIframe } from '../../components/iframe/iframe.js';
 
 export class CartPage {
     cartId;
@@ -44,6 +45,9 @@ export class CartPage {
         wrapper.classList.add('cart');
         wrapper.innerHTML += this.cartComponent.renderCart(data);
         main.appendChild(wrapper);
+        setTimeout(() => {
+            main.appendChild(renderIframe('/csat/mainPage'));
+        }, 60000);
 
         this.#addListeners(wrapper);
     }
