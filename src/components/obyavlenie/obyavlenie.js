@@ -211,6 +211,10 @@ export class AdvertComponent {
 
     async checkIfInCart(advert, me) {
         const cartId = await ajax.get(`/cart/exists/${me.id}`);
+        if(cartId.cart_id === '00000000-0000-0000-0000-000000000000') {
+            this.inCart = false;
+            return;
+        }
         const cart = await ajax.get(`/cart/${cartId.cart_id}`);
 
         if(cart.adverts){
