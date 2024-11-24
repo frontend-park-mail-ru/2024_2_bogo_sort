@@ -32,14 +32,18 @@ export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId)
                 return;
             }
             if(likeButton.classList.contains('active')) {
-                likeButton.classList.remove('active');
-                await ajax.delete(`/adverts/saved/${id}`);
+                const response = await ajax.delete(`/adverts/saved/${id}`);
+                if(response.code !== 400) {
+                    likeButton.classList.remove('active');
+                }
                 
                 return;
             }
-            likeButton.classList.add('active');
-            await ajax.post(`/adverts/saved/${id}`);
-    
+            const respone = await ajax.post(`/adverts/saved/${id}`);
+            if(respone.code !== 400) {
+                likeButton.classList.add('active');
+            }
+            
             return;
         }
         router.goToPage(`/advert/${id}`);

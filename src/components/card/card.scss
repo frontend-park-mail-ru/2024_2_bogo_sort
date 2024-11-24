@@ -1,3 +1,5 @@
+@import "../../static/styles/mixins.scss";
+
 .card {
     display: flex;
     flex-direction: column;
@@ -23,7 +25,7 @@
 
     &__details {
         font-size: 16px;
-        margin: 10px 13px 0 13px;
+        margin: 10px 13px 0;
         font-weight: 300;
         white-space: nowrap;
         overflow: hidden; 
@@ -38,7 +40,7 @@
         height: 38px;
         font-size: 24px;
         font-weight: 500;
-        padding: 5px 13px 0 13px;
+        padding: 5px 13px 0;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -74,5 +76,10 @@
                 }
             }
         }
+        // @include svg-button-with-hover("../../static/images/like.svg", clamp(26px, 5vw, 38px), black, var(--color-like-hover-outline));
+
+        // &.active {
+        //     @include svg-button-with-hover("../../static/images/like.svg", clamp(26px, 5vw, 38px), red, var(--color-like));
+        // }
     }
 }
