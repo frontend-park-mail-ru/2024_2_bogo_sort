@@ -107,6 +107,7 @@ export class AdvertComponent {
                 likeButton.classList.remove('liked');
                 this.isLiked = false;
                 likes.innerText = String(Number(likes.innerText) - 1);
+                addToFavourites.firstElementChild.innerText = 'Добавить в избранное';
             } else if(!this.isLiked && !likeButton?.classList.contains('liked')) {
                 const response = await ajax.post(`/adverts/saved/${advertId}`);
                 if(response.code === 400){
@@ -115,6 +116,7 @@ export class AdvertComponent {
                 likeButton.classList.add('liked');
                 this.isLiked = true;
                 likes.innerText = String(Number(likes.innerText) + 1);
+                addToFavourites.firstElementChild.innerText = 'Убрать из избранного';
             }
         });
 

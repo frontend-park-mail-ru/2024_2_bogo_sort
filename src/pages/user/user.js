@@ -8,6 +8,7 @@ import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
 import template from '../../components/orders/orders.hbs'
+import { renderEmptyPlaceholder } from '../../components/emptyPlaceholder/emptyPlaceholder.js';
 
 export class UserPage {
 
@@ -104,9 +105,20 @@ export class UserPage {
 
         const cards = await ajax.get(`/adverts/my`);
 
-        cards.forEach(element => {
-            cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
-        });
+        if(cards.length === 0) {
+            const data = {
+                imagePath: '/static/images/Photos_empty.svg',
+                text: 'Здесь будут отображаться ваши объявления',
+                buttonText: 'Разместить объявление',
+                redirectUrl: '/create'
+            };
+            const placeholder = renderEmptyPlaceholder(data);
+            cardsContainer.appendChild(placeholder);
+        } else {
+            cards.forEach(element => {
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            });
+        }
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);
@@ -125,9 +137,20 @@ export class UserPage {
 
         const cards = await ajax.get(`/adverts/saved`);
 
-        cards.forEach(element => {
-            cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
-        });
+        if(cards.length === 0) {
+            const data = {
+                imagePath: '/static/images/like.svg',
+                text: 'Здесь будут отображаться ваши избранные объявления',
+                buttonText: 'Перейти к объявлениям',
+                redirectUrl: '/'
+            };
+            const placeholder = renderEmptyPlaceholder(data);
+            cardsContainer.appendChild(placeholder);
+        } else {
+            cards.forEach(element => {
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            });
+        }
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);

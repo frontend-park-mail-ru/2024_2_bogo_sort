@@ -102,7 +102,7 @@ export class CartPage {
 
         const buyButton = wrapper.querySelector('.cart__buy-button');
         buyButton?.addEventListener('click', async () => {
-            await ajax.post('/purchase', {
+            await ajax.post(`/purchase/${informationStorage.getUser().id}`, {
                 'cart_id': this.cartId,
                 'payment_method': 'cash',
                 'delivery_method': 'pickup',

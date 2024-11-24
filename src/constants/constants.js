@@ -188,7 +188,7 @@ export const headerData = {
         {
             name: 'Избранное',
             iconUrl: '../../static/images/user-menu-icons/like.svg',
-            redirectUrl: 'user/favourites',
+            redirectUrl: '/user/favourites',
             engName: 'favourites'
         },
         {

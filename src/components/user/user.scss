@@ -49,6 +49,8 @@
         &-name {
             margin: 0;
             font-size: 29px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         &-timestamp {
