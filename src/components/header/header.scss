@@ -240,9 +240,9 @@
         gap: 5px;
     }
 
-    @include respond-to(phone) {
-        width: 103vw;
-    }
+    // @include respond-to(phone) {
+    //     width: 103vw;
+    // }
         
     &__item {
         margin: 0;

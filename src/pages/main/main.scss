@@ -1,3 +1,5 @@
+@import "../../static/styles/mixins.scss";
+
 .main,
 .cards-wrapper  {
     display: grid;
@@ -5,8 +7,12 @@
 
 .category-title {
     font-size: 38px;
-    margin-left: 346px;
+    margin-left: calc(calc(100vw - 1235px) / 2);
     margin-bottom: 10px;
+
+    @include respond-to(tablet) {
+        margin-left: 10px;
+    }
 }
 
 .cards {
