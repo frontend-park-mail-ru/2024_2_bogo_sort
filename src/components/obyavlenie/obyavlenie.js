@@ -3,6 +3,7 @@ import { informationStorage } from '../../modules/informationStorage.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
 import { router } from '../../modules/router.js';
 import template from './obyavlenie.hbs';
 import { pipe } from '../../modules/pipe.js';
@@ -13,6 +14,7 @@ export class AdvertComponent {
     inCart;
 
     constructor() {
+
         this.auth = new AuthComponent();
     }
 
@@ -42,7 +44,6 @@ export class AdvertComponent {
         this.isLiked = advert.is_saved;
         const categories = await informationStorage.getCateogies();
 
-        this.isLiked = advert.is_saved;
         const data = {
             isLiked: this.isLiked,
             title: advert.advert.title,

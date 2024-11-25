@@ -110,8 +110,6 @@ export class Settings {
         formData.append('image', image);
         if(image){
             await ajax.imagePut(`/user/${this.me.id}/image`, formData);
-            const me = await ajax.get('/me');
-            await informationStorage.setUser(me);
         }
         const me = await ajax.get('/me');
         informationStorage.setUser(me);
