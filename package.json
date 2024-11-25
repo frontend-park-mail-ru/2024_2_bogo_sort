@@ -11,10 +11,7 @@
     "start": "node server/server.js",
     "build:prod": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
-    "wStart": "webpack serve --config webpack.config.js",
-    "wBuild": "webpack",
-    "build:prod": "webpack --config webpack.prod.js",
-    "build:dev": "webpack --config webpack.dev.js"
+    "wStart": "webpack serve --config webpack.config.js"
   },
   "repository": {
     "type": "git",
