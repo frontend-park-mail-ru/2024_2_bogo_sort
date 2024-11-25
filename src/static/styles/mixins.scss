@@ -4,6 +4,10 @@
             @content;
         }
     } @else if $breakpoint == tablet {
+        @media (max-width: 1000px) {
+            @content;
+        }
+    } @else if $breakpoint == smallLaptop {
         @media (max-width: 1235px) {
             @content;
         }

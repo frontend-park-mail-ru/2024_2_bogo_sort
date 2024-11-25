@@ -7,11 +7,16 @@
 
 .category-title {
     font-size: 38px;
-    margin-left: calc(calc(100vw - 1235px) / 2);
+    margin-left: max(calc(calc(100vw - 1235px) / 2), 3vw);
     margin-bottom: 10px;
 
     @include respond-to(tablet) {
         margin-left: 10px;
+        font-size: 32px;
+    }
+
+    @include respond-to(phone) {
+        font-size: 28px;
     }
 }
 
@@ -25,5 +30,15 @@
     flex-wrap: wrap;
     row-gap: 19px;
     column-gap: 29px;
+    transition: all 0.3s ease;
+
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+        justify-content: space-evenly;
+    }
+
+    @include respond-to(phone) {
+        column-gap: 10px;
+    }
 }
   

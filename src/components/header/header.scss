@@ -39,7 +39,7 @@
 
     &__content-wrapper {
         display: flex;
-        width: 1235px;
+        width: min(1235px, 95vw);
         align-items: center;
 
         @include respond-to(tablet) {
@@ -318,6 +318,7 @@
         height: 30px;
         border-radius: 9px;
         margin: 0 5px;
+        border: 1px solid var(--color-secondary50);
     }
 
     &__icon {
@@ -332,6 +333,11 @@
         flex: 1;
         height: inherit;
         transition: all 0.5s ease;
+
+        @include respond-to(smallLaptop) {
+            width: 10vw;
+            text-overflow: ellipsis;
+        }
 
         @include respond-to(tablet) {
             font-size: 18px;
@@ -356,8 +362,34 @@
             border-color 0.5s ease,
             color 0.5s ease;
 
+        @include respond-to(smallLaptop) {
+            border-color:transparent;
+            background-color: transparent;
+            font-size: 0;
+            width: 0;
+            
+            &.focus,
+            &:hover {
+                background-color: transparent;
+                border-color:transparent;
+            }
+        }
+
         @include respond-to(tablet) {
+            border: 1px solid var(--color-secondary50);
+            width: 108px;
             font-size: 18px;
+            background-color: var(--color-secondary50);
+
+            &:hover {
+                background-color: var(--color-primary100);
+                border-color: var(--color-primary100);
+            }
+    
+            &.focus {
+                background-color: var(--color-primary75);
+                border-color: var(--color-primary75);
+            }
         }    
 
         &:hover {
@@ -420,9 +452,12 @@
         }
 
         @include respond-to(tablet) {
-            &:hover {
-                border-color: var(--color-secondary25);
-            }
+            border: 0;
+        }
+
+        @include respond-to(phone) {
+            width: 32px;
+            height: 32px;
         }
     }
 }
@@ -472,6 +507,10 @@
             font-size: 20px;
         }
 
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
+
         &:hover {
             color: var(--color-primary50);
         }
@@ -490,6 +529,9 @@
             font-size: 20px;
         }
 
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
 
         &:hover {
             color: var(--color-primary100);

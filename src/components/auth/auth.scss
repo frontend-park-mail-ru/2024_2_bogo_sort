@@ -34,10 +34,6 @@
     opacity: 0;
     transition: all 0.5s ease;
 
-    @include respond-to(tablet) {
-        // left: calc(50% - calc(499px / 2));
-    }
-
     &.active {
         opacity: 1;
     }
@@ -55,6 +51,11 @@
     @include respond-to(tablet) {
         width: 80vw;  
         height: 550px;      
+    }
+
+    @include respond-to(phone) {
+        width: 95vw;
+        height: 425px;
     }
 }
 
@@ -137,6 +138,10 @@
         @include respond-to(tablet) {
             font-size: 42px;
         }
+
+        @include respond-to(phone) {
+            font-size: 30px;
+        }
     }
 
     &__details {
@@ -147,6 +152,10 @@
 
         @include respond-to(tablet) {
             font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
         }
     }
 
@@ -160,6 +169,11 @@
 
         @include respond-to(tablet) {
             font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            padding-bottom: 7px;
         }
     }
 
@@ -188,6 +202,10 @@
             font-size: 18px;
             top: 48%;
         }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__email,
@@ -204,6 +222,11 @@
         @include respond-to(tablet) {
             font-size: 20px;
             height: 60px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 45px;
         }
 
         &.error {
@@ -231,6 +254,10 @@
 
         &.visible {
             background: url(../../static/images/eye_closed.svg);
+        }
+
+        @include respond-to(phone) {
+            top: 42%;
         }
     }
 
@@ -270,6 +297,13 @@
             transition: opacity 0.3s;
             padding: 10px;
             margin-right: 10px;
+
+            @include respond-to(phone) {
+                bottom: 70%;
+                left: 0;
+                top: inherit;
+                width: 72vw;
+            }
         }
     }
 
@@ -290,6 +324,11 @@
             font-size: 20px;
         }
 
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 45px;
+        }
+
         &:hover {
             background-color: var(--color-primary50);
             border: 2px solid var(--color-primary50);
@@ -307,6 +346,10 @@
             font-size: 18px;
         }
 
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
+
         &.link {
             color: var(--color-primary100);
             cursor: pointer;
@@ -320,6 +363,10 @@
 
     @include respond-to(tablet) {
         height: 625px;
+    }
+
+    @include respond-to(phone) {
+        height: 500px;
     }
 }
 
