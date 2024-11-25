@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 @import "../../static/styles/mixins.scss";
 
 .preheader {
@@ -13,17 +12,6 @@
     &__cart {
         display: flex;
         flex-direction: row;
-=======
-@mixin respond-to($breakpoint) {
-    @if $breakpoint == phone {
-        @media (max-width: 500px) {
-            @content;
-        }
-    } @else if $breakpoint == tablet {
-        @media (max-width: 1235px) {
-            @content;
-        }
->>>>>>> 618e123 (TP-14d some progress)
     }
 }
 
