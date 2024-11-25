@@ -1,2 +1,65 @@
-<h1 class="logo">Эмпориум</h1>
-<button type="button" class="header_button">Войти</button>
+{{!-- {{#if checkAuth}}
+<pre class="header__preheader preheader">
+    <a class="preheader__favourites" href="/user/favourites">
+        <svg class="preheader__favourites-icon" width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 20C12 20 21 16 21 9.71405C21 6 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12.7198 5.92016C12.3266 6.32798 11.6734 6.32798 11.2802 5.92016L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5 4 3 6 3 9.71405C3 16 12 20 12 20Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="prehader__favourites-text">Избранное <span class="preheader__favourites-quantity">(0)</span></span>
+    </a>
+    <a class="preheader__cart" href="/cart">
+        <svg class="preheader__cart-icon" width="15px" height="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 1H4.36039C5.14527 1 5.53771 1 5.81419 1.22666C6.09066 1.45332 6.16763 1.83813 6.32155 2.60777L7 6" stroke="#000000" stroke-width="1.5" stroke-linecap="round"/>
+            <path d="M19 19H8.91349C8.3672 19 8.09406 19 7.89792 18.9115C7.59108 18.773 7.37451 18.4895 7.32165 18.157C7.28787 17.9445 7.35974 17.681 7.50347 17.1539V17.1539C7.68035 16.5054 7.76878 16.1811 7.93178 15.9253C8.18604 15.5262 8.57357 15.2302 9.02548 15.0899C9.31517 15 9.65128 15 10.3235 15H15.7273" stroke="#222222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M15.2029 15H12.0231C10.6589 15 9.97685 15 9.4583 14.634C8.93975 14.268 8.71124 13.6254 8.25424 12.34L7.42401 10.005C6.77574 8.18176 6.4516 7.27013 6.89981 6.63506C7.34802 6 8.31557 6 10.2507 6H17.2577C19.3892 6 20.4549 6 20.8965 6.69808C21.3381 7.39616 20.8816 8.35914 19.9685 10.2851L18.8173 12.7135C18.2905 13.8248 18.0271 14.3804 17.5373 14.6902C17.0476 15 16.4327 15 15.2029 15Z" stroke="#222222" stroke-width="1.5" stroke-linecap="round"/>
+            <circle cx="17" cy="21" r="1" fill="#222222"/>
+            <circle cx="9" cy="21" r="1" fill="#222222"/>
+        </svg>
+        <span class="prehader__cart-text">Корзина <span class="preheader__cart-quantity">(0)</span></span>
+    </a>
+</pre>
+{{/if}} --}}
+<div class="header__content-wrapper">
+    <h1 class="header__logo"><a class="header__link" href="/">Эмпориум</a></h1>
+    <section class="header__category-list">
+        <button type="button" class="header__list-button"><img class="header__list-icon" src="../../static/images/textalign-left.svg">Каталог</button>
+        <ol class="header__list list not-active">
+            {{#each category}}
+            <li class="list__item">
+                <a class="list__link" href="{{this.redirectUrl}}"><img class="list__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
+
+    <form class="header__searchbar searchbar">
+        <img class="searchbar__icon" src="../../static/images/lupa.svg">
+        <input class="searchbar__input" type="text" placeholder="Поиск по объявлениям">
+        <button class="searchbar__find-button" type="submit">Найти</button>
+    </form>
+    <button type="button" class="header__create-advert-button">Разместить объявление</button>
+
+    {{#if checkAuth}}
+    <section class="header__user-menu user-menu ">
+        <span class="user-menu__user-name" data-user-id="{{userId}}" data-username="{{userName}}">
+            <img src="{{userImgUrl}}" class="user-menu__user-img">
+        </span>
+        <ol class="user-menu__menu menu not-active">
+            <li class="menu__item">
+                <a class="menu__link-user" href="/user/adverts" id="{{this.name}}">{{userName}}</a>
+            </li>
+            <div class="menu__horizontal-line"></div>
+            {{#each menuItems}}
+            <li class="menu__item">
+                <a class="menu__link-{{this.engName}}" href="{{this.redirectUrl}}" id="{{this.name}}"><img class="menu__icon" src="{{this.iconUrl}}">{{this.name}}</a>
+            </li>
+            {{/each}}
+        </ol>
+    </section>
+
+
+    {{else}}
+
+    <button type="button" class="header__button"><img class="header__login-icon" src="../../static/images/sign-in.svg">Войти</button>
+    {{/if}}
+
+</div>

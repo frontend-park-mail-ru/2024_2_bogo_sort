@@ -1,0 +1,44 @@
+@import "../../static/styles/mixins.scss";
+
+.main,
+.cards-wrapper  {
+    display: grid;
+}
+
+.category-title {
+    font-size: 38px;
+    margin-left: max(calc(calc(100vw - 1235px) / 2), 3vw);
+    margin-bottom: 10px;
+
+    @include respond-to(tablet) {
+        margin-left: 10px;
+        font-size: 32px;
+    }
+
+    @include respond-to(phone) {
+        font-size: 28px;
+    }
+}
+
+.cards {
+    display: flex;
+    width: 1233px;
+    flex-direction: row;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    justify-self: center;
+    flex-wrap: wrap;
+    row-gap: 19px;
+    column-gap: 29px;
+    transition: all 0.3s ease;
+
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+        justify-content: space-evenly;
+    }
+
+    @include respond-to(phone) {
+        column-gap: 10px;
+    }
+}
+  

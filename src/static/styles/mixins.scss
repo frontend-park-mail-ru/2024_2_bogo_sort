@@ -1,0 +1,38 @@
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == phone {
+        @media (max-width: 500px) {
+            @content;
+        }
+    } @else if $breakpoint == tablet {
+        @media (max-width: 1000px) {
+            @content;
+        }
+    } @else if $breakpoint == smallLaptop {
+        @media (max-width: 1235px) {
+            @content;
+        }
+    }
+}
+
+@mixin svg-button-with-hover($url, $size, $initial-color, $hover-color) {
+    background: none;
+    outline: none;
+    border: none;
+    width: $size;
+    height: $size;
+    cursor: pointer;
+    background: $initial-color;
+    mask-image: url($url);
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    -webkit-mask-image: url($url);
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+    -webkit-mask-position: center;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background: $hover-color;
+    }
+}

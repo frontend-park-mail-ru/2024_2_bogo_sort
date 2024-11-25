@@ -1,0 +1,50 @@
+<h1 class="create-advert__title">Создание объявления</h1>
+<form class="create-advert__advert-form advert-form">
+    <label class="advert-form__label" for="ctaegory">Категория</label>
+    <select class="advert-form__select" name="category" id="category">
+        {{#each category}}
+        <option class="advert-form__option" value="{{this.id}}">{{this.name}}</option>
+        {{/each}}
+    </select>
+
+    <label class="advert-form__label" for="name">Название товара</label>
+    <div class="advert-form__input-wrapper">
+        <input class="advert-form__name-input" id="name" name="title" type="text" maxlength="45">
+        <span class="advert-form__additional">Название должно быть не длиннее 45 символов</span>
+    </div>
+
+    <label class="advert-form__label" for="price">Цена</label>
+    <div class="advert-form__price">
+        <input class="advert-form__price-input" id="price" name="price" type="number">
+        <span class="advert-form__ruble">₽</span>
+    </div>
+
+    <label class="advert-form__label" for="description">Описание</label>
+    <div class="advert-form__input-wrapper">
+        <textarea class="advert-form__description-input" id="description" name="description" maxlength="3000"></textarea>
+        <span class="advert-form__additional">Описание должно быть не длиннее 3000 символов</span>
+    </div>
+
+    <label class="advert-form__label" for="image">Фотография</label>
+    <div class="advert-form__input-wrapper">
+        <input class="advert-form__image-input" id="image" type="file">
+        <label class="advert-form__upload-box" for="image">
+            {{#if imagePreview}}
+            <img class="advert-form__upload-box-image big" src="../../static/images/image.svg">
+
+            {{else}}
+            <img class="advert-form__upload-box-image" src="../../static/images/image.svg">
+            <span class="advert-form__upload-box-text">Добавить</span>
+            <span class="advert-form__upload-box-text-additional">jpg или jpeg</span>
+            {{/if}}
+        </label>
+    </div>
+
+    <label class="advert-form__label"  for="address">Адрес</label>
+    <div class="advert-form__input-wrapper">
+        <input class="advert-form__address-input" id="address" name="location" type="text" maxlength="150">
+        <span class="advert-form__additional">Адрес должен быть не длиннее 150 символов</span>
+    </div>
+
+    <button class="advert-form__submit" type="submit">Разместить объявление</button>
+</form>

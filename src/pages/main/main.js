@@ -1,62 +1,83 @@
-'use strict'
-
-import { renderCardTemplate } from "../../components/card/card.js";
-import { Header } from "../../components/header/header.js";
-import { Ajax } from "../../utils/ajax.js";
-import { BACKEND_URL, IMAGE_URL } from "../../constants/constants.js";
-
-// const ajax = new Ajax('http://127.0.0.1:8080/api/v1');
-const ajax = new Ajax(BACKEND_URL)
+import { renderCardTemplate } from '../../components/card/card.js';
+import ajax from '../../modules/ajax.js';
+import { BASE_URL } from '../../constants/constants.js';
 
 /**
  * Represents the main page of the application.
  */
 export class MainPage {
-    #element;
-
-    /**
-     * Initializes a new instance of the MainPage class.
-     */
-    constructor() {
-        this.#element = document.createElement('div');
-        this.#element.classList.add('main');
-    }
 
     /**
      * Renders the main page and returns the main container element.
-     * 
+     *
      * @returns {HTMLElement} The main container element with the rendered content.
      */
-    render() {
-        this.#renderTemplate();
-        return this.#element;
+    render(main) {
+        this.#renderTemplate(main);
     }
 
     /**
      * Renders the template for the main page.
-     * 
+     *
      * Fetches card data from the API, creates a header, and appends
      * card elements to the main container.
      */
-    async #renderTemplate() {
+    async #renderTemplate(main) {
+        const wrapper = document.createElement('main');
+        wrapper.className = 'cards-wrapper';
 
-        const cards = await ajax.get('/adverts');
+        const title = document.createElement('h1');
+        title.className = 'category-title';
+        title.textContent = 'Все объявления';
 
-        const header = new Header();
+        wrapper.appendChild(title);
 
-        this.#element.appendChild(header.render());
+        const cards = await ajax.get('/adverts?limit=30&offset=0');
+
+        this.noMoreCards = false;
+        this.loadedCrads = cards.length;
 
         const container = document.createElement('div');
-        const containerWrapper = document.createElement('div');
 
         container.classList.add('cards');
 
-        containerWrapper.classList.add('cards_wrapper');
-        containerWrapper.appendChild(container);
-
         cards.forEach(element => {
-            container.innerHTML += renderCardTemplate(element.title, element.price, element.image_url, IMAGE_URL);
+            if(element.preview.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            }
         });
-        this.#element.appendChild(containerWrapper);
+
+        wrapper.appendChild(container);
+        main.appendChild(wrapper);
+
+        document.addEventListener('scroll', () => {
+            if((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+                if(!this.noMoreCards){
+                    this.#addCards(container);
+                }
+            }
+        });
+    }
+
+    async #addCards(container) {
+        const newCards = await ajax.get(`/adverts?limit=30&offset=${this.loadedCrads}`);
+        if(newCards.code === 400) {
+            this.noMoreCards = true;
+
+            return;
+        }
+
+        newCards.forEach(element => {
+            if(element.preview.status !== 'inactive'){
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            }
+        });
+
+        if(newCards.length < 30) {
+            this.noMoreCards = true;
+
+            return;
+        }
+        this.loadedCrads += newCards.length;
     }
 }
