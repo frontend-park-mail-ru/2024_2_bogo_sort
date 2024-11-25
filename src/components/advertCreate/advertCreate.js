@@ -65,7 +65,7 @@ export class CreateAdvert {
             data['category_id'] = select.value;
 
             const textArea = this.form.querySelector('textarea');
-            data[textArea.name] = textArea.value;
+            data['description'] = textArea.value;
 
             const userId = informationStorage.getUser()?.id;
 

@@ -1,10 +1,17 @@
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
 import { headerData } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { router } from '../../modules/router.js';
 
 export class CreateAdvertPage {
     #advert;
 
     render(main) {
+        if(!informationStorage.isAuth()){
+            router.goToPage('/login');
+
+            return;
+        }
         this.#advert = new CreateAdvert();
         this.#renderTemplate(main);
     }

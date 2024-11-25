@@ -8,6 +8,7 @@ import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
 import template from '../../components/orders/orders.hbs'
+import { renderEmptyPlaceholder } from '../../components/emptyPlaceholder/emptyPlaceholder.js';
 
 export class UserPage {
 
@@ -16,13 +17,13 @@ export class UserPage {
         this.#renderTemplate(main);
     }
 
-    async #renderTemplate(main) {
+    #renderTemplate(main) {
         if(!informationStorage.isAuth()){
             router.goToPage('/');
         }
         const me = informationStorage.getUser();
         const data = {
-            userImageUrl: await informationStorage.getUserImageUrl(me),
+            userImageUrl: informationStorage.getUserImgUrl(),
             username: me.username,
             timestamp: timestampFormatter(me.created_at, true)
         };
@@ -32,33 +33,56 @@ export class UserPage {
         data.forUser = true;
         wrapper.innerHTML += renderUser(data);
 
-        this.addListeners(wrapper, main);
-
         if(this.location === 'user' || this.location === 'adverts'){
-            this.renderAdverts(wrapper, me, main);
+            this.renderAdverts(wrapper, main);
         } else if(this.location === 'settings') {
             this.renderSettings(wrapper, main);
         } else if(this.location === 'orders') {
             this.renderOrders(wrapper, me, main);
+        } else if(this.location === 'favourites') {
+            this.renderFavourites(wrapper, me, main);
         } else {
             router.goToPage('/');
         }
+
+        this.addListeners(wrapper, me, main);
     }
 
-    addListeners(wrapper, main) {
+    addListeners(wrapper, me, main) {
         const advertButton = wrapper.querySelector('.navigation__adverts');
         advertButton?.addEventListener('click', () => {
-            router.goToPage('/user/adverts');
+            this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
+            wrapper.querySelector(`.navigation__${this.location}`)?.classList.remove('active');
+            main.lastChild.lastChild.remove();
+            router.pushPageWithoutRedirect('/user/adverts', true);
+            this.renderAdverts(wrapper, main);
         });
 
         const ordersButton = wrapper.querySelector('.navigation__orders');
         ordersButton?.addEventListener('click', () => {
-            router.goToPage('/user/orders');
+            this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
+            wrapper.querySelector(`.navigation__${this.location}`)?.classList.remove('active');
+            main.lastChild.lastChild.remove();
+            router.pushPageWithoutRedirect('/user/orders', true);
+            this.renderOrders(wrapper, me, main);
+        });
+
+        const favouritesButton = wrapper.querySelector('.navigation__favourites');
+        favouritesButton?.addEventListener('click', () => {
+            this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
+            wrapper.querySelector(`.navigation__${this.location}`)?.classList.remove('active');
+            main.lastChild.lastChild.remove();
+            router.pushPageWithoutRedirect('/user/favourites', true);
+            this.renderFavourites(wrapper, me, main);
         });
 
         const settingsButton = wrapper.querySelector('.navigation__settings');
         settingsButton?.addEventListener('click', () => {
-            router.goToPage('/user/settings');
+            this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
+            wrapper.querySelector(`.navigation__${this.location}`)?.classList.remove('active');
+            main.lastChild.lastChild.remove();
+            router.pushPageWithoutRedirect('/user/settings', true);
+            this.renderSettings(wrapper, main);
         });
 
         const logoutButton = wrapper.querySelector('.navigation__logout');
@@ -68,10 +92,10 @@ export class UserPage {
         });
     }
 
-    async renderAdverts(wrapper, me, main) {
+    async renderAdverts(wrapper, main) {
         wrapper.querySelector('.navigation__adverts').classList.add('active');
         const container = document.createElement('div');
-        container.className = 'user__wrapper';
+        container.className = 'user__adverts';
         const cardsContainer = document.createElement('div');
         cardsContainer.classList.add('user__cards');
         const title = document.createElement('h1');
@@ -79,11 +103,54 @@ export class UserPage {
         title.textContent = 'Мои объявления';
         container.appendChild(title);
 
-        const cards = await ajax.get(`/adverts/seller/${me.id}`);
+        const cards = await ajax.get(`/adverts/my`);
 
-        cards.forEach(card => {
-            cardsContainer.appendChild(renderCardTemplate(card.title, card.price, card.image_url, BASE_URL, card.id));
-        });
+        if(cards.length === 0) {
+            const data = {
+                imagePath: '/static/images/Photos_empty.svg',
+                text: 'Здесь будут отображаться ваши объявления',
+                buttonText: 'Разместить объявление',
+                redirectUrl: '/create'
+            };
+            const placeholder = renderEmptyPlaceholder(data);
+            cardsContainer.appendChild(placeholder);
+        } else {
+            cards.forEach(element => {
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            });
+        }
+        container.appendChild(cardsContainer);
+        wrapper.appendChild(container);
+        main.appendChild(wrapper);
+    }
+
+    async renderFavourites(wrapper, me, main) {
+        wrapper.querySelector('.navigation__favourites').classList.add('active');
+        const container = document.createElement('div');
+        container.className = 'user__adverts';
+        const cardsContainer = document.createElement('div');
+        cardsContainer.classList.add('user__cards');
+        const title = document.createElement('h1');
+        title.classList.add('user__title');
+        title.textContent = 'Избранное';
+        container.appendChild(title);
+
+        const cards = await ajax.get(`/adverts/saved`);
+
+        if(cards.length === 0) {
+            const data = {
+                imagePath: '/static/images/like.svg',
+                text: 'Здесь будут отображаться ваши избранные объявления',
+                buttonText: 'Перейти к объявлениям',
+                redirectUrl: '/'
+            };
+            const placeholder = renderEmptyPlaceholder(data);
+            cardsContainer.appendChild(placeholder);
+        } else {
+            cards.forEach(element => {
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+            });
+        }
         container.appendChild(cardsContainer);
         wrapper.appendChild(container);
         main.appendChild(wrapper);

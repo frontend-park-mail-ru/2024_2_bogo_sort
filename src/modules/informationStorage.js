@@ -1,5 +1,5 @@
 import { pipe } from './pipe.js';
-import { BACKEND_BASE_URL, BASE_URL } from '../constants/constants.js';
+import { BACKEND_BASE_URL, IMAGE_URL } from '../constants/constants.js';
 import ajax from './ajax.js';
 
 class InformationStorage {
@@ -8,6 +8,7 @@ class InformationStorage {
     #csrf;
     #user;
     #userImageUrl;
+    #meSeller;
     categories;
 
     async init() {
@@ -30,7 +31,9 @@ class InformationStorage {
         }
         this.#isAuth = true;
         this.#csrf = await ajax.getCSRF();
-        this.#userImageUrl = await this.getUserImageUrl(this.#user);
+        this.#user = await ajax.get('/me');
+        this.#meSeller = await ajax.get(`/seller/user/${this.#user.id}`);
+        this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
         pipe.executeCallback('updateHeader');
     }
 
@@ -48,24 +51,26 @@ class InformationStorage {
         return this.#user;
     }
 
+    getMeSeller() {
+        return this.#meSeller;
+    }
+
     async setUser(user) {
         this.#user = user;
-        this.#userImageUrl = await this.getUserImageUrl(this.#user);
+        this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
+    }
+
+    setUsername(username) {
+        this.#user.username = username;
     }
 
     getUserImgUrl() {
         return this.#userImageUrl;
     }
 
-    async getUserImageUrl(user) {
-        if(!user.avatar_id){
-            return;
-        }
-        const path = await ajax.get(`/files/${user.avatar_id}`);
-    
-        return BASE_URL + path;
+    getImageUrl(imageId) {
+        return IMAGE_URL + imageId;
     }
-    
 
     isAuth() {
         return this.#isAuth;

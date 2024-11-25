@@ -1,5 +1,6 @@
 'use strict';
 
+import { informationStorage } from '../../modules/informationStorage.js';
 import { makeImageUrl } from '../../utils/brokenImageUrlFormatter.js';
 import template from './cart.hbs';
 
@@ -8,7 +9,7 @@ export class Cart {
     renderCart(data){
         if(data.adverts){
             for(const advert of data.adverts) {
-                advert.image_url = makeImageUrl(advert.image_url);
+                advert.image_url = informationStorage.getImageUrl(advert.preview.image_id);
             }
         }
         data.numberOfItems = data.numberOfItems + this.getProductWord(data.numberOfItems);
@@ -28,13 +29,13 @@ export class Cart {
     updateQuantityAndCost(wrapper, advertId, adverts) {
         const itemsElement = wrapper.querySelector('.cart__items');
 
-        adverts = adverts.filter(advert => advert.id !== advertId);
+        adverts = adverts.filter(advert => advert.preview.id !== advertId);
         const itemsInner = itemsElement.innerHTML;
         itemsElement.innerHTML = String(adverts.length) + this.getProductWord(adverts.length) + itemsInner.slice(itemsInner.indexOf('<'), itemsInner.length);
 
         let totalCost = 0;
         adverts.forEach(advert => {
-            totalCost += Number(advert.price);
+            totalCost += Number(advert.preview.price);
         });
 
         wrapper.querySelector('.cart__price').innerText = String(totalCost) + '₽';

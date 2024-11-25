@@ -41,8 +41,8 @@ export class CategoryPage {
         container.classList.add('cards');
 
         cards.forEach(element => {
-            if(element.status === 'active') {
-                container.appendChild(renderCardTemplate(element.title, element.price, element.image_url, BASE_URL, element.id));
+            if(element.preview.status === 'active') {
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
             }
         });
         wrapper.appendChild(container);

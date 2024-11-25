@@ -1,58 +1,61 @@
 .user {
     display: flex;
     justify-self: center;
-    width: 64vw;
-    margin-top: 2vw;
+    width: 1229px;
+    margin-top: 38px;
 
     &__cards {
         display: flex;
         flex-wrap: wrap;
-        gap: 1vw;
-        margin-left: 1.2vw;
-        width: fit-content;
+        gap: 19px;
+        margin-left: 23px;
+        width: 949px;
     }
 
     &__title {
-        font-size: 2vw;
-        margin-left: 1.2vw;
+        font-size: 38px;
+        margin-left: 23px;
         margin-top: 0;
     }
 
-    &__wrapper {
+    &__adverts {
         width: fit-content;
     }
 }
 
 .aside {
-    width: 14vw;
+    width: 219px;
     height: fit-content;
     background-color: white;
-    border-radius: 0.8vw;
+    border-radius: 15px;
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 5px var(--box-shadow-color);
-    padding: 1vw;
-    // position: absolute;
+    padding: 19px;
+    position: sticky;
+    top: 96px;
 
     &__user {
         &-section {
             display: flex;
             flex-direction: column;
-            gap: 0.8vw;
+            gap: 15px;
         }
         &-img {
-            width: 4vw;
+            width: 77px;
             border-radius: 100%;
         }
 
         &-name {
             margin: 0;
-            font-size: 1.5vw;
+            font-size: 29px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         &-timestamp {
             color: var(--color-secondary50);
-            font-size: 0.85vw;
+            font-size: 16px;
         }
     }
 }
@@ -60,16 +63,17 @@
 .navigation {
     display: flex;
     flex-direction: column;
-    margin-top: 1vw;
-    gap: 1vw;
+    margin-top: 19px;
+    gap: 19px;
 
     &__adverts,
     &__orders,
+    &__favourites,
     &__settings, 
     &__logout {
         display: flex;
         align-items: center;
-        font-size: 0.85vw;
+        font-size: 16px;
         cursor: pointer;
         transition: color 0.5s ease;
 
@@ -83,6 +87,6 @@
     }
 
     &__icon {
-        margin-right: 0.5vw;
+        margin-right: 10px;
     }
 } 

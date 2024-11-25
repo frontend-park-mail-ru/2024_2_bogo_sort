@@ -25,12 +25,12 @@ export class Settings {
         }
     }
 
-    async fillData(wrapper) {
+    fillData(wrapper) {
         this.me = informationStorage.getUser();
         wrapper.querySelector('.settings-form__name-input').value = this.me.username;
         wrapper.querySelector('.settings-form__email-input').value = this.me.email;
         wrapper.querySelector('.settings-form__phone-input').value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
-        wrapper.querySelector('.settings-form__upload-box-image').src = await informationStorage.getUserImageUrl(this.me);
+        wrapper.querySelector('.settings-form__upload-box-image').src = informationStorage.getUserImgUrl();
 
         this.addListeners(wrapper);
     }

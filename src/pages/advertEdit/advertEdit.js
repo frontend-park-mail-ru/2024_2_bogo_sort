@@ -1,7 +1,8 @@
 import { CreateAdvert } from '../../components/advertCreate/advertCreate.js';
-import { headerData } from '../../constants/constants.js';
+import { headerData, IMAGE_URL } from '../../constants/constants.js';
 import ajax from '../../modules/ajax.js';
-import { BASE_URL } from '../../constants/constants.js';
+import { informationStorage } from '../../modules/informationStorage.js';
+import { router } from '../../modules/router.js';
 
 export class AdvertEditPage {
     render(main, advertId) {
@@ -25,14 +26,17 @@ export class AdvertEditPage {
 
     async fillData(advertId, wrapper) {
         const advert = await ajax.get(`/adverts/${advertId}`);
+        if(informationStorage.getMeSeller().id !== advert.advert.seller_id) {
+            router.goToPage('/');
+        }
         const select = wrapper.querySelector('.advert-form__select');
-        select.value = advert.category_id;
+        select.value = advert.advert.category_id;
 
-        wrapper.querySelector('.advert-form__name-input').value = advert.title;
-        wrapper.querySelector('.advert-form__price-input').value = advert.price;
-        wrapper.querySelector('.advert-form__description-input').value = advert.description;
-        wrapper.querySelector('.advert-form__address-input').value = advert.location;
-        wrapper.querySelector('.advert-form__upload-box-image').src = BASE_URL + advert.image_url;
+        wrapper.querySelector('.advert-form__name-input').value = advert.advert.title;
+        wrapper.querySelector('.advert-form__price-input').value = advert.advert.price;
+        wrapper.querySelector('.advert-form__description-input').value = advert.advert.description;
+        wrapper.querySelector('.advert-form__address-input').value = advert.advert.location;
+        wrapper.querySelector('.advert-form__upload-box-image').src = IMAGE_URL + advert.advert.image_id;
 
         wrapper.querySelector('.advert-form__submit').textContent = 'Сохранить изменения';
     }

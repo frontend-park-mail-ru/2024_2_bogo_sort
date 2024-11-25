@@ -9,26 +9,29 @@ export class CartPage {
     adverts;
 
     render(main) {
+        if(!informationStorage.isAuth()) {
+            router.goToPage('/login');
+        }
         this.#renderTemplate(main);
         this.cartComponent = new Cart();
     }
 
     async #renderTemplate(main) {
         const userId = informationStorage.getUser()?.id;
-        const cartExists = await ajax.get(`/cart/exists/${userId}`);
+        const cart = await ajax.get(`/cart/exists/${userId}`);
+        const cartId = cart.cart_id;
         let data = {};
-        if(cartExists.exists) {
-            const cart = await ajax.get(`/cart/user/${userId}`);
-            this.cartId = cart.id;
+        if(cartId) {
+            this.cartId = cartId;
 
-            this.adverts = await ajax.get(`/adverts/cart/${cart.id}`);
+            this.adverts = await ajax.get(`/adverts/cart/${cartId}`);
 
             data = {adverts: this.adverts};
             data.notEmpty = this.adverts?.length > 0;
             data.numberOfItems = this.adverts.length;
             data.totalPrice = 0;
             this.adverts.forEach(advert => {
-                data.totalPrice += Number(advert.price);
+                data.totalPrice += Number(advert.preview.price);
             });
             data.totalPrice = String(data.totalPrice);
         } else {
@@ -42,31 +45,52 @@ export class CartPage {
         wrapper.innerHTML += this.cartComponent.renderCart(data);
         main.appendChild(wrapper);
 
-        if(this.adverts) {
-            const items = wrapper.querySelectorAll('.adverts');
-            for(let i = 0; i < this.adverts.length; i++){
-                items[i].addEventListener('click', (event) => {
-                    if(event.target === wrapper.querySelector('.adverts__remove')){
-                        return;
-                    }
-                    router.goToPage(`/advert/${this.adverts[i].id}`);
-                });
-            }
-        }
-
         this.#addListeners(wrapper);
     }
 
     #addListeners(wrapper) {
-        const removeButtonList = wrapper.querySelectorAll('.adverts__remove');
-        removeButtonList?.forEach(removeButton => {
-            removeButton.addEventListener('click', (event) => {
+        const removeButtons = wrapper.querySelectorAll('.adverts__remove-button');
+        const likeButtons = wrapper.querySelectorAll('.adverts__like-button');
+
+        if(this.adverts) {
+            const items = wrapper.querySelectorAll('.adverts');
+            this.adverts.forEach((advert, number) => {
+                items[number].addEventListener('click', async (event) => {
+                    if(event.target === removeButtons[number]) {
+                        return;
+                    } else if(event.target === likeButtons[number] || event.target === likeButtons[number].children[0]) {
+                        if(advert.is_saved && likeButtons[number].classList.contains('liked')) {
+                            const deleteQuery = await ajax.delete(`/adverts/saved/${advert.preview.id}`);
+                            if(deleteQuery.code !== 400) {
+                                likeButtons[number].classList.remove('liked');
+                                advert.is_saved = false;
+                            }
+
+                            return;
+                        } else if(!advert.is_saved && !likeButtons[number].classList.contains('liked')) {
+                            const likeQuery = await ajax.post(`/adverts/saved/${advert.preview.id}`);
+                            if(likeQuery.code !== 400) {
+                                likeButtons[number].classList.add('liked');
+                                advert.is_saved = true;
+                            }
+
+                            return;
+                        }
+                    } else {
+                        router.goToPage(`/advert/${advert.preview.id}`);
+                    }
+                });
+            });
+        }
+
+        removeButtons?.forEach(removeButton => {
+            removeButton.addEventListener('click', async (event) => {
                 const advertId = removeButton.parentNode.dataset.advertId;
                 const data = {
                     advert_id: advertId,
                     cart_id: this.cartId
                 };
-                ajax.delete('/cart/delete', data);
+                await ajax.delete('/cart/delete', data);
                 this.adverts = this.cartComponent.popItem(wrapper, event, this.adverts);
             });
         });
@@ -78,10 +102,11 @@ export class CartPage {
 
         const buyButton = wrapper.querySelector('.cart__buy-button');
         buyButton?.addEventListener('click', async () => {
-            await ajax.post('/purchase', {
+            await ajax.post(`/purchase/${informationStorage.getUser().id}`, {
                 'cart_id': this.cartId,
                 'payment_method': 'cash',
-                'delivery_method': 'pickup'
+                'delivery_method': 'pickup',
+                'address': ''
             });
             router.goToPage('/user/orders');
         });
