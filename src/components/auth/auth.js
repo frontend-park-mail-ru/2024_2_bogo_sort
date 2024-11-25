@@ -147,7 +147,7 @@ export class AuthComponent {
 
         overlay?.addEventListener('click', () => {
             toggleClasses([overlay, authForm], 'not-active', 'active');
-            this.closeLoginForm(initalUrl);
+            this.closeLoginForm(this.#initialUrl);
             this.updateForm(authForm, loginData);
         }, {once: true});
 

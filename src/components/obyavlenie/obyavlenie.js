@@ -73,6 +73,13 @@ export class AdvertComponent {
 
         wrapper.innerHTML += this.renderAdTemplate(data);
 
+        if(window.matchMedia('(max-width: 1000px)').matches) {
+            const sellerSection = wrapper.querySelector('.seller');
+            wrapper.querySelector('.description').appendChild(sellerSection);
+            const titleWrapper = wrapper.querySelector('.advert__title-wrapper');
+            wrapper.querySelector('.advert__price').insertAdjacentElement('afterend', titleWrapper);
+        }
+
         if(data.inactive) {
             wrapper.querySelector('.advert')?.classList.add('inactive');
         }
@@ -80,7 +87,7 @@ export class AdvertComponent {
         this.addListeners(wrapper, advert.advert.id, me?.id);
 
         return advert;
-    }
+    } 
 
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
@@ -211,14 +218,13 @@ export class AdvertComponent {
         });
     }
 
-    async checkIfInCart(advert, me, wrapper) {
-        const cartExists = await ajax.get(`/cart/exists/${me.id}`)
-        if(!cartExists) {
+    async checkIfInCart(advert, me) {
+        const cartId = await ajax.get(`/cart/exists/${me.id}`);
+        if(cartId.cart_id === '00000000-0000-0000-0000-000000000000') {
             this.inCart = false;
-            
             return;
         }
-        const cart = await ajax.get(`/cart/user/${me.id}`);
+        const cart = await ajax.get(`/cart/${cartId.cart_id}`);
 
         if(cart.adverts){
             for(const cartAdvert of cart.adverts) {

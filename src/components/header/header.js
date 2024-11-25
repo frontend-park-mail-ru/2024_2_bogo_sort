@@ -72,6 +72,19 @@ class Header {
             router.goToPage('/create');
         });
 
+        if(window.matchMedia('(max-width: 1000px)').matches) {
+            let lastScrollTop = 0;
+            window.addEventListener('scroll', () => {
+                let currentScrollTop = window.scrollY;
+                if(!createAdvertButton.classList.contains('at-bottom') && currentScrollTop > lastScrollTop) {
+                    createAdvertButton.classList.add('at-bottom');
+                } else if(createAdvertButton.classList.contains('at-bottom') && currentScrollTop <= lastScrollTop) {
+                    createAdvertButton.classList.remove('at-bottom');
+                }
+                lastScrollTop = currentScrollTop;
+            })
+        }
+
         const logoutButton = this.#wrapper.querySelector('.menu__link-logout');
         logoutButton?.addEventListener('click', event => {
             event.preventDefault();

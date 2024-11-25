@@ -21,7 +21,7 @@ export class CartPage {
         const cart = await ajax.get(`/cart/exists/${userId}`);
         const cartId = cart.cart_id;
         let data = {};
-        if(cartId) {
+        if(cartId.cart_id !== '00000000-0000-0000-0000-000000000000') {
             this.cartId = cartId;
 
             this.adverts = await ajax.get(`/adverts/cart/${cartId}`);

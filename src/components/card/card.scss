@@ -16,11 +16,21 @@
         box-shadow: 0px 5px 12px var(--box-shadow-color);
     }
 
+    @include respond-to(phone) {
+        width: max(45vw, 147px);
+        height: auto;
+    }
+
     &__image {
         width: 223px;
         height: 211px;
         border-radius: 10px 10px 0 0;
         object-fit: cover;
+
+        @include respond-to(phone) {
+            width: max(45vw, 147px);
+            height: max(42vw, 190px);
+        }
     }
 
     &__details {
@@ -30,6 +40,10 @@
         white-space: nowrap;
         overflow: hidden; 
         text-overflow: ellipsis;
+
+        @include respond-to(phone) {
+            margin: 5px 13px 10px;
+        }
     }
 
     &__price {
@@ -43,6 +57,11 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+
+        @include respond-to(phone) {
+            font-size: 20px;
+            height: auto;
+        }
     }
 
     &__title {
@@ -75,10 +94,5 @@
                 }
             }
         }
-        // @include svg-button-with-hover("../../static/images/like.svg", clamp(26px, 5vw, 38px), black, var(--color-like-hover-outline));
-
-        // &.active {
-        //     @include svg-button-with-hover("../../static/images/like.svg", clamp(26px, 5vw, 38px), red, var(--color-like));
-        // }
     }
 }

@@ -1,3 +1,5 @@
+@import "../../static/styles/mixins.scss";
+
 .overlay {
     position: fixed;
     top: 0;
@@ -30,7 +32,7 @@
     overflow: auto;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: all 0.5s ease;
 
     &.active {
         opacity: 1;
@@ -42,6 +44,19 @@
     width: 998px;
     height: 509px;
     pointer-events: auto;
+    margin: 0;
+    margin-block: 0;
+    transition: all 0.3s ease;
+
+    @include respond-to(tablet) {
+        width: 80vw;  
+        height: 550px;      
+    }
+
+    @include respond-to(phone) {
+        width: 95vw;
+        height: 425px;
+    }
 }
 
 .features {
@@ -52,6 +67,10 @@
     background-color: var(--color-secondary25);
     border-radius: 19px 0 0 19px;
     transition: height 0.3s ease, margin-top 0.3s ease;
+
+    @include respond-to(tablet) {
+        display: none;
+    }
 
     &__content {
         display: flex;
@@ -84,7 +103,6 @@
 
 .auth-wrapper {
     display: block;
-    width: 50%;
     height: 100%;
     z-index: 5;
     background-color: white;
@@ -92,10 +110,19 @@
     border-bottom-right-radius: 19px;
     transition: height 0.3s ease, margin-top 0.3s ease;
 
+    @include respond-to(tablet) {
+        border-radius: 19px;
+        width: inherit;
+    }
+
     &__auth {
         padding-left: 71px;
         padding-right: 71px;
         padding-top: 56px;
+
+        @include respond-to(tablet) {
+            padding: 6vw 9vw 0 9vw;
+        }
     }
 }
 
@@ -107,6 +134,14 @@
         font-weight: 700;
         margin: 0;
         font-size: 35px;
+
+        @include respond-to(tablet) {
+            font-size: 42px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 30px;
+        }
     }
 
     &__details {
@@ -114,6 +149,14 @@
         font-size: 15px;
         color: var(--color-secondary70);
         margin-top: 19px;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__error {
@@ -123,6 +166,15 @@
         padding-top: 10px;
         padding-bottom: 10px;
         height: 29px;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            padding-bottom: 7px;
+        }
     }
 
     &__input-wrapper {
@@ -130,6 +182,10 @@
         height: 48px;
         width: 346px;
         color: var(--color-secondary50);
+
+        @include respond-to(tablet) {
+            width: inherit;
+        }
     }
 }
 
@@ -141,6 +197,15 @@
         pointer-events: none;
         transition: 0.2s ease;
         font-size: 15px;
+
+        @include respond-to(tablet) {
+            font-size: 18px;
+            top: 48%;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__email,
@@ -153,6 +218,16 @@
         margin-top: 19px;
         padding-left: 19px;
         transition: 0.2s ease;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+            height: 60px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 45px;
+        }
 
         &.error {
             border: 1px solid var(--color-error);
@@ -179,6 +254,10 @@
 
         &.visible {
             background: url(../../static/images/eye_closed.svg);
+        }
+
+        @include respond-to(phone) {
+            top: 42%;
         }
     }
 
@@ -218,6 +297,13 @@
             transition: opacity 0.3s;
             padding: 10px;
             margin-right: 10px;
+
+            @include respond-to(phone) {
+                bottom: 70%;
+                left: 0;
+                top: inherit;
+                width: 72vw;
+            }
         }
     }
 
@@ -233,28 +319,39 @@
         border: 2px solid var(--color-primary100);
         transition: background-color 0.2s ease, border 0.2s ease;
 
+        @include respond-to(tablet) {
+            height: 60px;
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 45px;
+        }
+
         &:hover {
             background-color: var(--color-primary50);
             border: 2px solid var(--color-primary50);
         }
     }
 
-    &__registration-link {
-        font-size: 15px;
-    }
     
     &__change-button {
-        font-size: 0.8vw;
-    }
-    
-    &__registration-link {
         font-size: 15px;
         color: var(--color-secondary70);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
 
-        &.change-button {
+        @include respond-to(tablet) {
+            font-size: 18px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
+
+        &.link {
             color: var(--color-primary100);
             cursor: pointer;
         }
@@ -264,6 +361,14 @@
 .expand {
     height: 568px;
     margin-top: -35px;
+
+    @include respond-to(tablet) {
+        height: 625px;
+    }
+
+    @include respond-to(phone) {
+        height: 500px;
+    }
 }
 
 .not-active {

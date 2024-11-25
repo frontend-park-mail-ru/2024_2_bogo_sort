@@ -64,19 +64,24 @@
 
     @include respond-to(tablet) {
         height: fit-content;
-        width: 100%;
+        width: 98%;
+        padding: 5px 1%;
     }
 
     &__content-wrapper {
         display: flex;
-        width: 1235px;
+        width: min(1235px, 95vw);
         align-items: center;
 
         @include respond-to(tablet) {
             flex-wrap: wrap;
             justify-content: space-between;
             width: 100%;
-            padding: 0 1%;
+            gap: 10px;
+        }
+
+        @include respond-to(phone) {
+            gap: 5px;
         }
     }
 
@@ -88,6 +93,11 @@
 
         @include respond-to(tablet) {
             order: 2;
+        }
+
+        @include respond-to(phone) {
+            order: 2;
+            font-size: 26px;
         }
     }
 
@@ -127,9 +137,19 @@
 
         @include respond-to(tablet) {
             position: fixed;
-            bottom: 44px;
-            width: clamp(200px, 250px, 30vw);
-            left: calc(50% - calc(clamp(200px, 250px, 30vw) / 2));
+            bottom: 35px;
+            width: clamp(250px, 30vw, 500px);
+            left: calc(50% - calc(clamp(250px, 30vw, 500px) / 2));
+            font-size: 18px;
+            transition: all 0.3s ease;
+
+            &.at-bottom {
+                bottom: -140px;
+            } 
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
         }
     }
 
@@ -137,7 +157,25 @@
         margin-left: 20px;
 
         @include respond-to(tablet) {
-            order: 1;
+            order: 2;
+            margin: 0;
+            width: 108px;
+            font-size: 18px;
+        }
+
+        @include respond-to(phone) {
+            border-color: transparent;
+            background-color: transparent;
+            font-size: 0;
+            width: auto;
+            padding: 0;
+            width: fit-content;
+            height: fit-content;
+
+            &:hover {
+                background-color: transparent;
+                border-color: transparent;
+            }
         }
     }
 
@@ -182,6 +220,12 @@
                 border-color: transparent;
             }
         }
+
+        @include respond-to(phone) {
+            padding: 0;
+            height: fit-content;
+            width: fit-content;
+        }
     }
 
     &__list-icon {
@@ -192,6 +236,21 @@
             margin: 0;
             height: 40px;
             filter: invert(1);
+        }
+
+        @include respond-to(phone) {
+            height: 26px;
+            padding: 5px;
+        }
+    }
+
+    &__login-icon {
+        display: none;
+
+        @include respond-to(phone) {
+            display: block;
+            height: 26px;
+            padding: 5px;
         }
     }
 }
@@ -208,6 +267,18 @@
     padding: 10px 0 10px 0;
     margin: 0;
     z-index: 100;
+
+    @include respond-to(tablet) {
+        top: 110%;
+        width: 100vw;
+        left: -1vw;
+        border-radius: 0;
+        gap: 5px;
+    }
+
+    // @include respond-to(phone) {
+    //     width: 103vw;
+    // }
         
     &__item {
         margin: 0;
@@ -228,6 +299,14 @@
         display: flex;
         align-items: center;
         transition: color 0.5s ease;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
 
         &:hover {
             color: var(--color-primary50);
@@ -265,6 +344,17 @@
         width: -webkit-fill-available;
         margin: 0 0 1% 0;  
         flex: none;
+
+        &.focus ~ .header__create-advert-button {
+            bottom: -140px;
+        }
+    }
+
+    @include respond-to(phone) {
+        height: 30px;
+        border-radius: 9px;
+        margin: 0 5px;
+        border: 1px solid var(--color-secondary50);
     }
 
     &__icon {
@@ -279,6 +369,20 @@
         flex: 1;
         height: inherit;
         transition: all 0.5s ease;
+
+
+        @include respond-to(smallLaptop) {
+            width: 10vw;
+            text-overflow: ellipsis;
+        }
+
+        @include respond-to(tablet) {
+            font-size: 18px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 14px;
+        }
     }
 
     &__find-button {
@@ -295,6 +399,36 @@
             border-color 0.5s ease,
             color 0.5s ease;
 
+        @include respond-to(smallLaptop) {
+            border-color:transparent;
+            background-color: transparent;
+            font-size: 0;
+            width: 0;
+            
+            &.focus,
+            &:hover {
+                background-color: transparent;
+                border-color:transparent;
+            }
+        }
+
+        @include respond-to(tablet) {
+            border: 1px solid var(--color-secondary50);
+            width: 108px;
+            font-size: 18px;
+            background-color: var(--color-secondary50);
+
+            &:hover {
+                background-color: var(--color-primary100);
+                border-color: var(--color-primary100);
+            }
+    
+            &.focus {
+                background-color: var(--color-primary75);
+                border-color: var(--color-primary75);
+            }
+        }    
+
         &:hover {
             background-color: var(--color-primary100);
             border-color: var(--color-primary100);
@@ -304,6 +438,21 @@
             background-color: var(--color-primary75);
             border-color: var(--color-primary75);
         }
+
+        @include respond-to(phone) {
+            border-color:transparent;
+            background-color: transparent;
+            font-size: 0;
+            width: 0;
+
+            &.focus,
+            &:hover {
+                background-color: transparent;
+                border-color:transparent;
+            }
+        }
+
+        
     }
 }
 
@@ -313,6 +462,7 @@
     cursor: pointer;
 
     @include respond-to(tablet) {
+        margin: 0;
         order: 3;
     }
 
@@ -339,9 +489,12 @@
         }
 
         @include respond-to(tablet) {
-            &:hover {
-                border-color: var(--color-secondary25);
-            }
+            border: 0;
+        }
+
+        @include respond-to(phone) {
+            width: 32px;
+            height: 32px;
         }
     }
 }
@@ -358,6 +511,12 @@
     flex-direction: column;
     padding: 5px 0 10px 0;
     margin: 0;
+
+    @include respond-to(tablet) {
+        width: 100vw;
+        right: -1vw;
+        border-radius: 0;
+    }
 
     &__item {
         display: flex;
@@ -381,6 +540,14 @@
         transition: color 0.5s ease;
         font-size: 16px;
 
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
+
         &:hover {
             color: var(--color-primary50);
         }
@@ -394,6 +561,14 @@
         width: 100%;
         padding: 10px 19px 10px 19px;
         transition: color 0.5s ease;
+
+        @include respond-to(tablet) {
+            font-size: 20px;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
 
         &:hover {
             color: var(--color-primary100);

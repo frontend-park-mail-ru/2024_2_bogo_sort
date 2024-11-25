@@ -1,5 +1,6 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -28,10 +29,27 @@ module.exports = {
                     runtime: path.resolve(__dirname, 'src/utils/hbsHelpers')
                 }
             },
+            {
+                test: /\.scss$/,
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                    }
+                ]
+            }
             
         ]
     },
     plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].css',
+        }),
         new CopyWebpackPlugin({
             patterns: [
                 { from: 'src/sw.js', to: ''},
