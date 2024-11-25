@@ -17,7 +17,7 @@
     }
 
     @include respond-to(phone) {
-        width: max(45vw, 150px);
+        width: max(45vw, 147px);
         height: auto;
     }
 
@@ -28,7 +28,7 @@
         object-fit: cover;
 
         @include respond-to(phone) {
-            width: max(45vw, 150px);
+            width: max(45vw, 147px);
             height: max(42vw, 190px);
         }
     }

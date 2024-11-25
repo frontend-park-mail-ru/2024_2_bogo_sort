@@ -110,6 +110,11 @@
             width: clamp(250px, 30vw, 500px);
             left: calc(50% - calc(clamp(250px, 30vw, 500px) / 2));
             font-size: 18px;
+            transition: all 0.3s ease;
+
+            &.at-bottom {
+                bottom: -140px;
+            } 
         }
 
         @include respond-to(phone) {
@@ -233,7 +238,7 @@
     z-index: 100;
 
     @include respond-to(tablet) {
-        top: 115%;
+        top: 110%;
         width: 100vw;
         left: -1vw;
         border-radius: 0;

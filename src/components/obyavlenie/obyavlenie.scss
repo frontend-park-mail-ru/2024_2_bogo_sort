@@ -1,8 +1,20 @@
+@import "../../static/styles/mixins.scss";
+
 .advert-wrapper {
     display: flex;
     justify-self: center;
     width: 1229px;
     flex-direction: column;
+
+    @include respond-to(smallLaptop) {
+        width: 100vw;
+        padding: 0 10px;
+    }
+
+    @include respond-to(tablet) {
+        padding: 0;
+
+    }
 }
 
 .breadcrumbs {
@@ -10,6 +22,10 @@
         list-style-type: none;
         padding: 0;
         margin: 19px 0 19px 0;
+
+        @include respond-to(tablet) {
+            display: none;
+        }
     }
 
     &__link {
@@ -39,10 +55,17 @@
     padding: 38px;
     border-radius: 19px;
     box-shadow: 0px 4px 4px var(--box-shadow-color);
+    display: flex;
+    flex-direction: column;
 
     &__content {
         display: flex;
         flex-direction: row;
+
+        @include respond-to(tablet) {
+            order: 1;
+            flex-direction: column;
+        }
     }
 
     &__title {
@@ -56,6 +79,11 @@
         flex-direction: row;
         align-items: baseline;
         justify-content: space-between;
+
+        @include respond-to(tablet) {
+            order: 2;
+            width: auto;
+        }
     }
 
     &__like-button {
@@ -101,16 +129,33 @@
         width: 806px;
         height: 557px;
         object-fit: scale-down;
+
+        @include respond-to(smallLaptop) {
+            width: 65vw;
+        }
+
+        @include respond-to(tablet) {
+            width: 92.5vw;
+        }
     }
 
     &__details {
         width: 307px;
         margin-left: 38px;
+
+        @include respond-to(tablet) {
+            width: auto;
+            margin-left: 0;
+        }
     }
 
     &__price {
         margin: 0 0 19px 0;
         font-size: 38px;
+
+        @include respond-to(tablet) {
+            margin-bottom: 10px;
+        }
     }
 
     &__overlay {
@@ -300,6 +345,10 @@
 }
 
 .description {
+    @include respond-to(tablet) {
+        order: 3;
+    }
+
     &__title {
         margin: 19px 0 5px 0;
         font-size: 25px;
@@ -322,8 +371,15 @@
     }
     
     &__category {
-        display: inline;
+        display: flex;
+        flex-direction: row;
         color: var(--color-secondary50);
+    }
+
+    &__pretext {
+        @include respond-to(tablet) {
+            width: 30vw;
+        }
     }
 
     &__details {

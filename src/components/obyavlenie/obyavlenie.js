@@ -71,6 +71,13 @@ export class AdvertComponent {
 
         wrapper.innerHTML += this.renderAdTemplate(data);
 
+        if(window.matchMedia('(max-width: 1000px)').matches) {
+            const sellerSection = wrapper.querySelector('.seller');
+            wrapper.querySelector('.description').appendChild(sellerSection);
+            const titleWrapper = wrapper.querySelector('.advert__title-wrapper');
+            wrapper.querySelector('.advert__price').insertAdjacentElement('afterend', titleWrapper);
+        }
+
         if(data.inactive) {
             wrapper.querySelector('.advert')?.classList.add('inactive');
         }
@@ -78,7 +85,7 @@ export class AdvertComponent {
         this.addListeners(wrapper, advert.advert.id, me?.id);
 
         return advert;
-    }
+    } 
 
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;

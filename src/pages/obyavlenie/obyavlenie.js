@@ -13,12 +13,12 @@ export class AdvertPage {
 
         const wrapper = document.createElement('main');
         wrapper.classList.add('advert-wrapper');
-        main.appendChild(wrapper);
 
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
         if(requestedAdvert === null){
             router.goToPage('/');
         }
+        main.appendChild(wrapper);
 
         const container = document.createElement('div');
         container.classList.add('cards');
