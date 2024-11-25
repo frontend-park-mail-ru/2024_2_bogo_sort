@@ -3,6 +3,7 @@ import { informationStorage } from '../../modules/informationStorage.js';
 import { headerData } from '../../constants/constants.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
+import template from './header.hbs';
 
 /**
  * Represents a header component.
@@ -44,7 +45,7 @@ class Header {
      */
     #renderTemplate() {
         const data = this.#getData();
-        this.#wrapper.innerHTML = Handlebars.templates['header.hbs']({ category: data.category, checkAuth: data.checkAuth, userName: data.userName, userImgUrl: data.userImgUrl, menuItems: data.menuItems });
+        this.#wrapper.innerHTML = template({ category: data.category, checkAuth: data.checkAuth, userName: data.userName, userImgUrl: data.userImgUrl, menuItems: data.menuItems });
     }
 
     /**
