@@ -17,6 +17,15 @@
         margin-top: 20px;
     }
 
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+    }
+
+    @include respond-to(tablet) {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
     &__cards {
         display: flex;
         flex-wrap: wrap;

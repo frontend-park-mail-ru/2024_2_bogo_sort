@@ -104,6 +104,10 @@ class Header {
             list.classList.add('not-active');
         });
 
+        list?.addEventListener('click', () => {
+            list.classList.add('not-active');
+        });
+
         const menuButton = this.#wrapper.querySelector('.user-menu');
         const userMenu = this.#wrapper.querySelector('.user-menu__menu');
 
