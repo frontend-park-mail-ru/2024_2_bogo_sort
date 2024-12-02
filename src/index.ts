@@ -20,6 +20,8 @@ import './utils/hbsHelpers.js';
 
 pipe.init(PIPE_NAMES);
 pipe.registerNewCallback('updateHeader', changeHeader);
+pipe.registerNewCallback('disableCreateAdvertButton', disableCreateAdvertButton);
+pipe.registerNewCallback('enableCreateAdvertButton', enableCreateAdvertButton);
 pipe.registerNewCallback('showAuthForm', showAuthForm);
 pipe.registerNewCallback('showSignupForm', showSignupForm);
 pipe.registerNewCallback('disableCreateAdvertButton', disableCreateAdvertButton);
@@ -27,6 +29,14 @@ pipe.registerNewCallback('enableCreateAdvertButton', enableCreateAdvertButton);
 
 function changeHeader() {
     return header.changeHeader();
+}
+
+function disableCreateAdvertButton() {
+    return header.disableCreateAdvertButton();
+}
+
+function enableCreateAdvertButton() {
+    return header.enableCreateAdvertButton();
 }
 
 function showAuthForm() {

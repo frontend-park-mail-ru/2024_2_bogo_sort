@@ -38,7 +38,7 @@ class Ajax {
                 },
                 credentials: 'include',
             });
-            
+
             if(response.headers.get('x-authenticated') === 'false' && informationStorage.isAuth()) {
                 informationStorage.changeToNotAuthenticated(response);
             }

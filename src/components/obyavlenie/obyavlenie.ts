@@ -91,7 +91,7 @@ export class AdvertComponent {
         this.addListeners(wrapper, advert.advert.id, me?.id);
 
         return advert;
-    } 
+    }
 
     renderAdTemplate(data: AdvertTemplateData) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
@@ -233,6 +233,7 @@ export class AdvertComponent {
         const cartId = await ajax.get<ResponseCartExists>(`/cart/exists/${me.id}`);
         if(cartId.cart_id === '00000000-0000-0000-0000-000000000000') {
             this.inCart = false;
+            
             return;
         }
         const cart = await ajax.get<ResponseCart>(`/cart/${cartId.cart_id}`);

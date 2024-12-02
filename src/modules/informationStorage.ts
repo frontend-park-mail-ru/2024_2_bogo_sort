@@ -25,7 +25,7 @@ class InformationStorage {
             this.#user = response; 
         }
 
-        this.#isAuth = true; 
+        this.#isAuth = true;
         await this.proceedAuthenticated();
     }
 

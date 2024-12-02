@@ -20,7 +20,7 @@ export function renderCardTemplate(title: string, price: number, imageId: string
         if(event.target === likeButton || event.target === path){
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
-    
+
                 return;
             }
             if(likeButton?.classList.contains('active')) {
@@ -28,7 +28,7 @@ export function renderCardTemplate(title: string, price: number, imageId: string
                 if(response.code !== 400) {
                     likeButton.classList.remove('active');
                 }
-                
+
                 return;
             }
 
@@ -36,7 +36,7 @@ export function renderCardTemplate(title: string, price: number, imageId: string
             if(respone.code !== 400) {
                 likeButton?.classList.add('active');
             }
-            
+
             return;
         }
         router.goToPage(`/advert/${id}`);
