@@ -19,7 +19,7 @@ export class Cart {
 
 
     popItem(wrapper, event, adverts) {
-        const parent = event.target.parentElement;
+        const parent = event.target.parentElement.parentElement;
         parent.classList.add('non-visible');
         setTimeout(() => parent.parentElement.removeChild(parent), 650);
 

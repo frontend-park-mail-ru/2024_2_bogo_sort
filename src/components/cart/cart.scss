@@ -1,3 +1,5 @@
+@import '../../static/styles/mixins.scss';
+
 @mixin box-shadow-with-hover() {
     box-shadow: 0 4px 4px var(--box-shadow-color);
     transition: box-shadow 0.5s ease,
@@ -14,6 +16,17 @@
     width: 1229px;
     margin-top: 38px;
 
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+        margin-top: 0;
+    }
+
+    &__main-section {
+        @include respond-to(tablet) {
+            margin-bottom: 17vh;
+        }
+    }
+
     &__buy {
         position: sticky;
         top:96px;
@@ -28,21 +41,40 @@
         margin-right: 29px;
         @include box-shadow-with-hover;
 
+        @include respond-to(tablet) {
+            position: fixed;
+            top: 83vh;
+            height: 88px;
+            width: calc(95vw - 50px);
+            box-shadow: 0 -2px 11px var(--box-shadow-color);
+        }
     }
 
     &__items {
         font-size: 19px;
         display: flex;
         margin-bottom: 19px;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__price {
         font-size: 19px;
         margin-left: auto;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__title {
         font-size: 29px;
+
+        @include respond-to(phone) {
+            font-size: 26px;
+        }
     }
 
     &__buy-button,
@@ -59,6 +91,11 @@
         &:hover {
             background-color: var(--color-primary100);
             border-color: var(--color-primary100);
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 44px;
         }
     }
 
@@ -108,6 +145,33 @@
     margin-bottom: 19px;
     @include box-shadow-with-hover;
 
+    @include respond-to(smallLaptop) {
+        width: calc(95vw - 377px);
+    }
+
+    @include respond-to(tablet) {
+        width: calc(95vw - 50px);
+        padding: 25px;
+    }
+
+    @include respond-to(phone) {
+        padding: 20px;
+        width: calc(95vw - 40px);
+    }
+
+    &__information {
+        display: flex;
+        width: min(40vw, 500px);
+
+        @include respond-to(tablet) {
+            width: calc(80vw - 165px);
+        }
+
+        @include respond-to(phone) {
+            flex-direction: column;
+            width: 54vw;
+        }
+    }
 
     &__image {
         height: 115px;
@@ -120,16 +184,51 @@
         margin: 0 0 0 19px;
         font-size: 19px;
         font-weight: 300;
+
+        @include respond-to(tablet) {
+            width: 50vw;
+            overflow-wrap: anywhere;
+        }
+
+        @include respond-to(phone) {
+            width: unset;
+            margin-top: 10px;
+            font-size: 16px;
+            order: 2;
+        }
     }
 
     &__price {
         font-size: 23px;
         margin: 0 0 0 auto;
+
+        @include respond-to(phone) {
+            font-size: 20px;
+            order: 1;
+            margin-left: 19px;
+        }
+    }
+
+    &__icons {
+        margin-left: auto;
+        width: 70px;
+        display: flex;
+        justify-content: space-between;
+
+        @include respond-to(tablet) {
+            width: 10vw;
+        }
+
+        @include respond-to(phone) {
+            flex-direction: column;
+            height: 70px;
+            width: unset;
+            margin-left: 5px;
+        }
     }
 
     &__like-button {
         cursor: pointer;
-        margin-left: 50px;
         transition: all 0.3s ease;
 
         &:hover > path {
@@ -154,7 +253,6 @@
     }
 
     &__remove-button {
-        margin: 0 0 0 25px;
         align-self:baseline;
         cursor: pointer;
 
@@ -164,6 +262,14 @@
 
         &:hover > path {
             stroke: var(--color-error);
+        }
+    }
+
+    @include respond-to(phone) {
+        &__like-button,
+        &__remove-button {
+            width: 26px;
+            height: 26px;
         }
     }
 }

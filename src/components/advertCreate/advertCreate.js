@@ -67,9 +67,7 @@ export class CreateAdvert {
             const textArea = this.form.querySelector('textarea');
             data['description'] = textArea.value;
 
-            const userId = informationStorage.getUser()?.id;
-
-            const seller = await ajax.get(`/seller/user/${userId}`);
+            const seller = informationStorage.getMeSeller();
             data['seller_id'] = seller.id;
             data['has_delivery'] = false;
             data['status'] = 'active';

@@ -85,7 +85,7 @@ export class CartPage {
 
         removeButtons?.forEach(removeButton => {
             removeButton.addEventListener('click', async (event) => {
-                const advertId = removeButton.parentNode.dataset.advertId;
+                const advertId = removeButton.parentNode.parentNode.dataset.advertId;
                 const data = {
                     advert_id: advertId,
                     cart_id: this.cartId

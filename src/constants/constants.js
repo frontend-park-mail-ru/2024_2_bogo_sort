@@ -59,7 +59,9 @@ export const ROUTES = {
 export const PIPE_NAMES = {
     'updateHeader': {},
     'showAuthForm': {},
-    'showSignupForm': {}
+    'showSignupForm': {},
+    'disableCreateAdvertButton': {},
+    'enableCreateAdvertButton': {},
 };
 
 export const loginData = {
