@@ -164,18 +164,6 @@
             height: fit-content;
             padding: 4.5vw 0;
         }
-
-        @include respond-to(phone) {
-            width: 82vw;
-            height: fit-content;
-            padding: 4.5vw 0;
-        }
-
-        @include respond-to(phone) {
-            width: 82vw;
-            height: fit-content;
-            padding: 4.5vw 0;
-        }
     }
 
     &__details {
