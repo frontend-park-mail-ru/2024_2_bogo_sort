@@ -156,7 +156,7 @@
         }
 
         @include respond-to(tablet) {
-            width: 92.5vw;
+            width: calc(100vw - 76px);
         }
 
         @include respond-to(phone) {
