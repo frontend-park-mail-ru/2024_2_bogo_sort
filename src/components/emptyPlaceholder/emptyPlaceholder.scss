@@ -1,3 +1,5 @@
+@import '../../static/styles/mixins.scss';
+
 .placeholder {
     width: 768px;
     height: 576px;
@@ -5,7 +7,9 @@
     align-items: center;
     justify-content: center;
 
-    
+    @include respond-to(tablet) {
+        height: unset;
+    }
 
     &__content-wrapper {
         display: flex;

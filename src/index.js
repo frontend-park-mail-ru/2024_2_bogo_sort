@@ -20,11 +20,21 @@ import './utils/hbsHelpers.js';
 
 pipe.init(PIPE_NAMES);
 pipe.registerNewCallback('updateHeader', changeHeader);
+pipe.registerNewCallback('disableCreateAdvertButton', disableCreateAdvertButton);
+pipe.registerNewCallback('enableCreateAdvertButton', enableCreateAdvertButton);
 pipe.registerNewCallback('showAuthForm', showAuthForm);
 pipe.registerNewCallback('showSignupForm', showSignupForm);
 
 function changeHeader() {
     return header.changeHeader();
+}
+
+function disableCreateAdvertButton() {
+    return header.disableCreateAdvertButton();
+}
+
+function enableCreateAdvertButton() {
+    return header.enableCreateAdvertButton();
 }
 
 function showAuthForm() {
@@ -40,7 +50,8 @@ function showSignupForm() {
 }
 
 const main = initHeaderAndMain();
-router.init(ROUTES, main);
+const routingEvent = new CustomEvent('pageChange');
+router.init(ROUTES, main, routingEvent);
 router.addNewRouteWithRender('/', renderMain);
 router.addNewRouteWithRender('/advert', renderAdvert);
 router.addNewRouteWithRender('/create', renderCreateAdvert);
@@ -104,13 +115,13 @@ function renderSeller(main, sellerId) {
 function renderLogIn(main) {
     const loginPage = new LogInPage();
 
-    return loginPage.render();
+    return loginPage.render(main);
 }
 
 function renderSignUp(main) {
     const signUpPage = new SignUpPage();
 
-    return signUpPage.render();
+    return signUpPage.render(main);
 }
 
 function renderSearch(main, searchQuery){
@@ -152,6 +163,17 @@ document.addEventListener('click', event => {
         router.goToPage(target.parentNode.pathname);
     }
 });
+
+if(window.matchMedia('(max-width: 1000px)').matches){
+    window.addEventListener('pageChange', () => {
+        const [path, _] = router.getRouteAndParams(window.location.pathname);
+        if(path === '/create' || path === '/edit' || path === '/cart' || path === '/user'){
+            pipe.executeCallback('disableCreateAdvertButton');
+        } else {
+            pipe.executeCallback('enableCreateAdvertButton');
+        }
+    });
+}
 
 function initHeaderAndMain() {
     const root = document.querySelector('#root');

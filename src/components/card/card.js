@@ -29,7 +29,7 @@ export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId)
         if(event.target === likeButton || event.target === path){
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
-    
+
                 return;
             }
             if(likeButton.classList.contains('active')) {
@@ -37,14 +37,15 @@ export function renderCardTemplate(title, price, imageId, id, isLiked, sellerId)
                 if(response.code !== 400) {
                     likeButton.classList.remove('active');
                 }
-                
+
                 return;
-            }
+            } else if(!likeButton.classList.contains('active')){
                 const respone = await ajax.post(`/adverts/saved/${id}`);
                 if(respone.code !== 400) {
                     likeButton.classList.add('active');
+                }
             }
-            
+
             return;
         }
         router.goToPage(`/advert/${id}`);

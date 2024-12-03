@@ -7,7 +7,7 @@ import { Settings } from '../../components/settings/settings.js';
 import ajax from '../../modules/ajax.js';
 import { router } from '../../modules/router.js';
 import { logout } from '../../modules/logout.js';
-import template from '../../components/orders/orders.hbs'
+import template from '../../components/orders/orders.hbs';
 import { renderEmptyPlaceholder } from '../../components/emptyPlaceholder/emptyPlaceholder.js';
 
 export class UserPage {
@@ -103,7 +103,7 @@ export class UserPage {
         title.textContent = 'Мои объявления';
         container.appendChild(title);
 
-        const cards = await ajax.get(`/adverts/my`);
+        const cards = await ajax.get('/adverts/my');
 
         if(cards.length === 0) {
             const data = {
@@ -135,7 +135,7 @@ export class UserPage {
         title.textContent = 'Избранное';
         container.appendChild(title);
 
-        const cards = await ajax.get(`/adverts/saved`);
+        const cards = await ajax.get('/adverts/saved');
 
         if(cards.length === 0) {
             const data = {

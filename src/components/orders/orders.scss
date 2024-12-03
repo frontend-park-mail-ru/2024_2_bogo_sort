@@ -1,3 +1,5 @@
+@import '../../static/styles/mixins.scss';
+
 .orders {
     display: flex;
     flex-direction: column;
@@ -5,12 +7,27 @@
     margin-left: 19px;
     gap: 19px;
 
+    @include respond-to(smallLaptop) {
+        width: 72vw;
+    }
+
+    @include respond-to(tablet) {
+        width: unset;
+        margin-left: 0;
+    }
+
     &__order {
         background-color: white;
         border-radius: 15px;
         box-shadow: 0 4px 5px var(--box-shadow-color);
         height: fit-content;
         padding: 19px;
+
+        @include respond-to(tablet) {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
     }
 
     &__status {
@@ -19,6 +36,17 @@
 
     &__title {
         margin-left: 96px;
+
+        @include respond-to(tablet) {
+            margin: 0;
+        }
+    }
+
+    @include respond-to(phone) {
+        &__status,
+        &__title {
+            font-size: 16px;
+        }
     }
 
     &__empty {

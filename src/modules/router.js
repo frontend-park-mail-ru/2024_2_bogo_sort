@@ -2,9 +2,10 @@ class Router {
     routes;
     main;
 
-    init(routes, main) {
+    init(routes, main, routingEvent = null) {
         this.routes = routes;
         this.main = main;
+        this.routingEvent = routingEvent;
     }
 
     addNewRouteWithRender(route, render) {
@@ -27,6 +28,10 @@ class Router {
             } else {
                 exactRoute.render(this.main);
             }
+        }
+
+        if(this.routingEvent) {
+            dispatchEvent(this.routingEvent);
         }
     }
 

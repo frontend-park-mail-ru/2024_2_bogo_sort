@@ -3,7 +3,6 @@ import { informationStorage } from '../../modules/informationStorage.js';
 import { timestampFormatter } from '../../utils/timestampFormatter.js';
 import { AuthComponent } from '../../components/auth/auth.js';
 import { loginData } from '../../constants/constants.js';
-import { informationStorage } from '../../modules/informationStorage.js';
 import { router } from '../../modules/router.js';
 import template from './obyavlenie.hbs';
 import { pipe } from '../../modules/pipe.js';
@@ -87,7 +86,7 @@ export class AdvertComponent {
         this.addListeners(wrapper, advert.advert.id, me?.id);
 
         return advert;
-    } 
+    }
 
     renderAdTemplate(data) {
         data.sellerPhone = data.sellerPhone === '' ? 'не указан' : data.sellerPhone;
@@ -100,7 +99,7 @@ export class AdvertComponent {
     addListeners(wrapper, advertId, userId) {
         const addToFavourites = wrapper.querySelector('.advert__add-to-favourites');
         const likeButton = addToFavourites.querySelector('.advert__like-button');
-        
+
         addToFavourites?.addEventListener('click', async () => {
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
@@ -222,6 +221,7 @@ export class AdvertComponent {
         const cartId = await ajax.get(`/cart/exists/${me.id}`);
         if(cartId.cart_id === '00000000-0000-0000-0000-000000000000') {
             this.inCart = false;
+            
             return;
         }
         const cart = await ajax.get(`/cart/${cartId.cart_id}`);

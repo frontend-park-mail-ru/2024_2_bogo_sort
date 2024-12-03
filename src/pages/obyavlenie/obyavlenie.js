@@ -21,7 +21,7 @@ export class AdvertPage {
         main.appendChild(wrapper);
 
         const container = document.createElement('div');
-        container.classList.add('cards');
+        container.classList.add('advert-cards');
 
         const cards = await ajax.get(`/adverts/category/${requestedAdvert.advert.category_id}`);
         let cardsWithoutCurrent = 0;

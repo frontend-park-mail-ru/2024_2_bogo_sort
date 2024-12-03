@@ -21,7 +21,7 @@ class InformationStorage {
             return;
         }
 
-        this.#isAuth = true; 
+        this.#isAuth = true;
         await this.proceedAuthenticated();
     }
 
@@ -55,7 +55,7 @@ class InformationStorage {
         return this.#meSeller;
     }
 
-    async setUser(user) {
+    setUser(user) {
         this.#user = user;
         this.#userImageUrl = this.getImageUrl(this.#user.avatar_id);
     }
