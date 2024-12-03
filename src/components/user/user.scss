@@ -5,9 +5,11 @@
     justify-self: center;
     width: 1229px;
     margin-top: 38px;
+    box-sizing: border-box;
 
     @include respond-to(smallLaptop) {
-        width: 95vw;
+        width: 100vw;
+        padding: 0 14px;
     }
 
     @include respond-to(tablet) {
@@ -73,7 +75,7 @@
     top: 96px;
 
     @include respond-to(tablet) {
-        width: calc(95vw - 38px);
+        width: auto;
         position: unset;
         margin-bottom: 30px;
     }
@@ -128,15 +130,15 @@
         flex-direction: row;
         position: fixed;
         bottom: 0;
-        width: calc(100vw - 40px);
+        width: 100%;
         background-color: white;
         padding: 20px;
-        margin-left: calc(-19px - 2.5vw);
+        left: 0;
         justify-content: space-evenly;
+        box-sizing: border-box;
     }
 
     @include respond-to(phone) {
-        width: calc(100vw - 30px);
         padding: 15px;
     }
 

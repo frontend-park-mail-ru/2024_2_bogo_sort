@@ -149,7 +149,7 @@
     &__image {
         width: 806px;
         height: 557px;
-        object-fit: scale-down;
+        object-fit: contain;
 
         @include respond-to(smallLaptop) {
             width: 65vw;
