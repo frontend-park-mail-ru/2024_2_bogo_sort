@@ -9,7 +9,7 @@
 
     @include respond-to(smallLaptop) {
         width: 100vw;
-        padding: 0 14px;
+        padding: 0 2.5vw;
     }
 
     @include respond-to(tablet) {
