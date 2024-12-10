@@ -1,11 +1,20 @@
+@import '../../static/styles/mixins.scss';
+
 .placeholder {
     width: 768px;
     height: 576px;
     display: flex;
     align-items: center;
     justify-content: center;
-
     
+    &.fullScreen {
+        width: unset;
+        height: 100vh;
+    }
+
+    @include respond-to(tablet) {
+        height: unset;
+    }
 
     &__content-wrapper {
         display: flex;

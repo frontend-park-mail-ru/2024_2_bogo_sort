@@ -3,7 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'src/dist'),
         filename: 'bundle.js',
@@ -12,15 +12,23 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|ts)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        sourceMaps: true
+                        sourceMaps: true,
+                        presets: [
+                            ['@babel/preset-typescript', {sourceMaps: 'both', allowNamespaces: true}]
+                        ]
                     }
                 },
             },
+            // {
+            //     test: /\.ts$/,
+            //     use: 'ts-loader',
+            //     exclude: /node_modules/
+            // },
             {
                 test: /\.hbs$/,
                 include: [path.resolve(__dirname, 'src')],
@@ -56,5 +64,14 @@ module.exports = {
             ],
         }),
     ],
+    devServer: {
+        static: {
+            directory: path.join(__dirname, 'src'),
+        },
+        compress: false,
+        hot: true,
+        watchFiles: ['src/**/*'],
+        port: 9000
+    },
     mode: 'development'
 };
