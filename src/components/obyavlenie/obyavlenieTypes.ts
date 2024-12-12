@@ -49,3 +49,16 @@ export interface AdvertTemplateData {
     location: string,
     createdAt: string,
 }
+
+interface AdvertHistory {
+    advertID: string,
+    changedAt: string,
+    id: string,
+    newPrice: number,
+    oldPrice: number 
+}
+
+export interface AdvertPriceHistory {
+    advert_history: AdvertHistory[],
+    advert_id: string
+}
