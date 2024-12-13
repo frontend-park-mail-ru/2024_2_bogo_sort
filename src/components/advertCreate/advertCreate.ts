@@ -59,29 +59,15 @@ export class CreateAdvert {
         this.form?.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            let dataTitle: string, 
-            dataPrice: string, 
-            dataLocation: string, 
-            dataCategoryId: string, 
-            dataDescription: string, 
-            dataSellerId: string, 
-            dataHasDelivery: boolean, 
-            dataStatus: AdvertStatus;
-
             const titleInput = this.form?.querySelector<HTMLInputElement>('#name');
-            dataTitle = titleInput ? titleInput.value : '';
             
             const priceInput = this.form?.querySelector<HTMLInputElement>('#price');
-            dataPrice = priceInput ? priceInput.value: '';
             
             const locationInput = this.form?.querySelector<HTMLInputElement>('#address');
-            dataLocation = locationInput ? locationInput.value : '';
             
             const select = this.form?.querySelector<HTMLSelectElement>('select');
-            dataCategoryId = select ? select.value : '';
 
             const textArea = this.form?.querySelector<HTMLTextAreaElement>('textarea');
-            dataDescription = textArea ? textArea.value : '';
 
             const userId = informationStorage.getUser()?.id;
 
@@ -89,19 +75,16 @@ export class CreateAdvert {
             if(!seller){
                 seller = await ajax.get<ResponseSeller>(`seller/user/${userId}`);
             }
-            dataSellerId = seller.id;
-            dataHasDelivery = false;
-            dataStatus = 'active';
 
             let data: AdvertCreateFormData | null = {
-                title: dataTitle,
-                price: dataPrice,
-                location: dataLocation,
-                category_id: dataCategoryId,
-                description: dataDescription,
-                seller_id: dataSellerId,
-                has_delivery: dataHasDelivery,
-                status: dataStatus
+                title: titleInput ? titleInput.value : '',
+                price: priceInput ? priceInput.value: '',
+                location: locationInput ? locationInput.value : '',
+                category_id: select ? select.value : '',
+                description: textArea ? textArea.value : '',
+                seller_id: seller.id,
+                has_delivery: false,
+                status: 'active'
             };
 
             this.handleFormSubmission(data, updateAdvertId);
