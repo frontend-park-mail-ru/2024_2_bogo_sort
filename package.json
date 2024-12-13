@@ -6,12 +6,13 @@
   "scripts": {
     "lint": "npx eslint",
     "lint-auto-fix": "npx eslint --fix",
-    "compile": "sass --no-source-map --style=compressed src/static/styles/constants.scss:src/static/styles/constants.css src/static/styles/fonts.scss:src/static/styles/fonts.css src/pages/main/main.scss:src/pages/main/main.css src/components/header/header.scss:src/components/header/header.css src/components/emptyPlaceholder/emptyPlaceholder.scss:src/components/emptyPlaceholder/emptyPlaceholder.css src/components/card/card.scss:src/components/card/card.css src/components/auth/auth.scss:src/components/auth/auth.css src/components/obyavlenie/obyavlenie.scss:src/components/obyavlenie/obyavlenie.css src/components/advertCreate/advertCreate.scss:src/components/advertCreate/advertCreate.css src/components/cart/cart.scss:src/components/cart/cart.css src/index.scss:src/index.css src/components/user/user.scss:src/components/user/user.css src/components/settings/settings.scss:src/components/settings/settings.css src/components/orders/orders.scss:src/components/orders/orders.css",
-    "prestart": "npm run compile && handlebars src/components/auth/auth.hbs -f src/components/auth/auth.precompiled.js && handlebars src/components/card/card.hbs -f src/components/card/card.precompiled.js && handlebars src/components/header/header.hbs -f src/components/header/header.precompiled.js && handlebars src/components/obyavlenie/obyavlenie.hbs -f src/components/obyavlenie/obyavlenie.precompiled.js && handlebars src/components/advertCreate/advertCreate.hbs -f src/components/advertCreate/advertCreate.precompiled.js && handlebars src/components/cart/cart.hbs -f src/components/cart/cart.precompiled.js && handlebars src/components/user/user.hbs -f src/components/user/user.precompiled.js && handlebars src/components/settings/settings.hbs -f src/components/settings/settings.precompiled.js && handlebars src/components/orders/orders.hbs -f src/components/orders/orders.precompiled.js",
+    "compile": "sass --no-source-map --style=compressed src/static/styles/constants.scss:src/static/styles/constants.css src/static/styles/fonts.scss:src/static/styles/fonts.css src/pages/main/main.scss:src/pages/main/main.css src/components/header/header.scss:src/components/header/header.css src/components/emptyPlaceholder/emptyPlaceholder.scss:src/components/emptyPlaceholder/emptyPlaceholder.css src/components/card/card.scss:src/components/card/card.css src/components/auth/auth.scss:src/components/auth/auth.css src/components/obyavlenie/obyavlenie.scss:src/components/obyavlenie/obyavlenie.css src/components/advertCreate/advertCreate.scss:src/components/advertCreate/advertCreate.css src/components/cart/cart.scss:src/components/cart/cart.css src/index.scss:src/index.css src/components/user/user.scss:src/components/user/user.css src/components/settings/settings.scss:src/components/settings/settings.css src/components/orders/orders.scss:src/components/orders/orders.css src/components/modalWithOverlay/modalWithOverlay.scss:src/components/modalWithOverlay/modalWithOverlay.css",
+    "prestart": "npm run compile",
     "start": "node server/server.js",
     "build:prod": "webpack --config webpack.prod.js",
     "build:dev": "webpack --config webpack.dev.js",
-    "wStart": "webpack serve --config webpack.config.js"
+    "wStart": "webpack serve --config webpack.dev.js",
+    "ts": "tsc"
   },
   "repository": {
     "type": "git",
@@ -23,24 +24,27 @@
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "babel-loader": "^9.2.1",
-    "eslint": "^9.11.1",
-    "handlebars-loader": "^1.7.3",
-    "serviceworker-webpack5-plugin": "^2.0.0",
-    "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^12.0.2",
     "css-minimizer-webpack-plugin": "^7.0.0",
+    "eslint": "^9.11.1",
+    "handlebars-loader": "^1.7.3",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
-    "sass-loader": "^16.0.3"
+    "sass-loader": "^16.0.3",
+    "serviceworker-webpack5-plugin": "^2.0.0",
+    "typescript": "^5.7.2",
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   },
   "dependencies": {
+    "@babel/preset-typescript": "^7.26.0",
     "dependencies": "^0.0.1",
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
     "path": "^0.12.7",
-    "sass": "^1.79.5"
-    }
+    "sass": "^1.79.5",
+    "ts-loader": "^9.5.1"
+  }
 }

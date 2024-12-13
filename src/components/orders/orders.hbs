@@ -2,9 +2,28 @@
 {{#if notEmpty}}
 <section class="user__orders orders">
     {{#each orders}}
-    <div class="orders__order">
-        <span class="orders__status">{{this.status}}</span>
-        <span class="orders__title">Заказ №{{this.id}}</span>
+    <div class="orders__order order">
+        <div class="order__main-information-wrapper">
+            <img class="order__image" src="{{this.image_url}}">
+            <section class="order__advert-information">
+                <h4 class="order__price">{{this.price}}₽</h4>
+                <span class="order__title">{{this.title}}</span>
+                <address class="order__address">
+                    <img src="../../static/images/location.svg">
+                    {{this.address}}
+                </address>
+                <span class="order__phone">
+                    <img src="../../static/images/phone.svg">
+                    {{this.sellerPhone}}
+                </span>
+            </section>
+        </div>
+        <div class="order__vertical-line"></div>
+        <section class="order__order-information">
+            <span class="order__delivery-method">{{this.delivery_method}}</span>
+            <span class="order__status">{{this.status}}</span>
+            <span class="order__number">Заказ №{{this.id}}</span>
+        </section>
     </div>
     {{/each}}
 </section>

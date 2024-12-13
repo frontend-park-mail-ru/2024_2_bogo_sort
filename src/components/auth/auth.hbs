@@ -27,12 +27,12 @@
                     <label for="{{this.name}}" class="input__label">{{this.placeholder}}</label>
                     {{#if (eq this.name "password" this.form "signup")}}
                     <span class="input__tooltiptext">Пароль должен содержать от 8 до 20 символов, включая заглавные и строчные
-                        буквы, цифры и специальные символы</span>
+                        буквы, цифры и специальные символы из набора: ! @ # $ % ^ & *</span>
                     {{/if}}
                 </div>
                 {{/each}}
                 <button type="submit" class="form__enter">{{buttontitle}}</button>
-                <span class="form__change-button">{{pretext}} <span class="form__change-button change-button">{{anchortext}}</span></span>
+                <span class="form__change-button">{{pretext}} <span class="form__change-button link change-button">{{anchortext}}</span></span>
             </div>
         </div>
     </div>

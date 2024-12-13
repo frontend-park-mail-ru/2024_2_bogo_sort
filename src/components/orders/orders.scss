@@ -5,6 +5,7 @@
     flex-direction: column;
     width: 845px;
     margin-left: 19px;
+    margin-bottom: 30px;
     gap: 19px;
 
     @include respond-to(smallLaptop) {
@@ -14,39 +15,7 @@
     @include respond-to(tablet) {
         width: unset;
         margin-left: 0;
-    }
-
-    &__order {
-        background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 4px 5px var(--box-shadow-color);
-        height: fit-content;
-        padding: 19px;
-
-        @include respond-to(tablet) {
-            display: flex;
-            flex-direction: column;
-            margin: 0;
-        }
-    }
-
-    &__status {
-        font-weight: 600;
-    }
-
-    &__title {
-        margin-left: 96px;
-
-        @include respond-to(tablet) {
-            margin: 0;
-        }
-    }
-
-    @include respond-to(phone) {
-        &__status,
-        &__title {
-            font-size: 16px;
-        }
+        margin-bottom: 100px;
     }
 
     &__empty {
@@ -70,6 +39,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            @include respond-to(tablet) {
+                width: unset;
+                height: unset;
+            }
         }
 
         &-image {
@@ -100,4 +74,116 @@
             border-color: var(--color-primary100);
         }
     }
+}
+
+.order {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 5px var(--box-shadow-color);
+    height: fit-content;
+    padding: 19px;
+    display: flex;
+
+    @media (max-width: 800px) {
+        flex-wrap: wrap;
+    }
+
+    @include respond-to(phone) {
+        font-size: 14px;
+    }
+
+    &__main-information-wrapper {
+        display: flex;
+        width: 70%;
+        @include respond-to(phone) {
+            width: 100%;
+        }
+    }
+
+    &__image {
+        width: 150px;
+        height: 150px;
+        border-radius: 10px;
+        object-fit: cover;
+        
+        @include respond-to(phone) {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    &__advert-information {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+        gap: 20px;
+    }
+
+    &__order-information {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-left: 20px;
+
+        @media (max-width: 800px) {
+            margin-left: 165px;
+        }
+
+        @include respond-to(phone) {
+            margin-left: 115px;
+        }
+    }
+
+    &__phone {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &__price {
+        margin-block: 0;
+        font-size: 20px;
+    }
+
+    &__vertical-line {
+        width: 1px;
+        height: initial;
+        background-color: var(--color-secondary25);
+        
+        @media (max-width: 800px) {
+            display: none;
+        }
+    }
+
+    &__delivery-method {
+        @media (max-width: 800px) {
+            margin-top: 10px;
+        }
+    }
+
+    &__status {
+        font-weight: 600;
+    }
+
+    &__address {
+        font-style: normal;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    &__title {
+
+        @include respond-to(tablet) {
+            margin: 0;
+        }
+    }
+
+    @include respond-to(phone) {
+        &__status,
+        &__title {
+            font-size: 14px;
+        }
+    }
+
 }

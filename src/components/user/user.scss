@@ -9,7 +9,16 @@
 
     @include respond-to(smallLaptop) {
         width: 100vw;
-        padding: 0 14px;
+        padding: 0 2.5vw;
+    }
+
+    @include respond-to(tablet) {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    @include respond-to(smallLaptop) {
+        width: 95vw;
     }
 
     @include respond-to(tablet) {

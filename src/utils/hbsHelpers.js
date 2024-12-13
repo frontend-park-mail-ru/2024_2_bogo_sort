@@ -27,4 +27,8 @@ Handlebars.registerHelper('eq-or', function (a, b, c) {
     return a === b || a === c;
 });
 
+Handlebars.registerHelper('or', function(a, b, c) {
+    return a | b | c;
+});
+
 module.exports = Handlebars;

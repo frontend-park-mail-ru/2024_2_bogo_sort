@@ -6,6 +6,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    &.fullScreen {
+        width: unset;
+        height: 100vh;
+    }
 
     @include respond-to(tablet) {
         height: unset;
