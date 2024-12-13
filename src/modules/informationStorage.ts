@@ -46,7 +46,12 @@ class InformationStorage {
     }
 
     async getCateogies() {
-        this.categories ??= await ajax.get<ResponseCategories>('/categories') as ResponseCategories;
+        if(!this.categories){ 
+            let response = await ajax.get<ResponseCategories>('/categories');
+            if(response.code !== 400) {
+                this.categories = response as ResponseCategories;
+            }
+        }
 
         return this.categories;
     }

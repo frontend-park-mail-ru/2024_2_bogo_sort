@@ -2,31 +2,39 @@ import { AdvertCards } from "../../constants/sharedTypes.ts";
 
 export enum PurchaseStatus {
     Pending = 'pending',
-    PendingRus = 'В ожидании',
     InProgress = 'in_progress',
-    InProgressRus = 'Активен',
     Completed = 'completed',
-    CompletedRus = 'Завершен',
     Cancelled = 'cancelled',
-    CancelledRus = 'Отменен',
 }
+
+export const PURCHASE_STATUS_MAPPING = {
+    [PurchaseStatus.Pending]: 'В ожидании',
+    [PurchaseStatus.InProgress]: 'Активен',
+    [PurchaseStatus.Completed]: 'Завершен',
+    [PurchaseStatus.Cancelled]: 'Отменен',
+}
+
 
 export enum DeliveryMethod { 
     Pickup = 'pickup',
-    PickupRus = 'Самовывоз у продавца',
     Delivery = 'delivery',
-    DeliveryRus = 'Доставка',
 }
+
+export const DELIVERY_METHOD_MAPPING = {
+    [DeliveryMethod.Pickup]: 'Самовывоз у продавца',
+    [DeliveryMethod.Delivery]:'Доставка',
+}
+
 type PaymentMethod = 'cash' | 'card';
 
 export interface Purchase {
     address: string,
     customer_id: string,
-    delivery_method: DeliveryMethod,
+    delivery_method: DeliveryMethod | string,
     id: string,
     payment_method: PaymentMethod,
     seller_id: string,
-    status: PurchaseStatus,
+    status: PurchaseStatus | string,
     adverts: AdvertCards,
     image_url?: string,
     price?: number,

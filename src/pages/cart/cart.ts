@@ -142,8 +142,8 @@ export class CartPage {
         });
 
         const form = modal.querySelector('form');
-            const addressInput = modal.querySelector<HTMLInputElement>('#address');
-            const select = modal.querySelector<HTMLSelectElement>('.modal-form__select');
+        const addressInput = modal.querySelector<HTMLInputElement>('#address');
+        const select = modal.querySelector<HTMLSelectElement>('.modal-form__select');
         select?.addEventListener('change', (event: Event) => {
             const addressLabel = modal.querySelector('#address-label');
             if((event.target as HTMLSelectElement).value === 'pickup') {

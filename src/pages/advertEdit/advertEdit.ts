@@ -18,9 +18,9 @@ export class AdvertEditPage {
         wrapper.innerHTML += template.renderAdvertCreation({category: createAdvertCategories, imagePreview: true});
 
         const titleElement = wrapper.querySelector<HTMLElement>('.create-advert__title');
-        if(titleElement)
+        if(titleElement){
             titleElement.innerText = 'Редактирование объявления';
-
+        }
         main.appendChild(wrapper);
         this.fillData(advertId, wrapper);
         this.addListeners(wrapper, template, advertId);
@@ -33,32 +33,33 @@ export class AdvertEditPage {
             router.goToPage('/');
         }
         const select = wrapper.querySelector<HTMLSelectElement>('.advert-form__select');
-        if(select)
+        if(select){
             select.value = advert.advert.category_id;
-
+        }
         const nameInput = wrapper.querySelector<HTMLInputElement>('.advert-form__name-input');
-        if(nameInput)
+        if(nameInput){
             nameInput.value = advert.advert.title;
-
+        }
         const priceInput = wrapper.querySelector<HTMLInputElement>('.advert-form__price-input');
-        if(priceInput)
+        if(priceInput){
             priceInput.value = String(advert.advert.price);
-
+        }
         const descriptionInput = wrapper.querySelector<HTMLInputElement>('.advert-form__description-input');
-        if(descriptionInput)
+        if(descriptionInput){
             descriptionInput.value = advert.advert.description;
-
+        }
         const addressInput = wrapper.querySelector<HTMLInputElement>('.advert-form__address-input')
-        if(addressInput)
+        if(addressInput){
             addressInput.value = advert.advert.location;
-
+        }
         const imageElement =  wrapper.querySelector<HTMLImageElement>('.advert-form__upload-box-image');
-        if(imageElement)
+        if(imageElement){
             imageElement.src = IMAGE_URL + advert.advert.image_id;
-
+        }
         const submitButton = wrapper.querySelector<HTMLButtonElement>('.advert-form__submit');
-        if(submitButton)
+        if(submitButton){
             submitButton.textContent = 'Сохранить изменения';
+        }
     }
 
     addListeners(wrapper: HTMLElement, template: CreateAdvert, advertId: string) {

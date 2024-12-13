@@ -79,12 +79,13 @@ export class AdvertComponent {
 
         if(window.matchMedia('(max-width: 1000px)').matches) {
             const sellerSection = wrapper.querySelector('.seller');
-            if(sellerSection)
+            if(sellerSection){
                 wrapper.querySelector('.description')?.appendChild(sellerSection);
-
+            }
             const titleWrapper = wrapper.querySelector('.advert__title-wrapper');
-            if(titleWrapper)
+            if(titleWrapper){
                 wrapper.querySelector('.advert__price')?.insertAdjacentElement('afterend', titleWrapper);
+            }
         }
 
         if(data.inactive) {

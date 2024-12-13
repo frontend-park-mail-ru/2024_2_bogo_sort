@@ -4,6 +4,7 @@ import { router } from '@modules/router.ts';
 import template from './advertCreate.hbs';
 import { AdvertCreated, AdvertCreateFormData, AdvertCreateTemplateData } from './advertCreateTypes.ts';
 import { ResponseAdvertPost, ResponseSeller } from '@modules/ajaxTypes.ts';
+import { AdvertStatus } from '@constants/sharedTypes.ts';
 
 export class CreateAdvert {
     form: Element | null = null;
@@ -58,36 +59,29 @@ export class CreateAdvert {
         this.form?.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            let data: AdvertCreateFormData | null = {
-                title: '',
-                price: '',
-                location: '',
-                category_id: '',
-                description: '',
-                seller_id: '',
-                has_delivery: false,
-                status: 'active'
-            };
+            let dataTitle: string, 
+            dataPrice: string, 
+            dataLocation: string, 
+            dataCategoryId: string, 
+            dataDescription: string, 
+            dataSellerId: string, 
+            dataHasDelivery: boolean, 
+            dataStatus: AdvertStatus;
 
             const titleInput = this.form?.querySelector<HTMLInputElement>('#name');
-            if(titleInput)
-                data.title = titleInput?.value;
-
+            dataTitle = titleInput ? titleInput.value : '';
+            
             const priceInput = this.form?.querySelector<HTMLInputElement>('#price');
-            if(priceInput)
-                data.price = priceInput.value;
-
+            dataPrice = priceInput ? priceInput.value: '';
+            
             const locationInput = this.form?.querySelector<HTMLInputElement>('#address');
-            if(locationInput)
-                data.location = locationInput.value;
-
+            dataLocation = locationInput ? locationInput.value : '';
+            
             const select = this.form?.querySelector<HTMLSelectElement>('select');
-            if(select)
-                data.category_id = select.value;
+            dataCategoryId = select ? select.value : '';
 
             const textArea = this.form?.querySelector<HTMLTextAreaElement>('textarea');
-            if(textArea)
-                data.description = textArea.value;
+            dataDescription = textArea ? textArea.value : '';
 
             const userId = informationStorage.getUser()?.id;
 
@@ -95,9 +89,20 @@ export class CreateAdvert {
             if(!seller){
                 seller = await ajax.get<ResponseSeller>(`seller/user/${userId}`);
             }
-            data.seller_id = seller.id;
-            data.has_delivery = false;
-            data.status = 'active';
+            dataSellerId = seller.id;
+            dataHasDelivery = false;
+            dataStatus = 'active';
+
+            let data: AdvertCreateFormData | null = {
+                title: dataTitle,
+                price: dataPrice,
+                location: dataLocation,
+                category_id: dataCategoryId,
+                description: dataDescription,
+                seller_id: dataSellerId,
+                has_delivery: dataHasDelivery,
+                status: dataStatus
+            };
 
             this.handleFormSubmission(data, updateAdvertId);
         });
@@ -129,28 +134,13 @@ export class CreateAdvert {
 
         data.price = Number(data.price);
 
-        let advert: AdvertCreated = {
-            category_id: '',
-            created_at: '',
-            description: '',
-            has_delivery: false,
-            id: '',
-            image_id: '',
-            location: '',
-            price: 0,
-            saves_number: 0,
-            seller_id: '',
-            status: 'active',
-            title: '',
-            updated_at: '',
-            views_number: 0
-        };
+        let advertId: string;
 
         if(updateAdvertId){
             await ajax.put(`/adverts/${updateAdvertId}`, data);
-            advert.id = updateAdvertId;
+            advertId = updateAdvertId;
         } else {
-            advert = await ajax.post<ResponseAdvertPost, AdvertCreateFormData>('/adverts', data) as ResponseAdvertPost;
+            advertId = (await ajax.post<ResponseAdvertPost, AdvertCreateFormData>('/adverts', data) as ResponseAdvertPost).id;
         }
 
         const imageInput = this.form?.querySelector('.advert-form__image-input') as HTMLInputElement;
@@ -158,10 +148,10 @@ export class CreateAdvert {
         if(image){
             const formData = new FormData();
             formData.append('image', image);
-            await ajax.imagePut(`/adverts/${advert.id}/image`, formData);
+            await ajax.imagePut(`/adverts/${advertId}/image`, formData);
         }
 
-        router.goToPage(`/advert/${advert.id}`);
+        router.goToPage(`/advert/${advertId}`);
     }
 
     displayInputErrors(errors: Set<string>) {

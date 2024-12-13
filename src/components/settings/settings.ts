@@ -37,17 +37,17 @@ export class Settings {
         this.me = informationStorage.getUser();
         if(this.me){
             const nameInput = wrapper.querySelector<HTMLInputElement>('.settings-form__name-input')
-            if(nameInput)
+            if(nameInput){
                 nameInput.value = this.me.username;
-
+            }
             const emailInput = wrapper.querySelector<HTMLInputElement>('.settings-form__email-input');
-            if(emailInput)
+            if(emailInput){
                 emailInput.value = this.me.email;
-
+            }
             const phoneInput = wrapper.querySelector<HTMLInputElement>('.settings-form__phone-input');
-            if(phoneInput)
+            if(phoneInput){
                 phoneInput.value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
-
+            }
             const userImgUrl = informationStorage.getUserImgUrl();
             if(userImgUrl){
                 const userImage = wrapper.querySelector<HTMLImageElement>('.settings-form__upload-box-image'); 
@@ -93,19 +93,19 @@ export class Settings {
             };
 
             const usernameInput = wrapper.querySelector<HTMLInputElement>('.settings-form__name-input');
-            if(usernameInput)
+            if(usernameInput){
                 data.username = usernameInput.value;
-
+            }
             const emailInput = wrapper.querySelector<HTMLInputElement>('.settings-form__email-input');
-            if(emailInput)
+            if(emailInput){
                 data.email = emailInput.value;
-
+            }
             const phoneInput = wrapper.querySelector<HTMLInputElement>('.settings-form__phone-input');
             const pattern = /\+7\s*\(\s*(\d{3})\s*\)\s*(\d{3})-(\d{2})-(\d{2})/;
             const replacement = '+7$1$2$3$4';
-            if(phoneInput)
+            if(phoneInput){
                 data.phone = phoneInput.value.replace(pattern, replacement);
-
+            }
             if(this.me){
                 data.id = this.me.id;
             }

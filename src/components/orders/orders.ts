@@ -1,5 +1,5 @@
 import template from './orders.hbs';
-import { DeliveryMethod, OrdersTemplateData } from './ordersTypes.ts';
+import { DELIVERY_METHOD_MAPPING, DeliveryMethod, OrdersTemplateData, PURCHASE_STATUS_MAPPING } from './ordersTypes.ts';
 import { informationStorage } from '@modules/informationStorage.ts';
 import ajax from '@modules/ajax.ts';
 import { ResponseSeller, ResponseUser } from '@modules/ajaxTypes.ts';
@@ -11,32 +11,10 @@ export async function renderOrders(data: OrdersTemplateData) {
     }
     const orders = data.orders;
     for(const order of orders) {
-        switch(order.status) {
-            case PurchaseStatus.Pending:
-                order.status = PurchaseStatus.PendingRus;
-                break;
-            case PurchaseStatus.InProgress:
-                order.status = PurchaseStatus.InProgressRus;
-                break;
-            case PurchaseStatus.Completed:
-                order.status = PurchaseStatus.CompletedRus;
-                break;
-            case PurchaseStatus.Cancelled:
-                order.status = PurchaseStatus.CancelledRus;
-                break;
-        }
+        order.status = PURCHASE_STATUS_MAPPING[order.status as PurchaseStatus];
 
-        switch(order.delivery_method){
-            case DeliveryMethod.Pickup:
-                order.delivery_method = DeliveryMethod.PickupRus;
-                if(order.address === ''){
-                    order.address = order.adverts[0].preview.location;
-                }
-                break;
-            case DeliveryMethod.Delivery:
-                order.delivery_method = DeliveryMethod.DeliveryRus;
-                break;
-        }
+        order.delivery_method = DELIVERY_METHOD_MAPPING[order.delivery_method as DeliveryMethod];
+
         const advert = order.adverts[0];
         order.id = order.id.slice(0, order.id.indexOf('-'));
         order.image_url = informationStorage.getImageUrl(advert.preview.image_id);

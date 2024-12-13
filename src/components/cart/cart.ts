@@ -42,9 +42,10 @@ export class Cart {
         });
 
         const priceElement = wrapper.querySelector<HTMLElement>('.cart__price')
-        if(priceElement)
+        if(priceElement){
             priceElement.innerText = String(totalCost) + '₽';
-
+        }
+        
         return adverts;
     }
 
