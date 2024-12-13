@@ -1,10 +1,10 @@
-import { informationStorage } from '../../modules/informationStorage.ts';
-import ajax from '../../modules/ajax.ts';
-import { timestampFormatter } from '../../utils/timestampFormatter.ts';
-import { renderUser } from '../../components/user/user.ts';
-import { renderCardTemplate } from '../../components/card/card.ts';
-import { ResponseAdvertCards, ResponseSeller, ResponseUser } from '../../modules/ajaxTypes.ts';
-import { UserTemplateData } from '../../components/user/userTypes.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import ajax from '@modules/ajax.ts';
+import { timestampFormatter } from '@utils/timestampFormatter.ts';
+import { renderUser } from '@components/user/user.ts';
+import { renderCardTemplate } from '@components/card/card.ts';
+import { ResponseAdvertCards, ResponseSeller, ResponseUser } from '@modules/ajaxTypes.ts';
+import { UserTemplateData } from '@components/user/userTypes.ts';
 
 export class SellerPage {
     sellerId: string | null = null;

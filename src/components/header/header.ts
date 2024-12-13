@@ -1,8 +1,8 @@
-import { pipe } from '../../modules/pipe.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { headerData } from '../../constants/constants.ts';
-import { router } from '../../modules/router.ts';
-import { logout } from '../../modules/logout.ts';
+import { pipe } from '@modules/pipe.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { headerData } from '@constants/constants.ts';
+import { router } from '@modules/router.ts';
+import { logout } from '@modules/logout.ts';
 import template from './header.hbs';
 
 class Header {
@@ -123,7 +123,7 @@ class Header {
 
         const searchbar = this.#wrapper.querySelector('.searchbar');
         const searchButton = this.#wrapper.querySelector('.searchbar__find-button');
-        const searchInput = this.#wrapper.querySelector('.searchbar__input');
+        const searchInput = this.#wrapper.querySelector<HTMLInputElement>('.searchbar__input');
         searchInput?.addEventListener('focus', () => {
             if(searchbar?.classList.contains('focus')) {
                 searchbar.classList.remove('focus');
@@ -139,8 +139,11 @@ class Header {
 
         searchbar?.addEventListener('submit', (event) => {
             event.preventDefault();
-            const query = (searchInput as HTMLInputElement).value;
-            if(query.length !== 0){
+            let query: string | null = null;
+            if(searchInput)
+                query = searchInput.value;
+
+            if(query?.length !== 0){
                 router.goToPage(`/search/${query}`);
             }
         });

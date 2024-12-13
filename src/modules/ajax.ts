@@ -1,6 +1,6 @@
 'use strict';
 
-import { BACKEND_BASE_URL } from '../constants/constants.ts';
+import { BACKEND_BASE_URL } from '@constants/constants.ts';
 import { ResponseError } from './ajaxTypes.ts';
 import { informationStorage } from './informationStorage.ts';
 

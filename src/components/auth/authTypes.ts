@@ -17,7 +17,7 @@ export interface AuthTemplateData {
     title: string,
     info: string,
     inputs: Input[],
-    buttontitle: string,
+    buttonTitle: string,
     pretext: string,
-    anchortext: string
+    anchorText: string
 }

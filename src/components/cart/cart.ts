@@ -1,5 +1,5 @@
-import { AdvertCards } from '../../constants/sharedTypes.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
+import { AdvertCards } from '@constants/sharedTypes.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
 import template from './cart.hbs';
 import { CartTemplateData } from './cartTypes.ts';
 
@@ -41,7 +41,9 @@ export class Cart {
             totalCost += Number(advert.preview.price);
         });
 
-        (wrapper.querySelector('.cart__price') as HTMLElement).innerText = String(totalCost) + '₽';
+        const priceElement = wrapper.querySelector<HTMLElement>('.cart__price')
+        if(priceElement)
+            priceElement.innerText = String(totalCost) + '₽';
 
         return adverts;
     }

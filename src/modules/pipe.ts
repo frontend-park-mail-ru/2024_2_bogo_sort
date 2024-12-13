@@ -1,4 +1,4 @@
-import { PipeNames } from "../constants/sharedTypes.ts";
+import { PipeNames } from "@constants/sharedTypes.ts";
 
 class Pipe {
     #namesWithCallbacks: PipeNames | undefined;

@@ -1,13 +1,13 @@
-import { informationStorage } from '../../modules/informationStorage.ts';
-import ajax from '../../modules/ajax.ts';
-import { pipe } from '../../modules/pipe.ts';
-import { validateEmail } from '../../utils/validation.ts';
-import { formatPhone } from '../../utils/formatPhone.ts';
-import { router } from '../../modules/router.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import ajax from '@modules/ajax.ts';
+import { pipe } from '@modules/pipe.ts';
+import { validateEmail } from '@utils/validation.ts';
+import { formatPhone } from '@utils/formatPhone.ts';
+import { router } from '@modules/router.ts';
 import template from './settings.hbs';
-import { User } from '../../constants/sharedTypes.ts';
+import { User } from '@constants/sharedTypes.ts';
 import { SettingsData } from './settingsTypes.ts';
-import { ResponseUser } from '../../modules/ajaxTypes.ts';
+import { ResponseUser } from '@modules/ajaxTypes.ts';
 
 export class Settings {
     me: User | null = null;
@@ -23,8 +23,8 @@ export class Settings {
             const reader = new FileReader();
 
             reader.onload = function(e) {
-                const preview = document.querySelector('.settings-form__upload-box-image') as HTMLImageElement;
-                if (e.target?.result && typeof e.target.result === 'string') {
+                const preview = document.querySelector<HTMLImageElement>('.settings-form__upload-box-image');
+                if (e.target?.result && typeof e.target.result === 'string' && preview) {
                     preview.src = e.target.result;
                 }
             };
@@ -36,12 +36,23 @@ export class Settings {
     fillData(wrapper: HTMLElement) {
         this.me = informationStorage.getUser();
         if(this.me){
-            (wrapper.querySelector('.settings-form__name-input') as HTMLInputElement).value = this.me.username;
-            (wrapper.querySelector('.settings-form__email-input') as HTMLInputElement).value = this.me.email;
-            (wrapper.querySelector('.settings-form__phone-input') as HTMLInputElement).value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
+            const nameInput = wrapper.querySelector<HTMLInputElement>('.settings-form__name-input')
+            if(nameInput)
+                nameInput.value = this.me.username;
+
+            const emailInput = wrapper.querySelector<HTMLInputElement>('.settings-form__email-input');
+            if(emailInput)
+                emailInput.value = this.me.email;
+
+            const phoneInput = wrapper.querySelector<HTMLInputElement>('.settings-form__phone-input');
+            if(phoneInput)
+                phoneInput.value = this.me.phone === '' ? '' : formatPhone(this.me.phone);
+
             const userImgUrl = informationStorage.getUserImgUrl();
             if(userImgUrl){
-                (wrapper.querySelector('.settings-form__upload-box-image') as HTMLImageElement).src = userImgUrl;
+                const userImage = wrapper.querySelector<HTMLImageElement>('.settings-form__upload-box-image'); 
+                if(userImage)
+                    userImage.src = userImgUrl;
             }
         }
 
@@ -60,7 +71,7 @@ export class Settings {
             this.previewImage(upload);
         });
 
-        const phoneInput = wrapper.querySelector('.settings-form__phone-input') as HTMLInputElement | null;
+        const phoneInput = wrapper.querySelector<HTMLInputElement>('.settings-form__phone-input');
         phoneInput?.addEventListener('input', () => {
             phoneInput.value = formatPhone(phoneInput.value);
         });
@@ -81,16 +92,19 @@ export class Settings {
                 id: ''
             };
 
-            const usernameInput = wrapper.querySelector('.settings-form__name-input') as HTMLInputElement;
-            data.username = usernameInput.value;
+            const usernameInput = wrapper.querySelector<HTMLInputElement>('.settings-form__name-input');
+            if(usernameInput)
+                data.username = usernameInput.value;
 
-            const emailInput = wrapper.querySelector('.settings-form__email-input') as HTMLInputElement;
-            data.email = emailInput.value;
+            const emailInput = wrapper.querySelector<HTMLInputElement>('.settings-form__email-input');
+            if(emailInput)
+                data.email = emailInput.value;
 
-            const phoneInput = wrapper.querySelector('.settings-form__phone-input') as HTMLInputElement;
+            const phoneInput = wrapper.querySelector<HTMLInputElement>('.settings-form__phone-input');
             const pattern = /\+7\s*\(\s*(\d{3})\s*\)\s*(\d{3})-(\d{2})-(\d{2})/;
             const replacement = '+7$1$2$3$4';
-            data.phone = phoneInput.value.replace(pattern, replacement);
+            if(phoneInput)
+                data.phone = phoneInput.value.replace(pattern, replacement);
 
             if(this.me){
                 data.id = this.me.id;
@@ -123,8 +137,8 @@ export class Settings {
 
         await ajax.put('/profile', data);
 
-        const imageInput = document.querySelector('.settings-form__image-input') as HTMLInputElement;
-        const image = imageInput.files?.[0];
+        const imageInput = document.querySelector<HTMLInputElement>('.settings-form__image-input');
+        const image = imageInput?.files?.[0];
         if(image){
             const formData = new FormData();
             formData.append('image', image);
@@ -136,28 +150,28 @@ export class Settings {
         router.goToPage('/user/settings');
     }
 
-    displayInputErrors(errors: Set<string>) {
+    displayInputErrors(errors: Set<string | null>) {
         const inputs = [];
         if(errors.has('username')) {
-            const nameInput = document.querySelector('.settings-form__name-input') as HTMLElement;
-            nameInput.classList.add('error');
+            const nameInput = document.querySelector('.settings-form__name-input');
+            nameInput?.classList.add('error');
             inputs.push(nameInput);
         }
 
         if(errors.has('email')) {
-            const emailInput = document.querySelector('.settings-form__email-input') as HTMLElement;
-            emailInput.classList.add('error');
+            const emailInput = document.querySelector('.settings-form__email-input');
+            emailInput?.classList.add('error');
             inputs.push(emailInput);
         }
 
         if(errors.has('phone')) {
-            const phoneInput = document.querySelector('.settings-form__phone-input') as HTMLElement;
-            phoneInput.classList.add('error');
+            const phoneInput = document.querySelector('.settings-form__phone-input');
+            phoneInput?.classList.add('error');
             inputs.push(phoneInput);
         }
 
         inputs.forEach(input => {
-            input.addEventListener('input', () => {
+            input?.addEventListener('input', () => {
                 input.classList.remove('error');
             });
         });

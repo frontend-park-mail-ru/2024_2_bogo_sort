@@ -1,10 +1,9 @@
 import template from './orders.hbs';
-import { OrdersTemplateData } from './ordersTypes.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import ajax from '../../modules/ajax.ts';
-import { ResponseSeller, ResponseUser } from '../../modules/ajaxTypes.ts';
-import { EmptyPlaceholderTemplateData } from '../emptyPlaceholder/emptyPlaceholderTypes.ts';
-import { renderEmptyPlaceholder } from '../emptyPlaceholder/emptyPlaceholder.ts';
+import { DeliveryMethod, OrdersTemplateData } from './ordersTypes.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import ajax from '@modules/ajax.ts';
+import { ResponseSeller, ResponseUser } from '@modules/ajaxTypes.ts';
+import { PurchaseStatus } from './ordersTypes.ts';
 
 export async function renderOrders(data: OrdersTemplateData) {
     if(!data.orders){
@@ -13,29 +12,29 @@ export async function renderOrders(data: OrdersTemplateData) {
     const orders = data.orders;
     for(const order of orders) {
         switch(order.status) {
-            case 'pending':
-                order.status = 'В ожидании';
+            case PurchaseStatus.Pending:
+                order.status = PurchaseStatus.PendingRus;
                 break;
-            case 'in_progress':
-                order.status = 'Активен';
+            case PurchaseStatus.InProgress:
+                order.status = PurchaseStatus.InProgressRus;
                 break;
-            case 'completed':
-                order.status = 'Завершен';
+            case PurchaseStatus.Completed:
+                order.status = PurchaseStatus.CompletedRus;
                 break;
-            case 'cancelled':
-                order.status = 'Отменен';
+            case PurchaseStatus.Cancelled:
+                order.status = PurchaseStatus.CancelledRus;
                 break;
         }
 
         switch(order.delivery_method){
-            case 'pickup':
-                order.delivery_method = 'Самовывоз у продавца';
+            case DeliveryMethod.Pickup:
+                order.delivery_method = DeliveryMethod.PickupRus;
                 if(order.address === ''){
                     order.address = order.adverts[0].preview.location;
                 }
                 break;
-            case 'delivery':
-                order.delivery_method = 'Доставка';
+            case DeliveryMethod.Delivery:
+                order.delivery_method = DeliveryMethod.DeliveryRus;
                 break;
         }
         const advert = order.adverts[0];

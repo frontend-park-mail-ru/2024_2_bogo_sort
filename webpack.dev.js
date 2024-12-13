@@ -24,11 +24,6 @@ module.exports = {
                     }
                 },
             },
-            // {
-            //     test: /\.ts$/,
-            //     use: 'ts-loader',
-            //     exclude: /node_modules/
-            // },
             {
                 test: /\.hbs$/,
                 include: [path.resolve(__dirname, 'src')],
@@ -71,6 +66,16 @@ module.exports = {
         hot: true,
         watchFiles: ['src/**/*'],
         port: 9000
+    },
+    resolve: {
+        alias: {
+          '@components': path.resolve(__dirname, 'src/components/'),
+          '@pages': path.resolve(__dirname, 'src/pages/'),
+          '@modules': path.resolve(__dirname, 'src/modules/'),
+          '@constants': path.resolve(__dirname, 'src/constants/'),
+          '@utils': path.resolve(__dirname, 'src/utils/')
+        },
+        extensions: ['.js', '.ts']
     },
     mode: 'development'
 };

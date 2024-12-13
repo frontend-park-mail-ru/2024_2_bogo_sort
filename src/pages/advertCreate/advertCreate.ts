@@ -1,10 +1,10 @@
-import { CreateAdvert } from '../../components/advertCreate/advertCreate.ts';
-import { headerData } from '../../constants/constants.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { router } from '../../modules/router.ts';
-import { Category } from '../../constants/sharedTypes.ts';
-import { renderEmptyPlaceholder } from '../../components/emptyPlaceholder/emptyPlaceholder.ts';
-import { EmptyPlaceholderTemplateData } from '../../components/emptyPlaceholder/emptyPlaceholderTypes.ts';
+import { CreateAdvert } from '@components/advertCreate/advertCreate.ts';
+import { headerData } from '@constants/constants.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { router } from '@modules/router.ts';
+import { Category } from '@constants/sharedTypes.ts';
+import { renderEmptyPlaceholder } from '@components/emptyPlaceholder/emptyPlaceholder.ts';
+import { EmptyPlaceholderTemplateData } from '@components/emptyPlaceholder/emptyPlaceholderTypes.ts';
 
 export class CreateAdvertPage {
     #advert: CreateAdvert | undefined; 
@@ -18,7 +18,7 @@ export class CreateAdvertPage {
             const overlay = document.createElement('div');
             overlay.className = 'overlay active';
             const data: EmptyPlaceholderTemplateData = {
-                imagePath: '../../static/images/phone.svg',
+                imagePath: '@static/images/phone.svg',
                 text:'Дополните информацию о себе, чтобы покупатели могли с вами связться',
                 buttonText: 'Перейти в настройки',
                 redirectUrl: '/user/settings'

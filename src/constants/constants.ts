@@ -1,4 +1,4 @@
-import { ModalWithOverlayTemplateData } from "../components/modalWithOverlay/modalWithOverlayTypes.ts";
+import { ModalWithOverlayTemplateData } from "@components/modalWithOverlay/modalWithOverlayTypes.ts";
 import { HeaderData } from "./sharedTypes.ts";
 
 export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
@@ -105,9 +105,9 @@ export const loginData = {
             placeholder: 'Пароль'
         }
     ],
-    buttontitle: 'Войти',
+    buttonTitle: 'Войти',
     pretext: 'Нет аккаунта?',
-    anchortext: 'Зарегистрироваться'
+    anchorText: 'Зарегистрироваться'
 };
 
 export const signupData = {
@@ -136,9 +136,9 @@ export const signupData = {
             placeholder: 'Подтвердите пароль'
         }
     ],
-    buttontitle: 'Зарегистрироваться',
+    buttonTitle: 'Зарегистрироваться',
     pretext: 'Уже есть аккаунт?',
-    anchortext: 'Войти'
+    anchorText: 'Войти'
 };
 
 export const headerData: HeaderData = {

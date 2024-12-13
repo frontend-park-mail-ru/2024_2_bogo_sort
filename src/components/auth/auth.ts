@@ -1,18 +1,18 @@
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { signupData, loginData } from '../../constants/constants.ts';
-import { validateEmail, validatePassword } from '../../utils/validation.ts';
-import ajax from '../../modules/ajax.ts';
-import { toggleClasses } from '../../utils/toggleClasses.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { signupData, loginData } from '@constants/constants.ts';
+import { validateEmail, validatePassword } from '@utils/validation.ts';
+import ajax from '@modules/ajax.ts';
+import { toggleClasses } from '@utils/toggleClasses.ts';
 import template from './auth.hbs';
 import { AuthData, AuthTemplateData } from './authTypes.ts';
-import { ResponseAuth, RequestAuth } from '../../modules/ajaxTypes.ts';
+import { ResponseAuth, RequestAuth } from '@modules/ajaxTypes.ts';
 
 export class AuthComponent {
     #expanded = false;
     #initialUrl: string | null = null;
 
     renderAuthTemplate(data: AuthTemplateData) {
-        return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttontitle, pretext: data.pretext, anchortext: data.anchortext });
+        return template({ title: data.title, info: data.info, inputs: data.inputs, buttontitle: data.buttonTitle, pretext: data.pretext, anchortext: data.anchorText });
     }
 
     /**
@@ -69,21 +69,24 @@ export class AuthComponent {
      */
     displayInputErrors(errors: Set<string>, errorElement: HTMLElement) {
         const authForm = document.querySelector('.auth');
-        const inputs: (Element | null | undefined)[] = [];
+        const inputs: Element[] = [];
         if(errors.has('email')) {
             const inputEmail = authForm?.querySelector('.input__email');
             inputEmail?.classList.add('error');
-            inputs.push(inputEmail);
+            if(inputEmail)
+                inputs.push(inputEmail);
         }
         if(errors.has('password')) {
             const inputPassword = authForm?.querySelector('.input__password');
             inputPassword?.classList.add('error');
-            inputs.push(inputPassword);
+            if(inputPassword)
+                inputs.push(inputPassword);
         }
         if(errors.has('confirmPassword')) {
             const inputConfirmPassword = authForm?.querySelectorAll('.input__password')[1];
             inputConfirmPassword?.classList.add('error');
-            inputs.push(inputConfirmPassword);
+            if(inputConfirmPassword)
+                inputs.push(inputConfirmPassword);
         }
 
         errorElement.innerText = 'Проверьте введенные данные';
@@ -128,9 +131,9 @@ export class AuthComponent {
 
             this.addSubmitFormListener(authForm, data);
             this.addInputEventListeners();
-            const registerLink = authForm.querySelector('.change-button');
+            const registerLink = authForm.querySelector<HTMLElement>('.change-button');
             if(registerLink){
-                this.changeForm(registerLink as HTMLElement, data, authForm);
+                this.changeForm(registerLink, data, authForm);
             }
             if(path === '/signup' && !this.#expanded){
                 this.expandAuthForm();
@@ -157,7 +160,7 @@ export class AuthComponent {
     addInputEventListeners() {
         const inputWrapper = document.querySelector('.auth__input-wrapper');
 
-        inputWrapper?.querySelectorAll('.form__tooltip input').forEach(input => {
+        inputWrapper?.querySelectorAll<HTMLInputElement>('.form__tooltip input').forEach(input => {
             input?.addEventListener('blur', () => {
                 const label = input.parentElement?.querySelector('.input__label');
                 if((input as HTMLInputElement).value !== '') {
@@ -168,9 +171,9 @@ export class AuthComponent {
             });
         });
 
-        inputWrapper?.querySelectorAll('.form__tooltip .input__eye').forEach(eye => {
+        inputWrapper?.querySelectorAll<HTMLElement>('.form__tooltip .input__eye').forEach(eye => {
             eye.addEventListener('click', () => {
-                this.togglePasswordVisibility(eye as HTMLElement);
+                this.togglePasswordVisibility(eye);
             });
         });
     }
@@ -258,9 +261,9 @@ export class AuthComponent {
      */
     updateForm(authForm: HTMLElement, data: AuthTemplateData) {
         authForm.innerHTML = this.renderAuthTemplate(data);
-        const changeButton = authForm.querySelector('.change-button');
+        const changeButton = authForm.querySelector<HTMLElement>('.change-button');
         if(changeButton){
-            this.changeForm(changeButton as HTMLElement, data, authForm);
+            this.changeForm(changeButton, data, authForm);
         }
         this.addSubmitFormListener(authForm, data);
         this.addInputEventListeners();

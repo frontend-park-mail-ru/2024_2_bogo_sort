@@ -1,8 +1,8 @@
-import { AdvertComponent } from '../../components/obyavlenie/obyavlenie.ts';
-import { renderCardTemplate } from '../../components/card/card.ts';
-import ajax from '../../modules/ajax.ts';
-import { router } from '../../modules/router.ts';
-import { ResponseAdvertCards } from '../../modules/ajaxTypes.ts';
+import { AdvertComponent } from '@components/obyavlenie/obyavlenie.ts';
+import { renderCardTemplate } from '@components/card/card.ts';
+import ajax from '@modules/ajax.ts';
+import { router } from '@modules/router.ts';
+import { ResponseAdvertCards } from '@modules/ajaxTypes.ts';
 
 export class AdvertPage {
     render(main: HTMLElement, advertId: string) {

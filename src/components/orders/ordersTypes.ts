@@ -1,7 +1,22 @@
 import { AdvertCards } from "../../constants/sharedTypes.ts";
 
-type PurchaseStatus = 'pending' | 'В ожидании' | 'in_progress' | 'Активен' | 'completed' | 'Завершен' | 'cancelled' | 'Отменен';
-type DeliveryMethod = 'pickup' | 'Самовывоз у продавца' | 'delivery' | 'Доставка';
+export enum PurchaseStatus {
+    Pending = 'pending',
+    PendingRus = 'В ожидании',
+    InProgress = 'in_progress',
+    InProgressRus = 'Активен',
+    Completed = 'completed',
+    CompletedRus = 'Завершен',
+    Cancelled = 'cancelled',
+    CancelledRus = 'Отменен',
+}
+
+export enum DeliveryMethod { 
+    Pickup = 'pickup',
+    PickupRus = 'Самовывоз у продавца',
+    Delivery = 'delivery',
+    DeliveryRus = 'Доставка',
+}
 type PaymentMethod = 'cash' | 'card';
 
 export interface Purchase {

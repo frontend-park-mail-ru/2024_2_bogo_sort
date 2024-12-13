@@ -1,6 +1,6 @@
-import { renderCardTemplate } from '../../components/card/card.ts';
-import ajax from '../../modules/ajax.ts';
-import { ResponseAdvertCards } from '../../modules/ajaxTypes.ts';
+import { renderCardTemplate } from '@components/card/card.ts';
+import ajax from '@modules/ajax.ts';
+import { ResponseAdvertCards } from '@modules/ajaxTypes.ts';
 
 export class MainPage {
     noMoreCards = false;

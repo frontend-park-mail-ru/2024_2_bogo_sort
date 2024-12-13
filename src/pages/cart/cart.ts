@@ -1,13 +1,12 @@
-import { Cart } from '../../components/cart/cart.ts';
-import ajax from '../../modules/ajax.ts';
-import { BASE_URL, placeOrderData } from '../../constants/constants.ts';
-import { router } from '../../modules/router.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { AdvertCards } from '../../constants/sharedTypes.ts';
-import { ResponseAdvertCards, ResponseCart, ResponseCartExists } from '../../modules/ajaxTypes.ts';
-import { CartTemplateData } from '../../components/cart/cartTypes.ts';
-import { renderModalWithOverlay } from '../../components/modalWithOverlay/modalWithOverlay.ts';
-import { ModalWithOverlayTemplateData } from '../../components/modalWithOverlay/modalWithOverlayTypes.ts';
+import { Cart } from '@components/cart/cart.ts';
+import ajax from '@modules/ajax.ts';
+import { BASE_URL, placeOrderData } from '@constants/constants.ts';
+import { router } from '@modules/router.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { AdvertCards } from '@constants/sharedTypes.ts';
+import { ResponseAdvertCards, ResponseCart, ResponseCartExists } from '@modules/ajaxTypes.ts';
+import { CartTemplateData } from '@components/cart/cartTypes.ts';
+import { renderModalWithOverlay } from '@components/modalWithOverlay/modalWithOverlay.ts';
 
 export class CartPage {
     cartId: string | null = null;
@@ -143,8 +142,8 @@ export class CartPage {
         });
 
         const form = modal.querySelector('form');
-            const addressInput = modal.querySelector('#address');
-            const select = modal.querySelector('.modal-form__select');
+            const addressInput = modal.querySelector<HTMLInputElement>('#address');
+            const select = modal.querySelector<HTMLSelectElement>('.modal-form__select');
         select?.addEventListener('change', (event: Event) => {
             const addressLabel = modal.querySelector('#address-label');
             if((event.target as HTMLSelectElement).value === 'pickup') {
@@ -157,14 +156,15 @@ export class CartPage {
                 setTimeout(() => {;
                     addressLabel?.classList.remove('disabled');
                     addressInput?.classList.remove('disabled');
-                    (addressInput as HTMLInputElement).required = true;
+                    if(addressInput)
+                        addressInput.required = true;
                 }, 50);
             }
         });
 
         form?.addEventListener('submit', async (event: Event) => {
             event.preventDefault();
-            const deliveryMethod = (select as HTMLSelectElement).value;
+            const deliveryMethod = select?.value;
             const inputs: NodeListOf<HTMLInputElement> = form.querySelectorAll('.modal-form__input');
             let error = false;
             inputs.forEach(input => {
@@ -186,8 +186,8 @@ export class CartPage {
                 return;
             }
             let address = '';
-            if(deliveryMethod === 'delivery') {
-                address = (addressInput as HTMLInputElement).value;
+            if(deliveryMethod === 'delivery' && addressInput) {
+                address = addressInput.value;
             }
             const userId = informationStorage.getUser()?.id;
             await ajax.post(`/purchase/${userId}`, {

@@ -1,19 +1,18 @@
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { renderUser } from '../../components/user/user.ts';
-import { renderCardTemplate } from '../../components/card/card.ts';
-import { timestampFormatter } from '../../utils/timestampFormatter.ts';
-import { Settings } from '../../components/settings/settings.ts';
-import ajax from '../../modules/ajax.ts';
-import { router } from '../../modules/router.ts';
-import { logout } from '../../modules/logout.ts';
-import template from '../../components/orders/orders.hbs'
-import { renderEmptyPlaceholder } from '../../components/emptyPlaceholder/emptyPlaceholder.ts';
-import { UserTemplateData } from '../../components/user/userTypes.ts';
-import { User } from '../../constants/sharedTypes.ts';
-import { ResponseAdvertCards, ResponseMyAdverts, ResponsePurchases, ResponseSeller, ResponseUser } from '../../modules/ajaxTypes.ts';
-import { EmptyPlaceholderTemplateData } from '../../components/emptyPlaceholder/emptyPlaceholderTypes.ts';
-import { OrdersTemplateData } from '../../components/orders/ordersTypes.ts';
-import { renderOrders } from '../../components/orders/orders.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { renderUser } from '@components/user/user.ts';
+import { renderCardTemplate } from '@components/card/card.ts';
+import { timestampFormatter } from '@utils/timestampFormatter.ts';
+import { Settings } from '@components/settings/settings.ts';
+import ajax from '@modules/ajax.ts';
+import { router } from '@modules/router.ts';
+import { logout } from '@modules/logout.ts';
+import { renderEmptyPlaceholder } from '@components/emptyPlaceholder/emptyPlaceholder.ts';
+import { UserTemplateData } from '@components/user/userTypes.ts';
+import { User } from '@constants/sharedTypes.ts';
+import { ResponseAdvertCards, ResponseMyAdverts, ResponsePurchases} from '@modules/ajaxTypes.ts';
+import { EmptyPlaceholderTemplateData } from '@components/emptyPlaceholder/emptyPlaceholderTypes.ts';
+import { OrdersTemplateData } from '@components/orders/ordersTypes.ts';
+import { renderOrders } from '@components/orders/orders.ts';
 
 export class UserPage {
     location: string | null = null;

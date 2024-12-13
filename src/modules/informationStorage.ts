@@ -1,7 +1,7 @@
 import { pipe } from './pipe.ts';
-import { IMAGE_URL } from '../constants/constants.ts';
+import { IMAGE_URL } from '@constants/constants.ts';
 import ajax from './ajax.ts';
-import { Categories, Seller, User } from '../constants/sharedTypes.ts';
+import { Categories, Seller, User } from '@constants/sharedTypes.ts';
 import { ResponseCategories, ResponseSellerUser, ResponseUser } from './ajaxTypes.ts';
 
 class InformationStorage {

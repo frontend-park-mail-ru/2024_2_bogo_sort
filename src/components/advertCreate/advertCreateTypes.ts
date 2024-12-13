@@ -9,7 +9,7 @@ export type AdvertStatus = 'active' | 'inactive' | 'reserved';
 
 export interface AdvertCreateFormData {
     title: string,
-    price: string | Number,
+    price: string | number,
     location: string,
     category_id: string,
     description: string,

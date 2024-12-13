@@ -1,4 +1,4 @@
-import { Routes } from '../constants/sharedTypes.ts'
+import { Routes } from '@constants/sharedTypes.ts'
 
 class Router {
     routes: Routes | null = null;

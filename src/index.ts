@@ -31,10 +31,6 @@ function changeHeader() {
     return header.changeHeader();
 }
 
-function disableCreateAdvertButton() {
-    return header.disableCreateAdvertButton();
-}
-
 function enableCreateAdvertButton() {
     return header.enableCreateAdvertButton();
 }
@@ -54,11 +50,6 @@ function showSignupForm() {
 function disableCreateAdvertButton() {
     return header.disableCreateAdvertButton();
 } 
-
-
-function enableCreateAdvertButton() {
-    return header.enableCreateAdvertButton();
-}
 
 const main = initHeaderAndMain();
 const routingEvent = new CustomEvent('pageChange');

@@ -1,6 +1,6 @@
-import { renderCardTemplate } from '../../components/card/card.ts';
-import ajax from '../../modules/ajax.ts';
-import { ResponseAdvertCards, ResponseCategories } from '../../modules/ajaxTypes.ts';
+import { renderCardTemplate } from '@components/card/card.ts';
+import ajax from '@modules/ajax.ts';
+import { ResponseAdvertCards, ResponseCategories } from '@modules/ajaxTypes.ts';
 
 export class CategoryPage {
     category: string | null = null;

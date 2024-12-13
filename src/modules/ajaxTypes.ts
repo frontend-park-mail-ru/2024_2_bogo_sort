@@ -1,9 +1,9 @@
-import { AdvertCreated, AdvertCreateFormData } from "../components/advertCreate/advertCreateTypes.ts";
-import { User, Seller, AdvertCards, Categories, MyAdverts } from "../constants/sharedTypes.ts";
-import { AuthData } from "../components/auth/authTypes.ts";
-import { Advert } from "../components/obyavlenie/obyavlenieTypes.ts";
-import { Cart } from "../components/cart/cartTypes.ts";
-import { Purchases } from "../components/orders/ordersTypes.ts";
+import { AdvertCreated, AdvertCreateFormData } from "@components/advertCreate/advertCreateTypes.ts";
+import { User, Seller, AdvertCards, Categories, MyAdverts } from "@constants/sharedTypes.ts";
+import { AuthData } from "@components/auth/authTypes.ts";
+import { Advert } from "@components/obyavlenie/obyavlenieTypes.ts";
+import { Cart } from "@components/cart/cartTypes.ts";
+import { Purchases } from "@components/orders/ordersTypes.ts";
 
 export interface ResponseError {
     error: string,

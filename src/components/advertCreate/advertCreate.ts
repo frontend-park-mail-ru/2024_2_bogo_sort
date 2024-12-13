@@ -1,12 +1,12 @@
-import { informationStorage } from '../../modules/informationStorage.ts';
-import ajax from '../../modules/ajax.ts';
-import { router } from '../../modules/router.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import ajax from '@modules/ajax.ts';
+import { router } from '@modules/router.ts';
 import template from './advertCreate.hbs';
 import { AdvertCreated, AdvertCreateFormData, AdvertCreateTemplateData } from './advertCreateTypes.ts';
-import { ResponseSellerUser, ResponseAdvertPost, ResponseSeller } from '../../modules/ajaxTypes.ts';
+import { ResponseAdvertPost, ResponseSeller } from '@modules/ajaxTypes.ts';
 
 export class CreateAdvert {
-    form: Element | undefined | null;
+    form: Element | null = null;
 
     renderAdvertCreation(data: AdvertCreateTemplateData){
         return template({ category: data.category, imagePreview: data.imagePreview });
@@ -19,8 +19,8 @@ export class CreateAdvert {
             const reader = new FileReader();
 
             reader.onload = function(e) {
-                const preview = document.querySelector('.advert-form__upload-box-image') as HTMLImageElement;
-                if (e.target?.result && typeof e.target.result === 'string') {
+                const preview = document.querySelector<HTMLImageElement>('.advert-form__upload-box-image');
+                if (e.target?.result && typeof e.target.result === 'string' && preview) {
                     preview.src = e.target.result;
                 }
             };
@@ -41,7 +41,7 @@ export class CreateAdvert {
             this.previewImage(upload);
         });
 
-        const inputNumber = wrapper.querySelector('.advert-form__price-input') as HTMLInputElement;
+        const inputNumber = wrapper.querySelector<HTMLInputElement>('.advert-form__price-input');
 
         inputNumber?.addEventListener('input', () => {
             inputNumber.value = this.trimNumber(inputNumber.value, 11);
@@ -58,7 +58,7 @@ export class CreateAdvert {
         this.form?.addEventListener('submit', async (event) => {
             event.preventDefault();
 
-            let data: AdvertCreateFormData = {
+            let data: AdvertCreateFormData | null = {
                 title: '',
                 price: '',
                 location: '',
@@ -69,20 +69,25 @@ export class CreateAdvert {
                 status: 'active'
             };
 
-            const titleInput = this.form?.querySelector('#name') as HTMLInputElement;
-            data.title = titleInput?.value;
+            const titleInput = this.form?.querySelector<HTMLInputElement>('#name');
+            if(titleInput)
+                data.title = titleInput?.value;
 
-            const priceInput = this.form?.querySelector('#price') as HTMLInputElement;
-            data.price = priceInput.value;
+            const priceInput = this.form?.querySelector<HTMLInputElement>('#price');
+            if(priceInput)
+                data.price = priceInput.value;
 
-            const locationInput = this.form?.querySelector('#address') as HTMLInputElement;
-            data.location = locationInput.value;
+            const locationInput = this.form?.querySelector<HTMLInputElement>('#address');
+            if(locationInput)
+                data.location = locationInput.value;
 
-            const select = this.form?.querySelector('select') as HTMLSelectElement;
-            data.category_id = select.value;
+            const select = this.form?.querySelector<HTMLSelectElement>('select');
+            if(select)
+                data.category_id = select.value;
 
-            const textArea = this.form?.querySelector('textarea') as HTMLTextAreaElement;
-            data.description = textArea.value;
+            const textArea = this.form?.querySelector<HTMLTextAreaElement>('textarea');
+            if(textArea)
+                data.description = textArea.value;
 
             const userId = informationStorage.getUser()?.id;
 

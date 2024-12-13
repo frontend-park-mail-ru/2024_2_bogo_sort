@@ -1,9 +1,9 @@
-import { CreateAdvert } from '../../components/advertCreate/advertCreate.ts';
-import { headerData, IMAGE_URL } from '../../constants/constants.ts';
-import ajax from '../../modules/ajax.ts';
-import { ResponseAdvert } from '../../modules/ajaxTypes.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { router } from '../../modules/router.ts';
+import { CreateAdvert } from '@components/advertCreate/advertCreate.ts';
+import { headerData, IMAGE_URL } from '@constants/constants.ts';
+import ajax from '@modules/ajax.ts';
+import { ResponseAdvert } from '@modules/ajaxTypes.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { router } from '@modules/router.ts';
 
 export class AdvertEditPage {
     render(main: HTMLElement, advertId: string) {
@@ -17,7 +17,9 @@ export class AdvertEditPage {
         });
         wrapper.innerHTML += template.renderAdvertCreation({category: createAdvertCategories, imagePreview: true});
 
-        (wrapper.querySelector('.create-advert__title') as HTMLElement).innerText = 'Редактирование объявления';
+        const titleElement = wrapper.querySelector<HTMLElement>('.create-advert__title');
+        if(titleElement)
+            titleElement.innerText = 'Редактирование объявления';
 
         main.appendChild(wrapper);
         this.fillData(advertId, wrapper);
@@ -30,16 +32,33 @@ export class AdvertEditPage {
         if(informationStorage.getMeSeller()?.id !== advert.advert.seller_id) {
             router.goToPage('/');
         }
-        const select = wrapper.querySelector('.advert-form__select') as HTMLSelectElement;
-        select.value = advert.advert.category_id;
+        const select = wrapper.querySelector<HTMLSelectElement>('.advert-form__select');
+        if(select)
+            select.value = advert.advert.category_id;
 
-        (wrapper.querySelector('.advert-form__name-input') as HTMLInputElement).value = advert.advert.title;
-        (wrapper.querySelector('.advert-form__price-input') as HTMLInputElement).value = String(advert.advert.price);
-        (wrapper.querySelector('.advert-form__description-input') as HTMLInputElement).value = advert.advert.description;
-        (wrapper.querySelector('.advert-form__address-input') as HTMLInputElement).value = advert.advert.location;
-        (wrapper.querySelector('.advert-form__upload-box-image') as HTMLImageElement).src = IMAGE_URL + advert.advert.image_id;
+        const nameInput = wrapper.querySelector<HTMLInputElement>('.advert-form__name-input');
+        if(nameInput)
+            nameInput.value = advert.advert.title;
 
-        (wrapper.querySelector('.advert-form__submit') as HTMLButtonElement).textContent = 'Сохранить изменения';
+        const priceInput = wrapper.querySelector<HTMLInputElement>('.advert-form__price-input');
+        if(priceInput)
+            priceInput.value = String(advert.advert.price);
+
+        const descriptionInput = wrapper.querySelector<HTMLInputElement>('.advert-form__description-input');
+        if(descriptionInput)
+            descriptionInput.value = advert.advert.description;
+
+        const addressInput = wrapper.querySelector<HTMLInputElement>('.advert-form__address-input')
+        if(addressInput)
+            addressInput.value = advert.advert.location;
+
+        const imageElement =  wrapper.querySelector<HTMLImageElement>('.advert-form__upload-box-image');
+        if(imageElement)
+            imageElement.src = IMAGE_URL + advert.advert.image_id;
+
+        const submitButton = wrapper.querySelector<HTMLButtonElement>('.advert-form__submit');
+        if(submitButton)
+            submitButton.textContent = 'Сохранить изменения';
     }
 
     addListeners(wrapper: HTMLElement, template: CreateAdvert, advertId: string) {

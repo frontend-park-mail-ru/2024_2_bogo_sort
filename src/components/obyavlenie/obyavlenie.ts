@@ -1,11 +1,11 @@
-import ajax from '../../modules/ajax.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { timestampFormatter } from '../../utils/timestampFormatter.ts';
-import { router } from '../../modules/router.ts';
+import ajax from '@modules/ajax.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { timestampFormatter } from '@utils/timestampFormatter.ts';
+import { router } from '@modules/router.ts';
 import template from './obyavlenie.hbs';
-import { pipe } from '../../modules/pipe.ts';
-import { Seller, User } from '../../constants/sharedTypes.ts';
-import { ResponseCartExists, ResponseCart, ResponseAdvert, ResponseSeller, ResponseUser } from '../../modules/ajaxTypes.ts';
+import { pipe } from '@modules/pipe.ts';
+import { Seller, User } from '@constants/sharedTypes.ts';
+import { ResponseCartExists, ResponseCart, ResponseAdvert, ResponseSeller, ResponseUser } from '@modules/ajaxTypes.ts';
 import { Advert, AdvertTemplateData } from './obyavlenieTypes.ts';
 
 export class AdvertComponent {
@@ -46,7 +46,7 @@ export class AdvertComponent {
 
         this.isLiked = advert.is_saved;
         const categories = await informationStorage.getCateogies();
-        const category = categories.find(obj => obj.ID === advert.advert.category_id);
+        const category = categories?.find(obj => obj.ID === advert.advert.category_id);
 
         const data: AdvertTemplateData = {
             isLiked: this.isLiked,
@@ -57,7 +57,7 @@ export class AdvertComponent {
             views: advert.advert.views_number,
             likes: advert.advert.saves_number,
 
-            category: category?.Title ? category.Title : categories[0].Title,
+            category: category?.Title ? category.Title : categories ? categories[0].Title : 'Категория',
             categoryUrl: `/category/${advert.advert.category_id}`,
 
             isAuthor: this.myAdvert ? this.myAdvert && advert.advert.status !== 'inactive': false,
@@ -66,7 +66,7 @@ export class AdvertComponent {
             normal: advert.advert.status === 'active' && !this.myAdvert,
             inCart: this.inCart,
 
-            sellerName: sellerUser.username,
+            sellerName: sellerUser.username === '' ? 'Пользователь' : sellerUser.username,
             sellerImgUrl: informationStorage.getImageUrl(sellerUser.avatar_id),
             sellerPhone: sellerUser.phone,
             sellerTimestamp: timestampFormatter(sellerUser.created_at, true),
@@ -79,9 +79,12 @@ export class AdvertComponent {
 
         if(window.matchMedia('(max-width: 1000px)').matches) {
             const sellerSection = wrapper.querySelector('.seller');
-            wrapper.querySelector('.description')?.appendChild(sellerSection as Node);
+            if(sellerSection)
+                wrapper.querySelector('.description')?.appendChild(sellerSection);
+
             const titleWrapper = wrapper.querySelector('.advert__title-wrapper');
-            wrapper.querySelector('.advert__price')?.insertAdjacentElement('afterend', titleWrapper as Element);
+            if(titleWrapper)
+                wrapper.querySelector('.advert__price')?.insertAdjacentElement('afterend', titleWrapper);
         }
 
         if(data.inactive) {
@@ -102,7 +105,7 @@ export class AdvertComponent {
     }
 
     addListeners(wrapper: HTMLElement, advertId: string, userId: string | undefined) {
-        const addToFavourites = wrapper.querySelector('.advert__add-to-favourites');
+        const addToFavourites = wrapper.querySelector<HTMLElement>('.advert__add-to-favourites');
         const likeButton = addToFavourites?.querySelector('.advert__like-button');
         
         addToFavourites?.addEventListener('click', async () => {
@@ -111,8 +114,8 @@ export class AdvertComponent {
 
                 return;
             }
-            const likes = wrapper.querySelector('#likes') as HTMLElement;
-            if(this.isLiked && likeButton?.classList.contains('liked')) {
+            const likes = wrapper.querySelector<HTMLElement>('#likes');
+            if(this.isLiked && likeButton?.classList.contains('liked') && likes) {
                 const response = await ajax.delete(`/adverts/saved/${advertId}`, null);
                 if(response.code === 400){
                     return;
@@ -123,7 +126,7 @@ export class AdvertComponent {
                 if(addToFavourites.firstElementChild){
                     (addToFavourites.firstElementChild as HTMLElement).innerText = 'Добавить в избранное';
                 }
-            } else if(!this.isLiked && !likeButton?.classList.contains('liked')) {
+            } else if(!this.isLiked && !likeButton?.classList.contains('liked') && likes) {
                 const response = await ajax.post(`/adverts/saved/${advertId}`, null);
                 if(response.code === 400){
                     return;
@@ -166,7 +169,7 @@ export class AdvertComponent {
         numberButton?.addEventListener('click', toggleOverlay);
 
         const once = userId ? true : false;
-        const addToCartButton = wrapper.querySelector('.buttons__add-to-cart') as HTMLElement;
+        const addToCartButton = wrapper.querySelector<HTMLElement>('.buttons__add-to-cart');
         addToCartButton?.addEventListener('click', async () => {
             if(!userId) {
                 pipe.executeCallback('showAuthForm');
@@ -221,7 +224,10 @@ export class AdvertComponent {
         });
 
         if(informationStorage.getUser()){
-            const seller = wrapper.querySelector('.seller') as HTMLElement;
+            const seller = wrapper.querySelector<HTMLElement>('.seller');
+            if(!seller) {
+                return;
+            }
             seller.style.cursor = 'pointer';
             seller?.addEventListener('click', () => {
                 router.goToPage(`/seller/${this.seller?.id}`);

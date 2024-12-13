@@ -1,10 +1,10 @@
 'use strict';
-import { router } from '../../modules/router.ts';
+import { router } from '@modules/router.ts';
 import template from './card.hbs';
-import { IMAGE_URL } from '../../constants/constants.ts';
-import ajax from '../../modules/ajax.ts';
-import { informationStorage } from '../../modules/informationStorage.ts';
-import { pipe } from '../../modules/pipe.ts';
+import { IMAGE_URL } from '@constants/constants.ts';
+import ajax from '@modules/ajax.ts';
+import { informationStorage } from '@modules/informationStorage.ts';
+import { pipe } from '@modules/pipe.ts';
 
 
 export function renderCardTemplate(title: string, price: number, imageId: string, id: string, isLiked: boolean, sellerId: string) {
