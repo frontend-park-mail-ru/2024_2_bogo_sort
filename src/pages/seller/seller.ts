@@ -35,7 +35,7 @@ export class SellerPage {
         const cards = await ajax.get<ResponseAdvertCards>(`/adverts/seller/${seller.id}`);
 
         cards.forEach(card => {
-            container.appendChild(renderCardTemplate(card.preview.title, card.preview.price, card.preview.image_id, card.preview.id, card.is_saved, card.preview.seller_id));
+            container.appendChild(renderCardTemplate(card.preview.title, card.preview.price, card.preview.image_id, card.preview.id, card.is_saved, card.preview.seller_id, card.preview.promoted_until));
         });
 
         wrapper.appendChild(container);
