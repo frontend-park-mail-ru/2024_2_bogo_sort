@@ -255,7 +255,7 @@ export const placeOrderData: ModalWithOverlayTemplateData = {
             value: 'delivery'
         },
         {
-            name: 'Самовывоз у продавца',
+            name: 'Заберу у продавца',
             value: 'pickup'
         },
     ],

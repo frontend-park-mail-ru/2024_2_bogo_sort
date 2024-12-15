@@ -19,7 +19,7 @@ export interface ModalWithOverlayTemplateData {
     selectLabel?: string,
     selectOptions?: SelectOption[],
     selectName?: string,
-    inputs: Input[],
+    inputs?: Input[],
     buttonText: string,
     redirectUrl?: string 
 }

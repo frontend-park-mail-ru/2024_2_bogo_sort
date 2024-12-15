@@ -24,6 +24,7 @@ export interface AdvertPreview {
     image_id: string,
     location: string,
     price: number,
+    promoted_until: string,
     seller_id: string,
     status: AdvertStatus;
     title: string

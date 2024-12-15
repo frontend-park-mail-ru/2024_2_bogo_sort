@@ -18,7 +18,7 @@ export class CreateAdvertPage {
             const overlay = document.createElement('div');
             overlay.className = 'overlay active';
             const data: EmptyPlaceholderTemplateData = {
-                imagePath: '@static/images/phone.svg',
+                imagePath: '../../static/images/phone.svg',
                 text:'Дополните информацию о себе, чтобы покупатели могли с вами связться',
                 buttonText: 'Перейти в настройки',
                 redirectUrl: '/user/settings'

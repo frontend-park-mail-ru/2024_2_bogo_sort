@@ -131,7 +131,7 @@ export class UserPage {
             }
         } else {
             cards.forEach(element => {
-                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, false, element.preview.seller_id));
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, false, element.preview.seller_id, element.preview.promoted_until));
             });
         }
         container.appendChild(cardsContainer);
@@ -165,7 +165,7 @@ export class UserPage {
             }
         } else {
             cards.forEach(element => {
-                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+                cardsContainer.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id, element.preview.promoted_until));
             });
         }
         container.appendChild(cardsContainer);

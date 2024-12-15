@@ -26,7 +26,7 @@ export class SearchPage {
 
         searchAdverts.forEach(element => {
             if(element.preview.status !== 'inactive') {
-                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id));
+                container.appendChild(renderCardTemplate(element.preview.title, element.preview.price, element.preview.image_id, element.preview.id, element.is_saved, element.preview.seller_id, element.preview.promoted_until));
             }
         });
         wrapper.appendChild(container);
