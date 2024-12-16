@@ -103,6 +103,8 @@ export interface HeaderData {
     userName: string | null,
     userImgUrl: string | null,
     category: Categories,
+    cartItems: number,
+    cartItemsClass: string,
     menuItems: menuItems
 }
 

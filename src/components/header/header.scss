@@ -12,38 +12,21 @@
     &__cart {
         display: flex;
         flex-direction: row;
+        color: black;
+        font-family: inter;
+        font-size: 12px;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__cart-icon {
+        margin-left: 20px;
     }
 }
 
-.preheader {
-    display: flex;
-    flex-direction: row;
-    height: 12px;
-    margin: 0 0 10px 0;
-    width: 1235px;
-    justify-content:flex-end;    
-
-    &__favourites,
-    &__cart {
-        display: flex;
-        flex-direction: row;
-    }
-}
-
-.preheader {
-    display: flex;
-    flex-direction: row;
-    height: 12px;
-    margin: 0 0 10px 0;
-    width: 1235px;
-    justify-content:flex-end;    
-
-    &__favourites,
-    &__cart {
-        display: flex;
-        flex-direction: row;
-    }
-}
 
 .header {
     align-content: center;
@@ -253,6 +236,41 @@
             padding: 5px;
         }
     }
+
+    &__cart-button {
+        width: 45px;
+
+        @include respond-to(tablet) {
+            display: none;
+        }
+    }
+
+    &__cart-items {
+        position: absolute;
+        font-size: 14px;
+        top: 20px;
+
+        &.number-one {
+            right: 17px;
+        }
+
+        &.one-digit {
+            right: 15px;
+        }
+
+        &.number-eleven {
+            right: 14px;
+        }
+
+        &.double-digit-less20,
+        &.double-digit-ends1 {
+            right: 13px;
+        }
+
+        &.double-digit {
+            right: 12px;
+        }
+    }
 }
 
 .list {
@@ -457,9 +475,11 @@
 }
 
 .user-menu {
-    margin-left: 29px;
+    margin-left: 10px;
     position: relative;
     cursor: pointer;
+    display: flex;
+    align-items: center;
 
     @include respond-to(tablet) {
         margin: 0;

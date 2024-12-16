@@ -2,6 +2,7 @@ import { AdvertCards } from '@constants/sharedTypes.ts';
 import { informationStorage } from '@modules/informationStorage.ts';
 import template from './cart.hbs';
 import { CartTemplateData } from './cartTypes.ts';
+import ajax from '@modules/ajax.ts';
 
 
 export class Cart {
