@@ -1,0 +1,23 @@
+<div class="modal-window__overlay">
+    <form class="modal-window__content-wrapper">
+        <h1 class="modal-window__title">{{title}}</h1>
+        <span class="modal-window__info">{{info}}</span>
+        <span class="modal-window__error"></span>
+
+        <div class="modal-window__form modal-form">
+            {{#if select}}
+                <label class="modal-form__select-label" for="{{selectName}}">{{selectLabel}}</label>
+                <select class="modal-form__select" name="{{selectName}}" id="{{selectName}}">
+                {{#each selectOptions}}
+                    <option class="modal-form__option" value="{{this.value}}">{{this.name}}</option>
+                {{/each}}
+                </select>
+            {{/if}}
+            {{#each inputs}}
+                <label for="{{this.name}}" class="modal-form__label" id="{{this.name}}-label">{{this.label}}</label>
+                <input type="{{this.type}}" class="modal-form__input" id="{{this.name}}" name="{{this.name}}" placeholder="{{this.placeholder}}" required>
+            {{/each}}
+            <button type="submit" class="modal-form__submit">{{buttonText}}</button>
+        </div>
+    </form>
+</div>

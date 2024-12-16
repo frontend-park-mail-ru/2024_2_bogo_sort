@@ -58,6 +58,10 @@
     display: flex;
     flex-direction: column;
 
+    @include respond-to(phone) {
+        padding: 15px;
+    }
+
     &__content {
         display: flex;
         flex-direction: row;
@@ -71,6 +75,10 @@
     &__title {
         margin: 0 0 15px 0;
         font-size: 29px;
+
+        @include respond-to(phone) {
+            font-size: 20px;
+        }
     }
 
     &__title-wrapper {
@@ -83,6 +91,10 @@
         @include respond-to(tablet) {
             order: 2;
             width: auto;
+        }
+
+        @include respond-to(phone) {
+            align-items: flex-start;
         }
     }
 
@@ -118,24 +130,45 @@
                 stroke: var(--color-like-hover-outline);
             }
         }
+
+        @include respond-to(phone) {
+            font-size: 0;
+        }
     }
 
     &__images {
         background-color: rgb(0, 0, 0, 0.07);
         border-radius: 5px;
+
+        @include respond-to(phone) {
+            display: flex;
+            justify-content: center;
+        }
     }
 
     &__image {
         width: 806px;
         height: 557px;
-        object-fit: scale-down;
+        object-fit: contain;
 
         @include respond-to(smallLaptop) {
             width: 65vw;
         }
 
         @include respond-to(tablet) {
-            width: 92.5vw;
+            width: calc(100vw - 76px);
+        }
+
+        @include respond-to(phone) {
+            width: 82vw;
+            height: fit-content;
+            padding: 4.5vw 0;
+        }
+
+        @include respond-to(phone) {
+            width: 82vw;
+            height: fit-content;
+            padding: 4.5vw 0;
         }
     }
 
@@ -150,11 +183,22 @@
     }
 
     &__price {
-        margin: 0 0 19px 0;
+        margin: 0 0 10px 0;
         font-size: 38px;
 
         @include respond-to(tablet) {
-            margin-bottom: 10px;
+            width: fit-content;
+            margin: 0;
+            
+            &-section {
+                display: flex;
+                align-items: center;
+                margin-top: 10px;
+            }
+        }
+
+        @include respond-to(phone) {
+            font-size: 24px;
         }
     }
 
@@ -193,6 +237,10 @@
     border-radius: 19px;
     padding: 38px;
 
+    @include respond-to(phone) {
+        width: 80vw;
+    }
+
     &__author-content {
         display: flex;
         flex-direction: column;
@@ -228,15 +276,29 @@
             border: 2px solid var(--color-primary50);
         }
 
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 44px;
+            border-radius: 10px;
+        }
+
         &-title {
             font-size: 19px;
             margin-top: 19px;
             font-weight: 700;
+
+            @include respond-to(phone) {
+                font-size: 16px;
+            }
         }
 
         &-description {
             font-weight: 400;
             margin-top: 19px;
+
+            @include respond-to(phone) {
+                font-size: 16px;
+            }
         }
     }
 
@@ -260,6 +322,9 @@
     gap: 19px;
 
     &__change,
+    &__promote,
+    &__open-price-history--lower,
+    &__open-price-history--higher,
     &__add-to-cart,
     &__disable,
     &__show-phone-number {
@@ -270,6 +335,62 @@
         transition: background-color 0.5s ease,
                     border-color 0.5s ease, 
                     color 0.5s ease;
+        
+        @include respond-to(phone) {
+            height: 44px;
+            font-size: 16px;
+            border-radius: 10px;
+        }
+    }
+
+    &__promote {
+        color: white;
+        background-color: var(--color-primary50);
+        border: 2px solid var(--color-primary50);
+
+        &:hover {
+            background-color: var(--color-primary100);
+            border-color: var(--color-primary100);
+        }
+    }
+
+    &__open-price-history {
+        &--lower,
+        &--higher {
+            display: flex;
+            align-items: center;
+            background-color: var(--color-primary15);
+            border: 2px solid var(--color-primary15);
+            outline: none;
+            margin-bottom: 19px;
+            width: -webkit-fill-available;
+            font-weight: bold;
+
+            @include respond-to(tablet) {
+                width: 200px;
+                margin: 0 0 0 10px;
+            }
+        }
+
+        &--lower {
+            color: var(--color-primary100);
+        }
+
+        &--higher {
+            color: var(--color-like-hover);
+        }
+    }
+
+    &__price-history {
+        &-icon {
+            width: 26px;
+            height: 26px;
+            margin-right: 10px;
+        }
+
+        &-proceed {
+            margin-left: auto;
+        }
     }
 
     &__change,
@@ -302,7 +423,6 @@
     display: flex;
     flex-direction: row;
     margin-top: 35px;
-    cursor: pointer;
 
     &__image {
         height: 81px;
@@ -352,10 +472,18 @@
     &__title {
         margin: 19px 0 5px 0;
         font-size: 25px;
+
+        @include respond-to(phone) {
+            font-size: 22px;
+        }
     }
 
     &__content {
-        font-size: 17px;
+        font-size: 18px;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__additional {
@@ -367,18 +495,30 @@
 
     &__category,
     &__details {
-        font-size: 17px;
+        font-size: 18px;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
     
     &__category {
         display: flex;
         flex-direction: row;
         color: var(--color-secondary50);
+
+        @include respond-to(phone) {
+            align-items: center;
+        }
     }
 
     &__pretext {
         @include respond-to(tablet) {
             width: 30vw;
+        }
+
+        @include respond-to(phone) {
+            width: 25vw;
         }
     }
 
@@ -397,3 +537,25 @@
     }
 }
   
+.advert-cards {
+    display: flex;
+    width: 1233px;
+    flex-direction: row;
+    margin-top: 19px;
+    margin-bottom: 19px;
+    justify-self: center;
+    flex-wrap: wrap;
+    row-gap: 19px;
+    column-gap: 29px;
+    transition: all 0.3s ease;
+
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+        justify-content: space-evenly;
+    }
+
+    @include respond-to(phone) {
+        column-gap: 10px;
+        width: 100vw;
+    }
+}

@@ -2,7 +2,7 @@ export default [
   {files: ['**/*.js'],
    languageOptions: {sourceType: 'module'},
   }, {
-    ignores: ['**/*precompiled.js', '**/*.runtime.js', 'server/server.js'],
+    ignores: ['**/*precompiled.js', '**/*.runtime.js', 'server/server.js', 'src/dist'],
   },
   {
     rules: {

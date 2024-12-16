@@ -1,8 +1,30 @@
+@import '../../static/styles/mixins.scss';
+
 .user {
     display: flex;
     justify-self: center;
     width: 1229px;
     margin-top: 38px;
+    box-sizing: border-box;
+
+    @include respond-to(smallLaptop) {
+        width: 100vw;
+        padding: 0 2.5vw;
+    }
+
+    @include respond-to(tablet) {
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    @include respond-to(smallLaptop) {
+        width: 95vw;
+    }
+
+    @include respond-to(tablet) {
+        flex-direction: column;
+        margin-top: 20px;
+    }
 
     &__cards {
         display: flex;
@@ -10,16 +32,42 @@
         gap: 19px;
         margin-left: 23px;
         width: 949px;
+
+        @include respond-to(smallLaptop) {
+            width: unset;
+            justify-content: space-between;
+        }
+
+        @include respond-to(tablet) {
+            margin-left: 0;
+        }
+
+        @include respond-to(phone) {
+            column-gap: 10px;
+        }
     }
 
     &__title {
         font-size: 38px;
         margin-left: 23px;
         margin-top: 0;
+
+        @include respond-to(tablet) {
+            margin-left: 0;
+        }
+
+        @include respond-to(phone) {
+            font-size: 26px;
+        }
     }
 
     &__adverts {
         width: fit-content;
+
+        @include respond-to(tablet) {
+            width: 95vw;
+            margin-bottom: 100px;
+        }
     }
 }
 
@@ -35,12 +83,29 @@
     position: sticky;
     top: 96px;
 
+    @include respond-to(tablet) {
+        width: auto;
+        position: unset;
+        margin-bottom: 30px;
+    }
+
     &__user {
         &-section {
             display: flex;
             flex-direction: column;
             gap: 15px;
+
+            @include respond-to(tablet) {
+                flex-direction: row;
+            }
         }
+
+        &-information {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
         &-img {
             width: 77px;
             border-radius: 100%;
@@ -51,6 +116,10 @@
             font-size: 29px;
             overflow: hidden;
             text-overflow: ellipsis;
+
+            @include respond-to(phone) {
+                font-size: 26px;
+            }
         }
 
         &-timestamp {
@@ -66,6 +135,22 @@
     margin-top: 19px;
     gap: 19px;
 
+    @include respond-to(tablet) {
+        flex-direction: row;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        left: 0;
+        justify-content: space-evenly;
+        box-sizing: border-box;
+    }
+
+    @include respond-to(phone) {
+        padding: 15px;
+    }
+
     &__adverts,
     &__orders,
     &__favourites,
@@ -79,14 +164,41 @@
 
         &.active {
             font-weight: 600;
+
+            & > .navigation__icon > path{
+                stroke-width: 2;
+
+                @include respond-to(tablet) {
+                    stroke: var(--color-primary100);
+                }
+            }
         }
 
         &:hover {
             color: var(--color-primary50);
+
+            @include respond-to(tablet) {
+                color: black;
+            }
+        }
+
+        @include respond-to(tablet) {
+           font-size: 0;
         }
     }
 
     &__icon {
         margin-right: 10px;
+
+        @include respond-to(tablet) {
+            width: 36px;
+            height: 36px;
+            margin: 0;
+        }
+
+        @include respond-to(phone) {
+            width: 26px;
+            height: 26px;
+        }
     }
 } 

@@ -1,9 +1,24 @@
+@import '../../static/styles/mixins.scss';
 
 .create-advert {
     display: flex;
     flex-direction: column;
     justify-self: center;
     width: 1229px;
+
+    @include respond-to(smallLaptop) {
+        width: auto;
+    }
+
+    @include respond-to(tablet) {
+        width: 100vw;
+    }
+
+    @include respond-to(phone) {
+        &__title {
+            font-size: 26px;
+        }
+    }
 }
 
 .advert-form {
@@ -15,8 +30,38 @@
     padding: 38px;
     box-shadow: 0px 4px 4px var(--box-shadow-color);
 
-    &__label {
+    @include respond-to(tablet) {
+        padding: 15px 20px;
+        column-gap: 10px;
+    }
+
+    @include respond-to(phone) {
+        font-size: 16px;
+        grid-template-columns: none;
+        gap: 0;
+        padding: 15px 13px;
+        margin-bottom: 10px;
+    }
+
+    &__label,
+    &__label-category {
         font-size: 19px;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
+    }
+
+    &__label {
+        @include respond-to(phone) {
+            margin: 20px 0 10px 0;
+
+            &-category {
+                margin-bottom: 10px;
+            }
+        }
+
+        
     }
 
     &__input-wrapper {
@@ -41,6 +86,10 @@
             margin:  10px 0 0 0;
             color: var(--color-secondary50);
             font-size: 19px;
+
+            @include respond-to(phone) {
+                font-size: 16px;
+            }
         }
 
         &:hover {
@@ -54,6 +103,15 @@
 
         &.error {
             border-color: var(--color-error);
+        }
+
+        @include respond-to(tablet) {
+            width: 70vw;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            width: auto;
         }
     }
 
@@ -69,6 +127,10 @@
         &:focus,
         &:hover {
             outline: none;
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
         }
     }
 
@@ -89,6 +151,10 @@
 
     &__ruble {
         font-size: 19px;
+
+        @include respond-to(phone) {
+            font-size: 16px;
+        }
     }
 
     &__image-input {
@@ -137,6 +203,14 @@
 
     &__address-input {
         width: 682px;
+
+        @include respond-to(tablet) {
+            width: 70vw;
+        }
+
+        @include respond-to(phone) {
+            width: auto;
+        }
     }
 
     &__submit {
@@ -150,6 +224,12 @@
 
         &:hover {
             background-color: var(--color-primary50);
+        }
+
+        @include respond-to(phone) {
+            font-size: 16px;
+            height: 44px;
+            margin-top: 30px;
         }
     }
 }

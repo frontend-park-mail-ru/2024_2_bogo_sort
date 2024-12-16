@@ -18,7 +18,7 @@
             {{/if}}
         </h1>
         <span class="advert__add-to-favourites"> 
-            {{#if isAuthor}}
+            {{#if (or isAuthor reserved inactive)}}
             {{else}}
                 {{#if isLiked}}
                 <span class="advert__favoutites-text">Убрать из избранного</span>
@@ -36,19 +36,23 @@
             <img class="advert__image" src="{{imageUrl}}">
         </section>
         <section class="advert__details">
-            <h2 class="advert__price">{{price}}₽</h2>
-            {{!-- <h1 class="advert__title--mobile">
-                {{title}}
-                {{#if reserved}}
-                (зарезервировано)
+            <section class="advert__price-section">
+                <h2 class="advert__price">{{price}}₽</h2>
+                {{#if priceChange}}
+                <button class="buttons__open-price-history{{#if lowerPrice}}--lower{{else}}--higher{{/if}}" id="open-price-history">
+                    <img class="buttons__price-history-icon" src="{{#if lowerPrice}}../../static/images/arrow-down1.svg{{else}}../../static/images/arrow-up.svg{{/if}}">
+                    {{price}}₽
+                    <span class="buttons__price-history-proceed"> > </span>
+                </button>
                 {{/if}}
-                {{#if inactive}}
-                (закрыто)
-                {{/if}}
-            </h1> --}}
+            </section>
             <div class="advert__buttons buttons">
                 {{#if isAuthor}}
                 <button class="buttons__change" type="button">Редактировать</button>
+                {{#if promoted}}
+                {{else}}
+                <button class="buttons__promote" type="button">Продвинуть объявление</button>
+                {{/if}}
                 <button class="buttons__disable" type="button">Снять с публикации</button>
                 {{/if}}
                 {{#if reserved}}
