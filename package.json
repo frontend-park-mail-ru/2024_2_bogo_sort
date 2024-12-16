@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "npx eslint",
     "lint-auto-fix": "npx eslint --fix",
-    "compile": "sass --no-source-map --style=compressed src/static/styles/constants.scss:src/static/styles/constants.css src/static/styles/fonts.scss:src/static/styles/fonts.css src/pages/main/main.scss:src/pages/main/main.css src/components/header/header.scss:src/components/header/header.css src/components/emptyPlaceholder/emptyPlaceholder.scss:src/components/emptyPlaceholder/emptyPlaceholder.css src/components/card/card.scss:src/components/card/card.css src/components/auth/auth.scss:src/components/auth/auth.css src/components/obyavlenie/obyavlenie.scss:src/components/obyavlenie/obyavlenie.css src/components/advertCreate/advertCreate.scss:src/components/advertCreate/advertCreate.css src/components/cart/cart.scss:src/components/cart/cart.css src/index.scss:src/index.css src/components/user/user.scss:src/components/user/user.css src/components/settings/settings.scss:src/components/settings/settings.css src/components/orders/orders.scss:src/components/orders/orders.css src/components/modalWithOverlay/modalWithOverlay.scss:src/components/modalWithOverlay/modalWithOverlay.css",
+    "compile": "sass --no-source-map --style=compressed src/static/styles/constants.scss:src/static/styles/constants.css src/static/styles/fonts.scss:src/static/styles/fonts.css src/pages/main/main.scss:src/pages/main/main.css src/components/header/header.scss:src/components/header/header.css src/components/emptyPlaceholder/emptyPlaceholder.scss:src/components/emptyPlaceholder/emptyPlaceholder.css src/components/card/card.scss:src/components/card/card.css src/components/auth/auth.scss:src/components/auth/auth.css src/components/obyavlenie/obyavlenie.scss:src/components/obyavlenie/obyavlenie.css src/components/advertCreate/advertCreate.scss:src/components/advertCreate/advertCreate.css src/components/cart/cart.scss:src/components/cart/cart.css src/index.scss:src/index.css src/components/user/user.scss:src/components/user/user.css src/components/settings/settings.scss:src/components/settings/settings.css src/components/orders/orders.scss:src/components/orders/orders.css src/components/modalWithOverlay/modalWithOverlay.scss:src/components/modalWithOverlay/modalWithOverlay.css src/components/priceHistory/priceHistory.scss:src/components/priceHistory/priceHistory.css src/components/promotionModal/promotionModal.scss:src/components/promotionModal/promotionModal.css",
     "prestart": "npm run compile",
     "start": "node server/server.js",
     "build:prod": "webpack --config webpack.prod.js",
@@ -43,6 +43,7 @@
     "dependencies": "^0.0.1",
     "express": "^4.21.0",
     "handlebars": "^4.7.8",
+    "image-minimizer-webpack-plugin": "^4.1.1",
     "path": "^0.12.7",
     "sass": "^1.79.5",
     "ts-loader": "^9.5.1"

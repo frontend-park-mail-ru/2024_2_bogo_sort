@@ -9,6 +9,7 @@ interface AdvertInternal {
     image_id: string,
     location: string,
     price: number,
+    promoted_until: string,
     saves_number: number,
     seller_id: string,
     status: AdvertStatus,
@@ -28,7 +29,13 @@ export interface AdvertTemplateData {
     title: string,
     imageUrl: string,
     description: string,
+
     price: number,
+    priceChange: boolean,
+    lowerPrice: boolean,
+
+    promoted: boolean,
+
     views: number,
     likes: number,
 
@@ -48,17 +55,4 @@ export interface AdvertTemplateData {
 
     location: string,
     createdAt: string,
-}
-
-interface AdvertHistory {
-    advertID: string,
-    changedAt: string,
-    id: string,
-    newPrice: number,
-    oldPrice: number 
-}
-
-export interface AdvertPriceHistory {
-    advert_history: AdvertHistory[],
-    advert_id: string
 }

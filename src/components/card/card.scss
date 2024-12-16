@@ -1,16 +1,38 @@
 @import "../../static/styles/mixins.scss";
 
 .card {
-    display: flex;
-    flex-direction: column;
+   
     height: 300px;
     width: 223px;
-    background-color: white;
     border-radius: 10px;
     margin: 0 0 0 0;
     box-shadow: 0px 1px 10px var(--box-shadow-color);
     transition: box-shadow 0.3s ease;
     cursor: pointer;
+
+    &.promoted {
+        box-sizing: border-box;
+        padding: 2px;
+        background: linear-gradient(to left bottom, var(--color-primary100), var(--color-primary50));
+
+        & > .card__wrapper {
+            border-radius: 8px;
+            height: 296px;
+
+            @include respond-to(phone) {
+                height: auto;
+            }
+
+            & > .card__image-wrapper > .card__image {
+                width: 219px;
+                border-radius: 8px 8px 0 0;
+
+                @include respond-to(phone) {
+                    width: 100%;
+                }
+            }
+        }
+    }
 
     &:hover {
         box-shadow: 0px 5px 12px var(--box-shadow-color);
@@ -19,6 +41,18 @@
     @include respond-to(phone) {
         width: max(45vw, 147px);
         height: auto;
+    }
+
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        border-radius: 10px;
+        height: 300px;
+
+        @include respond-to(phone) {
+            height: auto;
+        }
     }
 
     &__image {

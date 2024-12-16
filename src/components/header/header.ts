@@ -108,7 +108,7 @@ class Header {
             list.classList.add('not-active');
         });
 
-        const menuButton = this.#wrapper.querySelector('.user-menu');
+        const menuButton = this.#wrapper.querySelector('.user-menu__user-name');
         const userMenu = this.#wrapper.querySelector('.user-menu__menu');
 
         menuButton?.addEventListener('click', () => {
@@ -119,6 +119,11 @@ class Header {
             }
 
             userMenu?.classList.add('not-active');
+        });
+
+        const cartButton = this.#wrapper.querySelector('.header__cart-button');
+        cartButton?.addEventListener('click', () => {
+            router.goToPage('/cart');
         });
 
         const searchbar = this.#wrapper.querySelector('.searchbar');

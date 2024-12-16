@@ -21,7 +21,7 @@ export enum DeliveryMethod {
 }
 
 export const DELIVERY_METHOD_MAPPING = {
-    [DeliveryMethod.Pickup]: 'Самовывоз у продавца',
+    [DeliveryMethod.Pickup]: 'Заберу у продавца',
     [DeliveryMethod.Delivery]:'Доставка',
 }
 

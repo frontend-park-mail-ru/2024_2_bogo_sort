@@ -5,8 +5,10 @@ import { router } from '@modules/router.ts';
 import template from './obyavlenie.hbs';
 import { pipe } from '@modules/pipe.ts';
 import { Seller, User } from '@constants/sharedTypes.ts';
-import { ResponseCartExists, ResponseCart, ResponseAdvert, ResponseSeller, ResponseUser } from '@modules/ajaxTypes.ts';
+import { ResponseCartExists, ResponseCart, ResponseAdvert, ResponseSeller, ResponseUser, ResponseAdvertPriceHistory, ResponsePaymentInit, RequeestPaymentInit } from '@modules/ajaxTypes.ts';
 import { Advert, AdvertTemplateData } from './obyavlenieTypes.ts';
+import { PriceHistoryComponent } from '@components/priceHistory/priceHistory.ts';
+import { renderPromotionModal } from '@components/promotionModal/promotionModal.ts';
 
 export class AdvertComponent {
     seller: Seller | null;
@@ -48,12 +50,34 @@ export class AdvertComponent {
         const categories = await informationStorage.getCateogies();
         const category = categories?.find(obj => obj.ID === advert.advert.category_id);
 
+        const priceHistoryComponent = new PriceHistoryComponent();
+        const changeOfPrice = await priceHistoryComponent.checkIfPriceChanged(advertId);
+        let priceChange: boolean = false;
+        let lowerPrice: boolean = false;
+        switch(changeOfPrice) {
+            case 'higher':
+                priceChange = true;
+                lowerPrice = false;
+                break;
+            case 'lower':
+                priceChange = true;
+                lowerPrice = true;
+                break;
+        }
+        
+
         const data: AdvertTemplateData = {
             isLiked: this.isLiked,
             title: advert.advert.title,
             imageUrl: informationStorage.getImageUrl(advert.advert.image_id),
             description: advert.advert.description,
+
             price: advert.advert.price,
+            priceChange: priceChange,
+            lowerPrice: lowerPrice,
+
+            promoted: advert.advert.promoted_until.slice(0, 10) === '0001-01-01' ? false : true,
+
             views: advert.advert.views_number,
             likes: advert.advert.saves_number,
 
@@ -84,12 +108,17 @@ export class AdvertComponent {
             }
             const titleWrapper = wrapper.querySelector('.advert__title-wrapper');
             if(titleWrapper){
-                wrapper.querySelector('.advert__price')?.insertAdjacentElement('afterend', titleWrapper);
+                wrapper.querySelector('.advert__price-section')?.insertAdjacentElement('afterend', titleWrapper);
             }
         }
 
         if(data.inactive) {
             wrapper.querySelector('.advert')?.classList.add('inactive');
+        }
+
+        if(priceChange) {
+            const priceHistoryElement = await priceHistoryComponent.renderPriceHistory(advertId, advert.advert.created_at)
+            wrapper.appendChild(priceHistoryElement as Node);
         }
 
         this.addListeners(wrapper, advert.advert.id, me?.id);
@@ -102,7 +131,8 @@ export class AdvertComponent {
 
         return template({ title: data.title, description: data.description, price: data.price, reserved: data.reserved, inactive: data.inactive, inCart: data.inCart, isLiked: data.isLiked,
             category: data.category, categoryUrl: data.categoryUrl, isAuthor: data.isAuthor, sellerName: data.sellerName, sellerTimestamp: data.sellerTimestamp, normal: data.normal, views: data.views,
-            sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl, likes: data.likes });
+            sellerPhone: data.sellerPhone, location: data.location, createdAt: data.createdAt, imageUrl: data.imageUrl, sellerImgUrl: data.sellerImgUrl, likes: data.likes,
+            priceChange: data.priceChange, lowerPrice: data.lowerPrice, promoted: data.promoted });
     }
 
     addListeners(wrapper: HTMLElement, advertId: string, userId: string | undefined) {
@@ -223,6 +253,46 @@ export class AdvertComponent {
             await ajax.delete(`/adverts/${advertId}`, null);
             router.goToPage('/');
         });
+
+        const priceHistoryButton = wrapper.querySelector('#open-price-history');
+        const priceHistoryOverlay = wrapper.querySelector('.price-history__overlay');
+        priceHistoryButton?.addEventListener('click', () => {
+            if(priceHistoryOverlay?.classList.contains('active')) {
+                return;
+            }
+            priceHistoryOverlay?.classList.add('active');
+        });
+
+        priceHistoryOverlay?.addEventListener('click', (event) => {
+            if((event.target as EventTarget) === priceHistoryOverlay && priceHistoryOverlay.classList.contains('active')){
+                priceHistoryOverlay.classList.remove('active');
+            }
+        });
+
+        const promotionButton = wrapper.querySelector('.buttons__promote');
+        if(promotionButton) {
+            const promotionModal = renderPromotionModal()!;
+            wrapper.appendChild(promotionModal);
+            promotionButton.addEventListener('click', () => {
+                promotionModal.classList.add('active');
+            });
+
+            promotionModal.addEventListener('click', (event) => {
+                if(event.target === promotionModal && promotionModal.classList.contains('active')){
+                    promotionModal.classList.remove('active');
+                }
+            });
+
+            const promotionProceedButton = wrapper.querySelector('.promotion__proceed-button');
+            promotionProceedButton?.addEventListener('click', async () => {
+                const response = await ajax.post<ResponsePaymentInit, RequeestPaymentInit>('/payment/init', {item_id: advertId});
+                if(response.code === 400) {
+                    return;
+                }
+                const redirectLink = response.payment_url;
+                document.location.href = redirectLink;
+            });
+        }
 
         if(informationStorage.getUser()){
             const seller = wrapper.querySelector<HTMLElement>('.seller');

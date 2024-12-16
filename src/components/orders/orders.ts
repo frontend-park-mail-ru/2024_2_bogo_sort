@@ -16,6 +16,9 @@ export async function renderOrders(data: OrdersTemplateData) {
         order.delivery_method = DELIVERY_METHOD_MAPPING[order.delivery_method as DeliveryMethod];
 
         const advert = order.adverts[0];
+        if(order.address === '') {
+            order.address = advert.preview.location;
+        }
         order.id = order.id.slice(0, order.id.indexOf('-'));
         order.image_url = informationStorage.getImageUrl(advert.preview.image_id);
         order.price = advert.preview.price;

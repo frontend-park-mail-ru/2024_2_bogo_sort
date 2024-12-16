@@ -1,13 +1,16 @@
 import { ModalWithOverlayTemplateData } from "@components/modalWithOverlay/modalWithOverlayTypes.ts";
 import { HeaderData } from "./sharedTypes.ts";
 
-export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
+// export const BACKEND_BASE_URL = 'http://127.0.0.1:8080/api/v1';
+export const BACKEND_BASE_URL = 'http://emporium-bs.ru/api/v1';
 // export const BACKEND_BASE_URL = 'http://5.188.141.136:8080/api/v1';
 
-export const BASE_URL = 'http://127.0.0.1:8080/';
+// export const BASE_URL = 'http://127.0.0.1:8080/';
+export const BASE_URL = 'http://emporuim-bs.ru/';
 // export const BASE_URL = 'http://5.188.141.136:8080/';
 
-export const IMAGE_URL = 'http://127.0.0.1:8080/api/v1/files/stream/';
+// export const IMAGE_URL = 'http://127.0.0.1:8080/api/v1/files/stream/';
+export const IMAGE_URL = 'http://emporium-bs.ru/api/v1/files/stream/';
 // export const IMAGE_URL = 'http://5.188.141.136:8080/api/v1/files/stream/';
 
 export const ROUTES = {
@@ -145,6 +148,8 @@ export const headerData: HeaderData = {
     checkAuth: false,
     userName: null,
     userImgUrl: null,
+    cartItems: 0,
+    cartItemsClass: '',
     category: [
         {
             name: 'Женский гардероб',
@@ -255,7 +260,7 @@ export const placeOrderData: ModalWithOverlayTemplateData = {
             value: 'delivery'
         },
         {
-            name: 'Самовывоз у продавца',
+            name: 'Заберу у продавца',
             value: 'pickup'
         },
     ],

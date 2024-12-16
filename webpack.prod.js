@@ -1,22 +1,28 @@
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/index.ts',
     output: {
         path: path.resolve(__dirname, 'src/dist'),
         filename: 'bundle.js',
     },
+    devtool: 'source-map',
     module: {
         rules: [
             {
-                test: /\.js$/,
+                test: /\.(js|ts)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: 'babel-loader',
+                    options: {
+                        sourceMaps: true,
+                        presets: [
+                            ['@babel/preset-typescript', {allowNamespaces: true}]
+                        ]
+                    }
                 },
             },
             {
@@ -30,14 +36,20 @@ module.exports = {
             {
                 test: /\.scss$/,
                 use: [
-                    MiniCssExtractPlugin.loader,
-                    'sass-loader',
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            publicPath: '../',
+                        },
+                    },
+                    {
+                        loader: 'sass-loader',
+                    }
                 ]
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: '[name].css',
         }),
@@ -47,20 +59,35 @@ module.exports = {
             ],
         }),
     ],
-    optimization: {
-        minimizer: [
-            new CssMinimizerPlugin(),
-        ]
+    resolve: {
+        alias: {
+          '@components': path.resolve(__dirname, 'src/components/'),
+          '@pages': path.resolve(__dirname, 'src/pages/'),
+          '@modules': path.resolve(__dirname, 'src/modules/'),
+          '@constants': path.resolve(__dirname, 'src/constants/'),
+          '@utils': path.resolve(__dirname, 'src/utils/')
+        },
+        extensions: ['.js', '.ts']
     },
-    mode: 'production',
-
-    devServer: {
-        historyApiFallback: true,
-        static: [
-            path.resolve(__dirname, '../src/dist'), path.resolve(__dirname, '../src')
+    optimization: {
+        minimize: true,
+        minimizer: [
+            new ImageMinimizerPlugin({
+                minimizer: {
+                  implementation: ImageMinimizerPlugin.sharpMinify,
+                  options: {
+                    encodeOptions: {
+                      jpeg: {
+                        quality: 100,
+                      },
+                      webp: {
+                        lossless: true,
+                      },
+                    },
+                  },
+                },
+              }),
         ],
-        compress: true,
-        hot: true,
-        port: 8001,
-    }
+    },
+    mode: 'production'
 };
