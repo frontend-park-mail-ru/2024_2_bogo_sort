@@ -87,7 +87,7 @@ export class CartPage {
                             return;
                         }
                     } else {
-                        router.goToPage(`/advert/${advert.preview.id}`);
+                        router.goToPage(`/item/${advert.preview.id}`);
                     }
                 });
             });

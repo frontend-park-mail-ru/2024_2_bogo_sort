@@ -240,7 +240,7 @@ export class AdvertComponent {
         closeAdvertButton?.addEventListener('click', async () => {
             await ajax.put(`/adverts/${advertId}/status?status=inactive`, null);
             toggleOverlay();
-            router.goToPage(`/advert/${advertId}`);
+            router.goToPage(`/item/${advertId}`);
         }, {once: true});
 
         const changeButton = wrapper.querySelector('.buttons__change');

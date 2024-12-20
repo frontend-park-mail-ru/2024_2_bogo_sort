@@ -45,7 +45,7 @@ export function renderCardTemplate(title: string, price: number, imageId: string
 
             return;
         }
-        router.goToPage(`/advert/${id}`);
+        router.goToPage(`/item/${id}`);
     });
 
     return card;

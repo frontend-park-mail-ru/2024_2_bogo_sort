@@ -5,6 +5,7 @@ import { ResponseAdvertCards } from '@modules/ajaxTypes.ts';
 export class MainPage {
     noMoreCards = false;
     loadedCards: number = 0;
+    isLoading = false;
 
     render(main: HTMLElement) {
         this.#renderTemplate(main);
@@ -39,10 +40,12 @@ export class MainPage {
         main.appendChild(wrapper);
 
         const loadOffset = 300;
-        document.addEventListener('scroll', () => {
+        document.addEventListener('scroll', async () => {
             if((window.innerHeight + window.scrollY + loadOffset) >= document.body.offsetHeight) {
-                if(!this.noMoreCards){
-                    this.#addCards(container);
+                if(!this.noMoreCards && !this.isLoading){
+                    this.isLoading = true;
+                    await this.#addCards(container);
+                    this.isLoading = false;
                 }
             }
         });

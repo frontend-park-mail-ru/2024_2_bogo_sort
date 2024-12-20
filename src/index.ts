@@ -55,7 +55,7 @@ const main = initHeaderAndMain();
 const routingEvent = new CustomEvent('pageChange');
 router.init(ROUTES, main, routingEvent);
 router.addNewRouteWithRender('/', renderMain);
-router.addNewRouteWithRender('/advert', renderAdvert);
+router.addNewRouteWithRender('/item', renderAdvert);
 router.addNewRouteWithRender('/create', renderCreateAdvert);
 router.addNewRouteWithRender('/cart', renderCart);
 router.addNewRouteWithRender('/category', renderCategory);

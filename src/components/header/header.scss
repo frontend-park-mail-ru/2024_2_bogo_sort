@@ -238,7 +238,8 @@
     }
 
     &__cart-button {
-        width: 45px;
+        width: 40px;
+        margin-left: 5px;
 
         @include respond-to(tablet) {
             display: none;

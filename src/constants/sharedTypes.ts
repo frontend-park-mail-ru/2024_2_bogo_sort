@@ -78,7 +78,7 @@ export interface Routes {
     '/': Route,
     '/login': Route,
     '/signup': Route,
-    '/advert': Route,
+    '/item': Route,
     '/create': Route,
     '/cart': Route,
     '/category': Route,

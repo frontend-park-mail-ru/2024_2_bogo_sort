@@ -134,7 +134,7 @@ export class CreateAdvert {
             await ajax.imagePut(`/adverts/${advertId}/image`, formData);
         }
 
-        router.goToPage(`/advert/${advertId}`);
+        router.goToPage(`/item/${advertId}`);
     }
 
     displayInputErrors(errors: Set<string>) {

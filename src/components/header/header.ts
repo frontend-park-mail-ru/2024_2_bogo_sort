@@ -100,14 +100,6 @@ class Header {
             list.classList.add('not-active');
         });
 
-        list?.addEventListener('click', () => {
-            list.classList.add('not-active');
-        });
-
-        list?.addEventListener('click', () => {
-            list.classList.add('not-active');
-        });
-
         const menuButton = this.#wrapper.querySelector('.user-menu__user-name');
         const userMenu = this.#wrapper.querySelector('.user-menu__menu');
 
@@ -119,6 +111,10 @@ class Header {
             }
 
             userMenu?.classList.add('not-active');
+        });
+
+        userMenu?.addEventListener('click', () => {
+            userMenu.classList.add('not-active');
         });
 
         const cartButton = this.#wrapper.querySelector('.header__cart-button');
