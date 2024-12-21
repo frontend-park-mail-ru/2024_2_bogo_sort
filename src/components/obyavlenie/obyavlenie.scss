@@ -1,6 +1,6 @@
 @import "../../static/styles/mixins.scss";
 
-.advert-wrapper {
+.avert-wrapper {
     display: flex;
     justify-self: center;
     width: 1229px;
@@ -50,7 +50,7 @@
     }
 }
 
-.advert {
+.avert {
     background-color: white;
     padding: 38px;
     border-radius: 19px;
@@ -126,7 +126,7 @@
         &:hover {
             text-decoration: underline;
 
-            & > .advert__like-button path {
+            & > .avert__like-button path {
                 stroke: var(--color-like-hover-outline);
             }
         }
@@ -537,7 +537,7 @@
     }
 }
   
-.advert-cards {
+.avert-cards {
     display: flex;
     width: 1233px;
     flex-direction: row;

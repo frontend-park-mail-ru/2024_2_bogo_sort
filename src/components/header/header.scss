@@ -90,7 +90,7 @@
     }
 
     &__button,
-    &__create-advert-button {
+    &__create-avert-button {
         font-weight: 500;
         font-size: 15px;
         height: 44px;
@@ -112,7 +112,7 @@
         }
     }
 
-    &__create-advert-button {
+    &__create-avert-button {
         width: 211px;
         background-color: var(--color-primary75);
         border-color: var(--color-primary75);
@@ -364,7 +364,7 @@
         margin: 0 0 1% 0;  
         flex: none;
 
-        &.focus ~ .header__create-advert-button {
+        &.focus ~ .header__create-avert-button {
             bottom: -140px;
         }
     }
@@ -545,7 +545,7 @@
     }
 
     &__link-cart,
-    &__link-adverts,
+    &__link-averts,
     &__link-favourites,
     &__link-orders,
     &__link-settings,

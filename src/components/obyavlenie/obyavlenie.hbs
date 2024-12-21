@@ -1,4 +1,4 @@
-<nav class="advert-wrapper__nav breadcrumbs">
+<nav class="avert-wrapper__nav breadcrumbs">
     <ol class="breadcrumbs__list">
         <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="/">Главная</a></li>
         <li class="breadcrumbs__item"><a class="breadcrumbs__link" href="{{categoryUrl}}">{{category}}</a></li>
@@ -6,9 +6,9 @@
     </ol>
 </nav>
 
-<div class="advert-wrapper__advert advert">
-    <div class="advert__title-wrapper">
-        <h1 class="advert__title">
+<div class="avert-wrapper__avert avert">
+    <div class="avert__title-wrapper">
+        <h1 class="avert__title">
             {{title}}
             {{#if reserved}}
             (зарезервировано)
@@ -17,27 +17,27 @@
             (закрыто)
             {{/if}}
         </h1>
-        <span class="advert__add-to-favourites"> 
+        <span class="avert__add-to-favourites"> 
             {{#if (or isAuthor reserved inactive)}}
             {{else}}
                 {{#if isLiked}}
-                <span class="advert__favoutites-text">Убрать из избранного</span>
+                <span class="avert__favoutites-text">Убрать из избранного</span>
                 {{else}}
-                <span class="advert__favoutites-text">Добавить в избранное</span>
+                <span class="avert__favoutites-text">Добавить в избранное</span>
                 {{/if}}
-                <svg class="advert__like-button {{#if isLiked}} liked {{/if}}" width="38px" height="38px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="avert__like-button {{#if isLiked}} liked {{/if}}" width="38px" height="38px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 20C12 20 21 16 21 9.71405C21 6 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12.7198 5.92016C12.3266 6.32798 11.6734 6.32798 11.2802 5.92016L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5 4 3 6 3 9.71405C3 16 12 20 12 20Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
             {{/if}}
         </span>
     </div>
-    <div class="advert__content">
-        <section class="advert__images">
-            <img class="advert__image" src="{{imageUrl}}">
+    <div class="avert__content">
+        <section class="avert__images">
+            <img class="avert__image" src="{{imageUrl}}">
         </section>
-        <section class="advert__details">
-            <section class="advert__price-section">
-                <h2 class="advert__price">{{price}}₽</h2>
+        <section class="avert__details">
+            <section class="avert__price-section">
+                <h2 class="avert__price">{{price}}₽</h2>
                 {{#if priceChange}}
                 <button class="buttons__open-price-history{{#if lowerPrice}}--lower{{else}}--higher{{/if}}" id="open-price-history">
                     <img class="buttons__price-history-icon" src="{{#if lowerPrice}}../../static/images/arrow-down1.svg{{else}}../../static/images/arrow-up.svg{{/if}}">
@@ -46,7 +46,7 @@
                 </button>
                 {{/if}}
             </section>
-            <div class="advert__buttons buttons">
+            <div class="avert__buttons buttons">
                 {{#if isAuthor}}
                 <button class="buttons__change" type="button">Редактировать</button>
                 {{#if promoted}}
@@ -72,8 +72,8 @@
                 {{/if}}
             </div>
 
-            <section class="advert__overlay">
-                <div class="advert__modal modal">
+            <section class="avert__overlay">
+                <div class="avert__modal modal">
                     {{#if isAuthor}}
                     <div class="modal__author-content">
                         <h1 class="modal__title">Снять с публикации</h1>
@@ -95,7 +95,7 @@
                 </div>
             </section>
 
-            <div class="advert__seller seller">
+            <div class="avert__seller seller">
                 <img src="{{sellerImgUrl}}" alt="../../static/images/user_avatar.webp" class="seller__image">
                 <div class="seller__deatils">
                     <h3 class="seller__name">{{sellerName}}</h3>
@@ -104,7 +104,7 @@
             </div>
         </section>
     </div>
-    <div class="advert__description description">
+    <div class="avert__description description">
             <h1 class="description__title">Описание</h1>
             <span class="description__content">{{description}}</span>  
             <div class="description__additional">
@@ -135,6 +135,6 @@
             </div>  
     </div>
 </div>
-<div class="advert-wrapper__recomended recomended">
+<div class="avert-wrapper__recomended recomended">
     <h1 class="recomended__title">Похожие товары</h1>
 </div>

@@ -13,7 +13,7 @@ export class AdvertPage {
         const advert = new AdvertComponent();
 
         const wrapper = document.createElement('main');
-        wrapper.classList.add('advert-wrapper');
+        wrapper.classList.add('avert-wrapper');
 
         const requestedAdvert = await advert.addComponent(wrapper, advertId);
         if(requestedAdvert === null){
@@ -22,7 +22,7 @@ export class AdvertPage {
         main.appendChild(wrapper);
 
         const container = document.createElement('div');
-        container.classList.add('advert-cards');
+        container.classList.add('avert-cards');
 
         const cards = await ajax.get<ResponseAdvertCards>(`/adverts/category/${requestedAdvert?.advert.category_id}`);
         let cardsWithoutCurrent = 0;

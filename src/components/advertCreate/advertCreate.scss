@@ -1,6 +1,6 @@
 @import '../../static/styles/mixins.scss';
 
-.create-advert {
+.create-avert {
     display: flex;
     flex-direction: column;
     justify-self: center;
@@ -21,7 +21,7 @@
     }
 }
 
-.advert-form {
+.avert-form {
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 29px;
@@ -82,7 +82,7 @@
 
         transition: border 0.3s ease;
 
-        & ~ .advert-form__additional {
+        & ~ .avert-form__additional {
             margin:  10px 0 0 0;
             color: var(--color-secondary50);
             font-size: 19px;

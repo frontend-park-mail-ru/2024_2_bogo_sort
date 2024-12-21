@@ -61,7 +61,7 @@
         }
     }
 
-    &__adverts {
+    &__averts {
         width: fit-content;
 
         @include respond-to(tablet) {
@@ -151,7 +151,7 @@
         padding: 15px;
     }
 
-    &__adverts,
+    &__averts,
     &__orders,
     &__favourites,
     &__settings, 

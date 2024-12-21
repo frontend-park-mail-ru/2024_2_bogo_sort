@@ -113,7 +113,7 @@ export class AdvertComponent {
         }
 
         if(data.inactive) {
-            wrapper.querySelector('.advert')?.classList.add('inactive');
+            wrapper.querySelector('.avert')?.classList.add('inactive');
         }
 
         if(priceChange) {
@@ -136,8 +136,8 @@ export class AdvertComponent {
     }
 
     addListeners(wrapper: HTMLElement, advertId: string, userId: string | undefined) {
-        const addToFavourites = wrapper.querySelector<HTMLElement>('.advert__add-to-favourites');
-        const likeButton = addToFavourites?.querySelector('.advert__like-button');
+        const addToFavourites = wrapper.querySelector<HTMLElement>('.avert__add-to-favourites');
+        const likeButton = addToFavourites?.querySelector('.avert__like-button');
         
         addToFavourites?.addEventListener('click', async () => {
             if(!informationStorage.isAuth()){
@@ -171,7 +171,7 @@ export class AdvertComponent {
             }
         });
 
-        const overlay = wrapper.querySelector('.advert__overlay');
+        const overlay = wrapper.querySelector('.avert__overlay');
 
         overlay?.addEventListener('click', (event) => {
             if(event.target === overlay){

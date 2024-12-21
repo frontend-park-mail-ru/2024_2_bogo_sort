@@ -220,7 +220,7 @@ export const headerData: HeaderData = {
             name: 'Мои объявления',
             iconUrl: '../../static/images/user-menu-icons/adverts.svg',
             redirectUrl: '/user/adverts',
-            engName: 'adverts',
+            engName: 'averts',
         },
         {
             name: 'Мои заказы',

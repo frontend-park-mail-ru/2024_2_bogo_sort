@@ -59,11 +59,11 @@ export class CartPage {
     }
 
     #addListeners(wrapper: HTMLElement, main: HTMLElement) {
-        const removeButtons = wrapper.querySelectorAll('.adverts__remove-button');
-        const likeButtons = wrapper.querySelectorAll('.adverts__like-button');
+        const removeButtons = wrapper.querySelectorAll('.averts__remove-button');
+        const likeButtons = wrapper.querySelectorAll('.averts__like-button');
 
         if(this.adverts) {
-            const items = wrapper.querySelectorAll('.adverts');
+            const items = wrapper.querySelectorAll('.averts');
             this.adverts.forEach((advert, number) => {
                 items[number].addEventListener('click', async (event) => {
                     if(event.target === removeButtons[number]) {

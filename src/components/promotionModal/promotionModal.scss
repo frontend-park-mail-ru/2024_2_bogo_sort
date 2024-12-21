@@ -1,3 +1,5 @@
+@import "../../static/styles/mixins.scss";
+
 .promotion {
     &__overlay {
         position: fixed;
@@ -35,9 +37,9 @@
         padding: 30px;
         transition: height 0.3s ease;
 
-        // @include respond-to(phone) {
-        //     padding: 15px;
-        // }
+        @include respond-to(phone) {
+            width: 95vw;
+        }
     }
 
     &__main-section {
@@ -55,6 +57,11 @@
         margin-left: 20px;
         font-size: 18px;
         gap: 25px;
+
+        @include respond-to(phone) {
+            width: 100%;
+            margin-left: 0;
+        }
     }
 
     &__proceed-button {
@@ -89,6 +96,9 @@
 }
 
 .card-mock {
+    @include respond-to(phone) {
+        display: none;
+    }
     padding: 2px;
     background: linear-gradient(to left bottom, var(--color-primary100), var(--color-primary50));
     width: 130px;

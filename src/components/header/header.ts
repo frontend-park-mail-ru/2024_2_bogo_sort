@@ -54,7 +54,7 @@ class Header {
             }
         });
 
-        const createAdvertButton = this.#wrapper.querySelector('.header__create-advert-button');
+        const createAdvertButton = this.#wrapper.querySelector('.header__create-avert-button');
         createAdvertButton?.addEventListener('click', () => {
             if(!informationStorage.isAuth()){
                 pipe.executeCallback('showAuthForm');
@@ -173,14 +173,14 @@ class Header {
     }
 
     disableCreateAdvertButton() {
-        const button = this.#wrapper.querySelector('.header__create-advert-button');
+        const button = this.#wrapper.querySelector('.header__create-avert-button');
         if(!button?.classList.contains('not-active')){
             button?.classList.add('not-active');
         }
     }
 
     enableCreateAdvertButton() {
-        const button = this.#wrapper.querySelector('.header__create-advert-button');
+        const button = this.#wrapper.querySelector('.header__create-avert-button');
         if(button?.classList.contains('not-active')){
             button?.classList.remove('not-active');
         }

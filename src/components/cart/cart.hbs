@@ -8,17 +8,17 @@
 <section class="cart__main-section">
     <h1 class="cart__title">Корзина</h1>
         {{#each adverts}}
-            <div class="cart__adverts adverts" data-advert-id="{{this.preview.id}}">
-                <img class="adverts__image" src="{{this.image_url}}">
-                <div class="adverts__information">
-                    <h4 class="adverts__title">{{this.preview.title}}</h4>
-                    <h3 class="adverts__price">{{this.preview.price}}₽</h3>
+            <div class="cart__averts averts" data-avert-id="{{this.preview.id}}">
+                <img class="averts__image" src="{{this.image_url}}">
+                <div class="averts__information">
+                    <h4 class="averts__title">{{this.preview.title}}</h4>
+                    <h3 class="averts__price">{{this.preview.price}}₽</h3>
                 </div>
-                <div class="adverts__icons">
-                    <svg class="adverts__like-button {{#if this.is_saved}} liked {{/if}}" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <div class="averts__icons">
+                    <svg class="averts__like-button {{#if this.is_saved}} liked {{/if}}" width="24px" height="24px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 20C12 20 21 16 21 9.71405C21 6 18.9648 4 16.4543 4C15.2487 4 14.0925 4.49666 13.24 5.38071L12.7198 5.92016C12.3266 6.32798 11.6734 6.32798 11.2802 5.92016L10.76 5.38071C9.90749 4.49666 8.75128 4 7.54569 4C5 4 3 6 3 9.71405C3 16 12 20 12 20Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <svg class="adverts__remove-button" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class="averts__remove-button" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M18.8504 9.14001L18.2004 19.21C18.0904 20.78 18.0004 22 15.2104 22H8.79039C6.00039 22 5.91039 20.78 5.80039 19.21L5.15039 9.14001" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

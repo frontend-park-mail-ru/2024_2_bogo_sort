@@ -2,9 +2,8 @@ import { informationStorage } from '@modules/informationStorage.ts';
 import ajax from '@modules/ajax.ts';
 import { router } from '@modules/router.ts';
 import template from './advertCreate.hbs';
-import { AdvertCreated, AdvertCreateFormData, AdvertCreateTemplateData } from './advertCreateTypes.ts';
+import { AdvertCreateFormData, AdvertCreateTemplateData } from './advertCreateTypes.ts';
 import { ResponseAdvertPost, ResponseSeller } from '@modules/ajaxTypes.ts';
-import { AdvertStatus } from '@constants/sharedTypes.ts';
 
 export class CreateAdvert {
     form: Element | null = null;
@@ -20,7 +19,7 @@ export class CreateAdvert {
             const reader = new FileReader();
 
             reader.onload = function(e) {
-                const preview = document.querySelector<HTMLImageElement>('.advert-form__upload-box-image');
+                const preview = document.querySelector<HTMLImageElement>('.avert-form__upload-box-image');
                 if (e.target?.result && typeof e.target.result === 'string' && preview) {
                     preview.src = e.target.result;
                 }
@@ -31,18 +30,18 @@ export class CreateAdvert {
     }
 
     addFileAndNumberInputListeners(wrapper: HTMLElement) {
-        const fileInput = wrapper.querySelector('.advert-form__image-input');
+        const fileInput = wrapper.querySelector('.avert-form__image-input');
         fileInput?.addEventListener('change', (upload: Event) => {
-            const img = wrapper.querySelector('.advert-form__upload-box-image');
-            const text = wrapper.querySelector('.advert-form__upload-box-text');
-            const additional = wrapper.querySelector('.advert-form__upload-box-text-additional');
+            const img = wrapper.querySelector('.avert-form__upload-box-image');
+            const text = wrapper.querySelector('.avert-form__upload-box-text');
+            const additional = wrapper.querySelector('.avert-form__upload-box-text-additional');
             img?.classList.add('big');
             text?.classList.add('not-active');
             additional?.classList.add('not-active');
             this.previewImage(upload);
         });
 
-        const inputNumber = wrapper.querySelector<HTMLInputElement>('.advert-form__price-input');
+        const inputNumber = wrapper.querySelector<HTMLInputElement>('.avert-form__price-input');
 
         inputNumber?.addEventListener('input', () => {
             inputNumber.value = this.trimNumber(inputNumber.value, 11);
@@ -54,7 +53,7 @@ export class CreateAdvert {
     }
 
     addSubmitFormListener(updateAdvertId: string | null = null) {
-        this.form = document.querySelector('.advert-form');
+        this.form = document.querySelector('.avert-form');
 
         this.form?.addEventListener('submit', async (event) => {
             event.preventDefault();
@@ -126,7 +125,7 @@ export class CreateAdvert {
             advertId = (await ajax.post<ResponseAdvertPost, AdvertCreateFormData>('/adverts', data) as ResponseAdvertPost).id;
         }
 
-        const imageInput = this.form?.querySelector('.advert-form__image-input') as HTMLInputElement;
+        const imageInput = this.form?.querySelector('.avert-form__image-input') as HTMLInputElement;
         const image = imageInput.files?.[0];
         if(image){
             const formData = new FormData();
@@ -140,25 +139,25 @@ export class CreateAdvert {
     displayInputErrors(errors: Set<string>) {
         const inputs = [];
         if(errors.has('title')) {
-            const titleInput = this.form?.querySelector('.advert-form__name-input');
+            const titleInput = this.form?.querySelector('.avert-form__name-input');
             titleInput?.classList.add('error');
             inputs.push(titleInput);
         }
 
         if(errors.has('price')) {
-            const priceInput = this.form?.querySelector('.advert-form__price-input');
+            const priceInput = this.form?.querySelector('.avert-form__price-input');
             priceInput?.classList.add('error');
             inputs.push(priceInput);
         }
 
         if(errors.has('description')) {
-            const descriptionInput = this.form?.querySelector('.advert-form__description-input');
+            const descriptionInput = this.form?.querySelector('.avert-form__description-input');
             descriptionInput?.classList.add('error');
             inputs.push(descriptionInput);
         }
 
         if(errors.has('location')) {
-            const locationInput = this.form?.querySelector('.advert-form__address-input');
+            const locationInput = this.form?.querySelector('.avert-form__address-input');
             locationInput?.classList.add('error');
             inputs.push(locationInput);
         }

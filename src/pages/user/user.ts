@@ -62,7 +62,7 @@ export class UserPage {
     }
 
     addListeners(wrapper: HTMLElement, me: User, main: HTMLElement) {
-        const advertButton = wrapper.querySelector('.navigation__adverts');
+        const advertButton = wrapper.querySelector('.navigation__averts');
         advertButton?.addEventListener('click', () => {
             this.location = window.location.pathname.slice(window.location.pathname.lastIndexOf('/') + 1, window.location.pathname.length);
             wrapper.querySelector(`.navigation__${this.location}`)?.classList.remove('active');
@@ -106,9 +106,9 @@ export class UserPage {
     }
 
     async renderAdverts(wrapper: HTMLElement, main: HTMLElement) {
-        wrapper.querySelector('.navigation__adverts')?.classList.add('active');
+        wrapper.querySelector('.navigation__averts')?.classList.add('active');
         const container = document.createElement('div');
-        container.className = 'user__adverts';
+        container.className = 'user__averts';
         const cardsContainer = document.createElement('div');
         cardsContainer.classList.add('user__cards');
         const title = document.createElement('h1');
@@ -142,7 +142,7 @@ export class UserPage {
     async renderFavourites(wrapper: HTMLElement, main: HTMLElement) {
         wrapper.querySelector('.navigation__favourites')?.classList.add('active');
         const container = document.createElement('div');
-        container.className = 'user__adverts';
+        container.className = 'user__averts';
         const cardsContainer = document.createElement('div');
         cardsContainer.classList.add('user__cards');
         const title = document.createElement('h1');

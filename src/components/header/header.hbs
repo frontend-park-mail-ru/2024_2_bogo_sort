@@ -36,7 +36,7 @@
         <input class="searchbar__input" type="text" placeholder="Поиск по объявлениям">
         <button class="searchbar__find-button" type="submit">Найти</button>
     </form>
-    <button type="button" class="header__create-advert-button">Разместить объявление</button>
+    <button type="button" class="header__create-avert-button">Разместить объявление</button>
 
     {{#if checkAuth}}
     <section class="header__user-menu user-menu ">
@@ -45,7 +45,7 @@
         </span>
         <ol class="user-menu__menu menu not-active">
             <li class="menu__item">
-                <a class="menu__link-user" href="/user/adverts" id="{{this.name}}">{{userName}}</a>
+                <a class="menu__link-user" href="/user/averts" id="{{this.name}}">{{userName}}</a>
             </li>
             <div class="menu__horizontal-line"></div>
             {{#each menuItems}}
