@@ -19,4 +19,4 @@ __Эмпориум__ – это современный онлайн-сервис
 3. Фигма - https://www.figma.com/design/7YFqBIK6EHomyNJFWEcyuL/Yoola
 
 #### Деплой
-https://two024-2-bogo-sort.onrender.com
+https://emporium-bs.ru/ 
